@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
-    "render:check": "hyperframes doctor"
+    "render:check": "hyperframes doctor",
+    "produce": "node scripts/produce.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "2.57.0",
