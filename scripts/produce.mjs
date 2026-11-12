@@ -288,7 +288,7 @@ if (process.env.MANUAL_SCRIPT_ID) {
   const importedRows = await supabase('scripts', { query: '?id=eq.' + encodeURIComponent(process.env.MANUAL_SCRIPT_ID) + '&user_id=eq.' + userId + '&select=id,title,hook,narration,visual_plan,source_notes,series_id,status&limit=1' });
   const imported = importedRows[0];
   if (!imported) throw new Error('No se encontró el guion importado o no pertenece a esta cuenta.');
-  if (!['queued','in_production'].includes(imported.status)) throw new Error('El guion no está en cola de producción (estado: ' + imported.status + ').');
+  if (!['queued','in_production','approved'].includes(imported.status)) throw new Error('El guion no está en cola de producción (estado: ' + imported.status + ').');
   script = {
     title: imported.title,
     hook: imported.hook || '',
