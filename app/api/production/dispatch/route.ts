@@ -26,8 +26,8 @@ export async function POST(request: NextRequest) {
     }
     const { data: scripts, error: scriptsError } = await db.from('scripts').select('id,status').in('id', ids);
     if (scriptsError) return NextResponse.json({ error: scriptsError.message }, { status: 400 });
-    if (!scripts || scripts.length !== 3 || scripts.some(s => !['queued', 'in_production', 'approved'].includes(s.status))) {
-      return NextResponse.json({ error: 'No se han encontrado los tres guiones pendientes de esta cuenta.' }, { status: 400 });
+    if (!scripts || scripts.length !== ids.length || scripts.some(s => !['queued', 'in_production', 'approved'].includes(s.status))) {
+      return NextResponse.json({ error: ids.length === 1 ? 'No se ha encontrado el guion pendiente de esta cuenta o su estado no permite reintentarlo.' : 'No se han encontrado los tres guiones pendientes de esta cuenta.' }, { status: 400 });
     }
 
     const localDate = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Madrid', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
