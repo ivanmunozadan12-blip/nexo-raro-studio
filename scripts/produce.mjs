@@ -72,28 +72,48 @@ if (existing.length && ['queued', 'voicing', 'rendering', 'ready'].includes(exis
 }
 const seriesRows = await supabase('series', { query: `?user_id=eq.${userId}&is_active=eq.true&select=id,slug,title,description&order=slug.asc` });
 const series = seriesRows.length ? seriesRows[(slots.indexOf(slot) + Number(local.replaceAll('-', ''))) % seriesRows.length] : null;
-const prompt = `Investiga y escribe un vídeo vertical en español de España para el canal documental Nexo Raro. Hoy es ${local}; horario ${slot}. Serie: ${series?.title || 'curiosidades reales y ciencia sorprendente'}. Tema: elige un hecho real, poco conocido y con gancho, evita temas virales quemados y no repitas el tópico de los últimos días si lo conoces. Usa búsqueda web para contrastar los datos. Duración hablada objetivo 60-68 segundos (125-145 palabras). No inventes cifras ni citas. Si la evidencia es incierta, dilo con claridad. Devuelve SOLO JSON con: title (máx 70 caracteres), hook (máx 12 palabras), narration (125-145 palabras, locutable y natural), scenes (exactamente 7 objetos con visual, overlay y narration_excerpt), sources (mínimo 3 fuentes independientes con title y url), caption (descripción para redes con 3-5 hashtags), category (una de las tres series editoriales). Evita Wikipedia como fuente principal. No incluyas datos sin respaldo en las fuentes.`;
+const researchPrompt = `Busca en la web un hecho real, poco conocido y visualmente atractivo para un vídeo documental breve en español de España. Fecha: ${local}; horario: ${slot}; serie editorial: ${series?.title || 'curiosidades reales y ciencia sorprendente'}. Evita temas virales quemados. Contrasta el hecho con al menos 3 fuentes independientes, preferiblemente fuentes primarias, universidades, organismos oficiales o publicaciones científicas. Devuelve un resumen claro de los hechos verificables, qué partes son inciertas y las URLs exactas de las fuentes. No inventes referencias.`;
 const groqModel = process.env.GROQ_MODEL || 'openai/gpt-oss-120b';
+// Groq browser_search no debe compartir la misma llamada con la salida JSON:
+// primero se investiga en texto libre y después se genera JSON en una llamada separada.
+const researchResponse = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+  method: 'POST',
+  headers: { Authorization: `Bearer ${process.env.GROQ_API_KEY}`, 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    model: groqModel,
+    messages: [
+      { role: 'system', content: 'Eres un investigador documental. Usa browser_search para buscar y contrastar fuentes reales. Devuelve notas de investigación con títulos, URLs y hechos respaldados; no redactes aún el guion.' },
+      { role: 'user', content: researchPrompt },
+    ],
+    tools: [{ type: 'browser_search' }],
+    tool_choice: 'required',
+    reasoning_effort: 'low',
+    temperature: 1,
+    max_completion_tokens: 3500,
+    stream: false,
+  }),
+});
+if (!researchResponse.ok) throw new Error(`Groq investigación ${researchResponse.status}: ${(await researchResponse.text()).slice(0, 1200)}`);
+const research = (await researchResponse.json()).choices?.[0]?.message?.content?.trim();
+if (!research || research.length < 200) throw new Error('Groq no devolvió una investigación suficiente con fuentes.');
+const prompt = `A partir EXCLUSIVAMENTE de esta investigación web, escribe un vídeo vertical en español de España para Nexo Raro. Fecha ${local}; horario ${slot}. Duración hablada 60-68 segundos (125-145 palabras). No inventes cifras, citas, detalles ni fuentes. Si algo es incierto, dilo claramente. Elige un ángulo con gancho y evita repetir el tópico de los últimos días si aparece en las notas.\n\nINVESTIGACIÓN Y FUENTES:\n${research}\n\nDevuelve SOLO un objeto JSON válido con: title (máx 70 caracteres), hook (máx 12 palabras), narration (125-145 palabras, locutable y natural), scenes (exactamente 7 objetos con visual, overlay y narration_excerpt), sources (mínimo 3 fuentes independientes con title y url; usa únicamente URLs presentes en la investigación), caption (descripción para redes con 3-5 hashtags), category (una de las tres series editoriales). No incluyas datos sin respaldo.`;
 const aiResponse = await fetch('https://api.groq.com/openai/v1/chat/completions', {
   method: 'POST',
   headers: { Authorization: `Bearer ${process.env.GROQ_API_KEY}`, 'Content-Type': 'application/json' },
   body: JSON.stringify({
     model: groqModel,
     messages: [
-      { role: 'system', content: 'Eres el editor jefe de un canal documental riguroso. Investiga con el navegador integrado, contrasta fuentes primarias o instituciones fiables y separa hechos de hipótesis. Responde únicamente con un objeto JSON válido, sin Markdown ni texto fuera del JSON.' },
+      { role: 'system', content: 'Eres el editor jefe de Nexo Raro. Responde únicamente con un objeto JSON válido, sin Markdown ni texto fuera del JSON. No añadas fuentes ni URLs que no estén en la investigación proporcionada.' },
       { role: 'user', content: prompt },
     ],
-    tools: [{ type: 'browser_search' }],
-    // Let Groq decide when to invoke browser_search; forcing a tool call
-    // makes GPT-OSS misinterpret the JSON-only output instruction as a tool.
-    tool_choice: 'auto',
+    response_format: { type: 'json_object' },
     reasoning_effort: 'low',
-    temperature: 1,
+    temperature: 0.7,
     max_completion_tokens: 5000,
     stream: false,
   }),
 });
-if (!aiResponse.ok) throw new Error(`Groq ${aiResponse.status}: ${(await aiResponse.text()).slice(0, 1200)}`);
+if (!aiResponse.ok) throw new Error(`Groq guion ${aiResponse.status}: ${(await aiResponse.text()).slice(0, 1200)}`);
 const ai = await aiResponse.json();
 const outputText = ai.choices?.[0]?.message?.content?.trim();
 if (!outputText) {
@@ -102,19 +122,13 @@ if (!outputText) {
 }
 let script;
 try {
-  const cleaned = outputText.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '').trim();
+  const cleaned = outputText.replace(/^```(?:json)?\\s*/i, '').replace(/\\s*```$/, '').trim();
   const firstBrace = cleaned.indexOf('{');
   const lastBrace = cleaned.lastIndexOf('}');
   if (firstBrace < 0 || lastBrace <= firstBrace) throw new Error('No se encontró objeto JSON.');
   script = JSON.parse(cleaned.slice(firstBrace, lastBrace + 1));
 } catch {
   throw new Error('Groq no devolvió JSON válido; se detiene antes de guardar datos incompletos.');
-}
-if (!script.title || !script.narration || !Array.isArray(script.scenes) || script.scenes.length !== 7 || !Array.isArray(script.sources) || script.sources.length < 3) throw new Error('El guion no cumple el formato editorial requerido.');
-const wordCount = script.narration.trim().split(/\s+/).length;
-if (wordCount < 105 || wordCount > 165) throw new Error(`Narración fuera de duración: ${wordCount} palabras.`);
-for (const source of script.sources) {
-  if (!/^https:\/\//.test(source.url || '')) throw new Error('Fuente sin URL HTTPS válida.');
 }
 const [seriesMatch] = seriesRows.filter(x => x.slug === script.category);
 const scriptRow = await supabase('scripts', { method: 'POST', body: {
