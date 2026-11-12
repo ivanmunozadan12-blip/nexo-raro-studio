@@ -84,7 +84,12 @@ if (existing.length && ['queued', 'voicing', 'rendering', 'ready'].includes(exis
 const seriesRows = await supabase('series', { query: `?user_id=eq.${userId}&is_active=eq.true&select=id,slug,title,description&order=slug.asc` });
 const series = seriesRows.length ? seriesRows[(slots.indexOf(slot) + Number(local.replaceAll('-', ''))) % seriesRows.length] : null;
 
-const editorialMemory = await supabase('editorial_memory', { query: `?user_id=eq.${userId}&select=topic,topic_key,angle,summary,source_urls,memory_status,created_at&order=created_at.desc&limit=300` });
+let editorialMemory = [];
+for (let offset = 0; offset < 100000; offset += 1000) {
+  const page = await supabase('editorial_memory', { query: `?user_id=eq.${userId}&select=topic,topic_key,angle,summary,source_urls,memory_status,created_at&order=created_at.desc&limit=1000&offset=${offset}` });
+  editorialMemory.push(...page);
+  if (page.length < 1000) break;
+}
 const memoryBrief = editorialMemory.slice(0,100).map(item => ({ tema:item.topic, enfoque:String(item.angle||'').slice(0,90), resumen:String(item.summary||'').slice(0,140), estado:item.memory_status, fuentes:(item.source_urls||[]).slice(0,2).map(x=>x.url||x) }));
 console.log(`Memoria editorial cargada: ${memoryBrief.length} temas históricos.`);
 const researchPrompt = `Busca en la web un hecho real, poco conocido y visualmente atractivo para un vídeo documental breve en español de España. Fecha: ${local}; horario: ${slot}; serie editorial: ${series?.title || 'curiosidades reales y ciencia sorprendente'}. Evita temas virales quemados. MEMORIA EDITORIAL OBLIGATORIA: no propongas el mismo acontecimiento, descubrimiento, lugar, personaje, experimento ni historia que aparezca en esta memoria, aunque cambies el título o el enfoque. Elige un asunto claramente distinto y explica por qué no se solapa. Historial (últimos 300 temas): ${JSON.stringify(memoryBrief)}. Si una idea se parece a un tema del historial, descártala y busca otra. Contrasta el hecho con al menos 3 fuentes independientes, preferiblemente fuentes primarias, universidades, organismos oficiales o publicaciones científicas. Devuelve un resumen claro de los hechos verificables, qué partes son inciertas, las URLs exactas y una línea TOPIC: con el tema principal. No inventes referencias.`;
