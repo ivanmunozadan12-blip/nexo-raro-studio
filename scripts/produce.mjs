@@ -56,6 +56,7 @@ const headers = {
   Prefer: 'return=representation',
 };
 const api = process.env.SUPABASE_URL.replace(/\/$/, '');
+const storageHeaders = Object.fromEntries(Object.entries(headers).filter(([key]) => key.toLowerCase() !== 'content-type' && key.toLowerCase() !== 'prefer'));
 const expectedProjectRef = 'fnivzsazuovldhbkxrqv';
 const actualProjectRef = new URL(api).hostname.split('.')[0];
 if (actualProjectRef !== expectedProjectRef) {
@@ -584,12 +585,15 @@ if (enzoAudioFiles.length) {
   });
   const mixInputs = ['[0:a]', ...enzoAudioFiles.map((_, index) => `[enzo${index}]`)].join('');
   filters.push(`${mixInputs}amix=inputs=${enzoAudioFiles.length + 1}:duration=first:dropout_transition=0[aout]`);
-  await command('ffmpeg', ['-y','-i',rawVideo,...audioInputs,'-filter_complex',filters.join(';'),'-map','0:v:0','-map','[aout]','-t',String(targetDuration),'-c:v','copy','-c:a','aac','-b:a','192k','-movflags','+faststart',finalPath]);
+  await command('ffmpeg', ['-y','-i',rawVideo,...audioInputs,'-filter_complex',filters.join(';'),'-map','0:v:0','-map','[aout]','-t',String(targetDuration),'-c:v','libx264','-preset','veryfast','-crf','23','-maxrate','4500k','-bufsize','9000k','-pix_fmt','yuv420p','-c:a','aac','-b:a','128k','-movflags','+faststart',finalPath]);
 } else {
-  await command('ffmpeg', ['-y','-i',rawVideo,'-af','apad','-t',String(targetDuration),'-c:v','copy','-c:a','aac','-b:a','192k','-movflags','+faststart',finalPath]);
+  await command('ffmpeg', ['-y','-i',rawVideo,'-af','apad','-t',String(targetDuration),'-c:v','libx264','-preset','veryfast','-crf','23','-maxrate','4500k','-bufsize','9000k','-pix_fmt','yuv420p','-c:a','aac','-b:a','128k','-movflags','+faststart',finalPath]);
 }
 const stat = await (await import('node:fs/promises')).stat(finalPath);
 if (stat.size < 500000) throw new Error('El MP4 generado parece incompleto.');
+const maxStorageBytes = 45 * 1024 * 1024;
+if (stat.size > maxStorageBytes) throw new Error(`QC tamaño fallido: el MP4 pesa ${(stat.size / 1024 / 1024).toFixed(1)} MB; límite interno ${Math.round(maxStorageBytes / 1024 / 1024)} MB. Se evita subir un archivo que Supabase podría rechazar.`);
+console.log(`Tamaño MP4 optimizado para Storage: ${(stat.size / 1024 / 1024).toFixed(1)} MB.`);
 
 const probeText = await capture('ffprobe', ['-v','error','-show_entries','format=duration:stream=codec_type,width,height','-of','json',finalPath]);
 const probe = JSON.parse(probeText);
@@ -648,7 +652,7 @@ console.log(`Vídeo listo: ${finalPath} (${stat.size} bytes). Guardado en Supaba
     const encodedPath = objectPath.split('/').map(encodeURIComponent).join('/');
     await cleanupStep('archivo de Storage ' + objectPath, async () => {
       const response = await fetch(`${api}/storage/v1/object/nexo-videos/${encodedPath}`, {
-        method: 'DELETE', headers,
+        method: 'DELETE', headers: storageHeaders,
       });
       if (!response.ok && response.status !== 404) {
         throw new Error(`Storage DELETE ${response.status}: ${(await response.text()).slice(0, 500)}`);
