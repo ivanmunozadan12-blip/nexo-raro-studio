@@ -23,6 +23,13 @@ jobs:
       - name: Instalar dependencias
         run: npm install
 
+      - name: Instalar FFmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+          command -v ffmpeg
+          command -v ffprobe
+
       - name: Comprobar herramientas de render
         run: |
           node --version
