@@ -61,6 +61,17 @@ async function command(bin, args, opts = {}) {
     p.on('close', code => code === 0 ? resolve() : reject(new Error(`${bin} terminó con código ${code}`)));
   });
 }
+
+async function capture(bin, args, opts = {}) {
+  return await new Promise((resolve, reject) => {
+    const p = spawn(bin, args, { cwd: opts.cwd || root, env: process.env, stdio: ['ignore','pipe','pipe'] });
+    let stdout = '', stderr = '';
+    p.stdout.on('data', chunk => stdout += chunk);
+    p.stderr.on('data', chunk => stderr += chunk);
+    p.on('error', reject);
+    p.on('close', code => code === 0 ? resolve(stdout) : reject(new Error(`${bin} terminó con código ${code}: ${stderr.slice(0,500)}`)));
+  });
+}
 const [settings] = await supabase('channel_settings', { query: '?brand_slug=eq.nexo-raro&select=id,user_id,channel_name,timezone,require_approval,auto_publish_enabled&limit=1' });
 if (!settings) throw new Error('No hay una cuenta configurada en el panel. Inicia sesión y termina el asistente inicial.');
 const userId = settings.user_id;
@@ -262,6 +273,16 @@ const finalPath = path.join(root, 'renders', `nexo-raro-${local}-${slot.replace(
 await command('ffmpeg', ['-y','-i',rawVideo,'-i',voicePath,'-map','0:v:0','-map','1:a:0','-c:v','copy','-c:a','aac','-b:a','192k','-shortest','-movflags','+faststart',finalPath]);
 const stat = await (await import('node:fs/promises')).stat(finalPath);
 if (stat.size < 500000) throw new Error('El MP4 generado parece incompleto.');
+
+const probeText = await capture('ffprobe', ['-v','error','-show_entries','format=duration:stream=codec_type,width,height','-of','json',finalPath]);
+const probe = JSON.parse(probeText);
+const actualDuration = Number(probe.format?.duration || 0);
+const videoStream = (probe.streams || []).find(stream => stream.codec_type === 'video');
+const audioStream = (probe.streams || []).find(stream => stream.codec_type === 'audio');
+if (!videoStream || videoStream.width !== 1080 || videoStream.height !== 1920) throw new Error('QC fallido: el MP4 no tiene vídeo vertical 1080×1920.');
+if (!audioStream) throw new Error('QC fallido: el MP4 no contiene pista de audio.');
+if (actualDuration < 55 || actualDuration > 70) throw new Error(`QC fallido: duración real ${actualDuration.toFixed(1)} s fuera del margen 55–70 s.`);
+console.log(`QC MP4 verificado: ${actualDuration.toFixed(1)} s, 1080×1920, audio presente.`);
 const storagePath = `${userId}/${local}/${slot.replace(':','')}.mp4`;
 const videoBuffer = await readFile(finalPath);
 const upload = await fetch(`${api}/storage/v1/object/nexo-videos/${storagePath}`, {
@@ -272,8 +293,8 @@ const upload = await fetch(`${api}/storage/v1/object/nexo-videos/${storagePath}`
 if (!upload.ok) throw new Error(`Storage upload ${upload.status}: ${(await upload.text()).slice(0,700)}`);
 const video = await supabase('videos', { method:'POST', body: {
   user_id:userId, job_id:jobId, script_id:scriptId, storage_path:storagePath,
-  duration_seconds:64, width:1080, height:1920, mime_type:'video/mp4',
-  quality_check:{passed:true, bytes:stat.size, sources:script.sources.length, word_count:wordCount, voice:'es-ES-AlvaroNeural', rendered_by:'HyperFrames'},
+  duration_seconds:actualDuration, width:1080, height:1920, mime_type:'video/mp4',
+  quality_check:{passed:true, duration_seconds:actualDuration, bytes:stat.size, has_audio:true, sources:script.sources.length, word_count:wordCount, voice:'es-ES-AlvaroNeural', rendered_by:'HyperFrames'},
 }});
 await supabase('social_posts', { method:'POST', body: ['youtube','tiktok'].map(platform => ({
   user_id:userId, video_id:video[0].id, platform, caption:script.caption || script.title,
