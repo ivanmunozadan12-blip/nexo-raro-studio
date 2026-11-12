@@ -38,7 +38,7 @@ export default function Studio(){
   let parsed:any;try{parsed=JSON.parse(raw)}catch{throw new Error('El guion '+(index+1)+' no contiene JSON válido.')}
   const required=['title','hook','narration','scenes','sources','caption','category'];
   for(const key of required)if(!(key in parsed))throw new Error('Al guion '+(index+1)+' le falta el campo '+key+'.');
-  const words=String(parsed.narration||'').trim().split(/\\s+/).filter(Boolean).length;
+  const words=String(parsed.narration||'').trim().split(/\s+/).filter(Boolean).length;
   if(words<145||words>205)throw new Error('El guion '+(index+1)+' tiene '+words+' palabras. Debe tener entre 145 y 205.');
   if(!Array.isArray(parsed.scenes)||parsed.scenes.length!==7)throw new Error('El guion '+(index+1)+' debe incluir exactamente 7 escenas.');
   if(!Array.isArray(parsed.sources)||parsed.sources.length<3)throw new Error('El guion '+(index+1)+' necesita al menos 3 fuentes.');
