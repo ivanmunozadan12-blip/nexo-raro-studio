@@ -28,8 +28,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 35
     env:
-      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-      OPENAI_MODEL: ${{ vars.OPENAI_MODEL || 'gpt-6-luna' }}
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      GEMINI_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-2.5-flash-lite' }}
       SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
       SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
       TZ: Europe/Madrid
@@ -52,7 +52,7 @@ jobs:
           python -m pip install --upgrade pip edge-tts
       - name: Comprobar configuración
         run: |
-          test -n "$OPENAI_API_KEY" || (echo "::error::Falta OPENAI_API_KEY en GitHub Actions secrets" && exit 1)
+          test -n "$GEMINI_API_KEY" || (echo "::error::Falta GEMINI_API_KEY en GitHub Actions secrets" && exit 1)
           test -n "$SUPABASE_URL" || (echo "::error::Falta SUPABASE_URL en GitHub Actions secrets" && exit 1)
           test -n "$SUPABASE_SERVICE_ROLE_KEY" || (echo "::error::Falta SUPABASE_SERVICE_ROLE_KEY en GitHub Actions secrets" && exit 1)
       - name: Generar y renderizar vídeo
