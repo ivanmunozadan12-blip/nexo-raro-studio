@@ -412,6 +412,9 @@ console.log(`Vídeo listo: ${finalPath} (${stat.size} bytes). Guardado en Supaba
   if (jobId) {
     await cleanupStep('trabajo de producción', () =>
       supabase('production_jobs', { method: 'DELETE', query: `?id=eq.${jobId}` }));
+  } else if (existingJob?.status === 'failed') {
+    await cleanupStep('trabajo fallido previo', () =>
+      supabase('production_jobs', { method: 'DELETE', query: `?id=eq.${existingJob.id}&status=eq.failed` }));
   } else {
     await cleanupStep('trabajos de producción parciales', () =>
       supabase('production_jobs', { method: 'DELETE', query: `?script_id=eq.${scriptId}` }));
