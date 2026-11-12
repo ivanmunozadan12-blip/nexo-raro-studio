@@ -1,0 +1,36 @@
+name: Nexo Raro · validación de código
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/**"
+      - "app/**"
+      - "lib/**"
+      - "package.json"
+      - "package-lock.json"
+      - ".github/workflows/validate.yml"
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Descargar proyecto
+        uses: actions/checkout@v4
+      - name: Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Instalar dependencias
+        run: npm install
+      - name: Validar sintaxis del worker
+        run: node --check scripts/produce.mjs
+      - name: Comprobar TypeScript
+        run: npm run typecheck
