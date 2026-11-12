@@ -293,29 +293,47 @@ await supabase('production_jobs', { method: 'PATCH', query: `?id=eq.${jobId}`, b
 const escaped = value => String(value || '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const assetsDir = path.join(work, 'assets');
 await mkdir(assetsDir, { recursive: true });
+const usedImagePages = new Set();
 async function fetchSceneImage(scene, index) {
-  try {
-    const query = topicTokens(scene.visual).slice(0, 8).join(' ') || String(script.title).slice(0, 70);
-    const endpoint = 'https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrnamespace=6&gsrlimit=4&gsrsearch=' + encodeURIComponent(query) + '&prop=imageinfo&iiprop=url|extmetadata&iiurlwidth=1200&format=json';
-    const search = await fetch(endpoint, { headers: { 'User-Agent': 'BehindDelMundoStudio/1.0 (documentary video production)' } });
-    if (!search.ok) return null;
-    const data = await search.json();
-    const pages = Object.values(data.query?.pages || {});
-    const page = pages.find(item => item.imageinfo?.[0]?.thumburl && /^https:\/\//i.test(item.imageinfo[0].thumburl));
-    if (!page) return null;
-    const info = page.imageinfo[0];
-    const response = await fetch(info.thumburl, { headers: { 'User-Agent': 'BehindDelMundoStudio/1.0' } });
-    if (!response.ok) return null;
-    const mime = response.headers.get('content-type') || '';
-    if (!mime.startsWith('image/')) return null;
-    const ext = mime.includes('png') ? 'png' : mime.includes('webp') ? 'webp' : 'jpg';
-    const filename = 'scene-' + (index + 1) + '.' + ext;
-    await writeFile(path.join(assetsDir, filename), Buffer.from(await response.arrayBuffer()));
-    const clean = value => String(value || '').replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').trim();
-    const artist = clean(info.extmetadata?.Artist?.value || 'Wikimedia Commons');
-    const license = clean(info.extmetadata?.LicenseShortName?.value || 'Licencia indicada en Commons');
-    return { filename, alt: scene.visual, credit: artist + ' · ' + license, page: info.descriptionurl || page.title };
-  } catch (error) { console.warn('Imagen de escena ' + (index + 1) + ' omitida: ' + error.message); return null; }
+  const clean = value => String(value || '').replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').trim();
+  const visualTerms = topicTokens(scene.visual).slice(0, 5).join(' ');
+  const titleTerms = topicTokens(script.title).slice(0, 4).join(' ');
+  const queries = [...new Set([
+    visualTerms,
+    [titleTerms, visualTerms].filter(Boolean).join(' '),
+    titleTerms,
+  ].filter(Boolean))];
+  for (const query of queries) {
+    try {
+      const endpoint = 'https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrnamespace=6&gsrlimit=10&gsrsearch=' + encodeURIComponent(query) + '&prop=imageinfo&iiprop=url|extmetadata&iiurlwidth=1600&format=json';
+      const search = await fetch(endpoint, { headers: { 'User-Agent': 'BehindDelMundoStudio/1.0 (documentary video production)' } });
+      if (!search.ok) continue;
+      const data = await search.json();
+      const pages = Object.values(data.query?.pages || {});
+      for (const page of pages) {
+        const info = page.imageinfo?.[0];
+        const pageKey = String(info?.descriptionurl || page.title || '');
+        if (!info?.thumburl || usedImagePages.has(pageKey) || !/^https:\/\//i.test(info.thumburl)) continue;
+        const response = await fetch(info.thumburl, { headers: { 'User-Agent': 'BehindDelMundoStudio/1.0' } });
+        if (!response.ok) continue;
+        const mime = response.headers.get('content-type') || '';
+        if (!mime.startsWith('image/')) continue;
+        const bytes = Buffer.from(await response.arrayBuffer());
+        if (bytes.length < 12000) continue;
+        const ext = mime.includes('png') ? 'png' : mime.includes('webp') ? 'webp' : 'jpg';
+        const filename = 'scene-' + (index + 1) + '.' + ext;
+        await writeFile(path.join(assetsDir, filename), bytes);
+        usedImagePages.add(pageKey);
+        const artist = clean(info.extmetadata?.Artist?.value || 'Wikimedia Commons');
+        const license = clean(info.extmetadata?.LicenseShortName?.value || 'Licencia indicada en Commons');
+        return { filename, alt: scene.visual, credit: artist + ' · ' + license, page: info.descriptionurl || page.title };
+      }
+    } catch (error) {
+      console.warn('Búsqueda visual de escena ' + (index + 1) + ' (' + query + ') fallida: ' + error.message);
+    }
+  }
+  console.warn('No se encontró imagen válida para la escena ' + (index + 1) + ': ' + scene.visual);
+  return null;
 }
 const sceneAssets = await Promise.all(script.scenes.map((scene, index) => fetchSceneImage(scene, index)));
 const imageCount = sceneAssets.filter(Boolean).length;
@@ -324,12 +342,45 @@ const sceneSeconds = 64 / 7;
 const clips = script.scenes.map((scene, i) => {
   const start = (i * sceneSeconds).toFixed(3);
   const duration = sceneSeconds.toFixed(3);
-  const tint = i % 2 ? '#172630' : '#101c25';
   const asset = sceneAssets[i];
-  const imageMarkup = asset ? '<img class="scene-image" src="./assets/' + asset.filename + '" alt="' + escaped(asset.alt) + '"><div class="image-credit">' + escaped(asset.credit) + ' · Wikimedia Commons</div>' : '';
-  return `<section id="scene-${i+1}" class="clip scene" data-start="${start}" data-duration="${duration}" data-track-index="0" style="background:${tint}">${imageMarkup}<div class="grid"></div><div class="eyebrow">BEHIND DEL MUNDO / ARCHIVO ${String(i + 1).padStart(2,'0')}</div><div class="number">0${i + 1}<span>— 07</span></div><div class="visual">${escaped(scene.visual)}</div><h1>${escaped(scene.overlay)}</h1><div class="subtitle">${escaped(scene.narration_excerpt)}</div><div class="rule"></div><div class="footer">DESCUBRE LO QUE HAY DETRÁS <b>●</b> ${local}</div></section>`;
+  const imageMarkup = asset
+    ? '<img class="scene-image" src="./assets/' + asset.filename + '" alt="' + escaped(asset.alt) + '">'
+    : '<div class="scene-atmosphere" aria-hidden="true"></div>';
+  const words = String(scene.narration_excerpt || '').trim().split(/\\s+/).filter(Boolean);
+  const captionMarkup = words.map((word, index) => '<span style="--word:' + index + '">' + escaped(word) + '</span>').join(' ');
+  return `<section id="scene-${i+1}" class="clip scene" data-start="${start}" data-duration="${duration}" data-track-index="0">
+    ${imageMarkup}
+    <div class="cinema-shade"></div>
+    <div class="brand-mark">BEHIND <i>DEL MUNDO</i></div>
+    <div class="scene-copy">
+      <div class="scene-kicker">LO QUE HAY DETRÁS</div>
+      <h1>${escaped(scene.overlay)}</h1>
+    </div>
+    <div class="caption" aria-label="${escaped(scene.narration_excerpt)}">${captionMarkup}</div>
+  </section>`;
 }).join('');
-const html = `<!doctype html><html lang="es"><head><meta charset="utf-8"><style>*{box-sizing:border-box}html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#0b1218;color:#f1eee5;font-family:Arial,sans-serif}.scene{position:absolute;inset:0;width:1080px;height:1920px;padding:120px 88px;overflow:hidden}.scene-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.42;filter:saturate(.8) contrast(1.08);transform:scale(1.04)}.image-credit{position:absolute;left:88px;right:88px;bottom:205px;font:13px monospace;color:#d8dedb;opacity:.85;z-index:3}.grid{position:absolute;inset:0;opacity:.16;background-image:linear-gradient(#8fd8c2 1px,transparent 1px),linear-gradient(90deg,#8fd8c2 1px,transparent 1px);background-size:90px 90px;mask-image:linear-gradient(transparent,#000 30%,transparent)}.eyebrow,.footer{position:absolute;left:88px;right:88px;font:22px monospace;letter-spacing:6px;color:#8fd8c2}.eyebrow{top:112px}.number{position:absolute;top:280px;right:88px;font:42px monospace;color:#f0a65b}.number span{font-size:20px;color:#87959b}.visual{position:absolute;left:88px;right:88px;top:560px;min-height:300px;font-size:40px;line-height:1.2;color:#f0a65b;letter-spacing:-1px}.scene h1{position:absolute;left:88px;right:88px;top:880px;margin:0;font-size:82px;line-height:1.08;letter-spacing:-4px;font-weight:800}.subtitle{position:absolute;left:88px;right:88px;top:1320px;font-size:38px;line-height:1.3;color:#f1eee5;background:#172630dd;padding:24px 28px;border-left:6px solid #f0a65b}.rule{position:absolute;left:88px;bottom:250px;width:150px;height:6px;background:#8fd8c2}.footer{bottom:120px;font-size:17px;color:#87959b;letter-spacing:3px}.footer b{color:#f0a65b}</style></head><body><div id="root" data-composition-id="behind-del-mundo" data-start="0" data-width="1080" data-height="1920"><audio id="narration-audio" src="voice.mp3" data-start="0" data-duration="64" data-track-index="0" data-volume="1"></audio>${clips}<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script><script>const tl=gsap.timeline({paused:true});document.querySelectorAll('.scene').forEach((el)=>{tl.fromTo(el,{opacity:0,scale:1.025},{opacity:1,scale:1,duration:.55},Number(el.dataset.start));tl.to(el,{opacity:0,duration:.4},Number(el.dataset.start)+Number(el.dataset.duration)-.4)});tl.set({}, {}, 64);window.__timelines=window.__timelines||{};window.__timelines['behind-del-mundo']=tl;</script></div></body></html>`;
+const html = `<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=1080,initial-scale=1"><style>
+*{box-sizing:border-box}
+html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#080d12;color:#fff;font-family:Arial,Helvetica,sans-serif}
+.scene{position:absolute;inset:0;width:1080px;height:1920px;overflow:hidden;background:#101820;isolation:isolate}
+.scene-image,.scene-atmosphere{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-3;transform:scale(1.12);animation:slowPush 9.2s ease-out both}
+.scene-atmosphere{background:radial-gradient(ellipse at 60% 35%,#315064 0%,#172630 42%,#080d12 100%)}
+.cinema-shade{position:absolute;inset:0;z-index:-2;background:linear-gradient(180deg,rgba(5,10,15,.24) 0%,rgba(5,10,15,.05) 30%,rgba(5,10,15,.12) 50%,rgba(5,10,15,.86) 100%),linear-gradient(90deg,rgba(5,10,15,.22),transparent 75%)}
+.brand-mark{position:absolute;top:92px;left:76px;font:800 25px Arial,sans-serif;letter-spacing:5px;color:#fff;text-shadow:0 2px 20px #0008}
+.brand-mark i{font-style:normal;color:#8fd8c2}
+.scene-copy{position:absolute;left:76px;right:76px;bottom:560px;animation:copyIn .65s cubic-bezier(.2,.8,.2,1) both}
+.scene-kicker{display:inline-block;margin-bottom:28px;padding:0 0 12px;border-bottom:4px solid #f0a65b;font:800 19px Arial,sans-serif;letter-spacing:5px;color:#f0a65b}
+.scene h1{margin:0;max-width:930px;font-size:94px;line-height:.98;letter-spacing:-5px;font-weight:900;text-wrap:balance;text-shadow:0 6px 34px #000b}
+.caption{position:absolute;left:76px;right:76px;bottom:250px;min-height:150px;display:flex;flex-wrap:wrap;align-content:flex-start;gap:8px 13px;font-size:38px;line-height:1.2;font-weight:800;letter-spacing:-1px;text-shadow:0 3px 16px #000,0 1px 4px #000}
+.caption span{display:inline-block;opacity:0;transform:translateY(18px) scale(.96);animation:wordPop .34s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(var(--word)*.075s)}
+.caption span:nth-child(4n+1){color:#fff}
+.caption span:nth-child(4n+2){color:#8fd8c2}
+.caption span:nth-child(4n+3){color:#fff}
+.caption span:nth-child(4n){color:#f0a65b}
+@keyframes slowPush{from{transform:scale(1.12)}to{transform:scale(1.02)}}
+@keyframes copyIn{from{opacity:0;transform:translateY(46px)}to{opacity:1;transform:translateY(0)}}
+@keyframes wordPop{to{opacity:1;transform:translateY(0) scale(1)}}
+</style></head><body><div id="root" data-composition-id="behind-del-mundo" data-start="0" data-width="1080" data-height="1920"><audio id="narration-audio" src="voice.mp3" data-start="0" data-duration="64" data-track-index="0" data-volume="1"></audio>${clips}<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script><script>const tl=gsap.timeline({paused:true});document.querySelectorAll('.scene').forEach((el)=>{tl.fromTo(el,{opacity:0},{opacity:1,duration:.35},Number(el.dataset.start));tl.to(el,{opacity:0,duration:.28},Number(el.dataset.start)+Number(el.dataset.duration)-.28)});tl.set({}, {}, 64);window.__timelines=window.__timelines||{};window.__timelines['behind-del-mundo']=tl;</script></div></body></html>`;
 await writeFile(path.join(work, 'index.html'), html);
 await command('npx', ['--yes', 'hyperframes@0.9.37', 'lint'], { cwd: work });
 const rawVideo = path.join(work, 'video-silent.mp4');
