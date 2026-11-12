@@ -478,7 +478,7 @@ try {
 const sceneSeconds = targetDuration / 7;
 const clips = script.scenes.map((scene, i) => {
   const start = (i * sceneSeconds).toFixed(3), duration = sceneSeconds.toFixed(3);
-  const words = String(scene.narration_excerpt || '').trim().split(/\\s+/).filter(Boolean);
+  const words = String(scene.narration_excerpt || '').trim().split(/\s+/).filter(Boolean);
   const wordDelay = words.length ? (sceneSeconds / words.length).toFixed(3) : '0';
   const captionMarkup = words.map((word,index)=>'<span class="caption-word" style="--word:'+index+'">'+escaped(word)+'</span>').join(' ');
   const enzoLine = String(scene.enzo_line || '').trim();
