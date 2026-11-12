@@ -1,0 +1,9 @@
+{
+  "name": "Nexo Raro Studio",
+  "short_name": "Nexo Raro",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b1218",
+  "theme_color": "#0b1218",
+  "lang": "es"
+}
