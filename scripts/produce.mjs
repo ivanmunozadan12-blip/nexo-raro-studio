@@ -207,7 +207,7 @@ for (let offset = 0; offset < 100000; offset += 1000) {
   editorialMemory.push(...page);
   if (page.length < 1000) break;
 }
-const memoryBrief = editorialMemory.slice(0,40).map(item => ({ tema:item.topic, enfoque:String(item.angle||'').slice(0,70) }));
+const memoryBrief = editorialMemory.slice(0,18).map(item => ({ tema:item.topic, enfoque:String(item.angle||'').slice(0,70) }));
 console.log(`Memoria editorial cargada: ${memoryBrief.length} temas históricos.`);
 const researchPrompt = `Busca en la web un hecho real, poco conocido y visualmente atractivo para un vídeo documental breve en español de España. Fecha: ${local}; horario: ${slot}; serie editorial: ${series?.title || 'curiosidades reales y ciencia sorprendente'}. Evita temas virales quemados. MEMORIA EDITORIAL OBLIGATORIA: no propongas el mismo acontecimiento, descubrimiento, lugar, personaje, experimento ni historia que aparezca en esta memoria, aunque cambies el título o el enfoque. Elige un asunto claramente distinto y explica por qué no se solapa. Historial reciente (40 temas; la comprobación completa se hace contra toda la base): ${JSON.stringify(memoryBrief)}. Si una idea se parece a un tema del historial, descártala y busca otra. Contrasta el hecho con al menos 3 fuentes independientes, preferiblemente fuentes primarias, universidades, organismos oficiales o publicaciones científicas. Devuelve un resumen claro de los hechos verificables, qué partes son inciertas, las URLs exactas y una línea TOPIC: con el tema principal. No inventes referencias.`;
 const groqModel = process.env.GROQ_MODEL || 'openai/gpt-oss-120b';
@@ -255,7 +255,7 @@ async function groqResearch(input) {
         tools: [{ type: 'browser_search' }],
         tool_choice: 'required',
         reasoning: { effort: 'low' },
-        max_output_tokens: 1500,
+        max_output_tokens: 950,
       }),
     });
     if (response.ok) {
@@ -280,7 +280,7 @@ async function groqResearch(input) {
 }
 const research = await groqResearch(researchPrompt);
 const categoryGuide = 'La categoría debe ser exactamente uno de estos slugs: nadie-te-lo-explica, detras-de-la-puerta, como-es-posible. La serie asignada para esta entrega es: ' + (series?.slug || 'nadie-te-lo-explica') + ' (' + (series?.title || 'Nadie te lo explica') + '). Mantén el tema dentro de esa línea editorial.';
-const prompt = `A partir EXCLUSIVAMENTE de esta investigación web, escribe un vídeo vertical documental para Behind del Mundo en español natural de España. Fecha ${local}; horario ${slot}. Duración hablada objetivo 65-70 segundos, con 180-195 palabras reales de narración. Prioriza llegar a la duración mínima sin relleno: desarrolla contexto, progresión del descubrimiento y consecuencias verificables, manteniendo ritmo ágil y dicción clara. Abre con una imagen mental potente y un gancho intrigante en la primera frase. Construye una miniaventura: curiosidad inmediata, descubrimiento progresivo, giro o dato sorprendente a mitad, y cierre memorable. Habla como un narrador joven-adulto cercano, curioso y cinematográfico, nunca como un profesor dando una clase. Usa frases cortas y variadas, preguntas directas, contrastes y pausas naturales. Cuenta los hechos desde lo que nuestro explorador Enzo ha descubierto o vivido. Incluye en 2 o 3 escenas una intervención muy breve de Enzo (máximo 5 palabras, espontánea y expresiva, no infantil) en el campo enzo_line; el narrador principal sigue llevando la historia. Evita frases genéricas como “no te lo vas a creer”, clickbait engañoso, exageraciones y afirmaciones que no estén respaldadas. No inventes cifras, citas, lugares, testimonios ni fuentes. Distingue claramente hechos de hipótesis. No menciones que eres una IA ni pidas seguir la cuenta dentro de la narración.\n\nDIRECCIÓN EDITORIAL: ${categoryGuide}\n\nINVESTIGACIÓN Y FUENTES:\n${research}\n\nDevuelve SOLO un objeto JSON válido con: title (máx 70 caracteres, concreto y atractivo), hook (máx 12 palabras, primera frase potente), narration (180-195 palabras, locutable y natural, español de España, sin indicaciones de cámara), scenes (exactamente 7 objetos con visual, image_search_query, overlay, narration_excerpt y enzo_line; visual debe describir un plano concreto, cinematográfico y distinto de los demás; image_search_query debe ser una búsqueda corta en INGLÉS con el sujeto visual específico para encontrar fotografía real; overlay máximo 5 palabras, sin recuadros ni frases largas; narration_excerpt debe copiar literalmente un fragmento de la narración; enzo_line puede estar vacío o ser una reacción breve), sources (mínimo 3 fuentes independientes con title y url; usa únicamente URLs HTTPS presentes literalmente en la investigación), caption (descripción breve para redes con 3-5 hashtags pertinentes), category (usa exactamente el slug de la serie asignada). No añadas explicaciones fuera del JSON.`;
+const prompt = `A partir EXCLUSIVAMENTE de esta investigación web, escribe un vídeo vertical documental para Behind del Mundo en español natural de España. Fecha ${local}; horario ${slot}. Duración hablada objetivo 65-70 segundos, con 180-195 palabras reales de narración. Prioriza llegar a la duración mínima sin relleno: desarrolla contexto, progresión del descubrimiento y consecuencias verificables, manteniendo ritmo ágil y dicción clara. Abre con una imagen mental potente y un gancho intrigante en la primera frase. Construye una miniaventura: curiosidad inmediata, descubrimiento progresivo, giro o dato sorprendente a mitad, y cierre memorable. Habla como un narrador joven-adulto cercano, curioso y cinematográfico, nunca como un profesor dando una clase. Usa frases cortas y variadas, preguntas directas, contrastes y pausas naturales. Cuenta los hechos desde lo que nuestro explorador Enzo ha descubierto o vivido. Incluye en 2 o 3 escenas una intervención muy breve de Enzo (máximo 5 palabras, espontánea y expresiva, no infantil) en el campo enzo_line; el narrador principal sigue llevando la historia. Evita frases genéricas como “no te lo vas a creer”, clickbait engañoso, exageraciones y afirmaciones que no estén respaldadas. No inventes cifras, citas, lugares, testimonios ni fuentes. Distingue claramente hechos de hipótesis. No menciones que eres una IA ni pidas seguir la cuenta dentro de la narración.\n\nDIRECCIÓN EDITORIAL: ${categoryGuide}\n\nINVESTIGACIÓN Y FUENTES:\n${research}\n\nDevuelve SOLO un objeto JSON válido con: title (máx 70 caracteres, concreto y atractivo), hook (máx 12 palabras, primera frase potente), narration (180-195 palabras, locutable y natural, español de España, sin indicaciones de cámara), scenes (exactamente 7 objetos con visual, scene_type, objects, overlay, narration_excerpt y enzo_line; visual debe describir una recreación 3D concreta ligada al hecho narrado; scene_type debe ser landscape, architecture, science, ocean, space, history, object o abstract; objects debe contener 2-4 elementos concretos del tema; overlay máximo 4 palabras; narration_excerpt debe copiar literalmente un fragmento de la narración; enzo_line puede estar vacío o ser una reacción breve), sources (mínimo 3 fuentes independientes con title y url; usa únicamente URLs HTTPS presentes literalmente en la investigación), caption (descripción breve para redes con 3-5 hashtags pertinentes), category (usa exactamente el slug de la serie asignada). No añadas explicaciones fuera del JSON.`;
 const aiResponse = await groqChat({
     model: groqModel,
     messages: [
@@ -290,7 +290,7 @@ const aiResponse = await groqChat({
     response_format: { type: 'json_object' },
     reasoning_effort: 'low',
     temperature: 0.7,
-    max_completion_tokens: 2200,
+    max_completion_tokens: 1750,
     stream: false,
   }, 'guion');
 const ai = await aiResponse.json();
@@ -438,75 +438,27 @@ try {
 } catch {
   throw new Error('Falta el modelo visual maestro de Enzo en public/enzo/enzo-master.webp. Se cancela el render para no publicar un vídeo sin el personaje oficial.');
 }
-const usedImagePages = new Set();
-async function fetchSceneImage(scene, index) {
-  const clean = value => String(value || '').replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').trim();
-  const visualTerms = String(scene.image_search_query || '').trim() || topicTokens(scene.visual).slice(0, 5).join(' ');
-  const titleTerms = topicTokens(script.title).slice(0, 4).join(' ');
-  const stop = new Set(['the','and','with','from','inside','over','under','view','photo','image','showing','close','shot','wide','aerial','detail','of','in','on','at','for','to','by','an','a']);
-  const terms = visualTerms.toLowerCase().replace(/[^a-z0-9 -]/g, ' ').split(/\s+/).filter(word => word.length > 2 && !stop.has(word));
-  const compact = [...new Set(terms)];
-  const queries = [...new Set([visualTerms, compact.slice(0,4).join(' '), compact.slice(0,2).join(' '), compact.slice(-2).join(' '), [titleTerms,compact.slice(0,2).join(' ')].filter(Boolean).join(' '), titleTerms].map(value=>value.trim()).filter(value=>value.length>=3))];
-  const userAgent = 'BehindDelMundoStudio/1.2 (https://github.com/ivanmunozadan12-blip/nexo-raro-studio)';
-  for (const query of queries) {
-    try {
-      // API Search con list=search; el generador gsr* anterior devolvió páginas vacías.
-      let searchResults = [];
-      for (const mode of ['text','title']) {
-        const params = new URLSearchParams({action:'query',list:'search',srnamespace:'6',srsearch:query,srwhat:mode,srlimit:'50',srsort:'relevance',srinfo:'totalhits|suggestion|rewrittenquery',format:'json',formatversion:'2',maxlag:'5'});
-        const response = await fetch('https://commons.wikimedia.org/w/api.php?'+params.toString(),{headers:{'User-Agent':userAgent,'Api-User-Agent':userAgent}});
-        if (!response.ok) { console.warn('Wikimedia Commons HTTP '+response.status+' ('+mode+') en escena '+(index+1)+' para "'+query+'".'); continue; }
-        const data = await response.json();
-        if (data.error) { console.warn('Wikimedia API error ('+mode+'): '+data.error.code+' — '+data.error.info); continue; }
-        const found = Array.isArray(data.query?.search) ? data.query.search : [];
-        console.log('Wikimedia escena '+(index+1)+' ('+mode+'): "'+query+'" → '+found.length+' resultados; total='+(data.query?.searchinfo?.totalhits ?? 'n/d')+'.');
-        if (found.length) { searchResults=found; break; }
-      }
-      if (!searchResults.length) continue;
-      const pageids=searchResults.map(item=>item.pageid).filter(Number.isInteger).join('|');
-      if (!pageids) continue;
-      const imageParams=new URLSearchParams({action:'query',pageids,prop:'imageinfo',iiprop:'url|extmetadata',iiurlwidth:'1600',format:'json',formatversion:'2',maxlag:'5'});
-      const imageResponse=await fetch('https://commons.wikimedia.org/w/api.php?'+imageParams.toString(),{headers:{'User-Agent':userAgent,'Api-User-Agent':userAgent}});
-      if (!imageResponse.ok) { console.warn('Wikimedia imageinfo HTTP '+imageResponse.status+' en escena '+(index+1)+'.'); continue; }
-      const imageData=await imageResponse.json();
-      if (imageData.error) { console.warn('Wikimedia imageinfo error: '+imageData.error.code+' — '+imageData.error.info); continue; }
-      const pages=Array.isArray(imageData.query?.pages)?imageData.query.pages:Object.values(imageData.query?.pages||{});
-      for (const page of pages) {
-        const info=page.imageinfo?.[0], pageKey=String(info?.descriptionurl||page.title||'');
-        const candidates=[info?.thumburl,info?.url].filter(url=>/^https:\/\//i.test(String(url||'')));
-        if (!candidates.length||usedImagePages.has(pageKey)) continue;
-        let bytes=null,mime='';
-        for (const imageUrl of candidates) {
-          try {
-            const download=await fetch(imageUrl,{headers:{'User-Agent':userAgent}});
-            if (!download.ok) { console.warn('Descarga Wikimedia HTTP '+download.status+' en escena '+(index+1)+'.'); continue; }
-            mime=download.headers.get('content-type')||'';
-            if (!mime.toLowerCase().startsWith('image/')) continue;
-            const candidateBytes=Buffer.from(await download.arrayBuffer());
-            if (candidateBytes.length<12000) continue;
-            bytes=candidateBytes; break;
-          } catch(downloadError) { console.warn('Descarga Wikimedia fallida en escena '+(index+1)+': '+downloadError.message); }
-        }
-        if (!bytes) continue;
-        const ext=mime.includes('png')?'png':mime.includes('webp')?'webp':'jpg';
-        const filename='scene-'+(index+1)+'.'+ext;
-        await writeFile(path.join(assetsDir,filename),bytes);
-        usedImagePages.add(pageKey);
-        const artist=clean(info.extmetadata?.Artist?.value||'Wikimedia Commons');
-        const license=clean(info.extmetadata?.LicenseShortName?.value||'Licencia indicada en Commons');
-        return {filename,alt:scene.visual,credit:artist+' · '+license,page:info.descriptionurl||page.title};
-      }
-    } catch(error) { console.warn('Búsqueda visual de escena '+(index+1)+' ('+query+') fallida: '+error.message); }
-  }
-  console.warn('No se encontró imagen válida para la escena '+(index+1)+': '+scene.visual);
-  return null;
-}
-const sceneAssets = [];
-for (let index = 0; index < script.scenes.length; index++) sceneAssets.push(await fetchSceneImage(script.scenes[index], index));
-const imageCount = sceneAssets.filter(Boolean).length;
-console.log('Recursos visuales: ' + imageCount + '/7 imágenes únicas de Wikimedia Commons descargadas.');
-if (imageCount !== 7) throw new Error(`QC visual fallido: solo se encontraron ${imageCount}/7 imágenes reales y únicas. Se cancela el render; cada escena debe tener su propia fotografía.`);
 const sceneSeconds = targetDuration / 7;
+const clips = script.scenes.map((scene, i) => {
+  const start = (i * sceneSeconds).toFixed(3), duration = sceneSeconds.toFixed(3);
+  const words = String(scene.narration_excerpt || '').trim().split(/\\s+/).filter(Boolean);
+  const wordDelay = words.length ? (sceneSeconds / words.length).toFixed(3) : '0';
+  const captionMarkup = words.map((word,index)=>'<span class="caption-word" style="--word:'+index+'">'+escaped(word)+'</span>').join(' ');
+  const enzoLine = String(scene.enzo_line || '').trim();
+  const enzoCharacterMarkup = enzoCharacterAvailable && enzoLine ? '<img class="enzo-character pose-'+(i%3)+'" src="./assets/enzo-master.webp" alt="Enzo, explorador de Behind del Mundo">' : '';
+  const enzoMarkup = enzoLine ? '<div class="enzo-reaction">'+escaped(enzoLine)+'</div>' : '';
+  const sceneData = escaped(JSON.stringify({title:script.title,visual:scene.visual||'',type:scene.scene_type||'object',objects:Array.isArray(scene.objects)?scene.objects.slice(0,4):[],index:i}));
+  return '<section id="scene-'+(i+1)+'" class="clip scene motion-'+(i%4)+'" data-start="'+start+'" data-duration="'+duration+'" data-track-index="0"><canvas class="world-canvas" data-scene="'+sceneData+'"></canvas><div class="brand-mark">BEHIND <i>DEL MUNDO</i></div><div class="scene-copy"><h1>'+escaped(scene.overlay)+'</h1></div><div class="caption" style="--word-delay:'+wordDelay+'s">'+captionMarkup+'</div>'+enzoCharacterMarkup+enzoMarkup+'</section>';
+}).join('');
+const html = '<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=1080,initial-scale=1"><style>'+
+'*{box-sizing:border-box}html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#8ed0f0;font-family:Arial,sans-serif}.scene{position:absolute;inset:0;width:1080px;height:1920px;overflow:hidden;background:linear-gradient(#82c9ef 0%,#c5e9f5 62%,#9bd38b 100%);isolation:isolate}.world-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0}.brand-mark{position:absolute;z-index:4;top:82px;left:70px;font:900 25px Arial;letter-spacing:5px;color:white;text-shadow:0 3px 12px #16334f}.brand-mark i{font-style:normal;color:#ffcf54}.scene-copy{position:absolute;z-index:4;left:70px;right:70px;top:270px;animation:enter .6s ease both}.scene h1{font-size:76px;line-height:1.02;font-weight:950;color:white;-webkit-text-stroke:2px #172b42;text-shadow:0 5px 0 #172b42,0 9px 24px #102a43}.caption{position:absolute;z-index:5;left:70px;right:70px;bottom:205px;display:flex;flex-wrap:wrap;gap:8px 13px;font-size:43px;font-weight:950;-webkit-text-stroke:1.2px #111d2d;text-shadow:0 3px #111d2d}.caption span{color:white;animation:word .25s ease both;animation-delay:calc(var(--word)*var(--word-delay,.17s))}.caption span:nth-child(3n+2){color:#ffe16b}.enzo-character{position:absolute;z-index:3;right:35px;bottom:275px;width:270px;height:430px;object-fit:contain;filter:drop-shadow(0 14px 20px #17314a55);animation:enter .6s ease both}.enzo-reaction{position:absolute;z-index:5;right:365px;bottom:560px;padding:17px 25px;border:3px solid #18334c;border-radius:28px;background:#fff4d9;color:#18334c;font-size:34px;font-weight:950}@keyframes enter{from{opacity:0;transform:translateY(35px)}to{opacity:1;transform:none}}@keyframes word{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:none}}'+
+'</style></head><body><div id="root" data-composition-id="behind-del-mundo" data-start="0" data-width="1080" data-height="1920"><audio id="narration-audio" src="voice.mp3" data-start="0" data-duration="'+targetDuration+'" data-track-index="0" data-volume="1"></audio>'+clips+'<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script><script type="module">'+
+"import * as THREE from 'https://esm.sh/three@0.160.0';const M=c=>new THREE.MeshStandardMaterial({color:c,flatShading:true});const H=n=>{const x=Math.sin(n*127.1+311.7)*43758.5453;return x-Math.floor(x)};function cube(g,x,y,z,a,b,c,col){const o=new THREE.Mesh(new THREE.BoxGeometry(a,b,c),M(col));o.position.set(x,y,z);g.add(o);return o}function ico(g,x,y,z,r,col){const o=new THREE.Mesh(new THREE.IcosahedronGeometry(r,0),M(col));o.position.set(x,y,z);g.add(o)}function sceneFor(canvas,d){const r=new THREE.WebGLRenderer({canvas,antialias:true});r.setPixelRatio(1);r.setSize(1080,1920,false);r.outputColorSpace=THREE.SRGBColorSpace;const s=new THREE.Scene();s.background=new THREE.Color('#8ed0f0');s.fog=new THREE.Fog('#b7e0ed',18,40);s.add(new THREE.HemisphereLight('#fff','#799d86',2));const l=new THREE.DirectionalLight('#fff0ce',2);l.position.set(-8,12,8);s.add(l);const g=new THREE.Group();s.add(g);cube(g,0,-.5,-3,22,.8,22,'#8bcf79');const words=(d.title+' '+d.visual+' '+(d.objects||[]).join(' ')).toLowerCase();const water=/mar|oceano|agua|rio|barco|ballena|coral/.test(words)||d.type==='ocean';const space=/espacio|planeta|luna|estrella|orbita|galax/.test(words)||d.type==='space';const arch=/edificio|constru|torre|puente|templo|ciudad|estructura/.test(words)||d.type==='architecture';const nature=/volcan|monta|bosque|arbol|selva|desierto|cueva|glaciar/.test(words)||d.type==='landscape';const science=/experimento|maquina|motor|energia|electric|laboratorio|fisica/.test(words)||d.type==='science';if(water){cube(g,0,-.04,-3,23,.18,23,'#269dc7');for(let i=0;i<22;i++)cube(g,(H(i)-.5)*17,.08,(H(i+9)-.5)*17,.4+H(i+4),.025,.07,'#b2f1ef')}if(space){s.background=new THREE.Color('#29366f');s.fog.color.set('#29366f');ico(g,-2,3,-5,2.1,'#e8a65d');for(let i=0;i<35;i++)ico(g,(H(i+2)-.5)*18,H(i+40)*9,-8-H(i+50)*8,.04,'#fff')}if(nature){for(let i=0;i<13;i++){const x=(H(i)-.5)*15,z=(H(i+10)-.5)*13;cube(g,x,.55,z,.22,1.1,.22,'#805b3b');for(let j=0;j<3;j++){const o=new THREE.Mesh(new THREE.ConeGeometry(.75-j*.12,1.2,5),M(j%2?'#4caa70':'#75bd70'));o.position.set(x,1.3+j*.55,z);g.add(o)}}}if(arch){for(let y=0;y<4;y++){cube(g,0,y*.8+.3,-4,3,.16,2.5,'#e9e3d7');for(let x of [-1.3,1.3])cube(g,x,y*.8+.65,-4,.18,.8,.18,'#173b60')}for(let i=0;i<5;i++)cube(g,(i-2)*2.5,.7,1,1.2,1.4,1,['#f1c98e','#e8a6a0','#9cc8dc'][i%3])}if(science){for(let i=0;i<4;i++){cube(g,(i-1.5)*2,.6,-3,.55,1.3,.55,['#ff9e57','#51c7bf','#a68de0','#f0cf62'][i]);ico(g,(i-1.5)*2,1.5,-3,.4,['#ffbd62','#63e0d0','#c1a4ff','#ffe07a'][i])}}if(!water&&!space&&!arch&&!nature&&!science){for(let i=0;i<8;i++)cube(g,(i-3.5)*1.65,.5,-3,1,1,1,['#f5b85d','#5bc8bd','#ef8e9d','#8b9fe8'][i%4])}for(let i=0;i<5;i++){for(let j=0;j<3;j++)ico(g,(i-2)*4,6+j*.3,-8,.45,'#fff')}const cam=new THREE.PerspectiveCamera(43,1080/1920,.1,100);cam.position.set(7,6,15);const t=performance.now();function draw(){const q=(performance.now()-t)/1000;cam.position.x=7*Math.sin(q*.16+d.index*.7);cam.position.y=5.5+Math.sin(q*.24)*.6;cam.position.z=15-1.4*Math.sin(q*.13);cam.lookAt(Math.sin(q*.18),1,-3);g.rotation.y=Math.sin(q*.12+d.index)*.05;r.render(s,cam);requestAnimationFrame(draw)}draw()}document.querySelectorAll('.world-canvas').forEach(c=>{try{sceneFor(c,JSON.parse(c.dataset.scene))}catch(e){console.error(e)}});const tl=gsap.timeline({paused:true});document.querySelectorAll('.scene').forEach(e=>{tl.fromTo(e,{opacity:0},{opacity:1,duration:.25},Number(e.dataset.start));tl.to(e,{opacity:0,duration:.2},Number(e.dataset.start)+Number(e.dataset.duration)-.2)});tl.set({}, {},"+targetDuration+");window.__timelines=window.__timelines||{};window.__timelines['behind-del-mundo']=tl;"+
+'</script></div></body></html>';
+await writeFile(path.join(work, 'index.html'), html);
+await command('npx', ['--yes', 'hyperframes@0.9.37', 'lint'], { cwd: work });
+const rawVideo = path.join(work, 'video-silent.mp4');
+
 const clips = script.scenes.map((scene, i) => {
   const start = (i * sceneSeconds).toFixed(3);
   const duration = sceneSeconds.toFixed(3);
@@ -615,7 +567,7 @@ if (!upload.ok) throw new Error(`Storage upload ${upload.status}: ${(await uploa
 const video = await supabase('videos', { method:'POST', body: {
   user_id:userId, job_id:jobId, script_id:scriptId, storage_path:storagePath,
   duration_seconds:actualDuration, width:1080, height:1920, mime_type:'video/mp4',
-  quality_check:{passed:true, duration_seconds:actualDuration, bytes:stat.size, has_audio:true, visual_assets:imageCount, visual_sources:sceneAssets.filter(Boolean).map(({page,credit,alt})=>({page,credit,alt})), sources:script.sources.length, word_count:wordCount, voice:'es-ES-AlvaroNeural', voice_rate:'+0%', rendered_by:'HyperFrames', visual_style:'cinematic-dynamic-v2'},
+  quality_check:{passed:true, duration_seconds:actualDuration, bytes:stat.size, has_audio:true, visual_assets:imageCount, visual_sources:script.scenes.map((scene,index)=>({scene:index+1,type:scene.scene_type||'object',description:scene.visual,objects:scene.objects||[]})), sources:script.sources.length, word_count:wordCount, voice:'es-ES-AlvaroNeural', voice_rate:'+0%', rendered_by:'HyperFrames + Three.js', visual_style:'low-poly-3d-exploration-v1'},
 
 }});
 const topicKey = String(script.title || '').toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
