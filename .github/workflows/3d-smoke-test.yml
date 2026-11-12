@@ -2,6 +2,9 @@ name: Behind del Mundo · prueba técnica 3D
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/3d-smoke-test.yml"
 
 permissions:
   contents: read
