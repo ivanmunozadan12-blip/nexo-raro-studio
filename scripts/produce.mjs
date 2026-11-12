@@ -18,7 +18,6 @@ for (const key of ['OPENAI_API_KEY', 'SUPABASE_URL', 'SUPABASE_SERVICE_ROLE_KEY'
   if (!process.env[key]) throw new Error(`Falta la variable ${key}`);
 }
 const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-const keyIsNewSecret = supabaseKey.startsWith('sb_secret_');
 const keyIsLegacyServiceRole = jwtRole(supabaseKey) === 'service_role';
 const headers = {
   apikey: supabaseKey,
