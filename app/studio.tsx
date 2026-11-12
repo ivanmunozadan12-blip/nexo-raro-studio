@@ -11,7 +11,8 @@ export default function Studio(){
  const [jobs,setJobs]=useState<any[]>([]),[scripts,setScripts]=useState<any[]>([]),[memory,setMemory]=useState<any[]>([]),[videos,setVideos]=useState<any[]>([]),[posts,setPosts]=useState<any[]>([]),[analytics,setAnalytics]=useState<any[]>([]),[settings,setSettings]=useState<any>(null),[series,setSeries]=useState<any[]>([]);
  const [selectedScript,setSelectedScript]=useState<any>(null),[signed,setSigned]=useState<Record<string,string>>({}),[memoryTopic,setMemoryTopic]=useState(''),[memoryReason,setMemoryReason]=useState('');
  const [scriptBatch,setScriptBatch]=useState(['','','']),[dispatching,setDispatching]=useState(false),[knownReady,setKnownReady]=useState<string[]>([]),[notifyEnabled,setNotifyEnabled]=useState(false);
- const db=supabase();\n const videoIdsRef=useRef<string[]>([]),videoLoadRef=useRef(false);
+ const db=supabase();
+ const videoIdsRef=useRef<string[]>([]),videoLoadRef=useRef(false);
  useEffect(()=>{db.auth.getSession().then(({data}:any)=>setSession(data.session));const {data}=db.auth.onAuthStateChange((_e:any,s:any)=>setSession(s));return()=>data.subscription.unsubscribe()},[]);
  const load=useCallback(async()=>{
   if(!session)return;setBusy(true);setMessage('');
