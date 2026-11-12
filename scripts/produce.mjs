@@ -354,13 +354,17 @@ const clips = script.scenes.map((scene, i) => {
     ? '<img class="scene-image" src="./assets/' + asset.filename + '" alt="' + escaped(asset.alt) + '">'
     : '<div class="scene-atmosphere" aria-hidden="true"></div>';
   const words = String(scene.narration_excerpt || '').trim().split(/\s+/).filter(Boolean);
+  const wordDelay = words.length ? (sceneSeconds / words.length).toFixed(3) : '0';
   const captionMarkup = words.map((word, index) => '<span class="caption-word" style="--word:' + index + '">' + escaped(word) + '</span>').join(' ');
+  const enzoLine = String(scene.enzo_line || '').trim();
+  const enzoMarkup = enzoLine ? '<div class="enzo-reaction">' + escaped(enzoLine) + '</div>' : '';
   return `<section id="scene-${i+1}" class="clip scene motion-${i % 4}" data-start="${start}" data-duration="${duration}" data-track-index="0">
     ${imageMarkup}
     <div class="cinema-shade"></div>
     <div class="brand-mark">BEHIND <i>DEL MUNDO</i></div>
     <div class="scene-copy"><h1>${escaped(scene.overlay)}</h1></div>
-    <div class="caption" aria-label="${escaped(scene.narration_excerpt)}">${captionMarkup}</div>
+    <div class="caption" style="--word-delay:${wordDelay}s" aria-label="${escaped(scene.narration_excerpt)}">${captionMarkup}</div>
+    ${enzoMarkup}
   </section>`;
 }).join('');
 const html = `<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=1080,initial-scale=1"><style>
@@ -382,7 +386,8 @@ html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#080d12
 .motion-3 .scene-copy{top:350px;right:105px}
 .scene h1{display:inline;margin:0;max-width:930px;font-size:76px;line-height:1.02;letter-spacing:-3px;font-weight:900;text-wrap:balance;text-shadow:0 6px 34px #000b;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .caption{position:absolute;left:76px;right:76px;bottom:230px;min-height:150px;display:flex;flex-wrap:wrap;align-content:flex-start;gap:8px 13px;font-size:43px;line-height:1.16;font-weight:900;letter-spacing:-1.4px;text-shadow:0 3px 16px #000,0 1px 4px #000}
-.caption span{display:inline-block;opacity:0;transform:translateY(18px) scale(.96);animation:wordPop .26s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(var(--word)*.17s)}
+.caption span{display:inline-block;opacity:0;transform:translateY(18px) scale(.96);animation:wordPop .26s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(var(--word)*var(--word-delay,.17s))}
+.enzo-reaction{position:absolute;right:70px;bottom:480px;max-width:410px;padding:18px 26px;border-radius:28px 28px 6px 28px;background:#f1eee5;color:#172630;font-size:34px;font-weight:900;box-shadow:0 8px 30px #0008;animation:copyIn .4s ease-out both}
 .caption span:nth-child(4n+1){color:#fff}
 .caption span:nth-child(4n+2){color:#8fd8c2}
 .caption span:nth-child(4n+3){color:#fff}
