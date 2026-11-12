@@ -36,13 +36,13 @@ if (!slot || !slots.includes(slot)) {
 }
 // Evita que un clic accidental en un horario ya pasado se convierta
 // en una producción retroactiva del mismo día.
-if (local === currentLocalDate && minutesOfDay(slot) < minutesOfDay(localTime) - 90) {
+if (!process.env.MANUAL_SCRIPT_ID && local === currentLocalDate && minutesOfDay(slot) < minutesOfDay(localTime) - 90) {
   throw new Error(`El horario ${slot} ya pasó hoy (hora local ${localTime}). Para producir ese horario otro día, indica MANUAL_DATE con una fecha futura.`);
 }
 if (!process.env.MANUAL_SLOT && nearestSlot.distance > 0) {
   console.warn(`Inicio de GitHub Actions a las ${localTime}; se asigna al horario más cercano ${slot} (desfase ${nearestSlot.distance} min).`);
 }
-if (!process.env.GROQ_API_KEY) throw new Error('Falta GROQ_API_KEY (GroqCloud).');
+if (!process.env.MANUAL_SCRIPT_ID && !process.env.GROQ_API_KEY) throw new Error('Falta GROQ_API_KEY para producción editorial automática.');
 if (!process.env.SUPABASE_URL) throw new Error('Falta la variable SUPABASE_URL');
 if (!process.env.SUPABASE_SERVICE_ROLE_KEY) throw new Error('Falta la variable SUPABASE_SERVICE_ROLE_KEY');
 const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -278,6 +278,31 @@ async function groqResearch(input) {
   }
   throw new Error('Groq investigación: se agotaron los reintentos.');
 }
+function countWords(value) {
+  return String(value || '').trim().split(/\\s+/).filter(Boolean).length;
+}
+let script;
+let scriptId;
+let wordCount;
+if (process.env.MANUAL_SCRIPT_ID) {
+  const importedRows = await supabase('scripts', { query: '?id=eq.' + encodeURIComponent(process.env.MANUAL_SCRIPT_ID) + '&user_id=eq.' + userId + '&select=id,title,hook,narration,visual_plan,source_notes,series_id,status&limit=1' });
+  const imported = importedRows[0];
+  if (!imported) throw new Error('No se encontró el guion importado o no pertenece a esta cuenta.');
+  if (!['queued','in_production'].includes(imported.status)) throw new Error('El guion no está en cola de producción (estado: ' + imported.status + ').');
+  script = {
+    title: imported.title,
+    hook: imported.hook || '',
+    narration: imported.narration || '',
+    scenes: imported.visual_plan || [],
+    sources: imported.source_notes || [],
+    caption: imported.title + ' | Descubre lo que hay detrás. #BehindDelMundo',
+    category: seriesRows.find(x => x.id === imported.series_id)?.slug || 'nadie-te-lo-explica',
+  };
+  scriptId = imported.id;
+  wordCount = countWords(script.narration);
+  await supabase('scripts', { method: 'PATCH', query: '?id=eq.' + scriptId, body: { status: 'in_production' } });
+  console.log('Guion externo cargado desde el panel; no se llama a Groq.');
+} else {
 const research = await groqResearch(researchPrompt);
 const categoryGuide = 'La categoría debe ser exactamente uno de estos slugs: nadie-te-lo-explica, detras-de-la-puerta, como-es-posible. La serie asignada para esta entrega es: ' + (series?.slug || 'nadie-te-lo-explica') + ' (' + (series?.title || 'Nadie te lo explica') + '). Mantén el tema dentro de esa línea editorial.';
 const prompt = `A partir EXCLUSIVAMENTE de esta investigación web, escribe un vídeo vertical documental para Behind del Mundo en español natural de España. Fecha ${local}; horario ${slot}. Duración hablada objetivo 65-70 segundos, con 180-195 palabras reales de narración. Prioriza llegar a la duración mínima sin relleno: desarrolla contexto, progresión del descubrimiento y consecuencias verificables, manteniendo ritmo ágil y dicción clara. Abre con una imagen mental potente y un gancho intrigante en la primera frase. Construye una miniaventura: curiosidad inmediata, descubrimiento progresivo, giro o dato sorprendente a mitad, y cierre memorable. Habla como un narrador joven-adulto cercano, curioso y cinematográfico, nunca como un profesor dando una clase. Usa frases cortas y variadas, preguntas directas, contrastes y pausas naturales. Cuenta los hechos desde lo que nuestro explorador Enzo ha descubierto o vivido. Incluye en 2 o 3 escenas una intervención muy breve de Enzo (máximo 5 palabras, espontánea y expresiva, no infantil) en el campo enzo_line; el narrador principal sigue llevando la historia. Evita frases genéricas como “no te lo vas a creer”, clickbait engañoso, exageraciones y afirmaciones que no estén respaldadas. No inventes cifras, citas, lugares, testimonios ni fuentes. Distingue claramente hechos de hipótesis. No menciones que eres una IA ni pidas seguir la cuenta dentro de la narración.\n\nDIRECCIÓN EDITORIAL: ${categoryGuide}\n\nINVESTIGACIÓN Y FUENTES:\n${research}\n\nDevuelve SOLO un objeto JSON válido con: title (máx 70 caracteres, concreto y atractivo), hook (máx 12 palabras, primera frase potente), narration (180-195 palabras, locutable y natural, español de España, sin indicaciones de cámara), scenes (exactamente 7 objetos con visual, scene_type, objects, overlay, narration_excerpt y enzo_line; visual debe describir una recreación 3D concreta ligada al hecho narrado; scene_type debe ser landscape, architecture, science, ocean, space, history, object o abstract; objects debe contener 2-4 elementos concretos del tema; overlay máximo 4 palabras; narration_excerpt debe copiar literalmente un fragmento de la narración; enzo_line puede estar vacío o ser una reacción breve), sources (mínimo 3 fuentes independientes con title y url; usa únicamente URLs HTTPS presentes literalmente en la investigación), caption (descripción breve para redes con 3-5 hashtags pertinentes), category (usa exactamente el slug de la serie asignada). No añadas explicaciones fuera del JSON.`;
@@ -299,7 +324,7 @@ if (!outputText) {
   const reason = ai.choices?.[0]?.finish_reason || 'sin respuesta';
   throw new Error(`Groq no devolvió texto de guion (motivo: ${reason}).`);
 }
-let script;
+script = null;
 try {
   const cleaned = outputText.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '').trim();
   const firstBrace = cleaned.indexOf('{');
@@ -316,7 +341,7 @@ try {
 function countWords(value) {
   return String(value || '').trim().split(/\s+/).filter(Boolean).length;
 }
-const wordCount = countWords(script.narration);
+wordCount = countWords(script.narration);
 if (wordCount < 145 || wordCount > 205) {
   throw new Error(`El guion tiene ${wordCount} palabras; fuera del margen técnico 145-205. Se detiene antes de generar voces o guardar un vídeo incompleto.`);
 }
@@ -355,7 +380,9 @@ const scriptRow = await supabase('scripts', { method: 'POST', body: {
   visual_plan: script.scenes, source_notes: script.sources,
   target_seconds: 60, status: 'in_production',
 }});
-const scriptId = scriptRow[0].id;
+scriptId = scriptRow[0].id;
+}
+
 
 let jobId = null;
 let storagePath = null;
