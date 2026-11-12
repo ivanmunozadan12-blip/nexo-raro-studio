@@ -76,10 +76,32 @@ const [settings] = await supabase('channel_settings', { query: '?brand_slug=eq.n
 if (!settings) throw new Error('No hay una cuenta configurada en el panel. Inicia sesión y termina el asistente inicial.');
 const userId = settings.user_id;
 const scheduledAt = new Date(new Date(`${local}T${slot}:00`).toLocaleString('en-US', { timeZone: tz })).toISOString();
-const existing = await supabase('production_jobs', { query: `?user_id=eq.${userId}&scheduled_for=eq.${encodeURIComponent(scheduledAt)}&select=id,status,attempt_count&limit=1` });
-if (existing.length && ['queued', 'voicing', 'rendering', 'ready'].includes(existing[0].status)) {
-  console.log(`El horario ${local} ${slot} ya tiene un trabajo (${existing[0].status}); se evita duplicar.`);
+const existing = await supabase('production_jobs', { query: `?user_id=eq.${userId}&scheduled_for=eq.${encodeURIComponent(scheduledAt)}&select=id,status,attempt_count,started_at,completed_at,script_id&limit=1` });
+const existingJob = existing[0];
+const activeJobStatuses = ['queued', 'voicing', 'rendering'];
+if (existingJob?.status === 'ready') {
+  console.log(`El horario ${local} ${slot} ya tiene un vídeo terminado y guardado; se evita duplicar.`);
   process.exit(0);
+}
+if (existingJob && activeJobStatuses.includes(existingJob.status)) {
+  const startedAt = existingJob.started_at ? Date.parse(existingJob.started_at) : 0;
+  const ageMinutes = startedAt > 0 ? (Date.now() - startedAt) / 60000 : Number.POSITIVE_INFINITY;
+  // El job de GitHub tiene un timeout de 35 minutos. Un estado activo más
+  // antiguo no puede considerarse una producción en curso: se recupera.
+  if (ageMinutes < 45) {
+    throw new Error(`El horario ${local} ${slot} ya tiene un trabajo realmente activo (${existingJob.status}, ${Math.max(0, Math.floor(ageMinutes))} min). Se detiene este duplicado con error explícito; no se registra como producción completada.`);
+  }
+  console.warn(`Recuperando trabajo atascado ${existingJob.id}: estado=${existingJob.status}, antigüedad=${Math.floor(ageMinutes)} min.`);
+  const [recovered] = await supabase('production_jobs', {
+    method: 'PATCH',
+    query: `?id=eq.${existingJob.id}&status=eq.${existingJob.status}`,
+    body: {
+      status: 'failed',
+      error_message: `Trabajo recuperado automáticamente: estado ${existingJob.status} sin actividad durante ${Math.floor(ageMinutes)} minutos.`,
+      completed_at: new Date().toISOString(),
+    },
+  });
+  if (!recovered) throw new Error('No se pudo recuperar el trabajo atascado; se detiene para evitar duplicados.');
 }
 const seriesRows = await supabase('series', { query: `?user_id=eq.${userId}&is_active=eq.true&select=id,slug,title,description&order=slug.asc` });
 const series = seriesRows.length ? seriesRows[(slots.indexOf(slot) + Number(local.replaceAll('-', ''))) % seriesRows.length] : null;
