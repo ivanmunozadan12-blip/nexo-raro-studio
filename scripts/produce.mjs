@@ -356,6 +356,19 @@ await supabase('production_jobs', { method: 'PATCH', query: `?id=eq.${jobId}`, b
 const escaped = value => String(value || '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const assetsDir = path.join(work, 'assets');
 await mkdir(assetsDir, { recursive: true });
+// El personaje oficial se incorpora desde este archivo versionado; no se
+// sustituye por un diseño generado o improvisado.
+let enzoCharacterAvailable = false;
+try {
+  const enzoCharacter = await readFile(path.join(root, 'public', 'enzo', 'enzo-master.webp'));
+  if (enzoCharacter.length > 5000) {
+    await writeFile(path.join(assetsDir, 'enzo-master.webp'), enzoCharacter);
+    enzoCharacterAvailable = true;
+    console.log('Modelo visual oficial de Enzo cargado.');
+  }
+} catch {
+  console.warn('Falta public/enzo/enzo-master.webp: no se mostrará un sustituto de Enzo hasta incorporar la imagen oficial aprobada.');
+}
 const usedImagePages = new Set();
 async function fetchSceneImage(scene, index) {
   const clean = value => String(value || '').replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').trim();
@@ -415,9 +428,13 @@ const clips = script.scenes.map((scene, i) => {
   const wordDelay = words.length ? (sceneSeconds / words.length).toFixed(3) : '0';
   const captionMarkup = words.map((word, index) => '<span class="caption-word" style="--word:' + index + '">' + escaped(word) + '</span>').join(' ');
   const enzoLine = String(scene.enzo_line || '').trim();
+  const enzoCharacterMarkup = enzoCharacterAvailable && enzoLine
+    ? '<img class="enzo-character pose-' + (i % 3) + '" src="./assets/enzo-master.webp" alt="Enzo, explorador de Behind del Mundo">'
+    : '';
   const enzoMarkup = enzoLine ? '<div class="enzo-reaction">' + escaped(enzoLine) + '</div>' : '';
   return `<section id="scene-${i+1}" class="clip scene motion-${i % 4}" data-start="${start}" data-duration="${duration}" data-track-index="0">
     ${imageMarkup}
+    ${enzoCharacterMarkup}
     <div class="cinema-shade"></div>
     <div class="brand-mark">BEHIND <i>DEL MUNDO</i></div>
     <div class="scene-copy"><h1>${escaped(scene.overlay)}</h1></div>
@@ -445,7 +462,10 @@ html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#080d12
 .scene h1{display:inline;margin:0;max-width:930px;font-size:76px;line-height:1.02;letter-spacing:-3px;font-weight:900;text-wrap:balance;text-shadow:0 6px 34px #000b;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .caption{position:absolute;left:76px;right:76px;bottom:230px;min-height:150px;display:flex;flex-wrap:wrap;align-content:flex-start;gap:8px 13px;font-size:43px;line-height:1.16;font-weight:900;letter-spacing:-1.4px;text-shadow:0 3px 16px #000,0 1px 4px #000}
 .caption span{display:inline-block;opacity:0;transform:translateY(18px) scale(.96);animation:wordPop .26s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(var(--word)*var(--word-delay,.17s))}
-.enzo-reaction{position:absolute;right:70px;bottom:480px;max-width:410px;padding:18px 26px;border-radius:28px 28px 6px 28px;background:#f1eee5;color:#172630;font-size:34px;font-weight:900;box-shadow:0 8px 30px #0008;animation:copyIn .4s ease-out both}
+.enzo-character{position:absolute;right:54px;bottom:300px;width:430px;height:680px;object-fit:contain;z-index:-1;filter:drop-shadow(0 14px 30px #0009);transform-origin:50% 100%;animation:enzoEnter .65s cubic-bezier(.2,.8,.2,1) both}
+.pose-1{right:78px;animation:enzoEnter .65s cubic-bezier(.2,.8,.2,1) both, enzoBob 3.8s ease-in-out .65s infinite}
+.pose-2{right:36px;animation:enzoEnter .65s cubic-bezier(.2,.8,.2,1) both, enzoLook 4.2s ease-in-out .65s infinite}
+.enzo-reaction{position:absolute;right:390px;bottom:590px;max-width:420px;padding:18px 26px;border-radius:28px 28px 6px 28px;background:#f1eee5;color:#172630;font-size:34px;font-weight:900;box-shadow:0 8px 30px #0008;animation:copyIn .4s ease-out both}
 .caption span:nth-child(4n+1){color:#fff}
 .caption span:nth-child(4n+2){color:#8fd8c2}
 .caption span:nth-child(4n+3){color:#fff}
@@ -455,6 +475,9 @@ html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#080d12
 @keyframes panRight{from{transform:scale(1.08) translateX(-2.2%)}to{transform:scale(1.03) translateX(1.8%)}}
 @keyframes slowPull{from{transform:scale(1.02)}to{transform:scale(1.13)}}
 @keyframes copyIn{from{opacity:0;transform:translateY(46px)}to{opacity:1;transform:translateY(0)}}
+@keyframes enzoEnter{from{opacity:0;transform:translateY(48px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes enzoBob{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-9px) rotate(-.6deg)}}
+@keyframes enzoLook{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-5px) rotate(1deg)}}
 @keyframes wordPop{to{opacity:1;transform:translateY(0) scale(1)}}
 </style></head><body><div id="root" data-composition-id="behind-del-mundo" data-start="0" data-width="1080" data-height="1920"><audio id="narration-audio" src="voice.mp3" data-start="0" data-duration="${targetDuration}" data-track-index="0" data-volume="1"></audio>${clips}<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script><script>const tl=gsap.timeline({paused:true});document.querySelectorAll('.scene').forEach((el)=>{tl.fromTo(el,{opacity:0},{opacity:1,duration:.35},Number(el.dataset.start));tl.to(el,{opacity:0,duration:.28},Number(el.dataset.start)+Number(el.dataset.duration)-.28)});tl.set({}, {}, ${targetDuration});window.__timelines=window.__timelines||{};window.__timelines['behind-del-mundo']=tl;</script></div></body></html>`;
 await writeFile(path.join(work, 'index.html'), html);
