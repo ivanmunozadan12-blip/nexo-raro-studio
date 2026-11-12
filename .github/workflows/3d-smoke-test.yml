@@ -91,24 +91,22 @@ jobs:
                 }
                 const camera = new THREE.PerspectiveCamera(42, 1080 / 1920, .1, 100);
                 camera.position.set(7, 6, 15);
-                const started = performance.now();
-                function animate() {
-                  const t = (performance.now() - started) / 1000;
-                  tower.rotation.y = Math.sin(t * .7) * .12;
-                  camera.position.x = 7 + Math.sin(t * .35) * 1.5;
-                  camera.position.y = 5.5 + Math.sin(t * .55) * .45;
-                  camera.lookAt(0, 1.5, -3);
-                  renderer.render(scene, camera);
-                  requestAnimationFrame(animate);
-                }
-                animate();
-                window.__threeSmokeReady = true;
-              </script>
-              <script>
-                const timeline = gsap.timeline({ paused: true });
-                timeline.set({}, {}, 10);
+                camera.lookAt(0, 1.5, -3);
+                renderer.render(scene, camera);
+                const timeline = gsap.timeline({
+                  paused: true,
+                  onUpdate: () => {
+                    camera.lookAt(0, 1.5, -3);
+                    renderer.render(scene, camera);
+                  }
+                });
+                timeline.to(tower.rotation, { y: .22, duration: 5, ease: 'sine.inOut' }, 0);
+                timeline.to(tower.rotation, { y: -.22, duration: 5, ease: 'sine.inOut' }, 5);
+                timeline.to(camera.position, { x: 8.5, y: 6.2, duration: 5, ease: 'sine.inOut' }, 0);
+                timeline.to(camera.position, { x: 5.5, y: 5.5, duration: 5, ease: 'sine.inOut' }, 5);
                 window.__timelines = window.__timelines || {};
                 window.__timelines['threejs-smoke'] = timeline;
+                window.__threeSmokeReady = true;
               </script>
             </div>
           </body>
