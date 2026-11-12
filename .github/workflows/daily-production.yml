@@ -25,6 +25,11 @@ on:
         required: false
         type: string
         default: ""
+      queue_index:
+        description: "Orden dentro del lote importado"
+        required: false
+        type: string
+        default: "0"
 
 concurrency:
   group: behind-del-mundo-daily-production
@@ -62,8 +67,7 @@ jobs:
           python -m pip install --upgrade pip edge-tts
       - name: Comprobar configuración
         run: |
-          if [ -z "$MANUAL_SCRIPT_ID" ]; then test -n "$GROQ_API_KEY" || (echo "::error::Falta GROQ_API_KEY para producción automática" && exit 1); fi
-          test -n "$SUPABASE_URL" || (echo "::error::Falta SUPABASE_URL en GitHub Actions secrets" && exit 1)
+              test -n "$SUPABASE_URL" || (echo "::error::Falta SUPABASE_URL en GitHub Actions secrets" && exit 1)
           test -n "$SUPABASE_SERVICE_ROLE_KEY" || (echo "::error::Falta SUPABASE_SERVICE_ROLE_KEY en GitHub Actions secrets" && exit 1)
       - name: Generar y renderizar vídeo
         env:
@@ -71,6 +75,7 @@ jobs:
           MANUAL_DATE: ${{ inputs.production_date || '' }}
           RESET_PRODUCTION: ${{ inputs.reset_production || false }}
           MANUAL_SCRIPT_ID: ${{ inputs.script_id || '' }}
+          MANUAL_QUEUE_INDEX: ${{ inputs.queue_index || '0' }}
         run: npm run produce
       - name: Guardar MP4 como artefacto de respaldo
         if: always()
