@@ -84,7 +84,9 @@ const aiResponse = await fetch('https://api.groq.com/openai/v1/chat/completions'
       { role: 'user', content: prompt },
     ],
     tools: [{ type: 'browser_search' }],
-    tool_choice: 'required',
+    // Let Groq decide when to invoke browser_search; forcing a tool call
+    // makes GPT-OSS misinterpret the JSON-only output instruction as a tool.
+    tool_choice: 'auto',
     reasoning_effort: 'low',
     temperature: 1,
     max_completion_tokens: 5000,
