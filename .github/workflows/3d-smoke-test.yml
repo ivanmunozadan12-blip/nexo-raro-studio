@@ -52,6 +52,7 @@ jobs:
           <body>
             <div id="root" data-composition-id="threejs-smoke" data-start="0" data-width="1080" data-height="1920">
               <canvas id="world"></canvas>
+              <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
               <div class="headline">UN MUNDO EN 3D</div>
               <div class="label">Prueba de geometría, luz y cámara animada</div>
               <script type="module">
@@ -104,6 +105,12 @@ jobs:
                 animate();
                 window.__threeSmokeReady = true;
               </script>
+              <script>
+                const timeline = gsap.timeline({ paused: true });
+                timeline.set({}, {}, 10);
+                window.__timelines = window.__timelines || {};
+                window.__timelines['threejs-smoke'] = timeline;
+              </script>
             </div>
           </body>
           </html>
@@ -111,7 +118,7 @@ jobs:
 
       - name: Validar composición
         working-directory: .artifacts/threejs-smoke
-        run: npx hyperframes lint -c index.html
+        run: npx hyperframes lint
 
       - name: Renderizar MP4 de prueba (sin IA ni servicios externos del canal)
         working-directory: .artifacts/threejs-smoke
