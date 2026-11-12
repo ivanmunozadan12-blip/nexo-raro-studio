@@ -9,13 +9,14 @@ Tres vídeos verticales diarios a las 07:30, 14:30 y 20:30 (`Europe/Madrid`), co
 - **Web/PWA:** Next.js desplegado en Vercel.
 - **Datos y archivos:** Supabase (Postgres, Auth y bucket privado `nexo-videos`).
 - **Producción:** GitHub Actions ejecuta `npm run produce` en los tres horarios.
-- **IA:** Groq; el modelo se selecciona con `GROQ_MODEL` y por defecto es `openai/gpt-oss-120b`.
+- **IA:** Groq; el mismo modelo investiga y redacta (`GROQ_MODEL`, por defecto `openai/gpt-oss-120b`).
+- **Memoria editorial:** Supabase conserva temas, enfoque, narración y fuentes de los vídeos terminados; el worker compara los nuevos guiones con todo el historial y bloquea coincidencias. El estudio permite añadir temas excluidos manualmente. Para ahorrar cuota, solo se envía a Groq un resumen compacto de los 40 temas más recientes.
 - **Voz:** `edge-tts` en español de España.
-- **Vídeo:** HyperFrames + FFmpeg, formato vertical 1080×1920.
+- **Vídeo:** HyperFrames + FFmpeg, formato vertical 1080×1920, imágenes de Wikimedia Commons con atribución de autor/licencia cuando hay resultados disponibles y control técnico con `ffprobe` (duración, resolución y pista de audio).
 - **Publicación:** se crean borradores de YouTube y TikTok. La publicación automática permanece desactivada y requiere configurar OAuth y activar el flujo de aprobación correspondiente.
 
 ## Estado de verificación
-El worker de producción está implementado, pero una ejecución completa todavía debe confirmarse con un MP4 real, su objeto en Supabase Storage, las filas correspondientes en la base de datos y los borradores visibles en el estudio. No se debe considerar la producción validada solo porque GitHub Actions termine correctamente.
+El panel y la memoria editorial están desplegados. El worker de producción está implementado, pero una ejecución completa todavía debe confirmarse con un MP4 real, su objeto en Supabase Storage, las filas correspondientes en la base de datos y los borradores visibles en el estudio. No se debe considerar la producción validada solo porque GitHub Actions termine correctamente.
 
 El endpoint `/api/health` informa del estado de la aplicación web. No puede comprobar los secretos privados del worker, que residen en GitHub Actions. El endpoint `/api/cron` no es el planificador activo: GitHub Actions es el reloj de producción.
 
