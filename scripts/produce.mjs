@@ -170,7 +170,7 @@ if (String(process.env.RESET_PRODUCTION || '').toLowerCase() === 'true') {
   await supabase('provider_usage', { method: 'DELETE', query: '?user_id=eq.' + userId });
   console.log('Reinicio de producción completado: ' + oldVideos.length + ' MP4 eliminados y tablas de producción vaciadas.');
 }
-const scheduledAt = new Date(new Date(`${local}T${slot}:00`).toLocaleString('en-US', { timeZone: tz })).toISOString();
+const scheduledAt = process.env.MANUAL_SCRIPT_ID ? new Date(Date.now() + Number(process.env.MANUAL_QUEUE_INDEX || 0) * 60000).toISOString() : new Date(new Date(`${local}T${slot}:00`).toLocaleString('en-US', { timeZone: tz })).toISOString();
 const existing = await supabase('production_jobs', { query: `?user_id=eq.${userId}&scheduled_for=eq.${encodeURIComponent(scheduledAt)}&select=id,status,attempt_count,started_at,completed_at,script_id&limit=1` });
 const existingJob = existing[0];
 const activeJobStatuses = ['queued', 'voicing', 'rendering'];
@@ -279,7 +279,7 @@ async function groqResearch(input) {
   throw new Error('Groq investigación: se agotaron los reintentos.');
 }
 function countWords(value) {
-  return String(value || '').trim().split(/\\s+/).filter(Boolean).length;
+  return String(value || '').trim().split(/\s+/).filter(Boolean).length;
 }
 let script;
 let scriptId;
