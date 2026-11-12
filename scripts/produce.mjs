@@ -254,7 +254,7 @@ async function groqResearch(input) {
         tools: [{ type: 'browser_search' }],
         tool_choice: 'required',
         reasoning: { effort: 'low' },
-        max_output_tokens: 2200,
+        max_output_tokens: 1500,
       }),
     });
     if (response.ok) {
@@ -279,7 +279,7 @@ async function groqResearch(input) {
 }
 const research = await groqResearch(researchPrompt);
 const categoryGuide = 'La categoría debe ser exactamente uno de estos slugs: nadie-te-lo-explica, detras-de-la-puerta, como-es-posible. La serie asignada para esta entrega es: ' + (series?.slug || 'nadie-te-lo-explica') + ' (' + (series?.title || 'Nadie te lo explica') + '). Mantén el tema dentro de esa línea editorial.';
-const prompt = `A partir EXCLUSIVAMENTE de esta investigación web, escribe un vídeo vertical documental para Behind del Mundo en español natural de España. Fecha ${local}; horario ${slot}. Duración hablada 62-68 segundos, con 165-180 palabras reales de narración, ritmo ágil y dicción clara. Abre con una imagen mental potente y un gancho intrigante en la primera frase. Construye una miniaventura: curiosidad inmediata, descubrimiento progresivo, giro o dato sorprendente a mitad, y cierre memorable. Habla como un narrador joven-adulto cercano, curioso y cinematográfico, nunca como un profesor dando una clase. Usa frases cortas y variadas, preguntas directas, contrastes y pausas naturales. Cuenta los hechos desde lo que nuestro explorador Enzo ha descubierto o vivido. Incluye en 2 o 3 escenas una intervención muy breve de Enzo (máximo 5 palabras, espontánea y expresiva, no infantil) en el campo enzo_line; el narrador principal sigue llevando la historia. Evita frases genéricas como “no te lo vas a creer”, clickbait engañoso, exageraciones y afirmaciones que no estén respaldadas. No inventes cifras, citas, lugares, testimonios ni fuentes. Distingue claramente hechos de hipótesis. No menciones que eres una IA ni pidas seguir la cuenta dentro de la narración.\n\nDIRECCIÓN EDITORIAL: ${categoryGuide}\n\nINVESTIGACIÓN Y FUENTES:\n${research}\n\nDevuelve SOLO un objeto JSON válido con: title (máx 70 caracteres, concreto y atractivo), hook (máx 12 palabras, primera frase potente), narration (165-180 palabras, locutable y natural, español de España, sin indicaciones de cámara), scenes (exactamente 7 objetos con visual, image_search_query, overlay, narration_excerpt y enzo_line; visual debe describir un plano concreto, cinematográfico y distinto de los demás; image_search_query debe ser una búsqueda corta en INGLÉS con el sujeto visual específico para encontrar fotografía real; overlay máximo 5 palabras, sin recuadros ni frases largas; narration_excerpt debe copiar literalmente un fragmento de la narración; enzo_line puede estar vacío o ser una reacción breve), sources (mínimo 3 fuentes independientes con title y url; usa únicamente URLs HTTPS presentes literalmente en la investigación), caption (descripción breve para redes con 3-5 hashtags pertinentes), category (usa exactamente el slug de la serie asignada). No añadas explicaciones fuera del JSON.`;
+const prompt = `A partir EXCLUSIVAMENTE de esta investigación web, escribe un vídeo vertical documental para Behind del Mundo en español natural de España. Fecha ${local}; horario ${slot}. Duración hablada objetivo 65-70 segundos, con 180-195 palabras reales de narración. Prioriza llegar a la duración mínima sin relleno: desarrolla contexto, progresión del descubrimiento y consecuencias verificables, manteniendo ritmo ágil y dicción clara. Abre con una imagen mental potente y un gancho intrigante en la primera frase. Construye una miniaventura: curiosidad inmediata, descubrimiento progresivo, giro o dato sorprendente a mitad, y cierre memorable. Habla como un narrador joven-adulto cercano, curioso y cinematográfico, nunca como un profesor dando una clase. Usa frases cortas y variadas, preguntas directas, contrastes y pausas naturales. Cuenta los hechos desde lo que nuestro explorador Enzo ha descubierto o vivido. Incluye en 2 o 3 escenas una intervención muy breve de Enzo (máximo 5 palabras, espontánea y expresiva, no infantil) en el campo enzo_line; el narrador principal sigue llevando la historia. Evita frases genéricas como “no te lo vas a creer”, clickbait engañoso, exageraciones y afirmaciones que no estén respaldadas. No inventes cifras, citas, lugares, testimonios ni fuentes. Distingue claramente hechos de hipótesis. No menciones que eres una IA ni pidas seguir la cuenta dentro de la narración.\n\nDIRECCIÓN EDITORIAL: ${categoryGuide}\n\nINVESTIGACIÓN Y FUENTES:\n${research}\n\nDevuelve SOLO un objeto JSON válido con: title (máx 70 caracteres, concreto y atractivo), hook (máx 12 palabras, primera frase potente), narration (180-195 palabras, locutable y natural, español de España, sin indicaciones de cámara), scenes (exactamente 7 objetos con visual, image_search_query, overlay, narration_excerpt y enzo_line; visual debe describir un plano concreto, cinematográfico y distinto de los demás; image_search_query debe ser una búsqueda corta en INGLÉS con el sujeto visual específico para encontrar fotografía real; overlay máximo 5 palabras, sin recuadros ni frases largas; narration_excerpt debe copiar literalmente un fragmento de la narración; enzo_line puede estar vacío o ser una reacción breve), sources (mínimo 3 fuentes independientes con title y url; usa únicamente URLs HTTPS presentes literalmente en la investigación), caption (descripción breve para redes con 3-5 hashtags pertinentes), category (usa exactamente el slug de la serie asignada). No añadas explicaciones fuera del JSON.`;
 const aiResponse = await groqChat({
     model: groqModel,
     messages: [
@@ -289,7 +289,7 @@ const aiResponse = await groqChat({
     response_format: { type: 'json_object' },
     reasoning_effort: 'low',
     temperature: 0.7,
-    max_completion_tokens: 2800,
+    max_completion_tokens: 2200,
     stream: false,
   }, 'guion');
 const ai = await aiResponse.json();
@@ -309,40 +309,17 @@ try {
   throw new Error('Groq no devolvió JSON válido; se detiene antes de guardar datos incompletos.');
 }
 
-// Corrige automáticamente los borradores ligeramente fuera del rango antes de guardar.
+// Una sola llamada de redacción: evitamos gastar una segunda cuota de Groq
+// corrigiendo longitud. El prompt pide 180-195 palabras y validamos un margen
+// seguro; la duración final se comprueba sobre el MP4 real.
 function countWords(value) {
-  return String(value || '').trim().split(/\s+/).filter(Boolean).length;
+  return String(value || '').trim().split(/\\s+/).filter(Boolean).length;
 }
-let wordCount = countWords(script.narration);
-if (wordCount < 165 || wordCount > 180) {
-  console.warn(`El primer borrador tiene ${wordCount} palabras; se solicita una corrección a 165-180.`);
-  const correctionResponse = await groqChat({
-    model: groqModel,
-    messages: [
-      { role: 'system', content: 'Eres un editor de guiones documentales. Devuelve exclusivamente JSON válido.' },
-      { role: 'user', content: `Corrige este guion para que narration tenga ENTRE 165 Y 180 PALABRAS reales. El borrador tiene ${wordCount}. Amplía con contexto y transiciones fieles a los hechos y fuentes si falta texto; recorta si sobra. No inventes hechos ni cifras. Conserva title, hook, sources, caption y category. Mantén exactamente 7 escenas y actualiza narration_excerpt para que cada fragmento aparezca literalmente en narration. enzo_line debe estar vacío o tener máximo 5 palabras. Devuelve el objeto JSON completo.\\n\\nJSON ORIGINAL:\\n${JSON.stringify(script)}` },
-    ],
-    response_format: { type: 'json_object' },
-    reasoning_effort: 'low',
-    temperature: 0.2,
-    max_completion_tokens: 2800,
-    stream: false,
-  }, 'corrección de longitud');
-  const correctionData = await correctionResponse.json();
-  const correctionText = correctionData.choices?.[0]?.message?.content?.trim();
-  if (!correctionText) throw new Error('Groq no devolvió texto al corregir la longitud del guion.');
-  try {
-    const firstBrace = correctionText.indexOf('{');
-    const lastBrace = correctionText.lastIndexOf('}');
-    if (firstBrace < 0 || lastBrace <= firstBrace) throw new Error('No se encontró objeto JSON.');
-    script = JSON.parse(correctionText.slice(firstBrace, lastBrace + 1));
-  } catch {
-    throw new Error('Groq no devolvió JSON válido al corregir la longitud del guion.');
-  }
-  wordCount = countWords(script.narration);
-  console.log(`Guion corregido: ${wordCount} palabras.`);
+const wordCount = countWords(script.narration);
+if (wordCount < 145 || wordCount > 205) {
+  throw new Error(`El guion tiene ${wordCount} palabras; fuera del margen técnico 145-205. Se detiene antes de generar voces o guardar un vídeo incompleto.`);
 }
-if (wordCount < 165 || wordCount > 180) throw new Error(`El guion sigue fuera del rango tras la corrección: ${wordCount} palabras.`);
+console.log(`Guion aceptado en una sola llamada: ${wordCount} palabras.`);
 function topicTokens(value) {
   const stop = new Set('para como donde cuando desde hasta sobre entre hacia este esta estos estas unos unas una uno por con sin del las los que cual quien cómo qué muy más menos pero porque también entonces'.split(' '));
   return [...new Set(String(value || '').toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu,'').match(/[a-z0-9]{3,}/g) || [])].filter(x => !stop.has(x));
@@ -375,7 +352,7 @@ const scriptRow = await supabase('scripts', { method: 'POST', body: {
   user_id: userId, series_id: seriesMatch?.id || series?.id || null,
   title: script.title, hook: script.hook || '', narration: script.narration,
   visual_plan: script.scenes, source_notes: script.sources,
-  target_seconds: 66, status: 'in_production',
+  target_seconds: 60, status: 'in_production',
 }});
 const scriptId = scriptRow[0].id;
 
@@ -405,7 +382,7 @@ const work = path.join(root, 'renders', `${local}-${slot.replace(':', '')}`);
 await mkdir(work, { recursive: true });
 await writeFile(path.join(work, 'script.json'), JSON.stringify(script, null, 2));
 const voicePath = path.join(work, 'voice.mp3');
-await generateSpeech(script.narration, voicePath, 'es-ES-AlvaroNeural', '+8%', 'narrador principal', true);
+await generateSpeech(script.narration, voicePath, 'es-ES-AlvaroNeural', '-12%', 'narrador principal', true);
 // Normaliza las intervenciones de Enzo para que un borrador válido no se descarte
 // solo porque el modelo haya dejado demasiadas escenas sin reacción.
 for (const scene of script.scenes) {
@@ -440,9 +417,9 @@ for (const line of enzoLines) {
 }
 const voiceDuration = Number(await capture('ffprobe', ['-v','error','-show_entries','format=duration','-of','default=noprint_wrappers=1:nokey=1',voicePath]));
 if (!Number.isFinite(voiceDuration) || voiceDuration < 1) throw new Error('No se pudo medir la duración de la narración.');
-const targetDuration = Math.ceil(voiceDuration + 0.8);
-if (targetDuration > 69) throw new Error(`La narración dura ${voiceDuration.toFixed(1)} s; excede el máximo de 69 s incluso con el montaje ajustado. Se detiene sin recortar la voz.`);
-console.log(`Narración: ${voiceDuration.toFixed(1)} s a +8%; montaje ajustado a ${targetDuration} s.`);
+const targetDuration = Math.max(60, Math.ceil(voiceDuration + 1.2));
+if (targetDuration > 72) throw new Error(`La narración dura ${voiceDuration.toFixed(1)} s; excede el máximo de 72 s. Se detiene sin recortar la voz.`);
+console.log(`Narración: ${voiceDuration.toFixed(1)} s a -12%; duración final garantizada de al menos 60 s (montaje ${targetDuration} s).`);
 await supabase('production_jobs', { method: 'PATCH', query: `?id=eq.${jobId}`, body: { status: 'rendering' } });
 const escaped = value => String(value || '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const assetsDir = path.join(work, 'assets');
@@ -600,7 +577,7 @@ const videoStream = (probe.streams || []).find(stream => stream.codec_type === '
 const audioStream = (probe.streams || []).find(stream => stream.codec_type === 'audio');
 if (!videoStream || videoStream.width !== 1080 || videoStream.height !== 1920) throw new Error('QC fallido: el MP4 no tiene vídeo vertical 1080×1920.');
 if (!audioStream) throw new Error('QC fallido: el MP4 no contiene pista de audio.');
-if (actualDuration < 55 || actualDuration > 70) throw new Error(`QC fallido: duración real ${actualDuration.toFixed(1)} s fuera del margen 55–70 s.`);
+if (actualDuration < 60 || actualDuration > 72) throw new Error(`QC fallido: duración real ${actualDuration.toFixed(1)} s fuera del margen 60–72 s.`);
 console.log(`QC MP4 verificado: ${actualDuration.toFixed(1)} s, 1080×1920, audio presente.`);
 storagePath = `${userId}/${local}/${slot.replace(':','')}.mp4`;
 const videoBuffer = await readFile(finalPath);
@@ -613,7 +590,7 @@ if (!upload.ok) throw new Error(`Storage upload ${upload.status}: ${(await uploa
 const video = await supabase('videos', { method:'POST', body: {
   user_id:userId, job_id:jobId, script_id:scriptId, storage_path:storagePath,
   duration_seconds:actualDuration, width:1080, height:1920, mime_type:'video/mp4',
-  quality_check:{passed:true, duration_seconds:actualDuration, bytes:stat.size, has_audio:true, visual_assets:imageCount, visual_sources:sceneAssets.filter(Boolean).map(({page,credit,alt})=>({page,credit,alt})), sources:script.sources.length, word_count:wordCount, voice:'es-ES-AlvaroNeural', voice_rate:'+8%', rendered_by:'HyperFrames', visual_style:'cinematic-dynamic-v2'},
+  quality_check:{passed:true, duration_seconds:actualDuration, bytes:stat.size, has_audio:true, visual_assets:imageCount, visual_sources:sceneAssets.filter(Boolean).map(({page,credit,alt})=>({page,credit,alt})), sources:script.sources.length, word_count:wordCount, voice:'es-ES-AlvaroNeural', voice_rate:'-12%', rendered_by:'HyperFrames', visual_style:'cinematic-dynamic-v2'},
 
 }});
 const topicKey = String(script.title || '').toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
