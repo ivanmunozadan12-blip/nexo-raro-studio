@@ -313,7 +313,7 @@ try {
 // corrigiendo longitud. El prompt pide 180-195 palabras y validamos un margen
 // seguro; la duración final se comprueba sobre el MP4 real.
 function countWords(value) {
-  return String(value || '').trim().split(/\\s+/).filter(Boolean).length;
+  return String(value || '').trim().split(/\s+/).filter(Boolean).length;
 }
 const wordCount = countWords(script.narration);
 if (wordCount < 145 || wordCount > 205) {
@@ -382,7 +382,7 @@ const work = path.join(root, 'renders', `${local}-${slot.replace(':', '')}`);
 await mkdir(work, { recursive: true });
 await writeFile(path.join(work, 'script.json'), JSON.stringify(script, null, 2));
 const voicePath = path.join(work, 'voice.mp3');
-await generateSpeech(script.narration, voicePath, 'es-ES-AlvaroNeural', '-12%', 'narrador principal', true);
+await generateSpeech(script.narration, voicePath, 'es-ES-AlvaroNeural', '+0%', 'narrador principal', true);
 // Normaliza las intervenciones de Enzo para que un borrador válido no se descarte
 // solo porque el modelo haya dejado demasiadas escenas sin reacción.
 for (const scene of script.scenes) {
@@ -419,7 +419,7 @@ const voiceDuration = Number(await capture('ffprobe', ['-v','error','-show_entri
 if (!Number.isFinite(voiceDuration) || voiceDuration < 1) throw new Error('No se pudo medir la duración de la narración.');
 const targetDuration = Math.max(60, Math.ceil(voiceDuration + 1.2));
 if (targetDuration > 72) throw new Error(`La narración dura ${voiceDuration.toFixed(1)} s; excede el máximo de 72 s. Se detiene sin recortar la voz.`);
-console.log(`Narración: ${voiceDuration.toFixed(1)} s a -12%; duración final garantizada de al menos 60 s (montaje ${targetDuration} s).`);
+console.log(`Narración: ${voiceDuration.toFixed(1)} s a +0%; duración final garantizada de al menos 60 s (montaje ${targetDuration} s).`);
 await supabase('production_jobs', { method: 'PATCH', query: `?id=eq.${jobId}`, body: { status: 'rendering' } });
 const escaped = value => String(value || '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const assetsDir = path.join(work, 'assets');
@@ -590,7 +590,7 @@ if (!upload.ok) throw new Error(`Storage upload ${upload.status}: ${(await uploa
 const video = await supabase('videos', { method:'POST', body: {
   user_id:userId, job_id:jobId, script_id:scriptId, storage_path:storagePath,
   duration_seconds:actualDuration, width:1080, height:1920, mime_type:'video/mp4',
-  quality_check:{passed:true, duration_seconds:actualDuration, bytes:stat.size, has_audio:true, visual_assets:imageCount, visual_sources:sceneAssets.filter(Boolean).map(({page,credit,alt})=>({page,credit,alt})), sources:script.sources.length, word_count:wordCount, voice:'es-ES-AlvaroNeural', voice_rate:'-12%', rendered_by:'HyperFrames', visual_style:'cinematic-dynamic-v2'},
+  quality_check:{passed:true, duration_seconds:actualDuration, bytes:stat.size, has_audio:true, visual_assets:imageCount, visual_sources:sceneAssets.filter(Boolean).map(({page,credit,alt})=>({page,credit,alt})), sources:script.sources.length, word_count:wordCount, voice:'es-ES-AlvaroNeural', voice_rate:'+0%', rendered_by:'HyperFrames', visual_style:'cinematic-dynamic-v2'},
 
 }});
 const topicKey = String(script.title || '').toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
