@@ -335,9 +335,11 @@ async function fetchSceneImage(scene, index) {
   console.warn('No se encontró imagen válida para la escena ' + (index + 1) + ': ' + scene.visual);
   return null;
 }
-const sceneAssets = await Promise.all(script.scenes.map((scene, index) => fetchSceneImage(scene, index)));
+const sceneAssets = [];
+for (let index = 0; index < script.scenes.length; index++) sceneAssets.push(await fetchSceneImage(script.scenes[index], index));
 const imageCount = sceneAssets.filter(Boolean).length;
-console.log('Recursos visuales: ' + imageCount + '/7 imágenes de Wikimedia Commons descargadas.');
+console.log('Recursos visuales: ' + imageCount + '/7 imágenes únicas de Wikimedia Commons descargadas.');
+if (imageCount < 5) throw new Error(`QC visual fallido: solo se encontraron ${imageCount}/7 imágenes reales. Se cancela el render para evitar un vídeo con diapositivas vacías.`);
 const sceneSeconds = 64 / 7;
 const clips = script.scenes.map((scene, i) => {
   const start = (i * sceneSeconds).toFixed(3);
