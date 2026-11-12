@@ -21,17 +21,17 @@ export async function POST(request: NextRequest) {
 
     const body = await request.json();
     const ids = Array.isArray(body?.scriptIds) ? body.scriptIds : [];
-    if (ids.length !== 3 || ids.some((id: unknown) => typeof id !== 'string')) {
-      return NextResponse.json({ error: 'Se necesitan exactamente tres identificadores de guion.' }, { status: 400 });
+    if (![1, 3].includes(ids.length) || ids.some((id: unknown) => typeof id !== 'string')) {
+      return NextResponse.json({ error: 'Envía un guion para reintentar o exactamente tres guiones nuevos.' }, { status: 400 });
     }
     const { data: scripts, error: scriptsError } = await db.from('scripts').select('id,status').in('id', ids);
     if (scriptsError) return NextResponse.json({ error: scriptsError.message }, { status: 400 });
-    if (!scripts || scripts.length !== 3 || scripts.some(s => !['queued', 'in_production'].includes(s.status))) {
+    if (!scripts || scripts.length !== 3 || scripts.some(s => !['queued', 'in_production', 'approved'].includes(s.status))) {
       return NextResponse.json({ error: 'No se han encontrado los tres guiones pendientes de esta cuenta.' }, { status: 400 });
     }
 
     const localDate = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Madrid', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
-    const slots = ['07:30', '14:30', '20:30'];
+    const slots = ids.length === 1 ? ['07:30'] : ['07:30', '14:30', '20:30'];
     const dispatched: string[] = [];
     for (let index = 0; index < ids.length; index++) {
       const response = await fetch('https://api.github.com/repos/ivanmunozadan12-blip/nexo-raro-studio/actions/workflows/daily-production.yml/dispatches', {
