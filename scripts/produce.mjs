@@ -65,8 +65,8 @@ const [settings] = await supabase('channel_settings', { query: '?brand_slug=eq.n
 if (!settings) throw new Error('No hay una cuenta configurada en el panel. Inicia sesión y termina el asistente inicial.');
 const userId = settings.user_id;
 const scheduledAt = new Date(new Date(`${local}T${slot}:00`).toLocaleString('en-US', { timeZone: tz })).toISOString();
-const existing = await supabase('production_jobs', { query: `?user_id=eq.${userId}&scheduled_for=eq.${encodeURIComponent(scheduledAt)}&status=in.(queued,voicing,rendering,ready)&select=id,status&limit=1` });
-if (existing.length) {
+const existing = await supabase('production_jobs', { query: `?user_id=eq.${userId}&scheduled_for=eq.${encodeURIComponent(scheduledAt)}&select=id,status,attempt_count&limit=1` });
+if (existing.length && ['queued', 'voicing', 'rendering', 'ready'].includes(existing[0].status)) {
   console.log(`El horario ${local} ${slot} ya tiene un trabajo (${existing[0].status}); se evita duplicar.`);
   process.exit(0);
 }
@@ -124,10 +124,26 @@ const scriptRow = await supabase('scripts', { method: 'POST', body: {
   target_seconds: 64, status: 'in_production',
 }});
 const scriptId = scriptRow[0].id;
-const jobRow = await supabase('production_jobs', { method: 'POST', body: {
-  user_id: userId, script_id: scriptId, scheduled_for: scheduledAt, status: 'voicing', attempt_count: 0,
-}});
-const jobId = jobRow[0].id;
+let jobId;
+if (existing.length) {
+  const [reusedJob] = await supabase('production_jobs', {
+    method: 'PATCH',
+    query: `?id=eq.${existing[0].id}&status=eq.failed`,
+    body: {
+      script_id: scriptId, status: 'voicing',
+      attempt_count: Number(existing[0].attempt_count || 0) + 1,
+      error_message: null, started_at: new Date().toISOString(), completed_at: null,
+    },
+  });
+  if (!reusedJob) throw new Error('El trabajo fallido cambió mientras se preparaba el reintento; no se ha creado un duplicado.');
+  jobId = reusedJob.id;
+} else {
+  const [createdJob] = await supabase('production_jobs', { method: 'POST', body: {
+    user_id: userId, script_id: scriptId, scheduled_for: scheduledAt, status: 'voicing',
+    attempt_count: 1, started_at: new Date().toISOString(),
+  }});
+  jobId = createdJob.id;
+}
 const work = path.join(root, 'renders', `${local}-${slot.replace(':', '')}`);
 await mkdir(work, { recursive: true });
 await writeFile(path.join(work, 'script.json'), JSON.stringify(script, null, 2));
