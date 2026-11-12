@@ -335,7 +335,7 @@ await supabase('editorial_memory', { method: 'POST', body: {
   angle: script.hook || '', summary: String(script.narration || '').slice(0, 1200),
   source_urls: script.sources || [], memory_status: 'produced',
 }});
-await supabase('scripts', { method:'PATCH', query:`?id=eq.${scriptId}`, body:{status:'pending_approval'} });
+await supabase('scripts', { method:'PATCH', query:`?id=eq.${scriptId}`, body:{status:'completed'} });
 await supabase('social_posts', { method:'POST', body: ['youtube','tiktok'].map(platform => ({
   user_id:userId, video_id:video[0].id, platform, caption:script.caption || script.title,
   status:'draft',
