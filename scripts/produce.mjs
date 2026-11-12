@@ -372,7 +372,7 @@ html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#080d12
 .scene-kicker{display:inline-block;margin-bottom:28px;padding:0 0 12px;border-bottom:4px solid #f0a65b;font:800 19px Arial,sans-serif;letter-spacing:5px;color:#f0a65b}
 .scene h1{margin:0;max-width:930px;font-size:94px;line-height:.98;letter-spacing:-5px;font-weight:900;text-wrap:balance;text-shadow:0 6px 34px #000b}
 .caption{position:absolute;left:76px;right:76px;bottom:250px;min-height:150px;display:flex;flex-wrap:wrap;align-content:flex-start;gap:8px 13px;font-size:38px;line-height:1.2;font-weight:800;letter-spacing:-1px;text-shadow:0 3px 16px #000,0 1px 4px #000}
-.caption span{display:inline-block;opacity:0;transform:translateY(18px) scale(.96);animation:wordPop .34s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(var(--word)*.075s)}
+.caption span{display:inline-block;opacity:0;transform:translateY(18px) scale(.96);animation:wordPop .34s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(var(--word)*.23s)}
 .caption span:nth-child(4n+1){color:#fff}
 .caption span:nth-child(4n+2){color:#8fd8c2}
 .caption span:nth-child(4n+3){color:#fff}
@@ -412,7 +412,7 @@ if (!upload.ok) throw new Error(`Storage upload ${upload.status}: ${(await uploa
 const video = await supabase('videos', { method:'POST', body: {
   user_id:userId, job_id:jobId, script_id:scriptId, storage_path:storagePath,
   duration_seconds:actualDuration, width:1080, height:1920, mime_type:'video/mp4',
-  quality_check:{passed:true, duration_seconds:actualDuration, bytes:stat.size, has_audio:true, visual_assets:imageCount, sources:script.sources.length, word_count:wordCount, voice:'es-ES-AlvaroNeural', rendered_by:'HyperFrames'},
+  quality_check:{passed:true, duration_seconds:actualDuration, bytes:stat.size, has_audio:true, visual_assets:imageCount, visual_sources:sceneAssets.filter(Boolean).map(({page,credit,alt})=>({page,credit,alt})), sources:script.sources.length, word_count:wordCount, voice:'es-ES-AlvaroNeural', voice_rate:'+8%', rendered_by:'HyperFrames'},
 
 }});
 const topicKey = String(script.title || '').toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
