@@ -14,7 +14,7 @@ if (!slot || !slots.includes(slot)) {
   console.log(`No coincide con un horario de producción (${localTime} ${tz}). Se omite sin crear trabajo.`);
   process.exit(0);
 }
-if (!process.env.GEMINI_API_KEY) throw new Error('Falta GEMINI_API_KEY (Google AI Studio).');
+if (!process.env.GROQ_API_KEY) throw new Error('Falta GROQ_API_KEY (GroqCloud).');
 if (!process.env.SUPABASE_URL) throw new Error('Falta la variable SUPABASE_URL');
 if (!process.env.SUPABASE_SERVICE_ROLE_KEY) throw new Error('Falta la variable SUPABASE_SERVICE_ROLE_KEY');
 const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -73,27 +73,41 @@ if (existing.length) {
 const seriesRows = await supabase('series', { query: `?user_id=eq.${userId}&is_active=eq.true&select=id,slug,title,description&order=slug.asc` });
 const series = seriesRows.length ? seriesRows[(slots.indexOf(slot) + Number(local.replaceAll('-', ''))) % seriesRows.length] : null;
 const prompt = `Investiga y escribe un vídeo vertical en español de España para el canal documental Nexo Raro. Hoy es ${local}; horario ${slot}. Serie: ${series?.title || 'curiosidades reales y ciencia sorprendente'}. Tema: elige un hecho real, poco conocido y con gancho, evita temas virales quemados y no repitas el tópico de los últimos días si lo conoces. Usa búsqueda web para contrastar los datos. Duración hablada objetivo 60-68 segundos (125-145 palabras). No inventes cifras ni citas. Si la evidencia es incierta, dilo con claridad. Devuelve SOLO JSON con: title (máx 70 caracteres), hook (máx 12 palabras), narration (125-145 palabras, locutable y natural), scenes (exactamente 7 objetos con visual, overlay y narration_excerpt), sources (mínimo 3 fuentes independientes con title y url), caption (descripción para redes con 3-5 hashtags), category (una de las tres series editoriales). Evita Wikipedia como fuente principal. No incluyas datos sin respaldo en las fuentes.`;
-const geminiModel = process.env.GEMINI_MODEL || 'gemini-3.5-flash-lite';
-const aiResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${geminiModel}:generateContent`, {
+const groqModel = process.env.GROQ_MODEL || 'openai/gpt-oss-120b';
+const aiResponse = await fetch('https://api.groq.com/openai/v1/chat/completions', {
   method: 'POST',
-  headers: { 'x-goog-api-key': process.env.GEMINI_API_KEY, 'Content-Type': 'application/json' },
+  headers: { Authorization: `Bearer ${process.env.GROQ_API_KEY}`, 'Content-Type': 'application/json' },
   body: JSON.stringify({
-    systemInstruction: { parts: [{ text: 'Eres el editor jefe de un canal documental riguroso. Investiga con Google Search, contrasta fuentes primarias o instituciones fiables y separa hechos de hipótesis. Responde únicamente con JSON válido.' }] },
-    contents: [{ role: 'user', parts: [{ text: prompt }] }],
-    tools: [{ google_search: {} }],
-    generationConfig: { responseMimeType: 'application/json', temperature: 0.7, maxOutputTokens: 2600 },
+    model: groqModel,
+    messages: [
+      { role: 'system', content: 'Eres el editor jefe de un canal documental riguroso. Investiga con el navegador integrado, contrasta fuentes primarias o instituciones fiables y separa hechos de hipótesis. Responde únicamente con un objeto JSON válido, sin Markdown ni texto fuera del JSON.' },
+      { role: 'user', content: prompt },
+    ],
+    tools: [{ type: 'browser_search' }],
+    tool_choice: 'required',
+    reasoning_effort: 'low',
+    temperature: 1,
+    max_completion_tokens: 5000,
+    stream: false,
   }),
 });
-if (!aiResponse.ok) throw new Error(`Gemini ${aiResponse.status}: ${(await aiResponse.text()).slice(0, 1200)}`);
+if (!aiResponse.ok) throw new Error(`Groq ${aiResponse.status}: ${(await aiResponse.text()).slice(0, 1200)}`);
 const ai = await aiResponse.json();
-const outputText = ai.candidates?.[0]?.content?.parts?.map(p => p.text || '').join('').trim();
+const outputText = ai.choices?.[0]?.message?.content?.trim();
 if (!outputText) {
-  const reason = ai.candidates?.[0]?.finishReason || 'sin respuesta';
-  throw new Error(`Gemini no devolvió texto de guion (motivo: ${reason}).`);
+  const reason = ai.choices?.[0]?.finish_reason || 'sin respuesta';
+  throw new Error(`Groq no devolvió texto de guion (motivo: ${reason}).`);
 }
 let script;
-try { script = JSON.parse(outputText); }
-catch { throw new Error('Gemini no devolvió JSON válido; se detiene antes de guardar datos incompletos.'); }
+try {
+  const cleaned = outputText.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '').trim();
+  const firstBrace = cleaned.indexOf('{');
+  const lastBrace = cleaned.lastIndexOf('}');
+  if (firstBrace < 0 || lastBrace <= firstBrace) throw new Error('No se encontró objeto JSON.');
+  script = JSON.parse(cleaned.slice(firstBrace, lastBrace + 1));
+} catch {
+  throw new Error('Groq no devolvió JSON válido; se detiene antes de guardar datos incompletos.');
+}
 if (!script.title || !script.narration || !Array.isArray(script.scenes) || script.scenes.length !== 7 || !Array.isArray(script.sources) || script.sources.length < 3) throw new Error('El guion no cumple el formato editorial requerido.');
 const wordCount = script.narration.trim().split(/\s+/).length;
 if (wordCount < 105 || wordCount > 165) throw new Error(`Narración fuera de duración: ${wordCount} palabras.`);
