@@ -200,17 +200,19 @@ function topicTokens(value) {
 function overlap(a, b) {
   const A = new Set(topicTokens(a)), B = new Set(topicTokens(b));
   if (!A.size || !B.size) return 0;
-  return [...A].filter(x => B.has(x)).length / new Set([...A, ...B]).size;
+  const shared = [...A].filter(x => B.has(x)).length;
+  return shared / Math.min(A.size, B.size);
 }
-const candidateText = [script.title, script.hook, script.narration].join(' ');
+const candidateCore = [script.title, script.hook].join(' ');
+const candidateNarration = script.narration || '';
 const candidateUrls = new Set((script.sources || []).map(x => String(x.url || '').replace(/\\/$/, '').toLowerCase()));
 const collision = editorialMemory.find(item => {
-  const oldText = [item.topic, item.angle, item.summary].join(' ');
-  const titleScore = overlap(script.title, item.topic);
-  const storyScore = overlap(candidateText, oldText);
+  const oldCore = [item.topic, item.angle].join(' ');
+  const titleScore = overlap(candidateCore, oldCore);
+  const storyScore = overlap(candidateNarration, item.summary || '');
   const oldUrls = (item.source_urls || []).map(x => String(x.url || x || '').replace(/\\/$/, '').toLowerCase());
   const sharedSources = oldUrls.filter(url => url && candidateUrls.has(url)).length;
-  return titleScore >= 0.62 || (storyScore >= 0.46 && titleScore >= 0.25) || sharedSources >= 2;
+  return titleScore >= 0.45 || (storyScore >= 0.24 && titleScore >= 0.18) || sharedSources >= 2;
 });
 if (collision) throw new Error(`MEMORIA EDITORIAL: producción bloqueada para evitar repetir "${script.title}". Se parece al tema histórico "${collision.topic}". No se ha guardado ni renderizado el vídeo.`);
 const wordCount = String(script.narration || '').trim().split(/\s+/).filter(Boolean).length;
