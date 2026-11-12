@@ -478,7 +478,7 @@ html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#080d12
 .scene h1{display:inline;margin:0;max-width:930px;font-size:76px;line-height:1.02;letter-spacing:-3px;font-weight:900;text-wrap:balance;text-shadow:0 6px 34px #000b;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .caption{position:absolute;left:76px;right:76px;bottom:230px;min-height:150px;display:flex;flex-wrap:wrap;align-content:flex-start;gap:8px 13px;font-size:43px;line-height:1.16;font-weight:900;letter-spacing:-1.4px;text-shadow:0 3px 16px #000,0 1px 4px #000}
 .caption span{display:inline-block;opacity:0;transform:translateY(18px) scale(.96);animation:wordPop .26s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(var(--word)*var(--word-delay,.17s))}
-.enzo-character{position:absolute;right:54px;bottom:300px;width:430px;height:680px;object-fit:contain;z-index:-1;filter:drop-shadow(0 14px 30px #0009);transform-origin:50% 100%;animation:enzoEnter .65s cubic-bezier(.2,.8,.2,1) both}
+.enzo-character{position:absolute;right:54px;bottom:300px;width:260px;height:420px;object-fit:contain;z-index:-1;filter:drop-shadow(0 14px 30px #0009);transform-origin:50% 100%;animation:enzoEnter .65s cubic-bezier(.2,.8,.2,1) both}
 .pose-1{right:78px;animation:enzoEnter .65s cubic-bezier(.2,.8,.2,1) both, enzoBob 3.8s ease-in-out .65s infinite}
 .pose-2{right:36px;animation:enzoEnter .65s cubic-bezier(.2,.8,.2,1) both, enzoLook 4.2s ease-in-out .65s infinite}
 .enzo-reaction{position:absolute;right:390px;bottom:590px;max-width:420px;padding:18px 26px;border-radius:28px 28px 6px 28px;background:#f1eee5;color:#172630;font-size:34px;font-weight:900;box-shadow:0 8px 30px #0008;animation:copyIn .4s ease-out both}
