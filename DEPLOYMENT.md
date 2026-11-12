@@ -1,7 +1,7 @@
-# Puesta en marcha de Nexo Raro
+# Puesta en marcha de Behind del Mundo
 
 ## Panel
-Despliegue de Vercel: `https://nexo-raro-studio-git-main-ivanmunozadan12-8334.vercel.app`
+Despliegue de Vercel: `https://behind-del-mundo-studio-git-main-ivanmunozadan12-8334.vercel.app`
 Acceso al estudio: añade `/studio`.
 
 1. Abre el estudio y crea una cuenta con correo y contraseña.
@@ -18,7 +18,7 @@ En GitHub abre Settings → Secrets and variables → Actions y añade estos tre
 
 La clave de OpenAI consume saldo de API independiente de ChatGPT. Configura un límite de gasto mensual antes de activar el workflow. El presupuesto de referencia del proyecto es 20 €/mes; el pipeline no debe usarse sin un límite de gasto en el proveedor.
 
-Después entra en Actions → Nexo Raro · producción diaria y ejecuta Run workflow para probar un horario. Los tres horarios automáticos están en Europe/Madrid. Los MP4 se guardan en el bucket privado `nexo-videos` y también como artefactos de Actions durante 14 días.
+Después entra en Actions → Behind del Mundo · producción diaria y ejecuta Run workflow para probar un horario. Los tres horarios automáticos están en Europe/Madrid. Los MP4 se guardan en el bucket privado `nexo-videos` y también como artefactos de Actions durante 14 días.
 
 ## Publicación en redes
 Los vídeos quedan inicialmente en borrador para revisión. La publicación automática requiere registrar aplicaciones oficiales y completar OAuth de YouTube y TikTok; no se simula ni se activa sin credenciales válidas y permisos de las plataformas.
