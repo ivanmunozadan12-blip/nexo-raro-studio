@@ -58,12 +58,12 @@ export default function Studio(){
    if(new Set(titles.map(x=>x.toLowerCase())).size!==3)throw new Error('Los tres guiones deben tener títulos distintos.');
    const {data:seriesRows,error:seriesError}=await db.from('series').select('id,slug').eq('is_active',true).order('slug');
    if(seriesError)throw seriesError;
-   const rows=parsed.map((item,i)=>({user_id:session.user.id,series_id:seriesRows?.find(x=>x.slug===item.category)?.id||seriesRows?.[i%Math.max(seriesRows.length,1)]?.id||null,title:item.title,hook:item.hook,narration:item.narration,visual_plan:item.scenes,source_notes:item.sources,target_seconds:70,status:'queued'}));
+   const rows=parsed.map((item,i)=>({user_id:session.user.id,series_id:seriesRows?.find((x:any)=>x.slug===item.category)?.id||seriesRows?.[i%Math.max(seriesRows.length,1)]?.id||null,title:item.title,hook:item.hook,narration:item.narration,visual_plan:item.scenes,source_notes:item.sources,target_seconds:70,status:'in_production'}));
    const {data:created,error}=await db.from('scripts').insert(rows).select('id');
    if(error)throw error;
    if(!created||created.length!==3)throw new Error('No se pudieron guardar los tres guiones completos.');
    const {data:{session:activeSession}}=await db.auth.getSession();
-   const response=await fetch('/api/production/dispatch',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+activeSession?.access_token},body:JSON.stringify({scriptIds:created.map(x=>x.id)})});
+   const response=await fetch('/api/production/dispatch',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+activeSession?.access_token},body:JSON.stringify({scriptIds:created.map((x:any)=>x.id)})});
    const result=await response.json();
    if(!response.ok)throw new Error(result.error||'GitHub no aceptó la producción.');
    setMessage('¡Los tres vídeos han entrado en producción! Puedes cerrar la web; el panel actualizará su estado y te avisará cuando terminen.');
