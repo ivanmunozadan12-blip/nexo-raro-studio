@@ -247,7 +247,7 @@ const collision = editorialMemory.find(item => {
 });
 if (collision) throw new Error(`MEMORIA EDITORIAL: producción bloqueada para evitar repetir "${script.title}". Se parece al tema histórico "${collision.topic}". No se ha guardado ni renderizado el vídeo.`);
 const wordCount = String(script.narration || '').trim().split(/\s+/).filter(Boolean).length;
-if (wordCount < 125 || wordCount > 145) throw new Error(`El guion tiene ${wordCount} palabras; se requieren entre 125 y 145 para la duración editorial.`);
+if (wordCount < 165 || wordCount > 180) throw new Error(`El guion tiene ${wordCount} palabras; se requieren entre 165 y 180 para la duración editorial.`);
 if (!Array.isArray(script.scenes) || script.scenes.length !== 7) throw new Error('El guion debe incluir exactamente 7 escenas.');
 if (!Array.isArray(script.sources) || script.sources.length < 3) throw new Error('El guion debe incluir al menos 3 fuentes verificables.');
 for (const source of script.sources) {
