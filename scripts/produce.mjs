@@ -586,17 +586,18 @@ console.log(`Vídeo listo: ${finalPath} (${stat.size} bytes). Guardado en Supaba
     supabase('videos', { method: 'DELETE', query: `?script_id=eq.${scriptId}` }));
   await cleanupStep('memoria editorial parcial', () =>
     supabase('editorial_memory', { method: 'DELETE', query: `?script_id=eq.${scriptId}` }));
+  const failureMessage = String(productionError?.message || productionError || 'Error de producción').slice(0, 1800);
   if (jobId) {
-    await cleanupStep('trabajo de producción', () =>
-      supabase('production_jobs', { method: 'DELETE', query: `?id=eq.${jobId}` }));
-  } else if (existingJob?.status === 'failed') {
-    await cleanupStep('trabajo fallido previo', () =>
-      supabase('production_jobs', { method: 'DELETE', query: `?id=eq.${existingJob.id}&status=eq.failed` }));
-  } else {
-    await cleanupStep('trabajos de producción parciales', () =>
-      supabase('production_jobs', { method: 'DELETE', query: `?script_id=eq.${scriptId}` }));
+    await cleanupStep('marcar trabajo como fallido', () =>
+      supabase('production_jobs', { method: 'PATCH', query: `?id=eq.${jobId}`, body: { status: 'failed', error_message: failureMessage, completed_at: new Date().toISOString() } }));
+  } else if (existingJob?.id) {
+    await cleanupStep('conservar trabajo fallido', () =>
+      supabase('production_jobs', { method: 'PATCH', query: `?id=eq.${existingJob.id}`, body: { status: 'failed', error_message: failureMessage, completed_at: new Date().toISOString() } }));
+  } else if (scriptId) {
+    await cleanupStep('registrar fallo de producción', () =>
+      supabase('production_jobs', { method: 'POST', body: { user_id: userId, script_id: scriptId, scheduled_for: scheduledAt, status: 'failed', attempt_count: 1, error_message: failureMessage, completed_at: new Date().toISOString() } }));
   }
-  await cleanupStep('guion de prueba', () =>
-    supabase('scripts', { method: 'DELETE', query: `?id=eq.${scriptId}` }));
+  if (scriptId) await cleanupStep('devolver guion a revisión para reintento', () =>
+    supabase('scripts', { method: 'PATCH', query: `?id=eq.${scriptId}`, body: { status: 'approved' } }));
   throw productionError;
 }
