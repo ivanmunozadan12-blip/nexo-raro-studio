@@ -406,11 +406,31 @@ await mkdir(work, { recursive: true });
 await writeFile(path.join(work, 'script.json'), JSON.stringify(script, null, 2));
 const voicePath = path.join(work, 'voice.mp3');
 await generateSpeech(script.narration, voicePath, 'es-ES-AlvaroNeural', '+8%', 'narrador principal', true);
-const enzoLines = script.scenes
+// Normaliza las intervenciones de Enzo para que un borrador válido no se descarte
+// solo porque el modelo haya dejado demasiadas escenas sin reacción.
+for (const scene of script.scenes) {
+  const line = String(scene.enzo_line || '').trim();
+  if (line.split(/\s+/).filter(Boolean).length > 5) scene.enzo_line = '';
+}
+let enzoLines = script.scenes
   .map((scene, index) => ({ text: String(scene.enzo_line || '').trim(), index }))
   .filter(line => line.text);
-if (enzoLines.length < 2 || enzoLines.length > 3 || enzoLines.some(line => line.text.split(/\s+/).length > 5)) {
-  throw new Error('El guion debe incluir 2 o 3 intervenciones breves de Enzo, de hasta 5 palabras cada una.');
+if (enzoLines.length > 3) {
+  for (const extra of enzoLines.slice(3)) script.scenes[extra.index].enzo_line = '';
+  enzoLines = enzoLines.slice(0, 3);
+}
+if (enzoLines.length < 2) {
+  const fallbackReactions = ['¡Vaya descubrimiento!', '¡Qué pasada!'];
+  for (let i = 0; i < script.scenes.length && enzoLines.length < 2; i++) {
+    if (!String(script.scenes[i].enzo_line || '').trim()) {
+      script.scenes[i].enzo_line = fallbackReactions[enzoLines.length];
+      enzoLines.push({ text: script.scenes[i].enzo_line, index: i });
+    }
+  }
+  console.warn('Se completaron automáticamente las reacciones breves de Enzo que faltaban.');
+}
+if (enzoLines.length < 2 || enzoLines.length > 3 || enzoLines.some(line => line.text.split(/\s+/).filter(Boolean).length > 5)) {
+  throw new Error('No se pudieron normalizar las 2-3 intervenciones breves de Enzo.');
 }
 const enzoAudioFiles = [];
 for (const line of enzoLines) {
