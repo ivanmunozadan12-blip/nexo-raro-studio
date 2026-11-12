@@ -5,6 +5,7 @@ on:
   push:
     paths:
       - ".github/workflows/3d-smoke-test.yml"
+      - "scripts/produce.mjs"
 
 permissions:
   contents: read
@@ -39,6 +40,13 @@ jobs:
           npx hyperframes --version
           ffmpeg -version | head -n 1
           ffprobe -version | head -n 1
+
+      - name: Evitar animaciones no deterministas en producción
+        run: |
+          if grep -nE "performance\\.now\\(|requestAnimationFrame\\(" scripts/produce.mjs; then
+            echo "::error::El render de producción no puede depender del reloj real ni de requestAnimationFrame."
+            exit 1
+          fi
 
       - name: Crear escena 3D de prueba
         run: |
