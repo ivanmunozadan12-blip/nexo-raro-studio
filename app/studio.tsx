@@ -22,7 +22,7 @@ export default function Studio(){
    db.from('social_analytics').select('id,social_post_id,views,likes,comments,shares,average_view_duration_seconds,retention_percent,captured_at').order('captured_at',{ascending:false}).limit(100),
    db.from('channel_settings').select('channel_name,timezone,production_times,daily_video_target,monthly_budget_cents,require_approval,auto_publish_enabled,content_locale').eq('brand_slug','nexo-raro').maybeSingle(),
    db.from('series').select('id,slug,title,description,is_active').order('slug'),
-   db.from('editorial_memory').select('id,topic,topic_key,angle,summary,source_urls,memory_status,created_at').order('created_at',{ascending:false}).limit(300)
+   db.from('editorial_memory').select('id,topic,topic_key,angle,summary,source_urls,memory_status,created_at').order('created_at',{ascending:false}).limit(1000)
   ]);
   const err=j.error||s.error||v.error||p.error||a.error||c.error||ser.error||m.error;
   if(err)setMessage('Error al cargar datos: '+err.message);
