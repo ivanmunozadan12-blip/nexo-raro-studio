@@ -1,4 +1,4 @@
-import { mkdir, writeFile, readFile } from 'node:fs/promises';
+import { mkdir, writeFile, readFile, rm } from 'node:fs/promises';
 import { spawn } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -94,6 +94,38 @@ async function capture(bin, args, opts = {}) {
     p.on('error', reject);
     p.on('close', code => code === 0 ? resolve(stdout) : reject(new Error(`${bin} terminó con código ${code}: ${stderr.slice(0,500)}`)));
   });
+}
+
+// edge-tts puede responder temporalmente con NoAudioReceived aunque la petición
+// sea válida. Cada intento empieza con un archivo limpio y valida el MP3 real
+// (tamaño y duración) antes de darlo por bueno.
+async function generateSpeech(text, outputPath, voice, rate, label, required = true) {
+  const maxAttempts = 4;
+  const delays = [4000, 10000, 20000];
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    await rm(outputPath, { force: true });
+    try {
+      await command('python', ['-m', 'edge_tts', '--voice', voice, `--rate=${rate}`, '--text', text, '--write-media', outputPath]);
+      const info = await (await import('node:fs/promises')).stat(outputPath);
+      if (info.size < 1500) throw new Error(`edge-tts generó un archivo demasiado pequeño (${info.size} bytes).`);
+      const duration = Number(await capture('ffprobe', ['-v','error','-show_entries','format=duration','-of','default=noprint_wrappers=1:nokey=1',outputPath]));
+      if (!Number.isFinite(duration) || duration < 0.25) throw new Error('edge-tts generó un audio vacío o ilegible.');
+      console.log(`Audio verificado para ${label}: ${duration.toFixed(1)} s, intento ${attempt}/${maxAttempts}.`);
+      return true;
+    } catch (error) {
+      await rm(outputPath, { force: true }).catch(() => {});
+      if (attempt === maxAttempts) {
+        const message = `No se pudo generar audio para ${label} tras ${maxAttempts} intentos: ${error.message}`;
+        if (required) throw new Error(message);
+        console.warn(message + ' Se mantiene la reacción visual de Enzo sin voz.');
+        return false;
+      }
+      const delay = delays[attempt - 1];
+      console.warn(`edge-tts ${label}: intento ${attempt}/${maxAttempts} fallido (${error.message}). Nuevo intento en ${delay / 1000} s.`);
+      await new Promise(resolve => setTimeout(resolve, delay));
+    }
+  }
+  return false;
 }
 const [settings] = await supabase('channel_settings', { query: '?brand_slug=eq.nexo-raro&select=id,user_id,channel_name,timezone,require_approval,auto_publish_enabled&limit=1' });
 if (!settings) throw new Error('No hay una cuenta configurada en el panel. Inicia sesión y termina el asistente inicial.');
@@ -302,7 +334,7 @@ const work = path.join(root, 'renders', `${local}-${slot.replace(':', '')}`);
 await mkdir(work, { recursive: true });
 await writeFile(path.join(work, 'script.json'), JSON.stringify(script, null, 2));
 const voicePath = path.join(work, 'voice.mp3');
-await command('python', ['-m', 'edge_tts', '--voice', 'es-ES-AlvaroNeural', '--rate=+8%', '--text', script.narration, '--write-media', voicePath]);
+await generateSpeech(script.narration, voicePath, 'es-ES-AlvaroNeural', '+8%', 'narrador principal', true);
 const enzoLines = script.scenes
   .map((scene, index) => ({ text: String(scene.enzo_line || '').trim(), index }))
   .filter(line => line.text);
@@ -312,8 +344,8 @@ if (enzoLines.length > 3 || enzoLines.some(line => line.text.split(/\s+/).length
 const enzoAudioFiles = [];
 for (const line of enzoLines) {
   const enzoAudioPath = path.join(work, `enzo-${line.index + 1}.mp3`);
-  await command('python', ['-m', 'edge_tts', '--voice', 'es-ES-ArnauNeural', '--rate=+12%', '--text', line.text, '--write-media', enzoAudioPath]);
-  enzoAudioFiles.push({ path: enzoAudioPath, index: line.index });
+  const generated = await generateSpeech(line.text, enzoAudioPath, 'es-ES-ArnauNeural', '+12%', `Enzo escena ${line.index + 1}`, false);
+  if (generated) enzoAudioFiles.push({ path: enzoAudioPath, index: line.index });
 }
 const voiceDuration = Number(await capture('ffprobe', ['-v','error','-show_entries','format=duration','-of','default=noprint_wrappers=1:nokey=1',voicePath]));
 if (!Number.isFinite(voiceDuration) || voiceDuration < 1) throw new Error('No se pudo medir la duración de la narración.');
