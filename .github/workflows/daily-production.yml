@@ -1,13 +1,8 @@
 name: Behind del Mundo · producción diaria
 
 on:
-  schedule:
-    - cron: "30 7 * * *"
-      timezone: "Europe/Madrid"
-    - cron: "30 14 * * *"
-      timezone: "Europe/Madrid"
-    - cron: "30 20 * * *"
-      timezone: "Europe/Madrid"
+  # Programación automática pausada temporalmente.
+  # Se conserva workflow_dispatch para pruebas manuales autorizadas.
   workflow_dispatch:
     inputs:
       slot:
