@@ -24,6 +24,22 @@ const headers = {
   Prefer: 'return=representation',
 };
 const api = process.env.SUPABASE_URL.replace(/\/$/, '');
+const expectedProjectRef = 'fnivzsazuovldhbkxrqv';
+const actualProjectRef = new URL(api).hostname.split('.')[0];
+if (actualProjectRef !== expectedProjectRef) {
+  throw new Error(`SUPABASE_URL apunta al proyecto "${actualProjectRef}", pero Nexo Raro está configurado en "${expectedProjectRef}". Corrige el secreto SUPABASE_URL en GitHub.`);
+}
+function jwtRole(token) {
+  try {
+    const payload = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
+    return JSON.parse(Buffer.from(payload, 'base64').toString('utf8')).role || 'sin role';
+  } catch { return 'no es un JWT válido'; }
+}
+const keyRole = jwtRole(process.env.SUPABASE_SERVICE_ROLE_KEY);
+console.log(`Supabase verificado: proyecto=${actualProjectRef}; rol de la clave=${keyRole}`);
+if (keyRole !== 'service_role') {
+  throw new Error(`SUPABASE_SERVICE_ROLE_KEY no es una clave service_role (rol detectado: ${keyRole}). En Supabase > Project Settings > API Keys, copia la clave secreta service_role/secret del proyecto ${expectedProjectRef}; no uses la publishable/anon key.`);
+}
 async function supabase(table, options = {}) {
   const { method = 'GET', query = '', body, extraHeaders = {} } = options;
   const response = await fetch(`${api}/rest/v1/${table}${query}`, {
