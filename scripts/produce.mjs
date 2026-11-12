@@ -146,7 +146,7 @@ try {
 } catch {
   throw new Error('Groq no devolvió JSON válido; se detiene antes de guardar datos incompletos.');
 }
-const wordCount = String(script.narration || '').trim().split(/\\s+/).filter(Boolean).length;
+const wordCount = String(script.narration || '').trim().split(/\s+/).filter(Boolean).length;
 if (wordCount < 105 || wordCount > 165) throw new Error(`El guion tiene ${wordCount} palabras; se requieren entre 105 y 165.`);
 if (!Array.isArray(script.scenes) || script.scenes.length !== 7) throw new Error('El guion debe incluir exactamente 7 escenas.');
 if (!Array.isArray(script.sources) || script.sources.length < 3) throw new Error('El guion debe incluir al menos 3 fuentes verificables.');
