@@ -311,7 +311,7 @@ try {
 
 // Corrige automáticamente los borradores ligeramente fuera del rango antes de guardar.
 function countWords(value) {
-  return String(value || '').trim().split(/\\s+/).filter(Boolean).length;
+  return String(value || '').trim().split(/\s+/).filter(Boolean).length;
 }
 let wordCount = countWords(script.narration);
 if (wordCount < 165 || wordCount > 180) {
