@@ -15,6 +15,11 @@ on:
         required: false
         type: string
         default: ""
+      reset_production:
+        description: "Borrar datos de producción anteriores antes de generar"
+        required: false
+        type: boolean
+        default: false
 
 concurrency:
   group: behind-del-mundo-daily-production
@@ -59,6 +64,7 @@ jobs:
         env:
           MANUAL_SLOT: ${{ inputs.slot || '' }}
           MANUAL_DATE: ${{ inputs.production_date || '' }}
+          RESET_PRODUCTION: ${{ inputs.reset_production || false }}
         run: npm run produce
       - name: Guardar MP4 como artefacto de respaldo
         if: always()

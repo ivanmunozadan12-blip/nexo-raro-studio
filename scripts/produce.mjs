@@ -146,6 +146,29 @@ try {
 const [settings] = await supabase('channel_settings', { query: '?brand_slug=eq.nexo-raro&select=id,user_id,channel_name,timezone,require_approval,auto_publish_enabled&limit=1' });
 if (!settings) throw new Error('No hay una cuenta configurada en el panel. Inicia sesión y termina el asistente inicial.');
 const userId = settings.user_id;
+
+// Reinicio explícito y acotado de producción; conserva configuración y memoria editorial.
+if (String(process.env.RESET_PRODUCTION || '').toLowerCase() === 'true') {
+  console.warn('RESET_PRODUCTION activo: limpiando vídeos, guiones, trabajos y consumo.');
+  const oldVideos = await supabase('videos', { query: '?user_id=eq.' + userId + '&select=id,storage_path' });
+  for (const video of oldVideos) {
+    if (!video.storage_path) continue;
+    const objectPath = video.storage_path.split('/').map(encodeURIComponent).join('/');
+    const response = await fetch(api + '/storage/v1/object/nexo-videos/' + objectPath, {
+      method: 'DELETE',
+      headers: { apikey: supabaseKey, ...(keyIsLegacyServiceRole ? { Authorization: 'Bearer ' + supabaseKey } : {}) },
+    });
+    if (!response.ok && response.status !== 404) {
+      const body = await response.text();
+      throw new Error('No se pudo borrar el MP4 ' + video.storage_path + ': Storage HTTP ' + response.status + ': ' + body.slice(0,500));
+    }
+  }
+  await supabase('videos', { method: 'DELETE', query: '?user_id=eq.' + userId });
+  await supabase('scripts', { method: 'DELETE', query: '?user_id=eq.' + userId });
+  await supabase('production_jobs', { method: 'DELETE', query: '?user_id=eq.' + userId });
+  await supabase('provider_usage', { method: 'DELETE', query: '?user_id=eq.' + userId });
+  console.log('Reinicio de producción completado: ' + oldVideos.length + ' MP4 eliminados y tablas de producción vaciadas.');
+}
 const scheduledAt = new Date(new Date(`${local}T${slot}:00`).toLocaleString('en-US', { timeZone: tz })).toISOString();
 const existing = await supabase('production_jobs', { query: `?user_id=eq.${userId}&scheduled_for=eq.${encodeURIComponent(scheduledAt)}&select=id,status,attempt_count,started_at,completed_at,script_id&limit=1` });
 const existingJob = existing[0];
