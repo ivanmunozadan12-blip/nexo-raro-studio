@@ -258,7 +258,7 @@ const scriptRow = await supabase('scripts', { method: 'POST', body: {
   user_id: userId, series_id: seriesMatch?.id || series?.id || null,
   title: script.title, hook: script.hook || '', narration: script.narration,
   visual_plan: script.scenes, source_notes: script.sources,
-  target_seconds: 64, status: 'in_production',
+  target_seconds: 66, status: 'in_production',
 }});
 const scriptId = scriptRow[0].id;
 
@@ -289,6 +289,11 @@ await mkdir(work, { recursive: true });
 await writeFile(path.join(work, 'script.json'), JSON.stringify(script, null, 2));
 const voicePath = path.join(work, 'voice.mp3');
 await command('python', ['-m', 'edge_tts', '--voice', 'es-ES-AlvaroNeural', '--rate=+8%', '--text', script.narration, '--write-media', voicePath]);
+const voiceDuration = Number(await capture('ffprobe', ['-v','error','-show_entries','format=duration','-of','default=noprint_wrappers=1:nokey=1',voicePath]));
+if (!Number.isFinite(voiceDuration) || voiceDuration < 1) throw new Error('No se pudo medir la duración de la narración.');
+const targetDuration = Math.ceil(voiceDuration + 0.8);
+if (targetDuration > 69) throw new Error(`La narración dura ${voiceDuration.toFixed(1)} s; excede el máximo de 69 s incluso con el montaje ajustado. Se detiene sin recortar la voz.`);
+console.log(`Narración: ${voiceDuration.toFixed(1)} s a +8%; montaje ajustado a ${targetDuration} s.`);
 await supabase('production_jobs', { method: 'PATCH', query: `?id=eq.${jobId}`, body: { status: 'rendering' } });
 const escaped = value => String(value || '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const assetsDir = path.join(work, 'assets');
@@ -340,7 +345,7 @@ for (let index = 0; index < script.scenes.length; index++) sceneAssets.push(awai
 const imageCount = sceneAssets.filter(Boolean).length;
 console.log('Recursos visuales: ' + imageCount + '/7 imágenes únicas de Wikimedia Commons descargadas.');
 if (imageCount < 5) throw new Error(`QC visual fallido: solo se encontraron ${imageCount}/7 imágenes reales. Se cancela el render para evitar un vídeo con diapositivas vacías.`);
-const sceneSeconds = 64 / 7;
+const sceneSeconds = targetDuration / 7;
 const clips = script.scenes.map((scene, i) => {
   const start = (i * sceneSeconds).toFixed(3);
   const duration = sceneSeconds.toFixed(3);
@@ -378,7 +383,7 @@ html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#080d12
 @keyframes slowPush{from{transform:scale(1.12)}to{transform:scale(1.02)}}
 @keyframes copyIn{from{opacity:0;transform:translateY(46px)}to{opacity:1;transform:translateY(0)}}
 @keyframes wordPop{to{opacity:1;transform:translateY(0) scale(1)}}
-</style></head><body><div id="root" data-composition-id="behind-del-mundo" data-start="0" data-width="1080" data-height="1920"><audio id="narration-audio" src="voice.mp3" data-start="0" data-duration="64" data-track-index="0" data-volume="1"></audio>${clips}<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script><script>const tl=gsap.timeline({paused:true});document.querySelectorAll('.scene').forEach((el)=>{tl.fromTo(el,{opacity:0},{opacity:1,duration:.35},Number(el.dataset.start));tl.to(el,{opacity:0,duration:.28},Number(el.dataset.start)+Number(el.dataset.duration)-.28)});tl.set({}, {}, 64);window.__timelines=window.__timelines||{};window.__timelines['behind-del-mundo']=tl;</script></div></body></html>`;
+</style></head><body><div id="root" data-composition-id="behind-del-mundo" data-start="0" data-width="1080" data-height="1920"><audio id="narration-audio" src="voice.mp3" data-start="0" data-duration="${targetDuration}" data-track-index="0" data-volume="1"></audio>${clips}<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script><script>const tl=gsap.timeline({paused:true});document.querySelectorAll('.scene').forEach((el)=>{tl.fromTo(el,{opacity:0},{opacity:1,duration:.35},Number(el.dataset.start));tl.to(el,{opacity:0,duration:.28},Number(el.dataset.start)+Number(el.dataset.duration)-.28)});tl.set({}, {}, ${targetDuration});window.__timelines=window.__timelines||{};window.__timelines['behind-del-mundo']=tl;</script></div></body></html>`;
 await writeFile(path.join(work, 'index.html'), html);
 await command('npx', ['--yes', 'hyperframes@0.9.37', 'lint'], { cwd: work });
 const rawVideo = path.join(work, 'video-silent.mp4');
@@ -386,7 +391,7 @@ await command('npx', ['--yes', 'hyperframes@0.9.37', 'render', '-c', 'index.html
 const finalPath = path.join(root, 'renders', `behind-del-mundo-${local}-${slot.replace(':','')}.mp4`);
 // HyperFrames incorpora la narración como pista de audio del timeline. No volver a muxear
 // con -shortest: eso truncaba el vídeo al terminar la voz (48 s en la prueba anterior).
-await command('ffmpeg', ['-y','-i',rawVideo,'-af','apad','-t','64','-c:v','copy','-c:a','aac','-b:a','192k','-movflags','+faststart',finalPath]);
+await command('ffmpeg', ['-y','-i',rawVideo,'-af','apad','-t',String(targetDuration),'-c:v','copy','-c:a','aac','-b:a','192k','-movflags','+faststart',finalPath]);
 const stat = await (await import('node:fs/promises')).stat(finalPath);
 if (stat.size < 500000) throw new Error('El MP4 generado parece incompleto.');
 
