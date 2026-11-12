@@ -309,6 +309,40 @@ try {
   throw new Error('Groq no devolvió JSON válido; se detiene antes de guardar datos incompletos.');
 }
 
+// Corrige automáticamente los borradores ligeramente fuera del rango antes de guardar.
+function countWords(value) {
+  return String(value || '').trim().split(/\\s+/).filter(Boolean).length;
+}
+let wordCount = countWords(script.narration);
+if (wordCount < 165 || wordCount > 180) {
+  console.warn(`El primer borrador tiene ${wordCount} palabras; se solicita una corrección a 165-180.`);
+  const correctionResponse = await groqChat({
+    model: groqModel,
+    messages: [
+      { role: 'system', content: 'Eres un editor de guiones documentales. Devuelve exclusivamente JSON válido.' },
+      { role: 'user', content: `Corrige este guion para que narration tenga ENTRE 165 Y 180 PALABRAS reales. El borrador tiene ${wordCount}. Amplía con contexto y transiciones fieles a los hechos y fuentes si falta texto; recorta si sobra. No inventes hechos ni cifras. Conserva title, hook, sources, caption y category. Mantén exactamente 7 escenas y actualiza narration_excerpt para que cada fragmento aparezca literalmente en narration. enzo_line debe estar vacío o tener máximo 5 palabras. Devuelve el objeto JSON completo.\\n\\nJSON ORIGINAL:\\n${JSON.stringify(script)}` },
+    ],
+    response_format: { type: 'json_object' },
+    reasoning_effort: 'low',
+    temperature: 0.2,
+    max_completion_tokens: 2800,
+    stream: false,
+  }, 'corrección de longitud');
+  const correctionData = await correctionResponse.json();
+  const correctionText = correctionData.choices?.[0]?.message?.content?.trim();
+  if (!correctionText) throw new Error('Groq no devolvió texto al corregir la longitud del guion.');
+  try {
+    const firstBrace = correctionText.indexOf('{');
+    const lastBrace = correctionText.lastIndexOf('}');
+    if (firstBrace < 0 || lastBrace <= firstBrace) throw new Error('No se encontró objeto JSON.');
+    script = JSON.parse(correctionText.slice(firstBrace, lastBrace + 1));
+  } catch {
+    throw new Error('Groq no devolvió JSON válido al corregir la longitud del guion.');
+  }
+  wordCount = countWords(script.narration);
+  console.log(`Guion corregido: ${wordCount} palabras.`);
+}
+if (wordCount < 165 || wordCount > 180) throw new Error(`El guion sigue fuera del rango tras la corrección: ${wordCount} palabras.`);
 function topicTokens(value) {
   const stop = new Set('para como donde cuando desde hasta sobre entre hacia este esta estos estas unos unas una uno por con sin del las los que cual quien cómo qué muy más menos pero porque también entonces'.split(' '));
   return [...new Set(String(value || '').toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu,'').match(/[a-z0-9]{3,}/g) || [])].filter(x => !stop.has(x));
@@ -331,8 +365,6 @@ const collision = editorialMemory.find(item => {
   return titleScore >= 0.45 || (storyScore >= 0.24 && titleScore >= 0.18) || sharedSources >= 2;
 });
 if (collision) throw new Error(`MEMORIA EDITORIAL: producción bloqueada para evitar repetir "${script.title}". Se parece al tema histórico "${collision.topic}". No se ha guardado ni renderizado el vídeo.`);
-const wordCount = String(script.narration || '').trim().split(/\s+/).filter(Boolean).length;
-if (wordCount < 165 || wordCount > 180) throw new Error(`El guion tiene ${wordCount} palabras; se requieren entre 165 y 180 para la duración editorial.`);
 if (!Array.isArray(script.scenes) || script.scenes.length !== 7) throw new Error('El guion debe incluir exactamente 7 escenas.');
 if (!Array.isArray(script.sources) || script.sources.length < 3) throw new Error('El guion debe incluir al menos 3 fuentes verificables.');
 for (const source of script.sources) {
