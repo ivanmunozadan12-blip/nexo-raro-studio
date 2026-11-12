@@ -1,6 +1,6 @@
-# Nexo Raro Studio
+# Behind del Mundo Studio
 
-Panel y pipeline de producción para el canal Nexo Raro.
+Panel y pipeline de producción para el canal Behind del Mundo.
 
 ## Objetivo
 Tres vídeos verticales diarios a las 07:30, 14:30 y 20:30 (`Europe/Madrid`), con investigación web, guion, voz, composición HyperFrames, render MP4, almacenamiento privado y revisión antes de publicar.
