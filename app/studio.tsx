@@ -1,5 +1,5 @@
 'use client';
-import {useCallback,useEffect,useMemo,useState} from 'react';
+import {useCallback,useEffect,useMemo,useRef,useState} from 'react';
 import {supabase} from '@/lib/supabase-browser';
 
 type Tab='overview'|'calendar'|'import'|'scripts'|'memory'|'videos'|'posts'|'stats'|'settings';
@@ -11,7 +11,7 @@ export default function Studio(){
  const [jobs,setJobs]=useState<any[]>([]),[scripts,setScripts]=useState<any[]>([]),[memory,setMemory]=useState<any[]>([]),[videos,setVideos]=useState<any[]>([]),[posts,setPosts]=useState<any[]>([]),[analytics,setAnalytics]=useState<any[]>([]),[settings,setSettings]=useState<any>(null),[series,setSeries]=useState<any[]>([]);
  const [selectedScript,setSelectedScript]=useState<any>(null),[signed,setSigned]=useState<Record<string,string>>({}),[memoryTopic,setMemoryTopic]=useState(''),[memoryReason,setMemoryReason]=useState('');
  const [scriptBatch,setScriptBatch]=useState(['','','']),[dispatching,setDispatching]=useState(false),[knownReady,setKnownReady]=useState<string[]>([]),[notifyEnabled,setNotifyEnabled]=useState(false);
- const db=supabase();
+ const db=supabase();\n const videoIdsRef=useRef<string[]>([]),videoLoadRef=useRef(false);
  useEffect(()=>{db.auth.getSession().then(({data}:any)=>setSession(data.session));const {data}=db.auth.onAuthStateChange((_e:any,s:any)=>setSession(s));return()=>data.subscription.unsubscribe()},[]);
  const load=useCallback(async()=>{
   if(!session)return;setBusy(true);setMessage('');
@@ -27,13 +27,16 @@ export default function Studio(){
   ]);
   const err=j.error||s.error||v.error||p.error||a.error||c.error||ser.error||m.error;
   if(err)setMessage('Error al cargar datos: '+err.message);
-  setJobs(j.data||[]);setScripts(s.data||[]);setMemory(m.data||[]);setVideos(v.data||[]);setPosts(p.data||[]);setAnalytics(a.data||[]);setSettings(c.data);setSeries(ser.data||[]);
+  setJobs(j.data||[]);setScripts(s.data||[]);setMemory(m.data||[]);
+  const nextVideos=v.data||[],newVideos=nextVideos.filter((item:any)=>!videoIdsRef.current.includes(item.id));
+  if(videoLoadRef.current&&newVideos.length&&typeof window!=='undefined'&&'Notification' in window&&Notification.permission==='granted'){new Notification('BEHIND DEL MUNDO',{body:newVideos.length===1?'Tu vídeo ya está listo para revisar.':'Tus vídeos ya están listos para revisar.'});}
+  videoIdsRef.current=nextVideos.map((item:any)=>item.id);videoLoadRef.current=true;setVideos(nextVideos);setPosts(p.data||[]);setAnalytics(a.data||[]);setSettings(c.data);setSeries(ser.data||[]);
   setBusy(false);
  },[session]);
- useEffect(()=>{load()},[load]);
+ useEffect(()=>{load()},[load]);\n useEffect(()=>{const active=scripts.some(s=>['queued','in_production'].includes(s.status))||jobs.some(j=>['queued','voicing','rendering','quality_check'].includes(j.status));if(!session||!active)return;const timer=window.setInterval(()=>{load()},20000);return()=>window.clearInterval(timer)},[session,scripts,jobs,load]);
  useEffect(()=>{if(!selectedScript&&scripts.length)setSelectedScript(scripts[0]);else if(selectedScript){const fresh=scripts.find(x=>x.id===selectedScript.id);if(fresh)setSelectedScript(fresh)}},[scripts]);
  useEffect(()=>{let active=true;(async()=>{const next:Record<string,string>={};for(const v of videos.slice(0,20)){const {data}=await db.storage.from('nexo-videos').createSignedUrl(v.storage_path,3600);if(data?.signedUrl)next[v.id]=data.signedUrl;}if(active)setSigned(next)})();return()=>{active=false}},[videos]);
- async function submit(e:any){e.preventDefault();setMessage('');const r=signup?await db.auth.signUp({email,password}):await db.auth.signInWithPassword({email,password});setMessage(r.error?.message||(signup?'Revisa tu correo para confirmar la cuenta.':'Sesión iniciada.'))}
+ async function enableNotifications(){if(!('Notification' in window)){setMessage('Este navegador no admite notificaciones.');return;}const permission=await Notification.requestPermission();setMessage(permission==='granted'?'Avisos activados en este dispositivo.':'No se han concedido permisos de notificación.');}\n async function submit(e:any){e.preventDefault();setMessage('');const r=signup?await db.auth.signUp({email,password}):await db.auth.signInWithPassword({email,password});setMessage(r.error?.message||(signup?'Revisa tu correo para confirmar la cuenta.':'Sesión iniciada.'))}
  async function addMemoryTopic(e:any){e.preventDefault();const topic=memoryTopic.trim();if(!topic)return;setBusy(true);const topicKey=topic.toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');const {error}=await db.from('editorial_memory').insert({user_id:session.user.id,topic,topic_key:topicKey,angle:'Exclusión manual',summary:'Tema excluido desde el panel',source_urls:[],memory_status:'rejected',reason:memoryReason.trim()||'No volver a tratar este tema'});if(error)setMessage('No se pudo guardar el tema: '+error.message);else{setMemoryTopic('');setMemoryReason('');setMessage('Tema añadido a la lista de exclusión.');await load()}setBusy(false)}
  function parseExternalScript(raw:string,index:number){
   let parsed:any;try{parsed=JSON.parse(raw)}catch{throw new Error('El guion '+(index+1)+' no contiene JSON válido.')}
@@ -79,7 +82,7 @@ export default function Studio(){
  const seriesName=(id:string)=>series.find(s=>s.id===id)?.title||'Sin serie';
  if(!session)return <main className="auth-shell"><a className="brand" href="/"><span className="brand-mark brand-mark-world"><img src="/brand-mark.svg" alt=""/></span><span>BEHIND <b>DEL MUNDO</b><small>STUDIO / ACCESO</small></span></a><section className="auth-card"><div className="eyebrow">CENTRO DE PRODUCCIÓN</div><h1>{signup?'Crea tu acceso.':'Vuelve a la expedición.'}</h1><p>Accede al panel privado de Behind del Mundo.</p><form onSubmit={submit}><label>Correo electrónico<input type="email" required value={email} onChange={e=>setEmail(e.target.value)}/></label><label>Contraseña<input type="password" required minLength={8} value={password} onChange={e=>setPassword(e.target.value)}/></label><button>{signup?'Crear cuenta':'Entrar'}</button></form><button className="link-button" onClick={()=>setSignup(!signup)}>{signup?'Ya tengo cuenta · Entrar':'Crear una cuenta'}</button>{message&&<p className="notice">{message}</p>}</section></main>;
  return <main className="studio-shell">
-  <header className="studio-top"><a className="brand" href="/"><span className="brand-mark brand-mark-world"><img src="/brand-mark.svg" alt=""/></span><span>BEHIND <b>DEL MUNDO</b><small>STUDIO / CONTROL ROOM</small></span></a><div className="top-actions"><span className="user-email">{session.user.email}</span><button className="ghost-button" onClick={load}>{busy?'Actualizando…':'↻ Actualizar'}</button><button className="ghost-button" onClick={()=>db.auth.signOut()}>Salir</button></div></header>
+  <header className="studio-top"><a className="brand" href="/"><span className="brand-mark brand-mark-world"><img src="/brand-mark.svg" alt=""/></span><span>BEHIND <b>DEL MUNDO</b><small>STUDIO / CONTROL ROOM</small></span></a><div className="top-actions"><span className="user-email">{session.user.email}</span><button className="ghost-button" onClick={enableNotifications}>Activar avisos</button><button className="ghost-button" onClick={load}>{busy?'Actualizando…':'↻ Actualizar'}</button><button className="ghost-button" onClick={()=>db.auth.signOut()}>Salir</button></div></header>
   <section className="studio-heading"><div><div className="eyebrow">EXPLORA LO EXTRAORDINARIO / {stamp(new Date().toISOString())}</div><h1>Centro de <em>producción.</em></h1><p>Control editorial y seguimiento de Behind del Mundo.</p></div><div className="system-pill"><i/> PRODUCCIÓN EN GITHUB ACTIONS</div></section>
   <nav className="studio-nav">{tabs.map(t=><button key={t.id} className={tab===t.id?'active':''} onClick={()=>setTab(t.id)}>{t.label}</button>)}</nav>
   {message&&<div className="studio-message">{message}<button onClick={()=>setMessage('')}>×</button></div>}
