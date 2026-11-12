@@ -72,7 +72,11 @@ if (existing.length && ['queued', 'voicing', 'rendering', 'ready'].includes(exis
 }
 const seriesRows = await supabase('series', { query: `?user_id=eq.${userId}&is_active=eq.true&select=id,slug,title,description&order=slug.asc` });
 const series = seriesRows.length ? seriesRows[(slots.indexOf(slot) + Number(local.replaceAll('-', ''))) % seriesRows.length] : null;
-const researchPrompt = `Busca en la web un hecho real, poco conocido y visualmente atractivo para un vídeo documental breve en español de España. Fecha: ${local}; horario: ${slot}; serie editorial: ${series?.title || 'curiosidades reales y ciencia sorprendente'}. Evita temas virales quemados. Contrasta el hecho con al menos 3 fuentes independientes, preferiblemente fuentes primarias, universidades, organismos oficiales o publicaciones científicas. Devuelve un resumen claro de los hechos verificables, qué partes son inciertas y las URLs exactas de las fuentes. No inventes referencias.`;
+
+const editorialMemory = await supabase('editorial_memory', { query: `?user_id=eq.${userId}&select=topic,topic_key,angle,summary,source_urls,memory_status,created_at&order=created_at.desc&limit=300` });
+const memoryBrief = editorialMemory.map(item => ({ tema:item.topic, enfoque:item.angle||'', resumen:String(item.summary||'').slice(0,360), estado:item.memory_status, fuentes:(item.source_urls||[]).slice(0,3).map(x=>x.url||x) }));
+console.log(`Memoria editorial cargada: ${memoryBrief.length} temas históricos.`);
+const researchPrompt = `Busca en la web un hecho real, poco conocido y visualmente atractivo para un vídeo documental breve en español de España. Fecha: ${local}; horario: ${slot}; serie editorial: ${series?.title || 'curiosidades reales y ciencia sorprendente'}. Evita temas virales quemados. MEMORIA EDITORIAL OBLIGATORIA: no propongas el mismo acontecimiento, descubrimiento, lugar, personaje, experimento ni historia que aparezca en esta memoria, aunque cambies el título o el enfoque. Elige un asunto claramente distinto y explica por qué no se solapa. Historial (últimos 300 temas): ${JSON.stringify(memoryBrief)}. Si una idea se parece a un tema del historial, descártala y busca otra. Contrasta el hecho con al menos 3 fuentes independientes, preferiblemente fuentes primarias, universidades, organismos oficiales o publicaciones científicas. Devuelve un resumen claro de los hechos verificables, qué partes son inciertas, las URLs exactas y una línea TOPIC: con el tema principal. No inventes referencias.`;
 const groqModel = process.env.GROQ_MODEL || 'openai/gpt-oss-120b';
 // GPT OSS en Groq se utiliza tanto para investigar como para redactar el guion.
 async function groqChat(payload, label) {
@@ -172,6 +176,27 @@ try {
 } catch {
   throw new Error('Groq no devolvió JSON válido; se detiene antes de guardar datos incompletos.');
 }
+
+function topicTokens(value) {
+  const stop = new Set('para como donde cuando desde hasta sobre entre hacia este esta estos estas unos unas una uno por con sin del las los que cual quien cómo qué muy más menos pero porque también entonces'.split(' '));
+  return [...new Set(String(value || '').toLowerCase().normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').match(/[a-z0-9]{3,}/g) || [])].filter(x => !stop.has(x));
+}
+function overlap(a, b) {
+  const A = new Set(topicTokens(a)), B = new Set(topicTokens(b));
+  if (!A.size || !B.size) return 0;
+  return [...A].filter(x => B.has(x)).length / new Set([...A, ...B]).size;
+}
+const candidateText = [script.title, script.hook, script.narration].join(' ');
+const candidateUrls = new Set((script.sources || []).map(x => String(x.url || '').replace(/\\/$/, '').toLowerCase()));
+const collision = editorialMemory.find(item => {
+  const oldText = [item.topic, item.angle, item.summary].join(' ');
+  const titleScore = overlap(script.title, item.topic);
+  const storyScore = overlap(candidateText, oldText);
+  const oldUrls = (item.source_urls || []).map(x => String(x.url || x || '').replace(/\\/$/, '').toLowerCase());
+  const sharedSources = oldUrls.filter(url => url && candidateUrls.has(url)).length;
+  return titleScore >= 0.62 || (storyScore >= 0.46 && titleScore >= 0.25) || sharedSources >= 2;
+});
+if (collision) throw new Error(`MEMORIA EDITORIAL: producción bloqueada para evitar repetir "${script.title}". Se parece al tema histórico "${collision.topic}". No se ha guardado ni renderizado el vídeo.`);
 const wordCount = String(script.narration || '').trim().split(/\s+/).filter(Boolean).length;
 if (wordCount < 105 || wordCount > 165) throw new Error(`El guion tiene ${wordCount} palabras; se requieren entre 105 y 165.`);
 if (!Array.isArray(script.scenes) || script.scenes.length !== 7) throw new Error('El guion debe incluir exactamente 7 escenas.');
@@ -187,6 +212,13 @@ const scriptRow = await supabase('scripts', { method: 'POST', body: {
   target_seconds: 64, status: 'in_production',
 }});
 const scriptId = scriptRow[0].id;
+
+const topicKey = String(script.title || '').toLowerCase().normalize('NFD').replace(/[\\u0300-\\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+await supabase('editorial_memory', { method: 'POST', body: {
+  user_id: userId, script_id: scriptId, topic: script.title, topic_key: topicKey,
+  angle: script.hook || '', summary: String(script.narration || '').slice(0, 1200),
+  source_urls: script.sources || [], memory_status: 'produced',
+}});
 let jobId;
 if (existing.length) {
   const [reusedJob] = await supabase('production_jobs', {
