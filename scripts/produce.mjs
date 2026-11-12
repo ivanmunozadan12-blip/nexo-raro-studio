@@ -354,8 +354,8 @@ await generateSpeech(script.narration, voicePath, 'es-ES-AlvaroNeural', '+8%', '
 const enzoLines = script.scenes
   .map((scene, index) => ({ text: String(scene.enzo_line || '').trim(), index }))
   .filter(line => line.text);
-if (enzoLines.length > 3 || enzoLines.some(line => line.text.split(/\s+/).length > 5)) {
-  throw new Error('Las intervenciones de Enzo deben ser como máximo 3 y de hasta 5 palabras cada una.');
+if (enzoLines.length < 2 || enzoLines.length > 3 || enzoLines.some(line => line.text.split(/\s+/).length > 5)) {
+  throw new Error('El guion debe incluir 2 o 3 intervenciones breves de Enzo, de hasta 5 palabras cada una.');
 }
 const enzoAudioFiles = [];
 for (const line of enzoLines) {
@@ -383,7 +383,7 @@ try {
     console.log('Modelo visual oficial de Enzo cargado.');
   }
 } catch {
-  console.warn('Falta public/enzo/enzo-master.webp: no se mostrará un sustituto de Enzo hasta incorporar la imagen oficial aprobada.');
+  throw new Error('Falta el modelo visual maestro de Enzo en public/enzo/enzo-master.webp. Se cancela el render para no publicar un vídeo sin el personaje oficial.');
 }
 const usedImagePages = new Set();
 async function fetchSceneImage(scene, index) {
@@ -431,7 +431,7 @@ const sceneAssets = [];
 for (let index = 0; index < script.scenes.length; index++) sceneAssets.push(await fetchSceneImage(script.scenes[index], index));
 const imageCount = sceneAssets.filter(Boolean).length;
 console.log('Recursos visuales: ' + imageCount + '/7 imágenes únicas de Wikimedia Commons descargadas.');
-if (imageCount < 5) throw new Error(`QC visual fallido: solo se encontraron ${imageCount}/7 imágenes reales. Se cancela el render para evitar un vídeo con diapositivas vacías.`);
+if (imageCount !== 7) throw new Error(`QC visual fallido: solo se encontraron ${imageCount}/7 imágenes reales y únicas. Se cancela el render; cada escena debe tener su propia fotografía.`);
 const sceneSeconds = targetDuration / 7;
 const clips = script.scenes.map((scene, i) => {
   const start = (i * sceneSeconds).toFixed(3);
