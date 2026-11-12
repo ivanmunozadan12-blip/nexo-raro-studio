@@ -354,10 +354,7 @@ const clips = script.scenes.map((scene, i) => {
     ${imageMarkup}
     <div class="cinema-shade"></div>
     <div class="brand-mark">BEHIND <i>DEL MUNDO</i></div>
-    <div class="scene-copy">
-      <div class="scene-kicker">LO QUE HAY DETRÁS</div>
-      <h1>${escaped(scene.overlay)}</h1>
-    </div>
+    <div class="scene-copy"><h1>${escaped(scene.overlay)}</h1></div>
     <div class="caption" aria-label="${escaped(scene.narration_excerpt)}">${captionMarkup}</div>
   </section>`;
 }).join('');
@@ -370,9 +367,8 @@ html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#080d12
 .cinema-shade{position:absolute;inset:0;z-index:-2;background:linear-gradient(180deg,rgba(5,10,15,.24) 0%,rgba(5,10,15,.05) 30%,rgba(5,10,15,.12) 50%,rgba(5,10,15,.86) 100%),linear-gradient(90deg,rgba(5,10,15,.22),transparent 75%)}
 .brand-mark{position:absolute;top:92px;left:76px;font:800 25px Arial,sans-serif;letter-spacing:5px;color:#fff;text-shadow:0 2px 20px #0008}
 .brand-mark i{font-style:normal;color:#8fd8c2}
-.scene-copy{position:absolute;left:76px;right:76px;bottom:560px;animation:copyIn .65s cubic-bezier(.2,.8,.2,1) both}
-.scene-kicker{display:inline-block;margin-bottom:28px;padding:0 0 12px;border-bottom:4px solid #f0a65b;font:800 19px Arial,sans-serif;letter-spacing:5px;color:#f0a65b}
-.scene h1{margin:0;max-width:930px;font-size:94px;line-height:.98;letter-spacing:-5px;font-weight:900;text-wrap:balance;text-shadow:0 6px 34px #000b}
+.scene-copy{position:absolute;left:76px;right:76px;top:310px;animation:copyIn .65s cubic-bezier(.2,.8,.2,1) both}
+.scene h1{display:inline;margin:0;max-width:930px;font-size:76px;line-height:1.02;letter-spacing:-3px;font-weight:900;text-wrap:balance;text-shadow:0 6px 34px #000b;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .caption{position:absolute;left:76px;right:76px;bottom:230px;min-height:150px;display:flex;flex-wrap:wrap;align-content:flex-start;gap:8px 13px;font-size:43px;line-height:1.16;font-weight:900;letter-spacing:-1.4px;text-shadow:0 3px 16px #000,0 1px 4px #000}
 .caption span{display:inline-block;opacity:0;transform:translateY(18px) scale(.96);animation:wordPop .26s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(var(--word)*.17s)}
 .caption span:nth-child(4n+1){color:#fff}
