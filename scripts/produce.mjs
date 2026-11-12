@@ -34,6 +34,11 @@ const slot = process.env.MANUAL_SLOT || (nearestSlot?.distance <= 90 ? nearestSl
 if (!slot || !slots.includes(slot)) {
   throw new Error(`Ejecución fuera de la ventana de producción: hora local ${localTime} (${tz}); horarios válidos ${slots.join(', ')}. Se marca como fallo y no como éxito vacío.`);
 }
+// Evita que un clic accidental en un horario ya pasado se convierta
+// en una producción retroactiva del mismo día.
+if (local === currentLocalDate && minutesOfDay(slot) < minutesOfDay(localTime) - 90) {
+  throw new Error(`El horario ${slot} ya pasó hoy (hora local ${localTime}). Para producir ese horario otro día, indica MANUAL_DATE con una fecha futura.`);
+}
 if (!process.env.MANUAL_SLOT && nearestSlot.distance > 0) {
   console.warn(`Inicio de GitHub Actions a las ${localTime}; se asigna al horario más cercano ${slot} (desfase ${nearestSlot.distance} min).`);
 }
