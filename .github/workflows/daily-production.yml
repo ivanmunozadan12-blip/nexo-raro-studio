@@ -11,7 +11,7 @@ on:
         type: choice
         options: ["07:30", "14:30", "20:30"]
       production_date:
-        description: "Fecha local Europe/Madrid (vacío = hoy)"
+        description: "Fecha local Europe/Madrid (vacío = hoy; horarios pasados hoy se bloquean)"
         required: false
         type: string
         default: ""
