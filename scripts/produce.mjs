@@ -14,9 +14,9 @@ if (!slot || !slots.includes(slot)) {
   console.log(`No coincide con un horario de producción (${localTime} ${tz}). Se omite sin crear trabajo.`);
   process.exit(0);
 }
-for (const key of ['OPENAI_API_KEY', 'SUPABASE_URL', 'SUPABASE_SERVICE_ROLE_KEY']) {
-  if (!process.env[key]) throw new Error(`Falta la variable ${key}`);
-}
+if (!process.env.GEMINI_API_KEY) throw new Error('Falta GEMINI_API_KEY (Google AI Studio).');
+if (!process.env.SUPABASE_URL) throw new Error('Falta la variable SUPABASE_URL');
+if (!process.env.SUPABASE_SERVICE_ROLE_KEY) throw new Error('Falta la variable SUPABASE_SERVICE_ROLE_KEY');
 const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 const keyIsLegacyServiceRole = jwtRole(supabaseKey) === 'service_role';
 const headers = {
@@ -73,36 +73,27 @@ if (existing.length) {
 const seriesRows = await supabase('series', { query: `?user_id=eq.${userId}&is_active=eq.true&select=id,slug,title,description&order=slug.asc` });
 const series = seriesRows.length ? seriesRows[(slots.indexOf(slot) + Number(local.replaceAll('-', ''))) % seriesRows.length] : null;
 const prompt = `Investiga y escribe un vídeo vertical en español de España para el canal documental Nexo Raro. Hoy es ${local}; horario ${slot}. Serie: ${series?.title || 'curiosidades reales y ciencia sorprendente'}. Tema: elige un hecho real, poco conocido y con gancho, evita temas virales quemados y no repitas el tópico de los últimos días si lo conoces. Usa búsqueda web para contrastar los datos. Duración hablada objetivo 60-68 segundos (125-145 palabras). No inventes cifras ni citas. Si la evidencia es incierta, dilo con claridad. Devuelve SOLO JSON con: title (máx 70 caracteres), hook (máx 12 palabras), narration (125-145 palabras, locutable y natural), scenes (exactamente 7 objetos con visual, overlay y narration_excerpt), sources (mínimo 3 fuentes independientes con title y url), caption (descripción para redes con 3-5 hashtags), category (una de las tres series editoriales). Evita Wikipedia como fuente principal. No incluyas datos sin respaldo en las fuentes.`;
-const aiResponse = await fetch('https://api.openai.com/v1/responses', {
+const geminiModel = process.env.GEMINI_MODEL || 'gemini-2.5-flash-lite';
+const aiResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${geminiModel}:generateContent`, {
   method: 'POST',
-  headers: { Authorization: `Bearer ${process.env.OPENAI_API_KEY}`, 'Content-Type': 'application/json' },
+  headers: { 'x-goog-api-key': process.env.GEMINI_API_KEY, 'Content-Type': 'application/json' },
   body: JSON.stringify({
-    model: process.env.OPENAI_MODEL || 'gpt-6-astra',
-    instructions: 'Eres el editor jefe de un canal documental riguroso. Investiga con web search, contrasta fuentes primarias o instituciones fiables y separa hechos de hipótesis. Responde únicamente con JSON válido.',
-    input: prompt,
-    tools: [{ type: 'web_search' }],
-    max_output_tokens: 2600,
+    systemInstruction: { parts: [{ text: 'Eres el editor jefe de un canal documental riguroso. Investiga con Google Search, contrasta fuentes primarias o instituciones fiables y separa hechos de hipótesis. Responde únicamente con JSON válido.' }] },
+    contents: [{ role: 'user', parts: [{ text: prompt }] }],
+    tools: [{ google_search: {} }],
+    generationConfig: { responseMimeType: 'application/json', temperature: 0.7, maxOutputTokens: 2600 },
   }),
 });
-if (!aiResponse.ok) throw new Error(`OpenAI ${aiResponse.status}: ${(await aiResponse.text()).slice(0, 1000)}`);
+if (!aiResponse.ok) throw new Error(`Gemini ${aiResponse.status}: ${(await aiResponse.text()).slice(0, 1200)}`);
 const ai = await aiResponse.json();
-const outputText = ai.output_text || ai.output?.flatMap(x => x.content || []).find(x => x.type === 'output_text')?.text;
-if (!outputText) throw new Error('La API no devolvió texto de guion.');
-// Web Search is incompatible with Responses API JSON mode. Keep web research enabled
-// and parse the model's JSON-only response defensively instead.
-const cleanedOutput = outputText.trim()
-  .replace(/^```(?:json)?\s*/i, '')
-  .replace(/\s*```$/, '');
-let script;
-try {
-  script = JSON.parse(cleanedOutput);
-} catch {
-  const first = cleanedOutput.indexOf('{');
-  const last = cleanedOutput.lastIndexOf('}');
-  if (first < 0 || last <= first) throw new Error('OpenAI no devolvió un objeto JSON válido para el guion.');
-  try { script = JSON.parse(cleanedOutput.slice(first, last + 1)); }
-  catch { throw new Error('El JSON del guion está mal formado; se detiene antes de guardar datos incompletos.'); }
+const outputText = ai.candidates?.[0]?.content?.parts?.map(p => p.text || '').join('').trim();
+if (!outputText) {
+  const reason = ai.candidates?.[0]?.finishReason || 'sin respuesta';
+  throw new Error(`Gemini no devolvió texto de guion (motivo: ${reason}).`);
 }
+let script;
+try { script = JSON.parse(outputText); }
+catch { throw new Error('Gemini no devolvió JSON válido; se detiene antes de guardar datos incompletos.'); }
 if (!script.title || !script.narration || !Array.isArray(script.scenes) || script.scenes.length !== 7 || !Array.isArray(script.sources) || script.sources.length < 3) throw new Error('El guion no cumple el formato editorial requerido.');
 const wordCount = script.narration.trim().split(/\s+/).length;
 if (wordCount < 105 || wordCount > 165) throw new Error(`Narración fuera de duración: ${wordCount} palabras.`);
