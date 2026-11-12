@@ -442,26 +442,46 @@ async function fetchSceneImage(scene, index) {
   const clean = value => String(value || '').replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').trim();
   const visualTerms = String(scene.image_search_query || '').trim() || topicTokens(scene.visual).slice(0, 5).join(' ');
   const titleTerms = topicTokens(script.title).slice(0, 4).join(' ');
+  const stop = new Set(['the','and','with','from','inside','over','under','view','photo','image','showing','close','shot','wide','aerial','detail','of','in','on','at','for','to','by','an','a']);
+  const terms = visualTerms.toLowerCase().replace(/[^a-z0-9 -]/g, ' ').split(/\s+/).filter(word => word.length > 2 && !stop.has(word));
+  const compact = [...new Set(terms)];
   const queries = [...new Set([
     visualTerms,
-    [titleTerms, visualTerms].filter(Boolean).join(' '),
+    compact.slice(0, 4).join(' '),
+    compact.slice(0, 2).join(' '),
+    compact.slice(-2).join(' '),
+    [titleTerms, compact.slice(0, 2).join(' ')].filter(Boolean).join(' '),
     titleTerms,
-  ].filter(Boolean))];
+  ].map(value => value.trim()).filter(value => value.length >= 3))];
+  const userAgent = 'BehindDelMundoStudio/1.1 (https://github.com/ivanmunozadan12-blip/nexo-raro-studio)';
   for (const query of queries) {
     try {
-      const endpoint = 'https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrnamespace=6&gsrlimit=30&gsrwhat=text|title&gsrsearch=' + encodeURIComponent(query) + '&prop=imageinfo&iiprop=url|extmetadata&iiurlwidth=1600&format=json';
-      const search = await fetch(endpoint, { headers: { 'User-Agent': 'BehindDelMundoStudio/1.0 (documentary video production)' } });
-      if (!search.ok) continue;
+      const params = new URLSearchParams({
+        action: 'query', generator: 'search', gsrnamespace: '6', gsrsearch: query,
+        gsrwhat: 'title', gsrlimit: '50', gsrsort: 'relevance',
+        prop: 'imageinfo', iiprop: 'url|extmetadata', iiurlwidth: '1600',
+        format: 'json', formatversion: '2', maxlag: '5',
+      });
+      const endpoint = 'https://commons.wikimedia.org/w/api.php?' + params.toString();
+      const search = await fetch(endpoint, { headers: { 'User-Agent': userAgent, 'Api-User-Agent': userAgent } });
+      if (!search.ok) {
+        console.warn('Wikimedia Commons respondió HTTP ' + search.status + ' para escena ' + (index + 1) + ' con búsqueda "' + query + '".');
+        continue;
+      }
       const data = await search.json();
-      const pages = Object.values(data.query?.pages || {});
+      const pages = Array.isArray(data.query?.pages) ? data.query.pages : Object.values(data.query?.pages || {});
+      console.log('Wikimedia escena ' + (index + 1) + ': "' + query + '" → ' + pages.length + ' resultados.');
       for (const page of pages) {
         const info = page.imageinfo?.[0];
         const pageKey = String(info?.descriptionurl || page.title || '');
         if (!info?.thumburl || usedImagePages.has(pageKey) || !/^https:\/\//i.test(info.thumburl)) continue;
-        const response = await fetch(info.thumburl, { headers: { 'User-Agent': 'BehindDelMundoStudio/1.0' } });
-        if (!response.ok) continue;
+        const response = await fetch(info.thumburl, { headers: { 'User-Agent': userAgent } });
+        if (!response.ok) {
+          console.warn('Miniatura Wikimedia HTTP ' + response.status + ' en escena ' + (index + 1) + '.');
+          continue;
+        }
         const mime = response.headers.get('content-type') || '';
-        if (!mime.startsWith('image/')) continue;
+        if (!mime.toLowerCase().startsWith('image/')) continue;
         const bytes = Buffer.from(await response.arrayBuffer());
         if (bytes.length < 12000) continue;
         const ext = mime.includes('png') ? 'png' : mime.includes('webp') ? 'webp' : 'jpg';
