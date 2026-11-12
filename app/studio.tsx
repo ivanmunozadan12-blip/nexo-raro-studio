@@ -9,7 +9,8 @@ const stamp=(v:string)=>new Date(v).toLocaleDateString('es-ES');
 export default function Studio(){
  const [session,setSession]=useState<any>(null),[email,setEmail]=useState(''),[password,setPassword]=useState(''),[signup,setSignup]=useState(false),[message,setMessage]=useState(''),[busy,setBusy]=useState(false),[tab,setTab]=useState<Tab>('overview');
  const [jobs,setJobs]=useState<any[]>([]),[scripts,setScripts]=useState<any[]>([]),[memory,setMemory]=useState<any[]>([]),[videos,setVideos]=useState<any[]>([]),[posts,setPosts]=useState<any[]>([]),[analytics,setAnalytics]=useState<any[]>([]),[settings,setSettings]=useState<any>(null),[series,setSeries]=useState<any[]>([]);
- const [selectedScript,setSelectedScript]=useState<any>(null),[signed,setSigned]=useState<Record<string,string>>({}),[memoryTopic,setMemoryTopic]=useState(''),[memoryReason,setMemoryReason]=useState('');\n const [scriptBatch,setScriptBatch]=useState(['','','']),[dispatching,setDispatching]=useState(false),[knownReady,setKnownReady]=useState<string[]>([]),[notifyEnabled,setNotifyEnabled]=useState(false);
+ const [selectedScript,setSelectedScript]=useState<any>(null),[signed,setSigned]=useState<Record<string,string>>({}),[memoryTopic,setMemoryTopic]=useState(''),[memoryReason,setMemoryReason]=useState('');
+ const [scriptBatch,setScriptBatch]=useState(['','','']),[dispatching,setDispatching]=useState(false),[knownReady,setKnownReady]=useState<string[]>([]),[notifyEnabled,setNotifyEnabled]=useState(false);
  const db=supabase();
  useEffect(()=>{db.auth.getSession().then(({data}:any)=>setSession(data.session));const {data}=db.auth.onAuthStateChange((_e:any,s:any)=>setSession(s));return()=>data.subscription.unsubscribe()},[]);
  const load=useCallback(async()=>{
