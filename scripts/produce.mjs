@@ -112,10 +112,7 @@ async function groqResearch(input) {
       headers: { Authorization: `Bearer ${process.env.GROQ_API_KEY}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({
         model: groqModel,
-        input: [
-          { role: 'system', content: [{ type: 'input_text', text: 'Eres un investigador documental. Usa browser_search para contrastar fuentes reales. Devuelve notas con títulos, URLs exactas y hechos respaldados; no redactes aún el guion.' }] },
-          { role: 'user', content: [{ type: 'input_text', text: input }] },
-        ],
+        input: 'Eres un investigador documental. Usa browser_search para contrastar fuentes reales. Devuelve notas con títulos, URLs exactas y hechos respaldados; no redactes aún el guion.\\n\\n' + input,
         tools: [{ type: 'browser_search' }],
         tool_choice: 'required',
         reasoning: { effort: 'low' },
