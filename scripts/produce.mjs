@@ -458,8 +458,6 @@ const html = '<!doctype html><html lang="es"><head><meta charset="utf-8"><meta n
 await writeFile(path.join(work, 'index.html'), html);
 await command('npx', ['--yes', 'hyperframes@0.9.37', 'lint'], { cwd: work });
 const rawVideo = path.join(work, 'video-silent.mp4');
-
-const rawVideo = path.join(work, 'video-silent.mp4');
 await command('npx', ['--yes', 'hyperframes@0.9.37', 'render', '-c', 'index.html', '-o', rawVideo, '--fps', '30', '--quality', 'standard', '--workers', '1'], { cwd: work });
 const finalPath = path.join(root, 'renders', `behind-del-mundo-${local}-${slot.replace(':','')}.mp4`);
 // HyperFrames incorpora la narración como pista de audio del timeline. No volver a muxear
