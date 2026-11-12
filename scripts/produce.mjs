@@ -65,7 +65,7 @@ const [settings] = await supabase('channel_settings', { query: '?brand_slug=eq.n
 if (!settings) throw new Error('No hay una cuenta configurada en el panel. Inicia sesión y termina el asistente inicial.');
 const userId = settings.user_id;
 const scheduledAt = new Date(new Date(`${local}T${slot}:00`).toLocaleString('en-US', { timeZone: tz })).toISOString();
-const existing = await supabase('production_jobs', { query: `?user_id=eq.${userId}&scheduled_for=eq.${encodeURIComponent(scheduledAt)}&select=id,status&limit=1` });
+const existing = await supabase('production_jobs', { query: `?user_id=eq.${userId}&scheduled_for=eq.${encodeURIComponent(scheduledAt)}&status=in.(queued,voicing,rendering,ready)&select=id,status&limit=1` });
 if (existing.length) {
   console.log(`El horario ${local} ${slot} ya tiene un trabajo (${existing[0].status}); se evita duplicar.`);
   process.exit(0);
