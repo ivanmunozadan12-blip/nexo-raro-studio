@@ -132,6 +132,17 @@ async function generateSpeech(text, outputPath, voice, rate, label, required = t
   }
   return false;
 }
+
+// Comprueba Edge TTS antes de gastar cuota de Groq o crear registros.
+// Si el proveedor no entrega audio, la ejecución se detiene aquí.
+const ttsPreflightPath = path.join(root, 'renders', 'tts-preflight.mp3');
+await mkdir(path.dirname(ttsPreflightPath), { recursive: true });
+try {
+  await generateSpeech('Prueba de voz de Behind del Mundo.', ttsPreflightPath, 'es-ES-AlvaroNeural', '+8%', 'comprobación previa', true);
+  console.log('Preflight de voz superado; se inicia la producción editorial.');
+} finally {
+  await rm(ttsPreflightPath, { force: true });
+}
 const [settings] = await supabase('channel_settings', { query: '?brand_slug=eq.nexo-raro&select=id,user_id,channel_name,timezone,require_approval,auto_publish_enabled&limit=1' });
 if (!settings) throw new Error('No hay una cuenta configurada en el panel. Inicia sesión y termina el asistente inicial.');
 const userId = settings.user_id;
