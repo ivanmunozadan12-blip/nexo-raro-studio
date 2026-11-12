@@ -195,7 +195,7 @@ try {
 
 function topicTokens(value) {
   const stop = new Set('para como donde cuando desde hasta sobre entre hacia este esta estos estas unos unas una uno por con sin del las los que cual quien cómo qué muy más menos pero porque también entonces'.split(' '));
-  return [...new Set(String(value || '').toLowerCase().normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').match(/[a-z0-9]{3,}/g) || [])].filter(x => !stop.has(x));
+  return [...new Set(String(value || '').toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu,'').match(/[a-z0-9]{3,}/g) || [])].filter(x => !stop.has(x));
 }
 function overlap(a, b) {
   const A = new Set(topicTokens(a)), B = new Set(topicTokens(b));
