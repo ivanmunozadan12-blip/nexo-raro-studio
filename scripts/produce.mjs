@@ -81,7 +81,6 @@ const aiResponse = await fetch('https://api.openai.com/v1/responses', {
     instructions: 'Eres el editor jefe de un canal documental riguroso. Investiga con web search, contrasta fuentes primarias o instituciones fiables y separa hechos de hipótesis. Responde únicamente con JSON válido.',
     input: prompt,
     tools: [{ type: 'web_search' }],
-    text: { format: { type: 'json_object' } },
     max_output_tokens: 2600,
   }),
 });
@@ -89,7 +88,21 @@ if (!aiResponse.ok) throw new Error(`OpenAI ${aiResponse.status}: ${(await aiRes
 const ai = await aiResponse.json();
 const outputText = ai.output_text || ai.output?.flatMap(x => x.content || []).find(x => x.type === 'output_text')?.text;
 if (!outputText) throw new Error('La API no devolvió texto de guion.');
-const script = JSON.parse(outputText);
+// Web Search is incompatible with Responses API JSON mode. Keep web research enabled
+// and parse the model's JSON-only response defensively instead.
+const cleanedOutput = outputText.trim()
+  .replace(/^```(?:json)?\\s*/i, '')
+  .replace(/\\s*```$/, '');
+let script;
+try {
+  script = JSON.parse(cleanedOutput);
+} catch {
+  const first = cleanedOutput.indexOf('{');
+  const last = cleanedOutput.lastIndexOf('}');
+  if (first < 0 || last <= first) throw new Error('OpenAI no devolvió un objeto JSON válido para el guion.');
+  try { script = JSON.parse(cleanedOutput.slice(first, last + 1)); }
+  catch { throw new Error('El JSON del guion está mal formado; se detiene antes de guardar datos incompletos.'); }
+}
 if (!script.title || !script.narration || !Array.isArray(script.scenes) || script.scenes.length !== 7 || !Array.isArray(script.sources) || script.sources.length < 3) throw new Error('El guion no cumple el formato editorial requerido.');
 const wordCount = script.narration.trim().split(/\s+/).length;
 if (wordCount < 105 || wordCount > 165) throw new Error(`Narración fuera de duración: ${wordCount} palabras.`);
