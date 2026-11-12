@@ -9,10 +9,19 @@ const tz = 'Europe/Madrid';
 const now = new Date();
 const local = new Intl.DateTimeFormat('en-CA', { timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit' }).format(now);
 const localTime = new Intl.DateTimeFormat('en-GB', { timeZone: tz, hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(now);
-const slot = process.env.MANUAL_SLOT || slots.find(s => s === localTime);
+const minutesOfDay = value => {
+  const [hour, minute] = String(value).split(':').map(Number);
+  return hour * 60 + minute;
+};
+const nearestSlot = slots
+  .map(value => ({ value, distance: Math.abs(minutesOfDay(localTime) - minutesOfDay(value)) }))
+  .sort((a, b) => a.distance - b.distance)[0];
+const slot = process.env.MANUAL_SLOT || (nearestSlot?.distance <= 90 ? nearestSlot.value : null);
 if (!slot || !slots.includes(slot)) {
-  console.log(`No coincide con un horario de producción (${localTime} ${tz}). Se omite sin crear trabajo.`);
-  process.exit(0);
+  throw new Error(`Ejecución fuera de la ventana de producción: hora local ${localTime} (${tz}); horarios válidos ${slots.join(', ')}. Se marca como fallo y no como éxito vacío.`);
+}
+if (!process.env.MANUAL_SLOT && nearestSlot.distance > 0) {
+  console.warn(`Inicio de GitHub Actions a las ${localTime}; se asigna al horario más cercano ${slot} (desfase ${nearestSlot.distance} min).`);
 }
 if (!process.env.GROQ_API_KEY) throw new Error('Falta GROQ_API_KEY (GroqCloud).');
 if (!process.env.SUPABASE_URL) throw new Error('Falta la variable SUPABASE_URL');
