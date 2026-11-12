@@ -205,12 +205,12 @@ function overlap(a, b) {
 }
 const candidateCore = [script.title, script.hook].join(' ');
 const candidateNarration = script.narration || '';
-const candidateUrls = new Set((script.sources || []).map(x => String(x.url || '').replace(/\\/$/, '').toLowerCase()));
+const candidateUrls = new Set((script.sources || []).map(x => String(x.url || '').replace(/\/$/, '').toLowerCase()));
 const collision = editorialMemory.find(item => {
   const oldCore = [item.topic, item.angle].join(' ');
   const titleScore = overlap(candidateCore, oldCore);
   const storyScore = overlap(candidateNarration, item.summary || '');
-  const oldUrls = (item.source_urls || []).map(x => String(x.url || x || '').replace(/\\/$/, '').toLowerCase());
+  const oldUrls = (item.source_urls || []).map(x => String(x.url || x || '').replace(/\/$/, '').toLowerCase());
   const sharedSources = oldUrls.filter(url => url && candidateUrls.has(url)).length;
   return titleScore >= 0.45 || (storyScore >= 0.24 && titleScore >= 0.18) || sharedSources >= 2;
 });
@@ -329,7 +329,7 @@ const video = await supabase('videos', { method:'POST', body: {
   quality_check:{passed:true, duration_seconds:actualDuration, bytes:stat.size, has_audio:true, visual_assets:imageCount, sources:script.sources.length, word_count:wordCount, voice:'es-ES-AlvaroNeural', rendered_by:'HyperFrames'},
 
 }});
-const topicKey = String(script.title || '').toLowerCase().normalize('NFD').replace(/[\\u0300-\\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const topicKey = String(script.title || '').toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 await supabase('editorial_memory', { method: 'POST', body: {
   user_id: userId, script_id: scriptId, topic: script.title, topic_key: topicKey,
   angle: script.hook || '', summary: String(script.narration || '').slice(0, 1200),
