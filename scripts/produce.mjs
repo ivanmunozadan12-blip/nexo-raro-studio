@@ -292,7 +292,7 @@ await command('python', ['-m', 'edge_tts', '--voice', 'es-ES-AlvaroNeural', '--r
 const enzoLines = script.scenes
   .map((scene, index) => ({ text: String(scene.enzo_line || '').trim(), index }))
   .filter(line => line.text);
-if (enzoLines.length > 3 || enzoLines.some(line => line.text.split(/\\s+/).length > 5)) {
+if (enzoLines.length > 3 || enzoLines.some(line => line.text.split(/\s+/).length > 5)) {
   throw new Error('Las intervenciones de Enzo deben ser como máximo 3 y de hasta 5 palabras cada una.');
 }
 const enzoAudioFiles = [];
