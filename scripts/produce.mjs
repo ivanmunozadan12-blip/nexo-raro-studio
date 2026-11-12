@@ -262,7 +262,9 @@ const scriptRow = await supabase('scripts', { method: 'POST', body: {
 }});
 const scriptId = scriptRow[0].id;
 
-let jobId;
+let jobId = existingJob?.id || null;
+let storagePath = null;
+try {
 if (existing.length) {
   const [reusedJob] = await supabase('production_jobs', {
     method: 'PATCH',
@@ -348,7 +350,7 @@ if (!videoStream || videoStream.width !== 1080 || videoStream.height !== 1920) t
 if (!audioStream) throw new Error('QC fallido: el MP4 no contiene pista de audio.');
 if (actualDuration < 55 || actualDuration > 70) throw new Error(`QC fallido: duración real ${actualDuration.toFixed(1)} s fuera del margen 55–70 s.`);
 console.log(`QC MP4 verificado: ${actualDuration.toFixed(1)} s, 1080×1920, audio presente.`);
-const storagePath = `${userId}/${local}/${slot.replace(':','')}.mp4`;
+storagePath = `${userId}/${local}/${slot.replace(':','')}.mp4`;
 const videoBuffer = await readFile(finalPath);
 const upload = await fetch(`${api}/storage/v1/object/nexo-videos/${storagePath}`, {
   method: 'POST',
@@ -375,3 +377,46 @@ await supabase('social_posts', { method:'POST', body: ['youtube','tiktok'].map(p
 }))});
 await supabase('production_jobs', { method:'PATCH', query:`?id=eq.${jobId}`, body:{status:'ready',completed_at:new Date().toISOString()} });
 console.log(`Vídeo listo: ${finalPath} (${stat.size} bytes). Guardado en Supabase; publicación en borrador por seguridad.`);
+} catch (productionError) {
+  console.error('Producción fallida; se eliminan los registros y archivos parciales de esta prueba.');
+  const cleanupStep = async (label, fn) => {
+    try { await fn(); console.log('Limpieza completada: ' + label); }
+    catch (cleanupError) { console.error('No se pudo completar la limpieza (' + label + '): ' + cleanupError.message); }
+  };
+  const partialVideos = await supabase('videos', {
+    query: `?script_id=eq.${scriptId}&select=id,storage_path`,
+  }).catch(error => {
+    console.error('No se pudieron consultar los vídeos parciales: ' + error.message);
+    return [];
+  });
+  for (const partialVideo of partialVideos) {
+    await cleanupStep('borradores sociales del vídeo ' + partialVideo.id, () =>
+      supabase('social_posts', { method: 'DELETE', query: `?video_id=eq.${partialVideo.id}` }));
+  }
+  const pathsToRemove = new Set([storagePath, ...partialVideos.map(item => item.storage_path)].filter(Boolean));
+  for (const objectPath of pathsToRemove) {
+    const encodedPath = objectPath.split('/').map(encodeURIComponent).join('/');
+    await cleanupStep('archivo de Storage ' + objectPath, async () => {
+      const response = await fetch(`${api}/storage/v1/object/nexo-videos/${encodedPath}`, {
+        method: 'DELETE', headers,
+      });
+      if (!response.ok && response.status !== 404) {
+        throw new Error(`Storage DELETE ${response.status}: ${(await response.text()).slice(0, 500)}`);
+      }
+    });
+  }
+  await cleanupStep('vídeos parciales', () =>
+    supabase('videos', { method: 'DELETE', query: `?script_id=eq.${scriptId}` }));
+  await cleanupStep('memoria editorial parcial', () =>
+    supabase('editorial_memory', { method: 'DELETE', query: `?script_id=eq.${scriptId}` }));
+  if (jobId) {
+    await cleanupStep('trabajo de producción', () =>
+      supabase('production_jobs', { method: 'DELETE', query: `?id=eq.${jobId}` }));
+  } else {
+    await cleanupStep('trabajos de producción parciales', () =>
+      supabase('production_jobs', { method: 'DELETE', query: `?script_id=eq.${scriptId}` }));
+  }
+  await cleanupStep('guion de prueba', () =>
+    supabase('scripts', { method: 'DELETE', query: `?id=eq.${scriptId}` }));
+  throw productionError;
+}
