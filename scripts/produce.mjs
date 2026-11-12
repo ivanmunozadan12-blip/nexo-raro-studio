@@ -151,7 +151,7 @@ if (wordCount < 105 || wordCount > 165) throw new Error(`El guion tiene ${wordCo
 if (!Array.isArray(script.scenes) || script.scenes.length !== 7) throw new Error('El guion debe incluir exactamente 7 escenas.');
 if (!Array.isArray(script.sources) || script.sources.length < 3) throw new Error('El guion debe incluir al menos 3 fuentes verificables.');
 for (const source of script.sources) {
-  if (!source.url || !/^https:\\/\\//i.test(source.url)) throw new Error('Una fuente del guion no contiene una URL HTTPS válida.');
+  if (!source.url || !/^https:\/\//i.test(source.url)) throw new Error('Una fuente del guion no contiene una URL HTTPS válida.');
 }
 const [seriesMatch] = seriesRows.filter(x => x.slug === script.category);
 const scriptRow = await supabase('scripts', { method: 'POST', body: {
