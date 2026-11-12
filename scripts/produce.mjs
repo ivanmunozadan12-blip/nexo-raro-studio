@@ -73,7 +73,7 @@ if (existing.length) {
 const seriesRows = await supabase('series', { query: `?user_id=eq.${userId}&is_active=eq.true&select=id,slug,title,description&order=slug.asc` });
 const series = seriesRows.length ? seriesRows[(slots.indexOf(slot) + Number(local.replaceAll('-', ''))) % seriesRows.length] : null;
 const prompt = `Investiga y escribe un vídeo vertical en español de España para el canal documental Nexo Raro. Hoy es ${local}; horario ${slot}. Serie: ${series?.title || 'curiosidades reales y ciencia sorprendente'}. Tema: elige un hecho real, poco conocido y con gancho, evita temas virales quemados y no repitas el tópico de los últimos días si lo conoces. Usa búsqueda web para contrastar los datos. Duración hablada objetivo 60-68 segundos (125-145 palabras). No inventes cifras ni citas. Si la evidencia es incierta, dilo con claridad. Devuelve SOLO JSON con: title (máx 70 caracteres), hook (máx 12 palabras), narration (125-145 palabras, locutable y natural), scenes (exactamente 7 objetos con visual, overlay y narration_excerpt), sources (mínimo 3 fuentes independientes con title y url), caption (descripción para redes con 3-5 hashtags), category (una de las tres series editoriales). Evita Wikipedia como fuente principal. No incluyas datos sin respaldo en las fuentes.`;
-const geminiModel = process.env.GEMINI_MODEL || 'gemini-2.5-flash-lite';
+const geminiModel = process.env.GEMINI_MODEL || 'gemini-3.5-flash-lite';
 const aiResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${geminiModel}:generateContent`, {
   method: 'POST',
   headers: { 'x-goog-api-key': process.env.GEMINI_API_KEY, 'Content-Type': 'application/json' },
