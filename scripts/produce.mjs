@@ -132,7 +132,7 @@ const work = path.join(root, 'renders', `${local}-${slot.replace(':', '')}`);
 await mkdir(work, { recursive: true });
 await writeFile(path.join(work, 'script.json'), JSON.stringify(script, null, 2));
 const voicePath = path.join(work, 'voice.mp3');
-await command('python', ['-m', 'edge_tts', '--voice', 'es-ES-AlvaroNeural', '--rate', '-4%', '--text', script.narration, '--write-media', voicePath]);
+await command('python', ['-m', 'edge_tts', '--voice', 'es-ES-AlvaroNeural', '--rate=-4%', '--text', script.narration, '--write-media', voicePath]);
 await supabase('production_jobs', { method: 'PATCH', query: `?id=eq.${jobId}`, body: { status: 'rendering' } });
 const escaped = value => String(value || '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const sceneSeconds = 64 / 7;
