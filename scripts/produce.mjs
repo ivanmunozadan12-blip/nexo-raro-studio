@@ -102,21 +102,47 @@ async function groqChat(payload, label) {
 }
 // Groq browser_search no debe compartir la misma llamada con la salida JSON:
 // primero se investiga en texto libre y después se genera JSON en una llamada separada.
-const researchResponse = await groqChat({
-    model: groqModel,
-    messages: [
-      { role: 'system', content: 'Eres un investigador documental. Usa browser_search para buscar y contrastar fuentes reales. Devuelve notas de investigación con títulos, URLs y hechos respaldados; no redactes aún el guion.' },
-      { role: 'user', content: researchPrompt },
-    ],
-    tools: [{ type: 'browser_search' }],
-    tool_choice: 'required',
-    reasoning_effort: 'low',
-    temperature: 1,
-    max_completion_tokens: 1800,
-    stream: false,
-  }, 'investigación');
-const research = (await researchResponse.json()).choices?.[0]?.message?.content?.trim();
-if (!research || research.length < 200) throw new Error('Groq no devolvió una investigación suficiente con fuentes.');
+// La API Responses devuelve el texto final de browser_search en output_text.
+async function groqResearch(input) {
+  const endpoint = 'https://api.groq.com/openai/v1/responses';
+  const maxAttempts = 5;
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    const response = await fetch(endpoint, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${process.env.GROQ_API_KEY}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: groqModel,
+        input: [
+          { role: 'system', content: [{ type: 'input_text', text: 'Eres un investigador documental. Usa browser_search para contrastar fuentes reales. Devuelve notas con títulos, URLs exactas y hechos respaldados; no redactes aún el guion.' }] },
+          { role: 'user', content: [{ type: 'input_text', text: input }] },
+        ],
+        tools: [{ type: 'browser_search' }],
+        tool_choice: 'required',
+        reasoning: { effort: 'low' },
+        max_output_tokens: 2200,
+      }),
+    });
+    if (response.ok) {
+      const data = await response.json();
+      const outputText = data.output_text || (data.output || [])
+        .filter(item => item.type === 'message')
+        .flatMap(item => item.content || [])
+        .filter(item => item.type === 'output_text')
+        .map(item => item.text || '').join('\\n').trim();
+      if (outputText.length >= 200) return outputText;
+      throw new Error(`Groq browser_search terminó sin texto útil (status=${data.status || 'desconocido'}, output_items=${(data.output || []).length}).`);
+    }
+    const body = await response.text();
+    const retryable = response.status === 429 || response.status >= 500;
+    if (!retryable || attempt === maxAttempts) throw new Error(`Groq investigación ${response.status}: ${body.slice(0, 1200)}`);
+    const retryMatch = body.match(/try again in ([0-9.]+)s/i);
+    const waitSeconds = retryMatch ? Number(retryMatch[1]) + 2 : Math.min(15 * attempt, 60);
+    console.warn(`Groq investigación: HTTP ${response.status}; reintento en ${waitSeconds}s.`);
+    await new Promise(resolve => setTimeout(resolve, waitSeconds * 1000));
+  }
+  throw new Error('Groq investigación: se agotaron los reintentos.');
+}
+const research = await groqResearch(researchPrompt);
 const prompt = `A partir EXCLUSIVAMENTE de esta investigación web, escribe un vídeo vertical en español de España para Nexo Raro. Fecha ${local}; horario ${slot}. Duración hablada 60-68 segundos (125-145 palabras). No inventes cifras, citas, detalles ni fuentes. Si algo es incierto, dilo claramente. Elige un ángulo con gancho y evita repetir el tópico de los últimos días si aparece en las notas.\n\nINVESTIGACIÓN Y FUENTES:\n${research}\n\nDevuelve SOLO un objeto JSON válido con: title (máx 70 caracteres), hook (máx 12 palabras), narration (125-145 palabras, locutable y natural), scenes (exactamente 7 objetos con visual, overlay y narration_excerpt), sources (mínimo 3 fuentes independientes con title y url; usa únicamente URLs presentes en la investigación), caption (descripción para redes con 3-5 hashtags), category (una de las tres series editoriales). No incluyas datos sin respaldo.`;
 const aiResponse = await groqChat({
     model: groqModel,
