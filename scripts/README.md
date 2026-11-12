@@ -10,4 +10,4 @@ Variables necesarias en GitHub Actions → Settings → Secrets and variables �
 Variable opcional:
 - OPENAI_MODEL (default gpt-6-astra)
 
-El workflow puede ejecutarse manualmente desde Actions → Nexo Raro · producción diaria → Run workflow. Requiere que el panel haya creado la fila de channel_settings para brand_slug nexo-raro.
+El workflow puede ejecutarse manualmente desde Actions → Behind del Mundo · producción diaria → Run workflow. Requiere que el panel haya creado la fila de channel_settings para brand_slug behind-del-mundo.
