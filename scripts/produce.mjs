@@ -10,7 +10,7 @@ const now = new Date();
 const currentLocalDate = new Intl.DateTimeFormat('en-CA', { timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit' }).format(now);
 const localTime = new Intl.DateTimeFormat('en-GB', { timeZone: tz, hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(now);
 const requestedDate = String(process.env.MANUAL_DATE || '').trim();
-if (requestedDate && !/^\\d{4}-\\d{2}-\\d{2}$/.test(requestedDate)) {
+if (requestedDate && !/^\d{4}-\d{2}-\d{2}$/.test(requestedDate)) {
   throw new Error('MANUAL_DATE debe tener formato YYYY-MM-DD.');
 }
 const local = requestedDate || currentLocalDate;
