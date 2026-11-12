@@ -3,10 +3,21 @@
 Panel y pipeline de producción para el canal Nexo Raro.
 
 ## Objetivo
-Tres vídeos verticales diarios a las 07:30, 14:30 y 20:30 (`Europe/Madrid`), con investigación verificable, guion, voz, composición HyperFrames, render MP4, revisión y publicación en YouTube Shorts y TikTok.
+Tres vídeos verticales diarios a las 07:30, 14:30 y 20:30 (`Europe/Madrid`), con investigación web, guion, voz, composición HyperFrames, render MP4, almacenamiento privado y revisión antes de publicar.
 
-## Estado real
-Esta primera base incluye la interfaz PWA, endpoint de salud y endpoint de scheduler protegido. **Todavía no genera ni publica vídeos**: faltan implementar y verificar el worker HyperFrames y configurar proveedores y credenciales oficiales de publicación. El endpoint de cron no crea archivos de prueba ni simula trabajos completados.
+## Arquitectura actual
+- **Web/PWA:** Next.js desplegado en Vercel.
+- **Datos y archivos:** Supabase (Postgres, Auth y bucket privado `nexo-videos`).
+- **Producción:** GitHub Actions ejecuta `npm run produce` en los tres horarios.
+- **IA:** Groq; el modelo se selecciona con `GROQ_MODEL` y por defecto es `openai/gpt-oss-120b`.
+- **Voz:** `edge-tts` en español de España.
+- **Vídeo:** HyperFrames + FFmpeg, formato vertical 1080×1920.
+- **Publicación:** se crean borradores de YouTube y TikTok. La publicación automática permanece desactivada y requiere configurar OAuth y activar el flujo de aprobación correspondiente.
+
+## Estado de verificación
+El worker de producción está implementado, pero una ejecución completa todavía debe confirmarse con un MP4 real, su objeto en Supabase Storage, las filas correspondientes en la base de datos y los borradores visibles en el estudio. No se debe considerar la producción validada solo porque GitHub Actions termine correctamente.
+
+El endpoint `/api/health` informa del estado de la aplicación web. No puede comprobar los secretos privados del worker, que residen en GitHub Actions. El endpoint `/api/cron` no es el planificador activo: GitHub Actions es el reloj de producción.
 
 ## Desarrollo
 - Node.js 22+
@@ -16,10 +27,19 @@ Esta primera base incluye la interfaz PWA, endpoint de salud y endpoint de sched
 - `npm run build`
 
 ## Variables
-Copia `.env.example` a `.env.local` y configura únicamente credenciales propias. Nunca publiques `.env.local` ni `SUPABASE_SERVICE_ROLE_KEY`.
+Configura las credenciales en el entorno correspondiente. Nunca publiques `.env.local`, `GROQ_API_KEY` ni `SUPABASE_SERVICE_ROLE_KEY`.
 
-## Planificador
-GitHub Actions será el reloj externo para los tres horarios locales. Se programarán las dos variantes UTC de verano/invierno y el proceso validará `Europe/Madrid` para evitar duplicados. Los trabajos se activarán solo después de completar el worker.
+### GitHub Actions secrets
+- `GROQ_API_KEY`
+- `SUPABASE_URL`
+- `SUPABASE_SERVICE_ROLE_KEY`
 
-## Costes
-Diseño inicial compatible con planes gratuitos. No se activa ningún servicio de pago ni publicación hasta comprobar límites, credenciales y autorizaciones.
+### GitHub Actions variable opcional
+- `GROQ_MODEL` (por defecto `openai/gpt-oss-120b`)
+
+### Vercel
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+
+## Costes y seguridad
+Diseño compatible con planes gratuitos dentro de sus límites. No se activa ningún servicio de pago ni publicación automática sin autorización. Los MP4 se almacenan en un bucket privado y las publicaciones permanecen como borradores.
