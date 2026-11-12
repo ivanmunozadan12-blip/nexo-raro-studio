@@ -74,6 +74,8 @@ const seriesRows = await supabase('series', { query: `?user_id=eq.${userId}&is_a
 const series = seriesRows.length ? seriesRows[(slots.indexOf(slot) + Number(local.replaceAll('-', ''))) % seriesRows.length] : null;
 const researchPrompt = `Busca en la web un hecho real, poco conocido y visualmente atractivo para un vídeo documental breve en español de España. Fecha: ${local}; horario: ${slot}; serie editorial: ${series?.title || 'curiosidades reales y ciencia sorprendente'}. Evita temas virales quemados. Contrasta el hecho con al menos 3 fuentes independientes, preferiblemente fuentes primarias, universidades, organismos oficiales o publicaciones científicas. Devuelve un resumen claro de los hechos verificables, qué partes son inciertas y las URLs exactas de las fuentes. No inventes referencias.`;
 const groqModel = process.env.GROQ_MODEL || 'openai/gpt-oss-120b';
+// Browser Search currently requires GPT OSS; use a separate free model/quota for script writing.
+const scriptModel = process.env.GROQ_SCRIPT_MODEL || 'qwen/qwen3.8-27b';
 async function groqChat(payload, label) {
   const endpoint = 'https://api.groq.com/openai/v1/chat/completions';
   const maxAttempts = 5;
@@ -85,9 +87,10 @@ async function groqChat(payload, label) {
     });
     if (response.ok) return response;
     const body = await response.text();
-    const retryable = response.status === 429 || response.status >= 500;
+    const dailyTokenLimit = response.status === 429 && /tokens per day|TPD/i.test(body);
+    const retryable = (response.status === 429 || response.status >= 500) && !dailyTokenLimit;
     if (!retryable || attempt === maxAttempts) {
-      throw new Error(`Groq ${label} ${response.status}: ${body.slice(0, 1200)}`);
+      throw new Error(`Groq ${label} ${response.status}${dailyTokenLimit ? ' (cuota diaria agotada; no tiene sentido reintentar este mismo modelo)' : ''}: ${body.slice(0, 1200)}`);
     }
     const retryAfterHeader = Number(response.headers.get('retry-after'));
     const retryAfterBody = body.match(/try again in ([0-9.]+)s/i);
@@ -142,7 +145,7 @@ async function groqResearch(input) {
 const research = await groqResearch(researchPrompt);
 const prompt = `A partir EXCLUSIVAMENTE de esta investigación web, escribe un vídeo vertical en español de España para Nexo Raro. Fecha ${local}; horario ${slot}. Duración hablada 60-68 segundos (125-145 palabras). No inventes cifras, citas, detalles ni fuentes. Si algo es incierto, dilo claramente. Elige un ángulo con gancho y evita repetir el tópico de los últimos días si aparece en las notas.\n\nINVESTIGACIÓN Y FUENTES:\n${research}\n\nDevuelve SOLO un objeto JSON válido con: title (máx 70 caracteres), hook (máx 12 palabras), narration (125-145 palabras, locutable y natural), scenes (exactamente 7 objetos con visual, overlay y narration_excerpt), sources (mínimo 3 fuentes independientes con title y url; usa únicamente URLs presentes en la investigación), caption (descripción para redes con 3-5 hashtags), category (una de las tres series editoriales). No incluyas datos sin respaldo.`;
 const aiResponse = await groqChat({
-    model: groqModel,
+    model: scriptModel,
     messages: [
       { role: 'system', content: 'Eres el editor jefe de Nexo Raro. Responde únicamente con un objeto JSON válido, sin Markdown ni texto fuera del JSON. No añadas fuentes ni URLs que no estén en la investigación proporcionada.' },
       { role: 'user', content: prompt },
