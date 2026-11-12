@@ -262,7 +262,7 @@ const scriptRow = await supabase('scripts', { method: 'POST', body: {
 }});
 const scriptId = scriptRow[0].id;
 
-let jobId = existingJob?.id || null;
+let jobId = null;
 let storagePath = null;
 try {
 if (existing.length) {
