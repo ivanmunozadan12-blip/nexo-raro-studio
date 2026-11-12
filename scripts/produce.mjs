@@ -17,9 +17,14 @@ if (!slot || !slots.includes(slot)) {
 for (const key of ['OPENAI_API_KEY', 'SUPABASE_URL', 'SUPABASE_SERVICE_ROLE_KEY']) {
   if (!process.env[key]) throw new Error(`Falta la variable ${key}`);
 }
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+const keyIsNewSecret = supabaseKey.startsWith('sb_secret_');
+const keyIsLegacyServiceRole = jwtRole(supabaseKey) === 'service_role';
 const headers = {
-  apikey: process.env.SUPABASE_SERVICE_ROLE_KEY,
-  Authorization: `Bearer ${process.env.SUPABASE_SERVICE_ROLE_KEY}`,
+  apikey: supabaseKey,
+  // New sb_secret_* keys must be sent only as apikey; legacy service_role JWTs
+  // can also be sent as Bearer tokens.
+  ...(keyIsLegacyServiceRole ? { Authorization: `Bearer ${supabaseKey}` } : {}),
   'Content-Type': 'application/json',
   Prefer: 'return=representation',
 };
@@ -35,10 +40,11 @@ function jwtRole(token) {
     return JSON.parse(Buffer.from(payload, 'base64').toString('utf8')).role || 'sin role';
   } catch { return 'no es un JWT válido'; }
 }
-const keyRole = jwtRole(process.env.SUPABASE_SERVICE_ROLE_KEY);
-console.log(`Supabase verificado: proyecto=${actualProjectRef}; rol de la clave=${keyRole}`);
-if (keyRole !== 'service_role') {
-  throw new Error(`SUPABASE_SERVICE_ROLE_KEY no es una clave service_role (rol detectado: ${keyRole}). En Supabase > Project Settings > API Keys, copia la clave secreta service_role/secret del proyecto ${expectedProjectRef}; no uses la publishable/anon key.`);
+const keyRole = jwtRole(supabaseKey);
+const keyIsNewSecret = supabaseKey.startsWith('sb_secret_');
+console.log(`Supabase verificado: proyecto=${actualProjectRef}; tipo de clave=${keyIsNewSecret ? 'secret sb_secret_*' : keyRole}`);
+if (!keyIsNewSecret && keyRole !== 'service_role') {
+  throw new Error(`SUPABASE_SERVICE_ROLE_KEY no es una clave privilegiada válida. Usa la clave Secret (sb_secret_...) o la legacy service_role del proyecto ${expectedProjectRef}; no uses la Publishable/anon.`);
 }
 async function supabase(table, options = {}) {
   const { method = 'GET', query = '', body, extraHeaders = {} } = options;
@@ -130,7 +136,7 @@ const storagePath = `${userId}/${local}/${slot.replace(':','')}.mp4`;
 const videoBuffer = await readFile(finalPath);
 const upload = await fetch(`${api}/storage/v1/object/nexo-videos/${storagePath}`, {
   method: 'POST',
-  headers: { apikey: process.env.SUPABASE_SERVICE_ROLE_KEY, Authorization: `Bearer ${process.env.SUPABASE_SERVICE_ROLE_KEY}`, 'Content-Type':'video/mp4', 'x-upsert':'true' },
+  headers: { ...headers, 'Content-Type':'video/mp4', 'x-upsert':'true' },
   body: videoBuffer,
 });
 if (!upload.ok) throw new Error(`Storage upload ${upload.status}: ${(await upload.text()).slice(0,700)}`);
