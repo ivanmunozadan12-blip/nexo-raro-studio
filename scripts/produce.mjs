@@ -7,8 +7,22 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const slots = ['07:30', '14:30', '20:30'];
 const tz = 'Europe/Madrid';
 const now = new Date();
-const local = new Intl.DateTimeFormat('en-CA', { timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit' }).format(now);
+const currentLocalDate = new Intl.DateTimeFormat('en-CA', { timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit' }).format(now);
 const localTime = new Intl.DateTimeFormat('en-GB', { timeZone: tz, hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(now);
+const requestedDate = String(process.env.MANUAL_DATE || '').trim();
+if (requestedDate && !/^\\d{4}-\\d{2}-\\d{2}$/.test(requestedDate)) {
+  throw new Error('MANUAL_DATE debe tener formato YYYY-MM-DD.');
+}
+const local = requestedDate || currentLocalDate;
+if (requestedDate) {
+  const parsedDate = new Date(requestedDate + 'T12:00:00Z');
+  if (!Number.isFinite(parsedDate.getTime()) || parsedDate.toISOString().slice(0, 10) !== requestedDate) {
+    throw new Error('MANUAL_DATE no contiene una fecha de calendario válida.');
+  }
+  if (requestedDate < currentLocalDate) {
+    throw new Error('No se permiten fechas pasadas en MANUAL_DATE.');
+  }
+}
 const minutesOfDay = value => {
   const [hour, minute] = String(value).split(':').map(Number);
   return hour * 60 + minute;
