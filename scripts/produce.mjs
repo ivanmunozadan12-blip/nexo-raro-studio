@@ -194,7 +194,7 @@ async function groqResearch(input) {
 }
 const research = await groqResearch(researchPrompt);
 const categoryGuide = 'La categoría debe ser exactamente uno de estos slugs: nadie-te-lo-explica, detras-de-la-puerta, como-es-posible. La serie asignada para esta entrega es: ' + (series?.slug || 'nadie-te-lo-explica') + ' (' + (series?.title || 'Nadie te lo explica') + '). Mantén el tema dentro de esa línea editorial.';
-const prompt = `A partir EXCLUSIVAMENTE de esta investigación web, escribe un vídeo vertical documental para Behind del Mundo en español natural de España. Fecha ${local}; horario ${slot}. Duración hablada 60-68 segundos, con 125-145 palabras reales de narración. Abre con un gancho intrigante en los primeros 2 segundos, plantea una pregunta concreta, desarrolla el hecho con claridad y termina con una revelación o idea memorable. Evita frases genéricas como “no te lo vas a creer”, clickbait engañoso, exageraciones y afirmaciones que no estén respaldadas. No inventes cifras, citas, lugares, testimonios ni fuentes. Distingue claramente hechos de hipótesis. No menciones que eres una IA ni pidas seguir la cuenta dentro de la narración.\n\nDIRECCIÓN EDITORIAL: ${categoryGuide}\n\nINVESTIGACIÓN Y FUENTES:\n${research}\n\nDevuelve SOLO un objeto JSON válido con: title (máx 70 caracteres, concreto y atractivo), hook (máx 12 palabras, primera frase potente), narration (125-145 palabras, locutable y natural, sin indicaciones de cámara), scenes (exactamente 7 objetos con visual, overlay y narration_excerpt; cada visual debe describir una imagen o plano concreto que pueda ilustrar la escena, cada overlay debe tener como máximo 8 palabras y narration_excerpt debe copiar literalmente un fragmento de la narración), sources (mínimo 3 fuentes independientes con title y url; usa únicamente URLs HTTPS presentes literalmente en la investigación), caption (descripción breve para redes con 3-5 hashtags pertinentes), category (usa exactamente el slug de la serie asignada). No añadas explicaciones fuera del JSON.`;
+const prompt = `A partir EXCLUSIVAMENTE de esta investigación web, escribe un vídeo vertical documental para Behind del Mundo en español natural de España. Fecha ${local}; horario ${slot}. Duración hablada 62-68 segundos, con 165-180 palabras reales de narración, ritmo ágil y dicción clara. Abre con una imagen mental potente y un gancho intrigante en la primera frase. Construye una miniaventura: curiosidad inmediata, descubrimiento progresivo, giro o dato sorprendente a mitad, y cierre memorable. Habla como un narrador joven-adulto cercano, curioso y cinematográfico, nunca como un profesor dando una clase. Usa frases cortas y variadas, preguntas directas, contrastes y pausas naturales. Cuenta los hechos desde lo que nuestro explorador Enzo ha descubierto o vivido. Incluye en 2 o 3 escenas una intervención muy breve de Enzo (máximo 5 palabras, espontánea y expresiva, no infantil) en el campo enzo_line; el narrador principal sigue llevando la historia. Evita frases genéricas como “no te lo vas a creer”, clickbait engañoso, exageraciones y afirmaciones que no estén respaldadas. No inventes cifras, citas, lugares, testimonios ni fuentes. Distingue claramente hechos de hipótesis. No menciones que eres una IA ni pidas seguir la cuenta dentro de la narración.\n\nDIRECCIÓN EDITORIAL: ${categoryGuide}\n\nINVESTIGACIÓN Y FUENTES:\n${research}\n\nDevuelve SOLO un objeto JSON válido con: title (máx 70 caracteres, concreto y atractivo), hook (máx 12 palabras, primera frase potente), narration (165-180 palabras, locutable y natural, español de España, sin indicaciones de cámara), scenes (exactamente 7 objetos con visual, image_search_query, overlay, narration_excerpt y enzo_line; visual debe describir un plano concreto, cinematográfico y distinto de los demás; image_search_query debe ser una búsqueda corta en INGLÉS con el sujeto visual específico para encontrar fotografía real; overlay máximo 5 palabras, sin recuadros ni frases largas; narration_excerpt debe copiar literalmente un fragmento de la narración; enzo_line puede estar vacío o ser una reacción breve), sources (mínimo 3 fuentes independientes con title y url; usa únicamente URLs HTTPS presentes literalmente en la investigación), caption (descripción breve para redes con 3-5 hashtags pertinentes), category (usa exactamente el slug de la serie asignada). No añadas explicaciones fuera del JSON.`;
 const aiResponse = await groqChat({
     model: groqModel,
     messages: [
@@ -288,7 +288,7 @@ const work = path.join(root, 'renders', `${local}-${slot.replace(':', '')}`);
 await mkdir(work, { recursive: true });
 await writeFile(path.join(work, 'script.json'), JSON.stringify(script, null, 2));
 const voicePath = path.join(work, 'voice.mp3');
-await command('python', ['-m', 'edge_tts', '--voice', 'es-ES-AlvaroNeural', '--rate=-18%', '--text', script.narration, '--write-media', voicePath]);
+await command('python', ['-m', 'edge_tts', '--voice', 'es-ES-AlvaroNeural', '--rate=+8%', '--text', script.narration, '--write-media', voicePath]);
 await supabase('production_jobs', { method: 'PATCH', query: `?id=eq.${jobId}`, body: { status: 'rendering' } });
 const escaped = value => String(value || '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const assetsDir = path.join(work, 'assets');
@@ -296,7 +296,7 @@ await mkdir(assetsDir, { recursive: true });
 const usedImagePages = new Set();
 async function fetchSceneImage(scene, index) {
   const clean = value => String(value || '').replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').trim();
-  const visualTerms = topicTokens(scene.visual).slice(0, 5).join(' ');
+  const visualTerms = String(scene.image_search_query || '').trim() || topicTokens(scene.visual).slice(0, 5).join(' ');
   const titleTerms = topicTokens(script.title).slice(0, 4).join(' ');
   const queries = [...new Set([
     visualTerms,
@@ -305,7 +305,7 @@ async function fetchSceneImage(scene, index) {
   ].filter(Boolean))];
   for (const query of queries) {
     try {
-      const endpoint = 'https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrnamespace=6&gsrlimit=10&gsrsearch=' + encodeURIComponent(query) + '&prop=imageinfo&iiprop=url|extmetadata&iiurlwidth=1600&format=json';
+      const endpoint = 'https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrnamespace=6&gsrlimit=30&gsrwhat=text|title&gsrsearch=' + encodeURIComponent(query) + '&prop=imageinfo&iiprop=url|extmetadata&iiurlwidth=1600&format=json';
       const search = await fetch(endpoint, { headers: { 'User-Agent': 'BehindDelMundoStudio/1.0 (documentary video production)' } });
       if (!search.ok) continue;
       const data = await search.json();
@@ -347,7 +347,7 @@ const clips = script.scenes.map((scene, i) => {
     ? '<img class="scene-image" src="./assets/' + asset.filename + '" alt="' + escaped(asset.alt) + '">'
     : '<div class="scene-atmosphere" aria-hidden="true"></div>';
   const words = String(scene.narration_excerpt || '').trim().split(/\\s+/).filter(Boolean);
-  const captionMarkup = words.map((word, index) => '<span style="--word:' + index + '">' + escaped(word) + '</span>').join(' ');
+  const captionMarkup = words.map((word, index) => '<span class="caption-word" style="--word:' + index + '">' + escaped(word) + '</span>').join(' ');
   return `<section id="scene-${i+1}" class="clip scene" data-start="${start}" data-duration="${duration}" data-track-index="0">
     ${imageMarkup}
     <div class="cinema-shade"></div>
@@ -371,8 +371,8 @@ html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#080d12
 .scene-copy{position:absolute;left:76px;right:76px;bottom:560px;animation:copyIn .65s cubic-bezier(.2,.8,.2,1) both}
 .scene-kicker{display:inline-block;margin-bottom:28px;padding:0 0 12px;border-bottom:4px solid #f0a65b;font:800 19px Arial,sans-serif;letter-spacing:5px;color:#f0a65b}
 .scene h1{margin:0;max-width:930px;font-size:94px;line-height:.98;letter-spacing:-5px;font-weight:900;text-wrap:balance;text-shadow:0 6px 34px #000b}
-.caption{position:absolute;left:76px;right:76px;bottom:250px;min-height:150px;display:flex;flex-wrap:wrap;align-content:flex-start;gap:8px 13px;font-size:38px;line-height:1.2;font-weight:800;letter-spacing:-1px;text-shadow:0 3px 16px #000,0 1px 4px #000}
-.caption span{display:inline-block;opacity:0;transform:translateY(18px) scale(.96);animation:wordPop .34s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(var(--word)*.23s)}
+.caption{position:absolute;left:76px;right:76px;bottom:230px;min-height:150px;display:flex;flex-wrap:wrap;align-content:flex-start;gap:8px 13px;font-size:43px;line-height:1.16;font-weight:900;letter-spacing:-1.4px;text-shadow:0 3px 16px #000,0 1px 4px #000}
+.caption span{display:inline-block;opacity:0;transform:translateY(18px) scale(.96);animation:wordPop .26s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(var(--word)*.17s)}
 .caption span:nth-child(4n+1){color:#fff}
 .caption span:nth-child(4n+2){color:#8fd8c2}
 .caption span:nth-child(4n+3){color:#fff}
@@ -412,7 +412,7 @@ if (!upload.ok) throw new Error(`Storage upload ${upload.status}: ${(await uploa
 const video = await supabase('videos', { method:'POST', body: {
   user_id:userId, job_id:jobId, script_id:scriptId, storage_path:storagePath,
   duration_seconds:actualDuration, width:1080, height:1920, mime_type:'video/mp4',
-  quality_check:{passed:true, duration_seconds:actualDuration, bytes:stat.size, has_audio:true, visual_assets:imageCount, visual_sources:sceneAssets.filter(Boolean).map(({page,credit,alt})=>({page,credit,alt})), sources:script.sources.length, word_count:wordCount, voice:'es-ES-AlvaroNeural', voice_rate:'+8%', rendered_by:'HyperFrames'},
+  quality_check:{passed:true, duration_seconds:actualDuration, bytes:stat.size, has_audio:true, visual_assets:imageCount, visual_sources:sceneAssets.filter(Boolean).map(({page,credit,alt})=>({page,credit,alt})), sources:script.sources.length, word_count:wordCount, voice:'es-ES-AlvaroNeural', voice_rate:'+8%', rendered_by:'HyperFrames', visual_style:'cinematic-dynamic-v2'},
 
 }});
 const topicKey = String(script.title || '').toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
