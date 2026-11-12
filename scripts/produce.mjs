@@ -229,12 +229,6 @@ const scriptRow = await supabase('scripts', { method: 'POST', body: {
 }});
 const scriptId = scriptRow[0].id;
 
-const topicKey = String(script.title || '').toLowerCase().normalize('NFD').replace(/[\\u0300-\\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-await supabase('editorial_memory', { method: 'POST', body: {
-  user_id: userId, script_id: scriptId, topic: script.title, topic_key: topicKey,
-  angle: script.hook || '', summary: String(script.narration || '').slice(0, 1200),
-  source_urls: script.sources || [], memory_status: 'produced',
-}});
 let jobId;
 if (existing.length) {
   const [reusedJob] = await supabase('production_jobs', {
@@ -331,6 +325,13 @@ const video = await supabase('videos', { method:'POST', body: {
   user_id:userId, job_id:jobId, script_id:scriptId, storage_path:storagePath,
   duration_seconds:actualDuration, width:1080, height:1920, mime_type:'video/mp4',
   quality_check:{passed:true, duration_seconds:actualDuration, bytes:stat.size, has_audio:true, visual_assets:imageCount, sources:script.sources.length, word_count:wordCount, voice:'es-ES-AlvaroNeural', rendered_by:'HyperFrames'},
+
+}});
+const topicKey = String(script.title || '').toLowerCase().normalize('NFD').replace(/[\\u0300-\\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+await supabase('editorial_memory', { method: 'POST', body: {
+  user_id: userId, script_id: scriptId, topic: script.title, topic_key: topicKey,
+  angle: script.hook || '', summary: String(script.narration || '').slice(0, 1200),
+  source_urls: script.sources || [], memory_status: 'produced',
 }});
 await supabase('social_posts', { method:'POST', body: ['youtube','tiktok'].map(platform => ({
   user_id:userId, video_id:video[0].id, platform, caption:script.caption || script.title,
