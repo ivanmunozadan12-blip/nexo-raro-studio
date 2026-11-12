@@ -367,12 +367,19 @@ const html = `<!doctype html><html lang="es"><head><meta charset="utf-8"><meta n
 *{box-sizing:border-box}
 html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#080d12;color:#fff;font-family:Arial,Helvetica,sans-serif}
 .scene{position:absolute;inset:0;width:1080px;height:1920px;overflow:hidden;background:#101820;isolation:isolate}
-.scene-image,.scene-atmosphere{position:absolute;inset:-3%;width:106%;height:106%;object-fit:cover;z-index:-3;transform:scale(1.12)}\n.motion-0 .scene-image,.motion-0 .scene-atmosphere{animation:slowPush 9.2s ease-out both}\n.motion-1 .scene-image,.motion-1 .scene-atmosphere{animation:panLeft 9.2s ease-out both}\n.motion-2 .scene-image,.motion-2 .scene-atmosphere{animation:panRight 9.2s ease-out both}\n.motion-3 .scene-image,.motion-3 .scene-atmosphere{animation:slowPull 9.2s ease-out both}
+.scene-image,.scene-atmosphere{position:absolute;inset:-3%;width:106%;height:106%;object-fit:cover;z-index:-3;transform:scale(1.12)}
+.motion-0 .scene-image,.motion-0 .scene-atmosphere{animation:slowPush 9.2s ease-out both}
+.motion-1 .scene-image,.motion-1 .scene-atmosphere{animation:panLeft 9.2s ease-out both}
+.motion-2 .scene-image,.motion-2 .scene-atmosphere{animation:panRight 9.2s ease-out both}
+.motion-3 .scene-image,.motion-3 .scene-atmosphere{animation:slowPull 9.2s ease-out both}
 .scene-atmosphere{background:radial-gradient(ellipse at 60% 35%,#315064 0%,#172630 42%,#080d12 100%)}
 .cinema-shade{position:absolute;inset:0;z-index:-2;background:linear-gradient(180deg,rgba(5,10,15,.24) 0%,rgba(5,10,15,.05) 30%,rgba(5,10,15,.12) 50%,rgba(5,10,15,.86) 100%),linear-gradient(90deg,rgba(5,10,15,.22),transparent 75%)}
 .brand-mark{position:absolute;top:92px;left:76px;font:800 25px Arial,sans-serif;letter-spacing:5px;color:#fff;text-shadow:0 2px 20px #0008}
 .brand-mark i{font-style:normal;color:#8fd8c2}
-.scene-copy{position:absolute;left:76px;right:76px;top:310px;animation:copyIn .65s cubic-bezier(.2,.8,.2,1) both}\n.motion-1 .scene-copy{top:390px;left:92px}\n.motion-2 .scene-copy{top:270px;left:110px}\n.motion-3 .scene-copy{top:350px;right:105px}
+.scene-copy{position:absolute;left:76px;right:76px;top:310px;animation:copyIn .65s cubic-bezier(.2,.8,.2,1) both}
+.motion-1 .scene-copy{top:390px;left:92px}
+.motion-2 .scene-copy{top:270px;left:110px}
+.motion-3 .scene-copy{top:350px;right:105px}
 .scene h1{display:inline;margin:0;max-width:930px;font-size:76px;line-height:1.02;letter-spacing:-3px;font-weight:900;text-wrap:balance;text-shadow:0 6px 34px #000b;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .caption{position:absolute;left:76px;right:76px;bottom:230px;min-height:150px;display:flex;flex-wrap:wrap;align-content:flex-start;gap:8px 13px;font-size:43px;line-height:1.16;font-weight:900;letter-spacing:-1.4px;text-shadow:0 3px 16px #000,0 1px 4px #000}
 .caption span{display:inline-block;opacity:0;transform:translateY(18px) scale(.96);animation:wordPop .26s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(var(--word)*.17s)}
@@ -380,7 +387,10 @@ html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#080d12
 .caption span:nth-child(4n+2){color:#8fd8c2}
 .caption span:nth-child(4n+3){color:#fff}
 .caption span:nth-child(4n){color:#f0a65b}
-@keyframes slowPush{from{transform:scale(1.12)}to{transform:scale(1.02)}}\n@keyframes panLeft{from{transform:scale(1.12) translateX(2.2%)}to{transform:scale(1.04) translateX(-1.8%)}}\n@keyframes panRight{from{transform:scale(1.08) translateX(-2.2%)}to{transform:scale(1.03) translateX(1.8%)}}\n@keyframes slowPull{from{transform:scale(1.02)}to{transform:scale(1.13)}}
+@keyframes slowPush{from{transform:scale(1.12)}to{transform:scale(1.02)}}
+@keyframes panLeft{from{transform:scale(1.12) translateX(2.2%)}to{transform:scale(1.04) translateX(-1.8%)}}
+@keyframes panRight{from{transform:scale(1.08) translateX(-2.2%)}to{transform:scale(1.03) translateX(1.8%)}}
+@keyframes slowPull{from{transform:scale(1.02)}to{transform:scale(1.13)}}
 @keyframes copyIn{from{opacity:0;transform:translateY(46px)}to{opacity:1;transform:translateY(0)}}
 @keyframes wordPop{to{opacity:1;transform:translateY(0) scale(1)}}
 </style></head><body><div id="root" data-composition-id="behind-del-mundo" data-start="0" data-width="1080" data-height="1920"><audio id="narration-audio" src="voice.mp3" data-start="0" data-duration="${targetDuration}" data-track-index="0" data-volume="1"></audio>${clips}<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script><script>const tl=gsap.timeline({paused:true});document.querySelectorAll('.scene').forEach((el)=>{tl.fromTo(el,{opacity:0},{opacity:1,duration:.35},Number(el.dataset.start));tl.to(el,{opacity:0,duration:.28},Number(el.dataset.start)+Number(el.dataset.duration)-.28)});tl.set({}, {}, ${targetDuration});window.__timelines=window.__timelines||{};window.__timelines['behind-del-mundo']=tl;</script></div></body></html>`;
