@@ -348,7 +348,7 @@ const clips = script.scenes.map((scene, i) => {
   const imageMarkup = asset
     ? '<img class="scene-image" src="./assets/' + asset.filename + '" alt="' + escaped(asset.alt) + '">'
     : '<div class="scene-atmosphere" aria-hidden="true"></div>';
-  const words = String(scene.narration_excerpt || '').trim().split(/\\s+/).filter(Boolean);
+  const words = String(scene.narration_excerpt || '').trim().split(/\s+/).filter(Boolean);
   const captionMarkup = words.map((word, index) => '<span class="caption-word" style="--word:' + index + '">' + escaped(word) + '</span>').join(' ');
   return `<section id="scene-${i+1}" class="clip scene" data-start="${start}" data-duration="${duration}" data-track-index="0">
     ${imageMarkup}
