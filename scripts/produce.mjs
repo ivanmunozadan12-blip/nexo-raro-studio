@@ -122,7 +122,7 @@ if (!outputText) {
 }
 let script;
 try {
-  const cleaned = outputText.replace(/^```(?:json)?\\s*/i, '').replace(/\\s*```$/, '').trim();
+  const cleaned = outputText.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '').trim();
   const firstBrace = cleaned.indexOf('{');
   const lastBrace = cleaned.lastIndexOf('}');
   if (firstBrace < 0 || lastBrace <= firstBrace) throw new Error('No se encontró objeto JSON.');
