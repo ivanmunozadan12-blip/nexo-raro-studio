@@ -91,8 +91,8 @@ if (!outputText) throw new Error('La API no devolvió texto de guion.');
 // Web Search is incompatible with Responses API JSON mode. Keep web research enabled
 // and parse the model's JSON-only response defensively instead.
 const cleanedOutput = outputText.trim()
-  .replace(/^```(?:json)?\\s*/i, '')
-  .replace(/\\s*```$/, '');
+  .replace(/^```(?:json)?\s*/i, '')
+  .replace(/\s*```$/, '');
 let script;
 try {
   script = JSON.parse(cleanedOutput);
