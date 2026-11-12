@@ -445,58 +445,59 @@ async function fetchSceneImage(scene, index) {
   const stop = new Set(['the','and','with','from','inside','over','under','view','photo','image','showing','close','shot','wide','aerial','detail','of','in','on','at','for','to','by','an','a']);
   const terms = visualTerms.toLowerCase().replace(/[^a-z0-9 -]/g, ' ').split(/\s+/).filter(word => word.length > 2 && !stop.has(word));
   const compact = [...new Set(terms)];
-  const queries = [...new Set([
-    visualTerms,
-    compact.slice(0, 4).join(' '),
-    compact.slice(0, 2).join(' '),
-    compact.slice(-2).join(' '),
-    [titleTerms, compact.slice(0, 2).join(' ')].filter(Boolean).join(' '),
-    titleTerms,
-  ].map(value => value.trim()).filter(value => value.length >= 3))];
-  const userAgent = 'BehindDelMundoStudio/1.1 (https://github.com/ivanmunozadan12-blip/nexo-raro-studio)';
+  const queries = [...new Set([visualTerms, compact.slice(0,4).join(' '), compact.slice(0,2).join(' '), compact.slice(-2).join(' '), [titleTerms,compact.slice(0,2).join(' ')].filter(Boolean).join(' '), titleTerms].map(value=>value.trim()).filter(value=>value.length>=3))];
+  const userAgent = 'BehindDelMundoStudio/1.2 (https://github.com/ivanmunozadan12-blip/nexo-raro-studio)';
   for (const query of queries) {
     try {
-      const params = new URLSearchParams({
-        action: 'query', generator: 'search', gsrnamespace: '6', gsrsearch: query,
-        gsrwhat: 'title', gsrlimit: '50', gsrsort: 'relevance',
-        prop: 'imageinfo', iiprop: 'url|extmetadata', iiurlwidth: '1600',
-        format: 'json', formatversion: '2', maxlag: '5',
-      });
-      const endpoint = 'https://commons.wikimedia.org/w/api.php?' + params.toString();
-      const search = await fetch(endpoint, { headers: { 'User-Agent': userAgent, 'Api-User-Agent': userAgent } });
-      if (!search.ok) {
-        console.warn('Wikimedia Commons respondió HTTP ' + search.status + ' para escena ' + (index + 1) + ' con búsqueda "' + query + '".');
-        continue;
+      // API Search con list=search; el generador gsr* anterior devolvió páginas vacías.
+      let searchResults = [];
+      for (const mode of ['text','title']) {
+        const params = new URLSearchParams({action:'query',list:'search',srnamespace:'6',srsearch:query,srwhat:mode,srlimit:'50',srsort:'relevance',srinfo:'totalhits|suggestion|rewrittenquery',format:'json',formatversion:'2',maxlag:'5'});
+        const response = await fetch('https://commons.wikimedia.org/w/api.php?'+params.toString(),{headers:{'User-Agent':userAgent,'Api-User-Agent':userAgent}});
+        if (!response.ok) { console.warn('Wikimedia Commons HTTP '+response.status+' ('+mode+') en escena '+(index+1)+' para "'+query+'".'); continue; }
+        const data = await response.json();
+        if (data.error) { console.warn('Wikimedia API error ('+mode+'): '+data.error.code+' — '+data.error.info); continue; }
+        const found = Array.isArray(data.query?.search) ? data.query.search : [];
+        console.log('Wikimedia escena '+(index+1)+' ('+mode+'): "'+query+'" → '+found.length+' resultados; total='+(data.query?.searchinfo?.totalhits ?? 'n/d')+'.');
+        if (found.length) { searchResults=found; break; }
       }
-      const data = await search.json();
-      const pages = Array.isArray(data.query?.pages) ? data.query.pages : Object.values(data.query?.pages || {});
-      console.log('Wikimedia escena ' + (index + 1) + ': "' + query + '" → ' + pages.length + ' resultados.');
+      if (!searchResults.length) continue;
+      const pageids=searchResults.map(item=>item.pageid).filter(Number.isInteger).join('|');
+      if (!pageids) continue;
+      const imageParams=new URLSearchParams({action:'query',pageids,prop:'imageinfo',iiprop:'url|extmetadata',iiurlwidth:'1600',format:'json',formatversion:'2',maxlag:'5'});
+      const imageResponse=await fetch('https://commons.wikimedia.org/w/api.php?'+imageParams.toString(),{headers:{'User-Agent':userAgent,'Api-User-Agent':userAgent}});
+      if (!imageResponse.ok) { console.warn('Wikimedia imageinfo HTTP '+imageResponse.status+' en escena '+(index+1)+'.'); continue; }
+      const imageData=await imageResponse.json();
+      if (imageData.error) { console.warn('Wikimedia imageinfo error: '+imageData.error.code+' — '+imageData.error.info); continue; }
+      const pages=Array.isArray(imageData.query?.pages)?imageData.query.pages:Object.values(imageData.query?.pages||{});
       for (const page of pages) {
-        const info = page.imageinfo?.[0];
-        const pageKey = String(info?.descriptionurl || page.title || '');
-        if (!info?.thumburl || usedImagePages.has(pageKey) || !/^https:\/\//i.test(info.thumburl)) continue;
-        const response = await fetch(info.thumburl, { headers: { 'User-Agent': userAgent } });
-        if (!response.ok) {
-          console.warn('Miniatura Wikimedia HTTP ' + response.status + ' en escena ' + (index + 1) + '.');
-          continue;
+        const info=page.imageinfo?.[0], pageKey=String(info?.descriptionurl||page.title||'');
+        const candidates=[info?.thumburl,info?.url].filter(url=>/^https:\/\//i.test(String(url||'')));
+        if (!candidates.length||usedImagePages.has(pageKey)) continue;
+        let bytes=null,mime='';
+        for (const imageUrl of candidates) {
+          try {
+            const download=await fetch(imageUrl,{headers:{'User-Agent':userAgent}});
+            if (!download.ok) { console.warn('Descarga Wikimedia HTTP '+download.status+' en escena '+(index+1)+'.'); continue; }
+            mime=download.headers.get('content-type')||'';
+            if (!mime.toLowerCase().startsWith('image/')) continue;
+            const candidateBytes=Buffer.from(await download.arrayBuffer());
+            if (candidateBytes.length<12000) continue;
+            bytes=candidateBytes; break;
+          } catch(downloadError) { console.warn('Descarga Wikimedia fallida en escena '+(index+1)+': '+downloadError.message); }
         }
-        const mime = response.headers.get('content-type') || '';
-        if (!mime.toLowerCase().startsWith('image/')) continue;
-        const bytes = Buffer.from(await response.arrayBuffer());
-        if (bytes.length < 12000) continue;
-        const ext = mime.includes('png') ? 'png' : mime.includes('webp') ? 'webp' : 'jpg';
-        const filename = 'scene-' + (index + 1) + '.' + ext;
-        await writeFile(path.join(assetsDir, filename), bytes);
+        if (!bytes) continue;
+        const ext=mime.includes('png')?'png':mime.includes('webp')?'webp':'jpg';
+        const filename='scene-'+(index+1)+'.'+ext;
+        await writeFile(path.join(assetsDir,filename),bytes);
         usedImagePages.add(pageKey);
-        const artist = clean(info.extmetadata?.Artist?.value || 'Wikimedia Commons');
-        const license = clean(info.extmetadata?.LicenseShortName?.value || 'Licencia indicada en Commons');
-        return { filename, alt: scene.visual, credit: artist + ' · ' + license, page: info.descriptionurl || page.title };
+        const artist=clean(info.extmetadata?.Artist?.value||'Wikimedia Commons');
+        const license=clean(info.extmetadata?.LicenseShortName?.value||'Licencia indicada en Commons');
+        return {filename,alt:scene.visual,credit:artist+' · '+license,page:info.descriptionurl||page.title};
       }
-    } catch (error) {
-      console.warn('Búsqueda visual de escena ' + (index + 1) + ' (' + query + ') fallida: ' + error.message);
-    }
+    } catch(error) { console.warn('Búsqueda visual de escena '+(index+1)+' ('+query+') fallida: '+error.message); }
   }
-  console.warn('No se encontró imagen válida para la escena ' + (index + 1) + ': ' + scene.visual);
+  console.warn('No se encontró imagen válida para la escena '+(index+1)+': '+scene.visual);
   return null;
 }
 const sceneAssets = [];
