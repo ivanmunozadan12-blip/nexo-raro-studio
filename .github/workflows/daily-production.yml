@@ -17,7 +17,7 @@ on:
         options: ["07:30", "14:30", "20:30"]
 
 concurrency:
-  group: nexo-raro-daily-production
+  group: behind-del-mundo-daily-production
   cancel-in-progress: false
 
 permissions:
@@ -63,7 +63,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: nexo-raro-render-${{ github.run_id }}
+          name: behind-del-mundo-render-${{ github.run_id }}
           path: renders/*.mp4
           if-no-files-found: ignore
           retention-days: 14
