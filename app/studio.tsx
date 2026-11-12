@@ -50,8 +50,8 @@ export default function Studio(){
   if(!Array.isArray(parsed.scenes)||parsed.scenes.length!==7)throw new Error('El guion '+(index+1)+' debe incluir exactamente 7 escenas.');
   if(!Array.isArray(parsed.sources)||parsed.sources.length<3)throw new Error('El guion '+(index+1)+' necesita al menos 3 fuentes.');
   for(const [sceneIndex,scene] of parsed.scenes.entries()){
-   if(!scene.visual||String(scene.visual).length<30||!['landscape','architecture','science','ocean','space','history','object','abstract'].includes(scene.scene_type)||!Array.isArray(scene.objects)||scene.objects.length<2||scene.objects.length>4||!scene.overlay||String(scene.overlay).trim().split(/\\s+/).length>4||!scene.narration_excerpt)throw new Error('La escena '+(sceneIndex+1)+' del guion '+(index+1)+' está incompleta o no cumple el formato visual.');
-   if(String(scene.enzo_line||'').trim().split(/\\s+/).filter(Boolean).length>5)throw new Error('La intervención de Enzo en la escena '+(sceneIndex+1)+' supera las cinco palabras.');
+   if(!scene.visual||String(scene.visual).length<30||!['landscape','architecture','science','ocean','space','history','object','abstract'].includes(scene.scene_type)||!Array.isArray(scene.objects)||scene.objects.length<2||scene.objects.length>4||!scene.overlay||String(scene.overlay).trim().split(/\s+/).length>4||!scene.narration_excerpt)throw new Error('La escena '+(sceneIndex+1)+' del guion '+(index+1)+' está incompleta o no cumple el formato visual.');
+   if(String(scene.enzo_line||'').trim().split(/\s+/).filter(Boolean).length>5)throw new Error('La intervención de Enzo en la escena '+(sceneIndex+1)+' supera las cinco palabras.');
    if(!String(parsed.narration).includes(scene.narration_excerpt))throw new Error('El fragmento de narración de la escena '+(sceneIndex+1)+' no coincide literalmente.');
   }
   for(const source of parsed.sources){try{const u=new URL(source.url);if(u.protocol!=='https:')throw 0}catch{throw new Error('Una fuente del guion '+(index+1)+' no tiene una URL HTTPS válida.')}} 
