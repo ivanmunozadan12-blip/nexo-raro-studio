@@ -90,9 +90,9 @@ for (let offset = 0; offset < 100000; offset += 1000) {
   editorialMemory.push(...page);
   if (page.length < 1000) break;
 }
-const memoryBrief = editorialMemory.slice(0,100).map(item => ({ tema:item.topic, enfoque:String(item.angle||'').slice(0,90), resumen:String(item.summary||'').slice(0,140), estado:item.memory_status, fuentes:(item.source_urls||[]).slice(0,2).map(x=>x.url||x) }));
+const memoryBrief = editorialMemory.slice(0,40).map(item => ({ tema:item.topic, enfoque:String(item.angle||'').slice(0,70) }));
 console.log(`Memoria editorial cargada: ${memoryBrief.length} temas históricos.`);
-const researchPrompt = `Busca en la web un hecho real, poco conocido y visualmente atractivo para un vídeo documental breve en español de España. Fecha: ${local}; horario: ${slot}; serie editorial: ${series?.title || 'curiosidades reales y ciencia sorprendente'}. Evita temas virales quemados. MEMORIA EDITORIAL OBLIGATORIA: no propongas el mismo acontecimiento, descubrimiento, lugar, personaje, experimento ni historia que aparezca en esta memoria, aunque cambies el título o el enfoque. Elige un asunto claramente distinto y explica por qué no se solapa. Historial (últimos 300 temas): ${JSON.stringify(memoryBrief)}. Si una idea se parece a un tema del historial, descártala y busca otra. Contrasta el hecho con al menos 3 fuentes independientes, preferiblemente fuentes primarias, universidades, organismos oficiales o publicaciones científicas. Devuelve un resumen claro de los hechos verificables, qué partes son inciertas, las URLs exactas y una línea TOPIC: con el tema principal. No inventes referencias.`;
+const researchPrompt = `Busca en la web un hecho real, poco conocido y visualmente atractivo para un vídeo documental breve en español de España. Fecha: ${local}; horario: ${slot}; serie editorial: ${series?.title || 'curiosidades reales y ciencia sorprendente'}. Evita temas virales quemados. MEMORIA EDITORIAL OBLIGATORIA: no propongas el mismo acontecimiento, descubrimiento, lugar, personaje, experimento ni historia que aparezca en esta memoria, aunque cambies el título o el enfoque. Elige un asunto claramente distinto y explica por qué no se solapa. Historial reciente (40 temas; la comprobación completa se hace contra toda la base): ${JSON.stringify(memoryBrief)}. Si una idea se parece a un tema del historial, descártala y busca otra. Contrasta el hecho con al menos 3 fuentes independientes, preferiblemente fuentes primarias, universidades, organismos oficiales o publicaciones científicas. Devuelve un resumen claro de los hechos verificables, qué partes son inciertas, las URLs exactas y una línea TOPIC: con el tema principal. No inventes referencias.`;
 const groqModel = process.env.GROQ_MODEL || 'openai/gpt-oss-120b';
 // GPT OSS en Groq se utiliza tanto para investigar como para redactar el guion.
 async function groqChat(payload, label) {
@@ -333,6 +333,7 @@ await supabase('editorial_memory', { method: 'POST', body: {
   angle: script.hook || '', summary: String(script.narration || '').slice(0, 1200),
   source_urls: script.sources || [], memory_status: 'produced',
 }});
+await supabase('scripts', { method:'PATCH', query:`?id=eq.${scriptId}`, body:{status:'pending_approval'} });
 await supabase('social_posts', { method:'POST', body: ['youtube','tiktok'].map(platform => ({
   user_id:userId, video_id:video[0].id, platform, caption:script.caption || script.title,
   status:'draft',
