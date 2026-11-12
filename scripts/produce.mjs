@@ -289,6 +289,18 @@ await mkdir(work, { recursive: true });
 await writeFile(path.join(work, 'script.json'), JSON.stringify(script, null, 2));
 const voicePath = path.join(work, 'voice.mp3');
 await command('python', ['-m', 'edge_tts', '--voice', 'es-ES-AlvaroNeural', '--rate=+8%', '--text', script.narration, '--write-media', voicePath]);
+const enzoLines = script.scenes
+  .map((scene, index) => ({ text: String(scene.enzo_line || '').trim(), index }))
+  .filter(line => line.text);
+if (enzoLines.length > 3 || enzoLines.some(line => line.text.split(/\\s+/).length > 5)) {
+  throw new Error('Las intervenciones de Enzo deben ser como máximo 3 y de hasta 5 palabras cada una.');
+}
+const enzoAudioFiles = [];
+for (const line of enzoLines) {
+  const enzoAudioPath = path.join(work, `enzo-${line.index + 1}.mp3`);
+  await command('python', ['-m', 'edge_tts', '--voice', 'es-ES-ArnauNeural', '--rate=+12%', '--text', line.text, '--write-media', enzoAudioPath]);
+  enzoAudioFiles.push({ path: enzoAudioPath, index: line.index });
+}
 const voiceDuration = Number(await capture('ffprobe', ['-v','error','-show_entries','format=duration','-of','default=noprint_wrappers=1:nokey=1',voicePath]));
 if (!Number.isFinite(voiceDuration) || voiceDuration < 1) throw new Error('No se pudo medir la duración de la narración.');
 const targetDuration = Math.ceil(voiceDuration + 0.8);
@@ -406,7 +418,18 @@ await command('npx', ['--yes', 'hyperframes@0.9.37', 'render', '-c', 'index.html
 const finalPath = path.join(root, 'renders', `behind-del-mundo-${local}-${slot.replace(':','')}.mp4`);
 // HyperFrames incorpora la narración como pista de audio del timeline. No volver a muxear
 // con -shortest: eso truncaba el vídeo al terminar la voz (48 s en la prueba anterior).
-await command('ffmpeg', ['-y','-i',rawVideo,'-af','apad','-t',String(targetDuration),'-c:v','copy','-c:a','aac','-b:a','192k','-movflags','+faststart',finalPath]);
+if (enzoAudioFiles.length) {
+  const audioInputs = enzoAudioFiles.flatMap(item => ['-i', item.path]);
+  const filters = enzoAudioFiles.map((item, index) => {
+    const delayMs = Math.round((item.index * sceneSeconds + sceneSeconds * 0.48) * 1000);
+    return `[${index + 1}:a]adelay=${delayMs}|${delayMs},volume=1.0[enzo${index}]`;
+  });
+  const mixInputs = ['[0:a]', ...enzoAudioFiles.map((_, index) => `[enzo${index}]`)].join('');
+  filters.push(`${mixInputs}amix=inputs=${enzoAudioFiles.length + 1}:duration=first:dropout_transition=0[aout]`);
+  await command('ffmpeg', ['-y','-i',rawVideo,...audioInputs,'-filter_complex',filters.join(';'),'-map','0:v:0','-map','[aout]','-t',String(targetDuration),'-c:v','copy','-c:a','aac','-b:a','192k','-movflags','+faststart',finalPath]);
+} else {
+  await command('ffmpeg', ['-y','-i',rawVideo,'-af','apad','-t',String(targetDuration),'-c:v','copy','-c:a','aac','-b:a','192k','-movflags','+faststart',finalPath]);
+}
 const stat = await (await import('node:fs/promises')).stat(finalPath);
 if (stat.size < 500000) throw new Error('El MP4 generado parece incompleto.');
 
