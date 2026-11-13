@@ -24,6 +24,11 @@ jobs:
     steps:
       - name: Descargar proyecto
         uses: actions/checkout@v4
+      - name: Restaurar biblioteca 3D reutilizable
+        uses: actions/cache@v4
+        with:
+          path: .cache/3d-assets
+          key: behind-del-mundo-3d-assets-v1-sailing-pinnace
       - name: Node.js 22
         uses: actions/setup-node@v4
         with:
