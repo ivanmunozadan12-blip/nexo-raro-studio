@@ -371,9 +371,10 @@ def draw_satellite(d,cx,cy,t,accent):
     d.rectangle(((cx-42)*S,(cy-48)*S,(cx+42)*S,(cy+48)*S),fill=(190,205,215),outline=(255,255,255),width=4*S)
     for side in (-1,1):
         x1=cx+side*48
-        d.rectangle(((x1-side*105)*S,(cy-62)*S,(x1+side*105)*S,(cy+62)*S),fill=(31,83,132),outline=(125,201,238),width=3*S)
+        left,right=sorted((x1-side*105,x1+side*105))
+        d.rectangle((left*S,(cy-62)*S,right*S,(cy+62)*S),fill=(31,83,132),outline=(125,201,238),width=3*S)
         for k in range(1,5):
-            xx=x1-side*105+side*k*42
+            xx=left+k*(right-left)/5
             d.line((xx*S,(cy-60)*S,xx*S,(cy+60)*S),fill=(150,210,240),width=2*S)
     d.line((cx*S,(cy-48)*S,cx*S,(cy-125)*S),fill=(230,238,243),width=4*S)
     d.ellipse(((cx-18)*S,(cy-145)*S,(cx+18)*S,(cy-109)*S),fill=rgba(accent))
@@ -391,10 +392,8 @@ def draw_mars(d,cx,cy,t,accent):
     for i in range(6):
         x=i*120-30
         d.polygon([(x*S,740*S),((x+65)*S,(690+i%2*22)*S),((x+145)*S,740*S)],fill=(112,57,48))
-    glow=Image.new("RGBA",d.im.size,(0,0,0,0)); gd=ImageDraw.Draw(glow,"RGBA")
     for r in range(8,0,-1):
-        gd.ellipse(((cx-r*27)*S,(690-r*9)*S,(cx+r*27)*S,(690+r*9)*S),fill=(68,160,231,9))
-    d.bitmap((0,0),glow)
+        d.ellipse(((cx-r*27)*S,(690-r*9)*S,(cx+r*27)*S,(690+r*9)*S),outline=(68,160,231,18),width=2*S)
 def draw_roman_concrete(d,cx,cy,t,accent):
     # Arco romano y sección de opus caementicium con fragmentos minerales visibles.
     d.rectangle((95*S,600*S,481*S,790*S),fill=(145,119,91),outline=(224,202,163),width=4*S)
