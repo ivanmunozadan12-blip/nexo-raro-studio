@@ -47,11 +47,6 @@ export default function Studio(){
   }catch(e:any){setMessage(e?.message||'Error al iniciar los vídeos.')}
   finally{setDispatching(false)}
  }
- async function addExclusion(){
-  const topic=window.prompt('¿Qué tema quieres excluir de futuras ideas?');if(!topic?.trim())return;
-  const {error}=await db.from('editorial_memory').insert({user_id:session.user.id,topic:topic.trim(),topic_key:topic.trim().toLowerCase().replace(/[^a-z0-9]+/g,'-'),angle:'Exclusión manual',summary:'Tema excluido desde el panel',source_urls:[],memory_status:'rejected',reason:'Excluido manualmente'});
-  if(error)setMessage(error.message);else{setMessage('Tema añadido a exclusiones.');await load()}
- }
  if(!session)return <main className="auth-shell"><a className="brand" href="/"><span className="brand-mark brand-mark-world"><img src="/brand-mark.svg" alt=""/></span><span>BEHIND <b>DEL MUNDO</b><small>STUDIO / ACCESO</small></span></a><section className="auth-card"><div className="eyebrow">CENTRO DE PRODUCCIÓN</div><h1>{signup?'Crea tu acceso.':'Vuelve al estudio.'}</h1><p>Accede al panel privado de Behind del Mundo.</p><form onSubmit={auth}><label>Correo electrónico<input type="email" required value={email} onChange={e=>setEmail(e.target.value)}/></label><label>Contraseña<input type="password" required minLength={8} value={password} onChange={e=>setPassword(e.target.value)}/></label><button>{signup?'Crear cuenta':'Entrar'}</button></form><button className="link-button" onClick={()=>setSignup(!signup)}>{signup?'Ya tengo cuenta · Entrar':'Crear una cuenta'}</button>{message&&<p className="notice">{message}</p>}</section></main>;
  const today=new Date().toLocaleDateString('en-CA',{timeZone:'Europe/Madrid'});
  const todays=scripts.filter(s=>new Date(s.created_at).toLocaleDateString('en-CA',{timeZone:'Europe/Madrid'})===today);
