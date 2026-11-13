@@ -89,6 +89,21 @@ export default function Studio(){
    if(!String(parsed.narration).includes(scene.narration_excerpt))throw new Error('El fragmento de narración de la escena '+(sceneIndex+1)+' no coincide literalmente.');
    for(const entity of scene.entities){const model=parsed.models[entity.model_id];if(!entity.model_id||!model||model.version!==1||!Array.isArray(model.parts)||!model.parts.length||!Array.isArray(model.animations))throw new Error('La entidad '+(entity.name||entity.id)+' de la escena '+(sceneIndex+1)+' no tiene un blueprint 3D completo en el JSON.');}
   }
+  const visualFingerprints=new Set(),entityLayouts=new Set(),cameraMoves=new Set();
+  let previousExcerptEnd=0;
+  for(const [sceneIndex,scene] of parsed.scenes.entries()){
+   const fingerprint=(String(scene.visual)+' '+String(scene.setting)+' '+String(scene.action)).toLowerCase().normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').replace(/[^a-z0-9]+/g,' ').trim().slice(0,260);
+   if(visualFingerprints.has(fingerprint))throw new Error('La escena '+(sceneIndex+1)+' repite prácticamente el mismo planteamiento visual que otra escena. Las 14 escenas deben mostrar momentos distintos del relato.');
+   visualFingerprints.add(fingerprint);
+   entityLayouts.add(scene.entities.map((entity:any)=>String(entity.model_id)).sort().join('|'));
+   cameraMoves.add(String(scene.camera).toLowerCase().replace(/[^a-z0-9]+/g,' ').trim().split(/\\s+/).slice(0,7).join(' '));
+   const excerptAt=String(parsed.narration).indexOf(String(scene.narration_excerpt),previousExcerptEnd);
+   if(excerptAt<0)throw new Error('Los fragmentos de narración no siguen el orden del relato en la escena '+(sceneIndex+1)+'.');
+   previousExcerptEnd=excerptAt+String(scene.narration_excerpt).length;
+  }
+  if(visualFingerprints.size!==14)throw new Error('El guion necesita 14 planteamientos visuales diferentes.');
+  if(entityLayouts.size<8)throw new Error('Demasiadas escenas reutilizan exactamente los mismos modelos 3D. Cambia la composición para que el vídeo evolucione visualmente.');
+  if(cameraMoves.size<4)throw new Error('El vídeo necesita al menos cuatro tipos de encuadre o movimiento de cámara diferentes.');
   for(const source of parsed.sources){try{const u=new URL(source.url);if(u.protocol!=='https:')throw 0}catch{throw new Error('Una fuente del guion '+(index+1)+' no tiene una URL HTTPS válida.');}}
   return parsed;
  }
