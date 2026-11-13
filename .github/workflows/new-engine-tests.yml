@@ -1,6 +1,13 @@
 name: BEHIND DEL MUNDO · pruebas del nuevo motor
 
 on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'engine/**'
+      - 'app/**'
+      - 'package.json'
+      - '.github/workflows/**'
   push:
     branches: [main]
     paths:
