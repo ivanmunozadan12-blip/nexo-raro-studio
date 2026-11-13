@@ -20,7 +20,18 @@ pulse=.006*np.sin(2*np.pi*55*t)*(0.5+.5*np.sin(2*np.pi*.18*t))
 shimmer=.0025*np.sin(2*np.pi*660*t)*np.maximum(0,np.sin(2*np.pi*.12*t))
 noise=np.random.default_rng(17).normal(0,.0007,n)
 fade=np.minimum(1,t/2)*np.minimum(1,np.maximum(0,(a.duration-t)/3))
-audio=(pad*slow+pulse+shimmer+noise)*fade
+effects=np.zeros(n)
+# Eight soft transitions: a short airy whoosh and a restrained impact/chime.
+for k in range(1,8):
+    start=int((a.duration*k/8)*sr)
+    length=min(int(.42*sr),n-start)
+    if length<=0: continue
+    x=np.arange(length)/sr
+    env=np.sin(np.pi*np.minimum(1,x/.42))**2*np.exp(-x*4)
+    whoosh=np.random.default_rng(91+k).normal(0,1,length)*env*.009
+    chime=(np.sin(2*np.pi*(520+180*x)*x)+.45*np.sin(2*np.pi*(780+90*x)*x))*env*.006
+    effects[start:start+length]+=whoosh+chime
+audio=(pad*slow+pulse+shimmer+noise+effects)*fade
 peak=np.max(np.abs(audio))
 if peak: audio=audio/peak*.17
 with wave.open(a.output,'wb') as f:
