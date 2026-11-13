@@ -263,7 +263,7 @@ for (const [sceneIndex, scene] of script.scenes.entries()) {
       throw new Error('La entidad "' + entity.name + '" necesita un blueprint 3D autocontenido en su JSON (piezas, geometría y animaciones).');
     }
     const partIds = new Set(['root']);
-    const primitives = new Set(['box','sphere','cylinder','cone','torus']);
+    const primitives = new Set(['box','sphere','cylinder','cone','torus','capsule','lathe','tube','torusknot']);
     for (const part of blueprint.parts) {
       if (!part.id || partIds.has(String(part.id))) throw new Error('Pieza 3D con id vacío o duplicado en "' + entity.name + '".');
       if (part.parent && !partIds.has(String(part.parent))) throw new Error('La pieza "' + part.id + '" referencia un padre que todavía no existe en "' + entity.name + '".');
@@ -271,6 +271,8 @@ for (const [sceneIndex, scene] of script.scenes.entries()) {
         throw new Error('La pieza "' + part.id + '" de "' + entity.name + '" necesita primitiva admitida, tamaño y color explícitos.');
       }
       if (part.position && (!Array.isArray(part.position) || part.position.length !== 3 || !part.position.every(value => Number.isFinite(Number(value))))) throw new Error('Posición 3D inválida en pieza "' + part.id + '".');
+      if (part.primitive === 'lathe' && (!Array.isArray(part.points) || part.points.length < 3 || part.points.some(point => !Array.isArray(point) || point.length !== 2 || !point.every(value => Number.isFinite(Number(value)) && Number(value) >= 0)))) throw new Error('La geometría lathe "' + part.id + '" necesita al menos 3 puntos [radio, altura] válidos.');
+      if (part.primitive === 'tube' && (!Array.isArray(part.points) || part.points.length < 2 || part.points.some(point => !Array.isArray(point) || point.length !== 3 || !point.every(value => Number.isFinite(Number(value)))))) throw new Error('La geometría tube "' + part.id + '" necesita al menos 2 puntos [x, y, z] válidos.');
       partIds.add(String(part.id));
     }
     for (const animation of blueprint.animations) {
