@@ -2,11 +2,6 @@ name: BDM cinematic proof · Remotion
 
 on:
   workflow_dispatch:
-  push:
-    branches: [cinematic-proof-v1]
-    paths:
-      - "cinematic-proof/**"
-      - ".github/workflows/cinematic-proof.yml"
 
 permissions:
   contents: read
