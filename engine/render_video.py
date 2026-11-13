@@ -43,7 +43,7 @@ def base_frame(t, accent):
     im=BG.copy(); d=ImageDraw.Draw(im,"RGBA")
     for i in range(7):
         x=((i*155+t*13)%900)-180
-        d.polygon([(int(x*S),0),(int((x+30)*S),0),(int((x-210)*S),H*S),(int((x-240)*S),H*S)],fill=(150,205,255,10))
+        d.polygon([(int(x*S),0),(int((x+30)*S),0),(int((x-210)*S),H*S),(int((x-240)*S),H*S)],fill=(150,205,255,4))
     for x,y,r,p in PARTICLES:
         yy=(y-t*(9+r*2))%(H+20)-10
         xx=x+7*math.sin(t*.8+p)
@@ -332,7 +332,7 @@ def draw_scene(im, scene, local_t, accent):
     kind=scene.get("visual_type","illustration")
     cx,cy=288,560
     if kind=="microwave":
-        draw_microwave(d,cx,cy,.95,.3+local_t,accent)
+        draw_microwave(d,cx,cy,1.24,.3+local_t,accent)
     elif kind in ("machine","engine","turbine","industrial"):
         draw_machine(d,cx,cy,local_t,accent,scene.get("labels"))
     elif kind=="aircraft":
@@ -395,6 +395,15 @@ def render_frame(i, script, starts, durations):
             panel(d,(45,950,531,1007),fill=(3,12,25,225),outline=(255,255,255,45),radius=12)
             text_fit(d,(288,979),txt,17,(255,255,255),max_width=450,anchor="mm")
             break
+    # A restrained continuous camera push keeps code-drawn scenes alive.
+    zoom=1.0+0.035*ease(local)
+    sw,sh=int(W*S*zoom),int(H*S*zoom)
+    if zoom>1.001:
+        enlarged=im.resize((sw,sh),Image.Resampling.LANCZOS)
+        pan_x=int(math.sin(local*math.pi)*7*S)
+        left=max(0,min(sw-W*S,(sw-W*S)//2+pan_x))
+        top=max(0,min(sh-H*S,int((sh-H*S)*(.42+.16*local))))
+        im=enlarged.crop((left,top,left+W*S,top+H*S))
     return im.resize((W,H),Image.Resampling.LANCZOS).convert("RGB")
 
 def main():
