@@ -1,11 +1,5 @@
 {
-  "batch": "three-new-videos-2026-11-13-manual-slot-guard-fixed",
-  "production_date": "2026-11-13",
-  "slots": [
-    "12:30",
-    "12:35",
-    "12:40"
-  ],
+  "batch": "prueba-manual-sin-calendario",
   "files": [
     "scripts/manual/2026-11-14-pulpo-camuflaje.json",
     "scripts/manual/2026-11-14-hormigon-romano.json",
