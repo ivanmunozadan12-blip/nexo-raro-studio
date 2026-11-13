@@ -44,7 +44,13 @@ export default function Studio(){
  async function submit(e:any){e.preventDefault();setMessage('');const r=signup?await db.auth.signUp({email,password}):await db.auth.signInWithPassword({email,password});setMessage(r.error?.message||(signup?'Revisa tu correo para confirmar la cuenta.':'Sesión iniciada.'))}
  async function addMemoryTopic(e:any){e.preventDefault();const topic=memoryTopic.trim();if(!topic)return;setBusy(true);const topicKey=topic.toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');const {error}=await db.from('editorial_memory').insert({user_id:session.user.id,topic,topic_key:topicKey,angle:'Exclusión manual',summary:'Tema excluido desde el panel',source_urls:[],memory_status:'rejected',reason:memoryReason.trim()||'No volver a tratar este tema'});if(error)setMessage('No se pudo guardar el tema: '+error.message);else{setMemoryTopic('');setMemoryReason('');setMessage('Tema añadido a la lista de exclusión.');await load()}setBusy(false)}
  function parseExternalScript(raw:string,index:number){
-  let parsed:any;try{parsed=JSON.parse(raw)}catch{throw new Error('El guion '+(index+1)+' no contiene JSON válido.')}
+  // Acepta JSON pegado directamente o dentro de un bloque Markdown ```json.
+  const cleaned=raw.replace(/^\\uFEFF/,'').trim().replace(/^```(?:json)?\\s*/i,'').replace(/\\s*```$/,'').trim();
+  let parsed:any;try{parsed=JSON.parse(cleaned)}catch(error:any){
+   const detail=error instanceof Error?error.message:'sintaxis incorrecta';
+   throw new Error('El guion '+(index+1)+' no contiene JSON válido ('+detail+'). Pega un único objeto JSON completo, sin texto adicional.');
+  }
+  if(!parsed||typeof parsed!=='object'||Array.isArray(parsed))throw new Error('El guion '+(index+1)+' debe ser un único objeto JSON, no una lista ni varios guiones juntos.');
   const required=['title','hook','narration','scenes','sources','caption','category'];
   for(const key of required)if(!(key in parsed))throw new Error('Al guion '+(index+1)+' le falta el campo '+key+'.');
   const words=String(parsed.narration||'').trim().split(/\s+/).filter(Boolean).length;
