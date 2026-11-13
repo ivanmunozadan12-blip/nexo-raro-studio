@@ -253,7 +253,7 @@ async function groqResearch(input) {
       headers: { Authorization: `Bearer ${process.env.GROQ_API_KEY}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({
         model: groqModel,
-        input: 'Eres un investigador documental. Usa browser_search para contrastar fuentes reales. Devuelve notas con títulos, URLs exactas y hechos respaldados; no redactes aún el guion.\\n\\n' + input,
+        input: 'Eres un investigador documental. Usa browser_search para contrastar fuentes reales. Devuelve notas con títulos, URLs exactas y hechos respaldados; no redactes aún el guion.\n\n' + input,
         tools: [{ type: 'browser_search' }],
         tool_choice: 'required',
         reasoning: { effort: 'low' },
@@ -266,7 +266,7 @@ async function groqResearch(input) {
         .filter(item => item.type === 'message')
         .flatMap(item => item.content || [])
         .filter(item => item.type === 'output_text')
-        .map(item => item.text || '').join('\\n').trim();
+        .map(item => item.text || '').join('\n').trim();
       if (outputText.length >= 200) return outputText;
       throw new Error(`Groq browser_search terminó sin texto útil (status=${data.status || 'desconocido'}, output_items=${(data.output || []).length}).`);
     }
@@ -439,10 +439,10 @@ const clips = script.scenes.map((scene, i) => {
   const sceneData = escaped(JSON.stringify({title:script.title,visual:scene.visual||'',setting:scene.setting||'',action:scene.action||'',camera:scene.camera||'',continuity:scene.continuity||'',characters:Array.isArray(scene.characters)?scene.characters:[],props:Array.isArray(scene.props)?scene.props:[],type:scene.scene_type||'object',objects:Array.isArray(scene.objects)?scene.objects.slice(0,8):[],index:i}));
   return '<section id="scene-'+(i+1)+'" class="clip scene motion-'+(i%4)+'" data-start="'+start+'" data-duration="'+duration+'" data-track-index="0"><canvas class="world-canvas" data-scene="'+sceneData+'"></canvas><div class="brand-mark">BEHIND <i>DEL MUNDO</i></div><div class="scene-copy"><h1>'+escaped(scene.overlay)+'</h1></div></section>';
 }).join('');
-const parseSrtTime = value => { const m=String(value).match(/(\\d+):(\\d{2}):(\\d{2}),(\\d{3})/); return m ? Number(m[1])*3600+Number(m[2])*60+Number(m[3])+Number(m[4])/1000 : 0; };
+const parseSrtTime = value => { const m=String(value).match(/(\d+):(\d{2}):(\d{2}),(\d{3})/); return m ? Number(m[1])*3600+Number(m[2])*60+Number(m[3])+Number(m[4])/1000 : 0; };
 const srtText = await readFile(subtitlesPath,'utf8');
-const srtBlocks = srtText.trim().split(/\\r?\\n\\s*\\r?\\n/);
-const wordCues = srtBlocks.map(block=>{const lines=block.split(/\\r?\\n/);const ix=lines.findIndex(line=>line.includes('-->'));if(ix<0)return null;const [from,to]=lines[ix].split('-->').map(x=>x.trim());return {start:parseSrtTime(from),end:parseSrtTime(to),text:lines.slice(ix+1).join(' ').trim()};}).filter(Boolean);
+const srtBlocks = srtText.trim().split(/\r?\n\s*\r?\n/);
+const wordCues = srtBlocks.map(block=>{const lines=block.split(/\r?\n/);const ix=lines.findIndex(line=>line.includes('-->'));if(ix<0)return null;const [from,to]=lines[ix].split('-->').map(x=>x.trim());return {start:parseSrtTime(from),end:parseSrtTime(to),text:lines.slice(ix+1).join(' ').trim()};}).filter(Boolean);
 const subtitleCues = [];
 for(let i=0;i<wordCues.length;i+=4){const group=wordCues.slice(i,i+4);subtitleCues.push({start:group[0].start,end:group[group.length-1].end,text:group.map(x=>x.text).join(' ')});}
 const html = '<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=1080,initial-scale=1"><style>'+
