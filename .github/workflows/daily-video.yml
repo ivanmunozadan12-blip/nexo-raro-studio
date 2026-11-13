@@ -12,7 +12,7 @@ on:
           - inside
           - curiosities
       prompt:
-        description: Instrucción creativa para este vídeo
+        description: Guion técnico JSON completo preparado por el equipo editorial
         required: true
         type: string
       publish:
