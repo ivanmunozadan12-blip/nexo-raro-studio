@@ -1,5 +1,5 @@
 {
-  "batch": "blueprint-fixed-screenshot-capture-production",
+  "batch": "inline-three-engine-no-raf-retry",
   "files": [
     "scripts/manual/2026-11-14-pulpo-camuflaje.json",
     "scripts/manual/2026-11-14-hormigon-romano.json",
