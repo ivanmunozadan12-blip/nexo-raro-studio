@@ -23,7 +23,7 @@ jobs:
       - name: Install Blender and FFmpeg
         run: |
           sudo apt-get update
-          sudo apt-get install -y blender ffmpeg
+          sudo apt-get install -y blender ffmpeg xvfb libegl1 libegl-mesa0 libgl1-mesa-dri libxrender1 libxext6 libsm6
           blender --version | head -n 2
           ffmpeg -version | head -n 1
       - name: Validate project JSON
@@ -31,7 +31,7 @@ jobs:
       - name: Render fast pipeline smoke test
         run: |
           mkdir -p renders
-          blender --background --python-exit-code 1 --python render3d/blender_renderer.py -- render3d/demo-project.json renders/studio-v2-demo.mp4
+          LIBGL_ALWAYS_SOFTWARE=1 xvfb-run -a blender --background --python-exit-code 1 --python render3d/blender_renderer.py -- render3d/demo-project.json renders/studio-v2-demo.mp4
           test -s renders/studio-v2-demo.mp4
       - name: Verify MP4 output
         run: |
