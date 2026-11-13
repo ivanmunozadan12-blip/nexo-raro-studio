@@ -4,49 +4,10 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const slots = ['07:30', '14:30', '20:30'];
-const tz = 'Europe/Madrid';
 const now = new Date();
-const currentLocalDate = new Intl.DateTimeFormat('en-CA', { timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit' }).format(now);
-const localTime = new Intl.DateTimeFormat('en-GB', { timeZone: tz, hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(now);
-const requestedDate = String(process.env.MANUAL_DATE || '').trim();
-if (requestedDate && !/^\d{4}-\d{2}-\d{2}$/.test(requestedDate)) {
-  throw new Error('MANUAL_DATE debe tener formato YYYY-MM-DD.');
-}
-const local = requestedDate || currentLocalDate;
-if (requestedDate) {
-  const parsedDate = new Date(requestedDate + 'T12:00:00Z');
-  if (!Number.isFinite(parsedDate.getTime()) || parsedDate.toISOString().slice(0, 10) !== requestedDate) {
-    throw new Error('MANUAL_DATE no contiene una fecha de calendario válida.');
-  }
-  if (requestedDate < currentLocalDate) {
-    throw new Error('No se permiten fechas pasadas en MANUAL_DATE.');
-  }
-}
-const minutesOfDay = value => {
-  const [hour, minute] = String(value).split(':').map(Number);
-  return hour * 60 + minute;
-};
-const nearestSlot = slots
-  .map(value => ({ value, distance: Math.abs(minutesOfDay(localTime) - minutesOfDay(value)) }))
-  .sort((a, b) => a.distance - b.distance)[0];
-const explicitManualFile = Boolean(String(process.env.MANUAL_SCRIPT_FILE || '').trim());
-const slot = process.env.MANUAL_SLOT || (nearestSlot?.distance <= 90 ? nearestSlot.value : null);
-if (explicitManualFile) {
-  if (!slot || !/^([01]\\d|2[0-3]):[0-5]\\d$/.test(slot)) {
-    throw new Error('MANUAL_SLOT debe ser una hora válida HH:MM cuando se produce un JSON manual.');
-  }
-} else if (!slot || !slots.includes(slot)) {
-  throw new Error(`Ejecución fuera de la ventana de producción: hora local ${localTime} (${tz}); horarios válidos ${slots.join(', ')}. Se marca como fallo y no como éxito vacío.`);
-}
-// Evita que un clic accidental en un horario ya pasado se convierta
-// en una producción retroactiva del mismo día.
-if (!process.env.MANUAL_SCRIPT_ID && !process.env.MANUAL_SCRIPT_FILE && local === currentLocalDate && minutesOfDay(slot) < minutesOfDay(localTime) - 90) {
-  throw new Error(`El horario ${slot} ya pasó hoy (hora local ${localTime}). Para producir ese horario otro día, indica MANUAL_DATE con una fecha futura.`);
-}
-if (!process.env.MANUAL_SLOT && nearestSlot.distance > 0) {
-  console.warn(`Inicio de GitHub Actions a las ${localTime}; se asigna al horario más cercano ${slot} (desfase ${nearestSlot.distance} min).`);
-}
+const local = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Madrid', year: 'numeric', month: '2-digit', day: '2-digit' }).format(now);
+const runStamp = now.toISOString().replace(/[-:.TZ]/g, '').slice(0, 14) + '-' + String(process.env.GITHUB_RUN_ID || process.env.MANUAL_QUEUE_INDEX || 'manual');
+const slot = runStamp;
 if (!process.env.SUPABASE_URL) throw new Error('Falta la variable SUPABASE_URL');
 if (!process.env.SUPABASE_SERVICE_ROLE_KEY) throw new Error('Falta la variable SUPABASE_SERVICE_ROLE_KEY');
 const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -177,12 +138,12 @@ if (String(process.env.RESET_PRODUCTION || '').toLowerCase() === 'true') {
   await supabase('scripts', { method: 'DELETE', query: '?user_id=eq.' + userId });
   console.log('Reinicio completado: ' + oldVideos.length + ' MP4 eliminados. Se conservan provider_usage, series y channel_settings.');
 }
-const scheduledAt = (process.env.MANUAL_SCRIPT_ID || process.env.MANUAL_SCRIPT_FILE) ? new Date(Date.now() + Number(process.env.MANUAL_QUEUE_INDEX || 0) * 60000).toISOString() : new Date(new Date(`${local}T${slot}:00`).toLocaleString('en-US', { timeZone: tz })).toISOString();
+const scheduledAt = new Date(Date.now() + Number(process.env.MANUAL_QUEUE_INDEX || 0)).toISOString();
 const existing = await supabase('production_jobs', { query: `?user_id=eq.${userId}&scheduled_for=eq.${encodeURIComponent(scheduledAt)}&select=id,status,attempt_count,started_at,completed_at,script_id&limit=1` });
 const existingJob = existing[0];
 const activeJobStatuses = ['queued', 'voicing', 'rendering'];
 if (existingJob?.status === 'ready') {
-  console.log(`El horario ${local} ${slot} ya tiene un vídeo terminado y guardado; se evita duplicar.`);
+  console.log('Este trabajo ya tiene un vídeo terminado y guardado; se evita duplicar.');
   process.exit(0);
 }
 if (existingJob && activeJobStatuses.includes(existingJob.status)) {
@@ -191,7 +152,7 @@ if (existingJob && activeJobStatuses.includes(existingJob.status)) {
   // El job de GitHub tiene un timeout de 35 minutos. Un estado activo más
   // antiguo no puede considerarse una producción en curso: se recupera.
   if (ageMinutes < 45) {
-    throw new Error(`El horario ${local} ${slot} ya tiene un trabajo realmente activo (${existingJob.status}, ${Math.max(0, Math.floor(ageMinutes))} min). Se detiene este duplicado con error explícito; no se registra como producción completada.`);
+    throw new Error(`Este guion ya tiene un trabajo realmente activo (${existingJob.status}, ${Math.max(0, Math.floor(ageMinutes))} min). Se detiene este duplicado para evitar dos renders simultáneos.`);
   }
   console.warn(`Recuperando trabajo atascado ${existingJob.id}: estado=${existingJob.status}, antigüedad=${Math.floor(ageMinutes)} min.`);
   const [recovered] = await supabase('production_jobs', {
@@ -206,7 +167,7 @@ if (existingJob && activeJobStatuses.includes(existingJob.status)) {
   if (!recovered) throw new Error('No se pudo recuperar el trabajo atascado; se detiene para evitar duplicados.');
 }
 const seriesRows = await supabase('series', { query: `?user_id=eq.${userId}&is_active=eq.true&select=id,slug,title,description&order=slug.asc` });
-const series = seriesRows.length ? seriesRows[(slots.indexOf(slot) + Number(local.replaceAll('-', ''))) % seriesRows.length] : null;
+const series = seriesRows.length ? seriesRows[Number(process.env.MANUAL_QUEUE_INDEX || 0) % seriesRows.length] : null;
 
 let editorialMemory = [];
 for (let offset = 0; offset < 100000; offset += 1000) {
@@ -363,7 +324,7 @@ if (existing.length) {
   }});
   jobId = createdJob.id;
 }
-const work = path.join(root, 'renders', `${local}-${slot.replace(':', '')}`);
+const work = path.join(root, 'renders', `${local}-${runStamp}`);
 await mkdir(work, { recursive: true });
 await writeFile(path.join(work, 'script.json'), JSON.stringify(script, null, 2));
 const voicePath = path.join(work, 'voice.mp3');
@@ -425,7 +386,7 @@ const imageCount = script.scenes.length; // Catorce planos 3D cortos; no depende
 const rawVideo = path.join(work, 'video-silent.mp4');
 await command('npx', ['--yes', 'hyperframes@0.9.37', 'render', '-c', 'index.html', '-o', rawVideo, '--fps', '30', '--quality', 'standard', '--workers', '1'], { cwd: work });
 const manualSuffix = (process.env.MANUAL_SCRIPT_ID || process.env.MANUAL_SCRIPT_FILE) ? '-' + String(scriptId).slice(0, 8) : '';
-const outputSlot = slot.replace(':','') + manualSuffix;
+const outputSlot = runStamp + manualSuffix;
 const finalPath = path.join(root, 'renders', `behind-del-mundo-${local}-${outputSlot}.mp4`);
 // HyperFrames incorpora la narración como pista de audio del timeline. No volver a muxear
 // con -shortest: eso truncaba el vídeo al terminar la voz (48 s en la prueba anterior).
