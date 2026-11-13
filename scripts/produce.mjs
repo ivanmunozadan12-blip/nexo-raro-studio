@@ -539,7 +539,7 @@ if (!upload.ok) throw new Error(`Storage upload ${upload.status}: ${(await uploa
 const video = await supabase('videos', { method:'POST', body: {
   user_id:userId, job_id:jobId, script_id:scriptId, storage_path:storagePath,
   duration_seconds:actualDuration, width:1080, height:1920, mime_type:'video/mp4',
-  quality_check:{passed:true, duration_seconds:actualDuration, bytes:stat.size, has_audio:true, visual_assets:imageCount, visual_sources:script.scenes.map((scene,index)=>({scene:index+1,type:scene.scene_type||'object',description:scene.visual,objects:scene.objects||[]})), sources:script.sources.length, word_count:wordCount, voice:'es-ES-AlvaroNeural', voice_rate:'+0%', rendered_by:'HyperFrames + Three.js', visual_style:'low-poly-3d-exploration-v1'},
+  quality_check:{passed:true, duration_seconds:actualDuration, bytes:stat.size, has_audio:true, visual_assets:imageCount, visual_sources:script.scenes.map((scene,index)=>({scene:index+1,type:scene.scene_type||'object',description:scene.visual,objects:scene.objects||[]})), sources:script.sources.length, word_count:wordCount, voice:'es-ES-AlvaroNeural', voice_rate:'+0%', rendered_by:'HyperFrames + Three.js', visual_style:'procedural-3d-scene-engine-v2'},
 
 }});
 const topicKey = String(script.title || '').toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
