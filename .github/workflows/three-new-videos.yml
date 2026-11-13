@@ -75,7 +75,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: behind-del-mundo-three-${{ matrix.slot }}-${{ github.run_id }}
+          name: behind-del-mundo-three-${{ matrix.queue_index }}-${{ github.run_id }}
           path: renders/*.mp4
           if-no-files-found: ignore
           retention-days: 14
