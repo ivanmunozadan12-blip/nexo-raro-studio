@@ -1,16 +1,53 @@
-# Despliegue
+# Despliegue de BEHIND DEL MUNDO
 
 ## Web
-- Framework: Next.js.
-- Hosting: Vercel.
-- Región: Frankfurt.
-- Mantener las variables públicas de Supabase y añadir `GITHUB_ACTIONS_TOKEN` para que el panel pueda solicitar renders.
+- Next.js en Vercel.
+- La ruta /studio conserva el acceso privado con Supabase Auth.
+- El panel recibe tres prompts de texto y envía tres trabajos a GitHub Actions.
+- La ruta /api/production/dispatch requiere sesión Supabase y GITHUB_ACTIONS_TOKEN.
 
-## Producción
-GitHub Actions ejecuta `.github/workflows/daily-video.yml` en las tres franjas diarias. El worker instala Python, Pillow, NumPy, Edge TTS y FFmpeg. Groq genera el tema, el guion y el plan visual; el motor Python dibuja los fotogramas y el montaje final.
+## Motor de vídeo
+- GitHub Actions ejecuta un trabajo independiente por prompt.
+- Python + Pillow + NumPy dibujan las escenas y sus elementos animados.
+- FFmpeg codifica MP4 vertical H.264 1080×1920.
+- Edge TTS genera narración masculina es-ES.
+- La cama musical y los efectos de cada escena se sintetizan localmente.
+- No hay cron ni selección automática de temas: los prompts los introduce el usuario.
+
+## Variables de Vercel
+- NEXT_PUBLIC_SUPABASE_URL
+- NEXT_PUBLIC_SUPABASE_ANON_KEY
+- GITHUB_ACTIONS_TOKEN (permiso Actions: write en el repositorio)
+
+## Secrets de GitHub Actions
+Generación:
+- SUPABASE_URL
+- SUPABASE_SERVICE_ROLE_KEY
+- GROQ_API_KEY
+- GROQ_MODEL (opcional)
+
+YouTube:
+- YOUTUBE_CLIENT_ID
+- YOUTUBE_CLIENT_SECRET
+- YOUTUBE_REFRESH_TOKEN
+- YOUTUBE_PRIVACY (opcional, public por defecto)
+
+TikTok:
+- TIKTOK_CLIENT_KEY
+- TIKTOK_CLIENT_SECRET
+- TIKTOK_REFRESH_TOKEN (preferido para rotación segura)
+- TIKTOK_ACCESS_TOKEN (opcional)
+- TIKTOK_PRIVACY (opcional)
 
 ## Supabase
-Se conserva el proyecto y la autenticación existentes, junto al bucket privado `nexo-videos`, tablas de guiones, trabajos, vídeos, publicaciones y memoria editorial. No se eliminan datos históricos.
+- Se mantiene el proyecto actual, autenticación, bucket privado nexo-videos y tablas de producción.
+- La tabla social_connections almacena tokens de TikTok solo en servidor; RLS está activado y no hay políticas para usuarios finales.
+- Migración aplicada: social_connections.
+- No se borran vídeos, guiones ni registros históricos.
 
-## Seguridad editorial
-Los vídeos se guardan como privados y los borradores sociales no se publican. La publicación automática permanece desactivada.
+## Publicación
+- La web solicita publicación automática al enviar los tres prompts.
+- Los MP4 siguen guardándose aunque una red no esté conectada o rechace la publicación.
+- YouTube usa OAuth y la API oficial de subida reanudable.
+- TikTok requiere una app registrada, Content Posting API, scope video.publish y autorización OAuth del propietario.
+- TikTok limita a privado las apps sin auditoría; para publicar al público la app debe superar la auditoría oficial.
