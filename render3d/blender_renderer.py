@@ -262,7 +262,20 @@ def setup_world(environment):
 def build_shot(shot, project, project_dir, output_dir, shot_index):
     clear_scene()
     scene = bpy.context.scene
-    scene.render.engine = "BLENDER_EEVEE_NEXT" if "BLENDER_EEVEE_NEXT" in bpy.types.RenderSettings.bl_rna.properties["engine"].enum_items.keys() else "BLENDER_EEVEE"
+    requested_engine = project["project"].get("render_engine", "BLENDER_EEVEE_NEXT")
+    supported_engines = {item.identifier for item in bpy.types.RenderSettings.bl_rna.properties["engine"].enum_items}
+    if requested_engine not in supported_engines:
+        requested_engine = "BLENDER_EEVEE_NEXT" if "BLENDER_EEVEE_NEXT" in supported_engines else "BLENDER_EEVEE"
+    scene.render.engine = requested_engine
+    scene.render.resolution_percentage = int(project["project"].get("resolution_percentage", 100))
+    if scene.render.engine == "BLENDER_WORKBENCH":
+        scene.display.shading.light = "STUDIO"
+        scene.display.shading.color_type = "MATERIAL"
+        scene.display.shading.show_shadows = True
+        scene.display.shading.show_cavity = True
+        scene.display.shading.cavity_type = "BOTH"
+    elif hasattr(scene, "eevee"):
+        scene.eevee.taa_render_samples = int(project["project"].get("render_samples", 16))
     scene.render.resolution_x = int(project["resolution"][0])
     scene.render.resolution_y = int(project["resolution"][1])
     scene.render.resolution_percentage = 100
@@ -272,8 +285,6 @@ def build_shot(shot, project, project_dir, output_dir, shot_index):
     scene.render.image_settings.color_depth = "8"
     if "AgX" in bpy.types.ColorManagedViewSettings.bl_rna.properties["view_transform"].enum_items.keys():
         scene.view_settings.view_transform = "AgX"
-    if hasattr(scene, "eevee"):
-        scene.eevee.taa_render_samples = 64
     setup_world(shot.get("environment", {}))
     for entity in shot.get("entities", []):
         create_entity(entity, project_dir)
