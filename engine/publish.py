@@ -59,7 +59,7 @@ def tiktok_token():
     access=(saved or {}).get("access_token") or os.getenv("TIKTOK_ACCESS_TOKEN","")
     refresh=(saved or {}).get("refresh_token") or os.getenv("TIKTOK_REFRESH_TOKEN","")
     expiry=(saved or {}).get("expires_at")
-    expired=not access or (expiry and datetime.datetime.fromisoformat(expiry.replace("Z","+00:00"))<datetime.datetime.now(datetime.timezone.utc)+datetime.timedelta(minutes=5))
+    expired=not access or not expiry or datetime.datetime.fromisoformat(expiry.replace("Z","+00:00"))<datetime.datetime.now(datetime.timezone.utc)+datetime.timedelta(minutes=5)
     if expired and refresh:
         client=os.environ["TIKTOK_CLIENT_KEY"]; secret=os.environ["TIKTOK_CLIENT_SECRET"]
         form=urllib.parse.urlencode({"client_key":client,"client_secret":secret,"grant_type":"refresh_token","refresh_token":refresh}).encode()
@@ -97,11 +97,17 @@ def tiktok_upload(path,title):
             code,_,raw=http(upload,"PUT",data,{"Content-Type":"video/mp4","Content-Length":str(len(data)),"Content-Range":f"bytes {sent}-{end}/{size}"},timeout=300)
             if code not in (200,201,206): raise RuntimeError("Error transfiriendo vídeo a TikTok: "+raw.decode(errors="replace")[:500])
             sent=end+1
-    code,_,raw=http("https://open.tiktokapis.com/v2/post/publish/status/fetch/","POST",{"publish_id":publish_id},{"Authorization":"Bearer "+token,"Content-Type":"application/json; charset=UTF-8"})
-    status=json.loads(raw or b"{}")
-    if code!=200 or status.get("error",{}).get("code")!="ok": raise RuntimeError("No se pudo consultar el estado TikTok: "+str(status)[:500])
-    data=status.get("data",{})
-    return {"url":"TikTok publish_id="+publish_id+" · "+str(data.get("status","processing"))+" · privacidad "+privacy,"external_id":publish_id,"status":"published" if data.get("status")=="PUBLISH_COMPLETE" else "publishing"}
+    data={}
+    for attempt in range(10):
+        code,_,raw=http("https://open.tiktokapis.com/v2/post/publish/status/fetch/","POST",{"publish_id":publish_id},{"Authorization":"Bearer "+token,"Content-Type":"application/json; charset=UTF-8"})
+        status=json.loads(raw or b"{}")
+        if code!=200 or status.get("error",{}).get("code")!="ok": raise RuntimeError("No se pudo consultar el estado TikTok: "+str(status)[:500])
+        data=status.get("data",{})
+        if data.get("status") in ("PUBLISH_COMPLETE","FAILED"): break
+        time.sleep(8)
+    state=data.get("status","PROCESSING_UPLOAD")
+    if state=="FAILED": raise RuntimeError("TikTok no pudo procesar el vídeo: "+str(data.get("fail_reason","error desconocido")))
+    return {"url":"TikTok publish_id="+publish_id+" · "+str(state)+" · privacidad "+privacy,"external_id":publish_id,"status":"published" if state=="PUBLISH_COMPLETE" else "publishing"}
 
 def main():
     p=argparse.ArgumentParser()
