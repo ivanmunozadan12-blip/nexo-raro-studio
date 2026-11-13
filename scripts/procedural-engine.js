@@ -706,7 +706,9 @@ export function animateEntities(entities, time = 0) {
     const beat = (entity.userData.beats || []).filter(item => time >= Number(item.at || 0) && time < Number(item.at || 0) + Number(item.duration || 999)).sort((a, b) => Number(a.at || 0) - Number(b.at || 0)).at(-1);
     const action = clean(beat?.action || entity.userData.entity?.action || rig.motion || 'idle');
     const base = entity.userData.basePosition || entity.position;
-    entity.position.y = base.y;\n    const entityType = entity.userData.entity?.type;\n    if (entityType === 'animal' && /nadar|swim|volar|fly|flotar|ascender/.test(action)) entity.position.y = base.y + .12 * Math.sin(time * 1.7 + entities.indexOf(entity));
+    entity.position.y = base.y;
+    const entityType = entity.userData.entity?.type;
+    if (entityType === 'animal' && /nadar|swim|volar|fly|flotar|ascender/.test(action)) entity.position.y = base.y + .12 * Math.sin(time * 1.7 + entities.indexOf(entity));
 
     for (const track of entity.userData.blueprintAnimations || []) {
       const node = entity.userData.blueprintNodes.get(track.target);
