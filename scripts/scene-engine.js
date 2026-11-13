@@ -100,8 +100,7 @@ function coast(g,night=false){
  for(let x of [-13,-10,10,13]){rod(g,[x,0,-5],[x+.3,3,-5],.13,'#79533a');for(let k=0;k<6;k++){const leaf=new THREE.Mesh(new THREE.ConeGeometry(.22,2.1,5),MAT('#4d8055'));leaf.position.set(x+.3+Math.sin(k*Math.PI/3)*.85,3.3,-5+Math.cos(k*Math.PI/3)*.85);leaf.rotation.z=Math.PI/2-.45;leaf.rotation.y=k*Math.PI/3;g.add(leaf);}}
  for(let i=0;i<18;i++)sphere(g,(i%6-2.5)*3,.25,-2-Math.floor(i/6)*3,.3,.22,.4,'#807b70',0);
 }
-function buildScene(canvas,d){
- const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false});renderer.setPixelRatio(1);renderer.setSize(1080,1920,false);renderer.outputColorSpace=THREE.SRGBColorSpace;
+function buildScene(renderer,d){
  const scene=new THREE.Scene();scene.background=new THREE.Color(d.index===5?'#26394e':'#9ac9df');scene.fog=new THREE.Fog(scene.background,24,65);
  scene.add(new THREE.HemisphereLight('#fff4df','#596a68',2.05));const sun=new THREE.DirectionalLight('#ffe4b7',2.2);sun.position.set(-9,15,8);scene.add(sun);
  if(d.index===5)scene.fog.color.set('#26394e');const world=new THREE.Group();scene.add(world);const people=[],ships=[];let animateWater=()=>{};
@@ -125,8 +124,7 @@ function buildScene(canvas,d){
  animateWater(local);renderer.render(scene,camera);};
 }
 
-function buildGenericScene(canvas,d){
- const renderer=new THREE.WebGLRenderer({canvas,antialias:true});renderer.setPixelRatio(1);renderer.setSize(1080,1920,false);renderer.outputColorSpace=THREE.SRGBColorSpace;
+function buildGenericScene(renderer,d){
  const scene=new THREE.Scene(),world=new THREE.Group();scene.add(world);scene.background=new THREE.Color('#9ac9df');scene.fog=new THREE.Fog('#9ac9df',24,65);scene.add(new THREE.HemisphereLight('#fff', '#65766c',2));const sun=new THREE.DirectionalLight('#fff0ce',2);sun.position.set(-8,14,9);scene.add(sun);
  const words=(d.title+' '+d.visual+' '+d.setting+' '+d.action+' '+(d.props||[]).join(' ')).toLowerCase(),water=/mar|oceano|agua|rio|barco|ballena|coral/.test(words)||d.type==='ocean',space=/espacio|planeta|luna|estrella|orbita|galax/.test(words)||d.type==='space',historic=d.type==='history'||/antigu|romano|egipto|medieval|castillo|imperio/.test(words),forest=/bosque|selva|arbol|jungla/.test(words),science=d.type==='science'||/laboratorio|experimento|motor|maquina|ciencia/.test(words);
  const groundColor=water?'#277f9e':space?'#263b6a':forest?'#557b4c':historic?'#9a8b75':science?'#647b83':'#9b9a83';box(world,0,-.5,-3,28,1,30,groundColor);
@@ -138,7 +136,7 @@ function buildGenericScene(canvas,d){
  (d.characters||[]).slice(0,6).forEach((c,i)=>person(world,(i-2.5)*1.8,1,String(c.role||'crew').toLowerCase().includes('rey')?'king':'crew',.9));
  (d.props||[]).slice(0,8).forEach((p,i)=>{const n=String(p).toLowerCase(),x=(i-3.5)*2.1;if(/barco|carabela|navio/.test(n))ship(world,x,-4,i%3);else if(/arbol|palmera/.test(n)){rod(world,[x,0,-3],[x,2,-3],.14,'#765033');sphere(world,x,2.6,-3,.9,1,.9,'#4c985b',1);}else if(/edificio|casa|templo|castillo/.test(n))box(world,x,1.5,-5,1.8,3,1.8,'#c7b18e');else if(/persona|soldado|marinero/.test(n))person(world,x,0,'crew',.9);else sphere(world,x,.8,-2,.65,.8,.65,['#c89b64','#5b9fb0','#a85e54','#7c9c65'][i%4],1);});
  const camera=new THREE.PerspectiveCamera(42,1080/1920,.1,120);const duration=Math.max(1,Number(d.duration)||8);
- return t=>{const sceneStart=Number(d.start||0);if(t<sceneStart-.15||t>sceneStart+duration+.15)return;const p=Math.min(1,Math.max(0,(t-sceneStart)/duration));camera.position.set(8-5*p,5+Math.sin(p*Math.PI),15-4*p);camera.lookAt(0,1,-4);renderer.render(scene,camera);};
+ return t=>{const sceneStart=Number(d.start||0);if(t<sceneStart||t>=sceneStart+duration)return;const p=Math.min(1,Math.max(0,(t-sceneStart)/duration));camera.position.set(8-5*p,5+Math.sin(p*Math.PI),15-4*p);camera.lookAt(0,1,-4);renderer.render(scene,camera);};
 }
-const nodes=[...document.querySelectorAll('.world-canvas')];const renderers=nodes.map(node=>{const data=JSON.parse(node.dataset.scene);if(data.storyId!=='columbus-1492')return buildGenericScene(node,data);return buildScene(node,data);});
+const canvas=document.querySelector('#world-canvas');const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false});renderer.setPixelRatio(1);renderer.setSize(1080,1920,false);renderer.outputColorSpace=THREE.SRGBColorSpace;const nodes=[...document.querySelectorAll('.scene')];const renderers=nodes.map(node=>{const data=JSON.parse(node.dataset.scene);if(data.storyId!=='columbus-1492')return buildGenericScene(renderer,data);return buildScene(renderer,data);});
 const timeline=window.__timelines?.['behind-del-mundo']||window.__timelines?.['columbus-3d-preview']||Object.values(window.__timelines||{})[0];if(timeline){timeline.eventCallback('onUpdate',()=>{const t=timeline.time();renderers.forEach(render=>render(t));});}renderers.forEach(render=>render(0));
