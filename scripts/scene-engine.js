@@ -138,18 +138,24 @@ function buildGenericScene(renderer,d){
  if(historic){for(const side of [-1,1])createProceduralEntity(world,{id:'background-house-'+side,type:'building',name:'Casa medieval de piedra',position:[side*7,0,-13],scale:.72},side+2);box(world,0,.02,-5,18,.08,3,'#8a7c69');}
  if(science){cyl(world,0,-.08,-6,4.8,5.2,.28,'#68767c',48);cyl(world,0,.08,-6,3.8,4.1,.08,'#9ca8a9',48);for(let i=0;i<8;i++){const a=i*Math.PI/4;const light=cyl(world,Math.cos(a)*4.4,.18,-6+Math.sin(a)*4.4,.13,.13,.16,i%2?'#d8a44d':'#6ba4b3',12);light.material.emissive=new THREE.Color(i%2?'#80501d':'#174b5d');light.material.emissiveIntensity=.3;}}
  const entities=directScene(world,d);
+ // En escenas acuáticas, edificios y vegetación permanecen en la franja de costa firme.
+ if(water){entities.forEach(entity=>{const type=entity.userData.entity?.type;const support=String(entity.userData.entity?.support||'').toLowerCase();if(type==='building'||type==='tree'||support.includes('tierra')||support.includes('suelo firme')){entity.position.x=Math.max(-10,Math.min(10,entity.position.x));entity.position.z=Math.min(-11,entity.position.z);entity.position.y=0;entity.userData.basePosition.copy(entity.position);}});}
  const camera=new THREE.PerspectiveCamera(56,1080/1920,.1,180);const duration=Math.max(1,Number(d.duration)||8);
  const cameraPlan=String(d.camera||'').toLowerCase();
+ // Microcortes cada 2,55 s: alterna distancia, altura y ángulo dentro de cada plano.
  return t=>{const sceneStart=Number(d.start||0);if(t<sceneStart||t>=sceneStart+duration)return;const local=Math.max(0,t-sceneStart),p=Math.min(1,local/duration),ease=p*p*(3-2*p);
+  const shotIndex=Math.floor(local/2.55),shotProgress=(local%2.55)/2.55,shotEase=shotProgress*shotProgress*(3-2*shotProgress);
   animateEntities(entities,local);
   const targetId=String(d.camera_target||'');const targetEntity=entities.find(e=>e.userData.entity?.id===targetId);
   const subjects=entities.filter(e=>['human','animal','vehicle','ship','celestial'].includes(e.userData.entity?.type));
   const points=targetEntity?[targetEntity]:subjects.length?subjects:entities;
   const target=points.reduce((sum,e)=>sum.add(e.position),new THREE.Vector3()).multiplyScalar(1/Math.max(1,points.length));target.y+=1.05;
-  if(/cenital|aereo|desde arriba|vista superior/.test(cameraPlan)){camera.position.set(target.x+1,18,target.z+8);}
-  else if(/orbita|rode|gira alrededor|circular/.test(cameraPlan)){const angle=ease*Math.PI*.8;camera.position.set(target.x+Math.cos(angle)*13,5,target.z+Math.sin(angle)*13);}
-  else if(/primer plano|detalle|acercamiento|zoom/.test(cameraPlan)){camera.position.set(target.x+3.5-1.5*ease,target.y+1.2,target.z+8-2.5*ease);}
-  else {camera.position.set(target.x+6-3.5*ease,target.y+4.2+Math.sin(p*Math.PI)*.5,target.z+14-2.5*ease);}
+  const orbitAngle=(shotIndex%4)*Math.PI*.5+shotEase*.28+Math.sin(local*1.15)*.035;
+  const distance=[12,8.5,14,9.5][shotIndex%4],height=[4.5,2.8,6.2,3.4][shotIndex%4];
+  if(/cenital|aereo|desde arriba|vista superior/.test(cameraPlan)){camera.position.set(target.x+Math.cos(orbitAngle)*2.2,17+shotEase,target.z+Math.sin(orbitAngle)*7);}
+  else if(/orbita|rode|gira alrededor|circular/.test(cameraPlan)){camera.position.set(target.x+Math.cos(orbitAngle)*distance,target.y+height,target.z+Math.sin(orbitAngle)*distance);}
+  else if(/primer plano|detalle|acercamiento|zoom/.test(cameraPlan)){camera.position.set(target.x+Math.cos(orbitAngle)*6,target.y+1.3+shotEase*.5,target.z+Math.sin(orbitAngle)*6);}
+  else {camera.position.set(target.x+Math.cos(orbitAngle)*distance,target.y+height+Math.sin(local*1.2)*.16,target.z+Math.sin(orbitAngle)*distance);}
   camera.lookAt(target);renderer.render(scene,camera);};
 }
 window.__renderReady = new Promise((resolve,reject)=>{window.__resolveSceneReady=resolve;window.__rejectSceneReady=reject;});
