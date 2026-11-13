@@ -1,0 +1,20 @@
+{
+  "name": "bdm-cinematic-proof",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "render": "remotion render src/index.ts Antikythera out/behind-del-mundo-cinematic-proof.mp4 --codec=h264 --crf=18 --concurrency=2"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.409",
+    "@remotion/renderer": "4.0.409",
+    "remotion": "4.0.409",
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.2",
+    "typescript": "5.9.2"
+  }
+}
