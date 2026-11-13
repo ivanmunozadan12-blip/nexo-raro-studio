@@ -475,6 +475,7 @@ export function directScene(parent, sceneData = {}) {
   (sceneData.objects || []).forEach(item => raw.push(item));
   (sceneData.props || []).forEach(item => raw.push(item));
   const limit = 18;
+  const beats = Array.isArray(sceneData.beats) ? sceneData.beats : [];
   const entities = raw.slice(0, limit).map((item, i) => {
     const spec = typeof item === 'string' ? { name: item } : { ...(item || {}) };
     if (!spec.position) {
@@ -482,7 +483,9 @@ export function directScene(parent, sceneData = {}) {
       const row = Math.floor(i / 5);
       spec.position = [col * 2.7, 0, -3.5 - row * 2.8];
     }
-    return createProceduralEntity(parent, spec, i);
+    const entity = createProceduralEntity(parent, spec, i);
+    entity.userData.beats = beats.filter(beat => !beat.entity_id || beat.entity_id === entity.userData.entity.id);
+    return entity;
   });
   return entities;
 }
@@ -490,7 +493,8 @@ export function directScene(parent, sceneData = {}) {
 export function animateEntities(entities, time = 0) {
   for (const entity of entities) {
     const rig = entity.userData.rig || {};
-    const action = clean(entity.userData.entity?.action || rig.motion || 'idle');
+    const beat = (entity.userData.beats || []).filter(item => time >= Number(item.at || 0) && time < Number(item.at || 0) + Number(item.duration || 999)).sort((a, b) => Number(a.at || 0) - Number(b.at || 0)).at(-1);
+    const action = clean(beat?.action || entity.userData.entity?.action || rig.motion || 'idle');
     const base = entity.userData.basePosition || entity.position;
     entity.position.y = base.y + .035 * Math.sin(time * 1.6 + entities.indexOf(entity));
     if (rig.legs) rig.legs.forEach((leg, i) => { leg.rotation.x = /caminar|andar|correr|walk|run|marchar/.test(action) ? Math.sin(time * 5 + i * Math.PI) * .32 : 0; });
