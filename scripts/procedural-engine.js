@@ -600,7 +600,9 @@ function createFromBlueprint(spec) {
         case 'sphere':
         default: geometry = new THREE.SphereGeometry(1, Number(part.widthSegments ?? 16), Number(part.heightSegments ?? 12)); break;
       }
-      return addMesh(new THREE.Group(), geometry, color, [0,0,0], size, {roughness:part.roughness ?? .78, metalness:part.metalness ?? 0});
+      const holder = new THREE.Group();
+      addMesh(holder, geometry, color, [0,0,0], size, {roughness:part.roughness ?? .78, metalness:part.metalness ?? 0});
+      return holder;
     })();
     if (part.group) node.position.set(...position);
     else node.children[0].position.set(...position);
