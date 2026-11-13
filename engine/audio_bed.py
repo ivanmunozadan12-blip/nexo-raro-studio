@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-import argparse, math, wave
+import argparse, math, wave, json
 import numpy as np
 
 p=argparse.ArgumentParser()
 p.add_argument('--duration',type=float,required=True)
 p.add_argument('--output',required=True)
+p.add_argument('--script',default=None)
 a=p.parse_args()
 sr=44100
 n=int(sr*a.duration)
