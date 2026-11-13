@@ -95,7 +95,16 @@
           "action": "abre un ojo, despega dos brazos de la roca y los repliega",
           "motion": "abre un ojo, despega dos brazos de la roca y los repliega",
           "support": "ground",
-          "species": "pulpo"
+          "species": "pulpo",
+          "appearance": "cuerpo ovalado con manto, cabeza, dos ojos visibles y ocho brazos articulados con ventosas; anatomía de cefalópodo reconocible, piel húmeda y proporciones consistentes entre planos.",
+          "shape": "anatomía orgánica blanda con manto ovalado y ocho apéndices cónicos segmentados",
+          "material": "piel orgánica húmeda, mate-satinada y flexible",
+          "color": "#e8d5c7",
+          "dimensions": [
+            2.8,
+            2.4,
+            2.8
+          ]
         },
         {
           "id": "rock-01",
@@ -110,7 +119,16 @@
           "scale": 1,
           "action": "permanece inmóvil",
           "motion": "permanece inmóvil",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "formación rocosa irregular de dos volúmenes redondeados, superficie erosionada, bordes desiguales y pequeñas grietas; sirve como referencia física para el camuflaje.",
+          "shape": "dos masas pétreas irregulares superpuestas",
+          "material": "roca mineral rugosa de alta aspereza",
+          "color": "#625f58",
+          "dimensions": [
+            2.8,
+            1.4,
+            2
+          ]
         },
         {
           "id": "coral-01",
@@ -125,7 +143,16 @@
           "scale": 1,
           "action": "permanece fijo",
           "motion": "permanece fijo",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "estructura coralina ramificada con tronco central y brazos orgánicos que se dividen en puntas; silueta claramente distinguible de roca y algas.",
+          "shape": "estructura ramificada con ramas cilíndricas y puntas",
+          "material": "esqueleto calcáreo poroso, mate",
+          "color": "#e28b6c",
+          "dimensions": [
+            1.5,
+            2,
+            1.5
+          ]
         },
         {
           "id": "kelp-01",
@@ -140,7 +167,16 @@
           "scale": 1,
           "action": "se balancean con la corriente",
           "motion": "se balancean con la corriente",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "conjunto de hojas largas y ondulantes que nacen de una base común, con láminas verdes separadas y bordes suaves que sugieren corriente submarina.",
+          "shape": "hojas largas, estrechas y flexibles agrupadas",
+          "material": "tejido vegetal húmedo semitranslúcido",
+          "color": "#397d54",
+          "dimensions": [
+            1.8,
+            2.8,
+            0.8
+          ]
         },
         {
           "id": "fish-01",
@@ -155,7 +191,16 @@
           "scale": 1,
           "action": "cruza el fondo en formación",
           "motion": "cruza el fondo en formación",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "grupo de peces pequeños de cuerpo fusiforme, aletas laterales y caudales visibles, ojos oscuros y acabado plateado; cada individuo mantiene separación y orientación de nado.",
+          "shape": "conjunto de cuerpos fusiformes pequeños con aletas",
+          "material": "escamas satinadas y aletas semitranslúcidas",
+          "color": "#b8c9c9",
+          "dimensions": [
+            1.8,
+            0.8,
+            1.2
+          ]
         }
       ],
       "beats": [
@@ -248,7 +293,16 @@
           "action": "cambia progresivamente de marrón rojizo a gris piedra y se aplana",
           "motion": "cambia progresivamente de marrón rojizo a gris piedra y se aplana",
           "support": "ground",
-          "species": "pulpo"
+          "species": "pulpo",
+          "appearance": "cuerpo ovalado con manto, cabeza, dos ojos visibles y ocho brazos articulados con ventosas; anatomía de cefalópodo reconocible, piel húmeda y proporciones consistentes entre planos.",
+          "shape": "anatomía orgánica blanda con manto ovalado y ocho apéndices cónicos segmentados",
+          "material": "piel orgánica húmeda, mate-satinada y flexible",
+          "color": "#e8d5c7",
+          "dimensions": [
+            2.8,
+            2.4,
+            2.8
+          ]
         },
         {
           "id": "rock-02",
@@ -263,7 +317,16 @@
           "scale": 1,
           "action": "sirve de patrón visual",
           "motion": "sirve de patrón visual",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "formación rocosa irregular de dos volúmenes redondeados, superficie erosionada, bordes desiguales y pequeñas grietas; sirve como referencia física para el camuflaje.",
+          "shape": "dos masas pétreas irregulares superpuestas",
+          "material": "roca mineral rugosa de alta aspereza",
+          "color": "#625f58",
+          "dimensions": [
+            2.8,
+            1.4,
+            2
+          ]
         },
         {
           "id": "coral-02",
@@ -278,7 +341,16 @@
           "scale": 1,
           "action": "permanece inmóvil",
           "motion": "permanece inmóvil",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "estructura coralina ramificada con tronco central y brazos orgánicos que se dividen en puntas; silueta claramente distinguible de roca y algas.",
+          "shape": "estructura ramificada con ramas cilíndricas y puntas",
+          "material": "esqueleto calcáreo poroso, mate",
+          "color": "#e28b6c",
+          "dimensions": [
+            1.5,
+            2,
+            1.5
+          ]
         },
         {
           "id": "kelp-02",
@@ -293,7 +365,16 @@
           "scale": 1,
           "action": "se mecen suavemente",
           "motion": "se mecen suavemente",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "conjunto de hojas largas y ondulantes que nacen de una base común, con láminas verdes separadas y bordes suaves que sugieren corriente submarina.",
+          "shape": "hojas largas, estrechas y flexibles agrupadas",
+          "material": "tejido vegetal húmedo semitranslúcido",
+          "color": "#397d54",
+          "dimensions": [
+            1.8,
+            2.8,
+            0.8
+          ]
         },
         {
           "id": "sand-02",
@@ -308,7 +389,16 @@
           "scale": 1,
           "action": "permanece extendido",
           "motion": "permanece extendido",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "parche horizontal de arena fina con ondulaciones paralelas, pequeñas sombras entre crestas y tono cálido que contrasta con la roca.",
+          "shape": "superficie plana con crestas onduladas",
+          "material": "sedimento fino mate y granular",
+          "color": "#c5aa7b",
+          "dimensions": [
+            3,
+            0.2,
+            2
+          ]
         }
       ],
       "beats": [
@@ -317,6 +407,12 @@
           "action": "El pulpo pasa de marrón rojizo a gris piedra y extiende los brazos sobre la roca",
           "at": 0.1,
           "duration": 4.5
+        },
+        {
+          "entity_id": "rock-02",
+          "action": "Movimiento ambiental secundario: sirve de patrón visual.",
+          "at": 1.3,
+          "duration": 3
         }
       ]
     },
@@ -385,7 +481,16 @@
           "scale": 1.7,
           "action": "permanece centrado y muestra su membrana",
           "motion": "permanece centrado y muestra su membrana",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "célula pigmentaria ampliada con membrana elástica, saco central de pigmento rojizo y núcleo visible; su expansión debe leerse como cambio de tamaño, no como desplazamiento.",
+          "shape": "célula ovalada con saco pigmentario central",
+          "material": "membrana orgánica satinada y pigmento concentrado",
+          "color": "#e6a044",
+          "dimensions": [
+            1.8,
+            1.5,
+            0.6
+          ]
         },
         {
           "id": "chrom-near-03a",
@@ -400,7 +505,16 @@
           "scale": 0.55,
           "action": "permanece visible",
           "motion": "permanece visible",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "célula pigmentaria ampliada con membrana elástica, saco central de pigmento rojizo y núcleo visible; su expansión debe leerse como cambio de tamaño, no como desplazamiento.",
+          "shape": "célula ovalada con saco pigmentario central",
+          "material": "membrana orgánica satinada y pigmento concentrado",
+          "color": "#e6a044",
+          "dimensions": [
+            1.8,
+            1.5,
+            0.6
+          ]
         },
         {
           "id": "chrom-near-03b",
@@ -415,7 +529,16 @@
           "scale": 0.55,
           "action": "permanece visible",
           "motion": "permanece visible",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "célula pigmentaria ampliada con membrana elástica, saco central de pigmento rojizo y núcleo visible; su expansión debe leerse como cambio de tamaño, no como desplazamiento.",
+          "shape": "célula ovalada con saco pigmentario central",
+          "material": "membrana orgánica satinada y pigmento concentrado",
+          "color": "#e6a044",
+          "dimensions": [
+            1.8,
+            1.5,
+            0.6
+          ]
         },
         {
           "id": "skin-03",
@@ -430,7 +553,16 @@
           "scale": 1.6,
           "action": "permanece como soporte anatómico",
           "motion": "permanece como soporte anatómico",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "lámina orgánica lisa, ligeramente curvada y semitranslúcida, con color uniforme y un borde visible para comparar su relieve con otras superficies.",
+          "shape": "placa fina y ancha de superficie lisa",
+          "material": "tejido orgánico flexible y satinado",
+          "color": "#a65e4b",
+          "dimensions": [
+            2.8,
+            0.5,
+            1.5
+          ]
         }
       ],
       "beats": [
@@ -439,6 +571,12 @@
           "action": "La cámara termina el acercamiento sobre el saco pigmentario y revela su membrana y núcleo",
           "at": 0.2,
           "duration": 4.2
+        },
+        {
+          "entity_id": "chrom-near-03a",
+          "action": "Movimiento ambiental secundario: permanece visible.",
+          "at": 1.4,
+          "duration": 3
         }
       ]
     },
@@ -507,7 +645,16 @@
           "scale": 2,
           "action": "se expande radialmente y vuelve parcialmente a su tamaño inicial",
           "motion": "se expande radialmente y vuelve parcialmente a su tamaño inicial",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "célula pigmentaria ampliada con membrana elástica, saco central de pigmento rojizo y núcleo visible; su expansión debe leerse como cambio de tamaño, no como desplazamiento.",
+          "shape": "célula ovalada con saco pigmentario central",
+          "material": "membrana orgánica satinada y pigmento concentrado",
+          "color": "#e6a044",
+          "dimensions": [
+            1.8,
+            1.5,
+            0.6
+          ]
         },
         {
           "id": "scale-04",
@@ -522,7 +669,16 @@
           "scale": 0.7,
           "action": "permanece fijo para comparar el diámetro",
           "motion": "permanece fijo para comparar el diámetro",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "aro circular fino que rodea el área de observación sin tapar la célula, utilizado como referencia de escala en el plano microscópico.",
+          "shape": "aro toroidal circular fino",
+          "material": "material translúcido con reflejo suave",
+          "color": "#9cc4c8",
+          "dimensions": [
+            2,
+            2,
+            0.15
+          ]
         },
         {
           "id": "particle-04",
@@ -537,7 +693,16 @@
           "scale": 0.7,
           "action": "derivan lentamente",
           "motion": "derivan lentamente",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "pequeñas partículas esféricas suspendidas alrededor de la célula, distribuidas con profundidad y tamaños variados para reforzar la escala microscópica.",
+          "shape": "esferas diminutas dispersas en el espacio",
+          "material": "material orgánico translúcido",
+          "color": "#c7e5e6",
+          "dimensions": [
+            1.8,
+            1.8,
+            1
+          ]
         },
         {
           "id": "membrane-04",
@@ -552,7 +717,16 @@
           "scale": 1.3,
           "action": "enmarca el modelo principal",
           "motion": "enmarca el modelo principal",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "envoltura ovalada fina y translúcida que delimita el volumen celular, con borde suave y espacio interior claramente visible.",
+          "shape": "envoltura ovalada hueca",
+          "material": "membrana biológica semitransparente",
+          "color": "#c8e4dc",
+          "dimensions": [
+            2,
+            1.6,
+            0.4
+          ]
         }
       ],
       "beats": [
@@ -561,6 +735,12 @@
           "action": "El saco pigmentario se expande hasta duplicar su diámetro y luego se contrae",
           "at": 0.2,
           "duration": 4.4
+        },
+        {
+          "entity_id": "scale-04",
+          "action": "Movimiento ambiental secundario: permanece fijo para comparar el diámetro.",
+          "at": 1.4,
+          "duration": 3
         }
       ]
     },
@@ -629,7 +809,16 @@
           "scale": 1.8,
           "action": "las fibras radiales tiran de la membrana",
           "motion": "las fibras radiales tiran de la membrana",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "saco pigmentario central rodeado por fibras radiales finas que se conectan desde el borde; la disposición radial permite entender cómo la contracción expande el pigmento.",
+          "shape": "saco central circular rodeado de fibras radiales",
+          "material": "tejido muscular fibroso y membrana orgánica",
+          "color": "#d8c5a9",
+          "dimensions": [
+            2.4,
+            2,
+            0.5
+          ]
         },
         {
           "id": "fiber-05a",
@@ -644,7 +833,16 @@
           "scale": 0.8,
           "action": "se tensa hacia el exterior",
           "motion": "se tensa hacia el exterior",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "haz de fibras finas y alargadas dispuestas en dirección radial, con grosor uniforme y separación suficiente para distinguir cada filamento.",
+          "shape": "filamentos cilíndricos largos y paralelos o radiales",
+          "material": "tejido muscular fibroso de tono marfil",
+          "color": "#d8c5a9",
+          "dimensions": [
+            2.5,
+            1.8,
+            0.3
+          ]
         },
         {
           "id": "fiber-05b",
@@ -659,7 +857,16 @@
           "scale": 0.8,
           "action": "se tensa hacia el exterior",
           "motion": "se tensa hacia el exterior",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "haz de fibras finas y alargadas dispuestas en dirección radial, con grosor uniforme y separación suficiente para distinguir cada filamento.",
+          "shape": "filamentos cilíndricos largos y paralelos o radiales",
+          "material": "tejido muscular fibroso de tono marfil",
+          "color": "#d8c5a9",
+          "dimensions": [
+            2.5,
+            1.8,
+            0.3
+          ]
         },
         {
           "id": "skin-05",
@@ -674,7 +881,16 @@
           "scale": 1.5,
           "action": "permanece detrás de la célula",
           "motion": "permanece detrás de la célula",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "lámina orgánica lisa, ligeramente curvada y semitranslúcida, con color uniforme y un borde visible para comparar su relieve con otras superficies.",
+          "shape": "placa fina y ancha de superficie lisa",
+          "material": "tejido orgánico flexible y satinado",
+          "color": "#a65e4b",
+          "dimensions": [
+            2.8,
+            0.5,
+            1.5
+          ]
         }
       ],
       "beats": [
@@ -683,6 +899,12 @@
           "action": "Las fibras radiales se tensan simultáneamente y expanden el saco pigmentario",
           "at": 0.3,
           "duration": 4.1
+        },
+        {
+          "entity_id": "fiber-05a",
+          "action": "Movimiento ambiental secundario: se tensa hacia el exterior.",
+          "at": 1.5,
+          "duration": 3
         }
       ]
     },
@@ -751,7 +973,16 @@
           "scale": 1.8,
           "action": "sus placas muestran reflejos cambiantes",
           "motion": "sus placas muestran reflejos cambiantes",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "célula aplanada con placas reflectantes ordenadas en paralelo, alternando tonos azulados y nacarados para representar la reflexión angular de la luz.",
+          "shape": "célula aplanada con láminas reflectantes paralelas",
+          "material": "placas cristalinas nacaradas de alta reflectividad",
+          "color": "#b9e0dc",
+          "dimensions": [
+            2,
+            1.4,
+            0.5
+          ]
         },
         {
           "id": "irido-06b",
@@ -766,7 +997,16 @@
           "scale": 0.8,
           "action": "refleja tonos plateados",
           "motion": "refleja tonos plateados",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "célula aplanada con placas reflectantes ordenadas en paralelo, alternando tonos azulados y nacarados para representar la reflexión angular de la luz.",
+          "shape": "célula aplanada con láminas reflectantes paralelas",
+          "material": "placas cristalinas nacaradas de alta reflectividad",
+          "color": "#b9e0dc",
+          "dimensions": [
+            2,
+            1.4,
+            0.5
+          ]
         },
         {
           "id": "skin-06",
@@ -781,7 +1021,16 @@
           "scale": 1.5,
           "action": "permanece como fondo anatómico",
           "motion": "permanece como fondo anatómico",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "lámina orgánica lisa, ligeramente curvada y semitranslúcida, con color uniforme y un borde visible para comparar su relieve con otras superficies.",
+          "shape": "placa fina y ancha de superficie lisa",
+          "material": "tejido orgánico flexible y satinado",
+          "color": "#a65e4b",
+          "dimensions": [
+            2.8,
+            0.5,
+            1.5
+          ]
         },
         {
           "id": "light-06",
@@ -796,7 +1045,16 @@
           "scale": 0.8,
           "action": "ilumina las placas desde un lateral",
           "motion": "ilumina las placas desde un lateral",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "volumen alargado y estrecho que representa un rayo de iluminación lateral; debe quedar visualmente separado de las células y no parecer un objeto sólido opaco.",
+          "shape": "prisma alargado de sección fina",
+          "material": "volumen luminoso translúcido",
+          "color": "#d8e9ee",
+          "dimensions": [
+            0.4,
+            2.4,
+            0.4
+          ]
         }
       ],
       "beats": [
@@ -805,6 +1063,12 @@
           "action": "Los discos reflectantes giran unos grados y producen destellos azulados y plateados",
           "at": 0.2,
           "duration": 4.2
+        },
+        {
+          "entity_id": "irido-06b",
+          "action": "Movimiento ambiental secundario: refleja tonos plateados.",
+          "at": 1.4,
+          "duration": 3
         }
       ]
     },
@@ -883,7 +1147,16 @@
           "action": "despliega ocho brazos y adapta su silueta al relieve",
           "motion": "despliega ocho brazos y adapta su silueta al relieve",
           "support": "ground",
-          "species": "pulpo"
+          "species": "pulpo",
+          "appearance": "cuerpo ovalado con manto, cabeza, dos ojos visibles y ocho brazos articulados con ventosas; anatomía de cefalópodo reconocible, piel húmeda y proporciones consistentes entre planos.",
+          "shape": "anatomía orgánica blanda con manto ovalado y ocho apéndices cónicos segmentados",
+          "material": "piel orgánica húmeda, mate-satinada y flexible",
+          "color": "#e8d5c7",
+          "dimensions": [
+            2.8,
+            2.4,
+            2.8
+          ]
         },
         {
           "id": "rock-07",
@@ -898,7 +1171,16 @@
           "scale": 1,
           "action": "permanece fija",
           "motion": "permanece fija",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "formación rocosa irregular de dos volúmenes redondeados, superficie erosionada, bordes desiguales y pequeñas grietas; sirve como referencia física para el camuflaje.",
+          "shape": "dos masas pétreas irregulares superpuestas",
+          "material": "roca mineral rugosa de alta aspereza",
+          "color": "#625f58",
+          "dimensions": [
+            2.8,
+            1.4,
+            2
+          ]
         },
         {
           "id": "coral-07",
@@ -913,7 +1195,16 @@
           "scale": 1,
           "action": "permanece fijo",
           "motion": "permanece fijo",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "estructura coralina ramificada con tronco central y brazos orgánicos que se dividen en puntas; silueta claramente distinguible de roca y algas.",
+          "shape": "estructura ramificada con ramas cilíndricas y puntas",
+          "material": "esqueleto calcáreo poroso, mate",
+          "color": "#e28b6c",
+          "dimensions": [
+            1.5,
+            2,
+            1.5
+          ]
         },
         {
           "id": "kelp-07",
@@ -928,7 +1219,16 @@
           "scale": 1,
           "action": "se mecen con la corriente",
           "motion": "se mecen con la corriente",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "conjunto de hojas largas y ondulantes que nacen de una base común, con láminas verdes separadas y bordes suaves que sugieren corriente submarina.",
+          "shape": "hojas largas, estrechas y flexibles agrupadas",
+          "material": "tejido vegetal húmedo semitranslúcido",
+          "color": "#397d54",
+          "dimensions": [
+            1.8,
+            2.8,
+            0.8
+          ]
         },
         {
           "id": "fish-07",
@@ -943,7 +1243,16 @@
           "scale": 1,
           "action": "nada detrás del coral",
           "motion": "nada detrás del coral",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "grupo de peces pequeños de cuerpo fusiforme, aletas laterales y caudales visibles, ojos oscuros y acabado plateado; cada individuo mantiene separación y orientación de nado.",
+          "shape": "conjunto de cuerpos fusiformes pequeños con aletas",
+          "material": "escamas satinadas y aletas semitranslúcidas",
+          "color": "#b8c9c9",
+          "dimensions": [
+            1.8,
+            0.8,
+            1.2
+          ]
         }
       ],
       "beats": [
@@ -952,6 +1261,12 @@
           "action": "El pulpo despliega los brazos y los acomoda alrededor de la roca y del coral",
           "at": 0.2,
           "duration": 4.2
+        },
+        {
+          "entity_id": "rock-07",
+          "action": "Movimiento ambiental secundario: permanece fija.",
+          "at": 1.4,
+          "duration": 3
         }
       ]
     },
@@ -1020,7 +1335,16 @@
           "scale": 1.9,
           "action": "las papilas se elevan desde la piel",
           "motion": "las papilas se elevan desde la piel",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "lámina de piel flexible con pequeñas protuberancias cónicas distribuidas en filas regulares; el relieve debe proyectar sombras laterales claramente visibles.",
+          "shape": "placa rectangular con protuberancias cónicas",
+          "material": "tejido húmedo flexible de acabado satinado",
+          "color": "#b96f59",
+          "dimensions": [
+            2.8,
+            0.8,
+            1.5
+          ]
         },
         {
           "id": "skin-08",
@@ -1035,7 +1359,16 @@
           "scale": 0.8,
           "action": "permanece liso para comparar",
           "motion": "permanece liso para comparar",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "lámina orgánica lisa, ligeramente curvada y semitranslúcida, con color uniforme y un borde visible para comparar su relieve con otras superficies.",
+          "shape": "placa fina y ancha de superficie lisa",
+          "material": "tejido orgánico flexible y satinado",
+          "color": "#a65e4b",
+          "dimensions": [
+            2.8,
+            0.5,
+            1.5
+          ]
         },
         {
           "id": "papillae-08b",
@@ -1050,7 +1383,16 @@
           "scale": 0.9,
           "action": "se elevan y proyectan sombras",
           "motion": "se elevan y proyectan sombras",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "conjunto compacto de protuberancias carnosas de distintas alturas, con bases anchas y puntas redondeadas que alteran la silueta de la piel.",
+          "shape": "grupo de conos cortos y redondeados",
+          "material": "tejido orgánico húmedo y ligeramente brillante",
+          "color": "#b96f59",
+          "dimensions": [
+            1.8,
+            0.8,
+            1.2
+          ]
         },
         {
           "id": "light-08",
@@ -1065,7 +1407,16 @@
           "scale": 0.7,
           "action": "marca el relieve con sombras pequeñas",
           "motion": "marca el relieve con sombras pequeñas",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "volumen alargado y estrecho que representa un rayo de iluminación lateral; debe quedar visualmente separado de las células y no parecer un objeto sólido opaco.",
+          "shape": "prisma alargado de sección fina",
+          "material": "volumen luminoso translúcido",
+          "color": "#d8e9ee",
+          "dimensions": [
+            0.4,
+            2.4,
+            0.4
+          ]
         }
       ],
       "beats": [
@@ -1074,6 +1425,12 @@
           "action": "Las papilas suben desde la piel lisa y forman una superficie irregular",
           "at": 0.2,
           "duration": 4.2
+        },
+        {
+          "entity_id": "skin-08",
+          "action": "Movimiento ambiental secundario: permanece liso para comparar.",
+          "at": 1.4,
+          "duration": 3
         }
       ]
     },
@@ -1142,7 +1499,16 @@
           "scale": 1.8,
           "action": "la zona rugosa se extiende sobre la lisa",
           "motion": "la zona rugosa se extiende sobre la lisa",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "placa dividida en dos mitades contiguas: una completamente lisa y otra cubierta por pequeñas elevaciones; ambas comparten color y escala para hacer evidente la diferencia de textura.",
+          "shape": "panel rectangular dividido en dos superficies contrastadas",
+          "material": "tejido orgánico húmedo con relieve variable",
+          "color": "#b96f59",
+          "dimensions": [
+            3,
+            0.8,
+            1.5
+          ]
         },
         {
           "id": "smooth-09",
@@ -1157,7 +1523,16 @@
           "scale": 0.75,
           "action": "permanece liso",
           "motion": "permanece liso",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "lámina orgánica lisa, ligeramente curvada y semitranslúcida, con color uniforme y un borde visible para comparar su relieve con otras superficies.",
+          "shape": "placa fina y ancha de superficie lisa",
+          "material": "tejido orgánico flexible y satinado",
+          "color": "#a65e4b",
+          "dimensions": [
+            2.8,
+            0.5,
+            1.5
+          ]
         },
         {
           "id": "rough-09",
@@ -1172,7 +1547,16 @@
           "scale": 0.8,
           "action": "mantiene los picos elevados",
           "motion": "mantiene los picos elevados",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "conjunto compacto de protuberancias carnosas de distintas alturas, con bases anchas y puntas redondeadas que alteran la silueta de la piel.",
+          "shape": "grupo de conos cortos y redondeados",
+          "material": "tejido orgánico húmedo y ligeramente brillante",
+          "color": "#b96f59",
+          "dimensions": [
+            1.8,
+            0.8,
+            1.2
+          ]
         },
         {
           "id": "light-09",
@@ -1187,7 +1571,16 @@
           "scale": 0.65,
           "action": "subraya cada protuberancia",
           "motion": "subraya cada protuberancia",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "volumen alargado y estrecho que representa un rayo de iluminación lateral; debe quedar visualmente separado de las células y no parecer un objeto sólido opaco.",
+          "shape": "prisma alargado de sección fina",
+          "material": "volumen luminoso translúcido",
+          "color": "#d8e9ee",
+          "dimensions": [
+            0.4,
+            2.4,
+            0.4
+          ]
         }
       ],
       "beats": [
@@ -1196,6 +1589,12 @@
           "action": "La textura rugosa avanza de derecha a izquierda y cubre progresivamente la zona lisa",
           "at": 0.2,
           "duration": 4.2
+        },
+        {
+          "entity_id": "smooth-09",
+          "action": "Movimiento ambiental secundario: permanece liso.",
+          "at": 1.4,
+          "duration": 3
         }
       ]
     },
@@ -1274,7 +1673,16 @@
           "action": "se aplana junto a la roca y extiende brazos entre algas y coral",
           "motion": "se aplana junto a la roca y extiende brazos entre algas y coral",
           "support": "ground",
-          "species": "pulpo"
+          "species": "pulpo",
+          "appearance": "cuerpo ovalado con manto, cabeza, dos ojos visibles y ocho brazos articulados con ventosas; anatomía de cefalópodo reconocible, piel húmeda y proporciones consistentes entre planos.",
+          "shape": "anatomía orgánica blanda con manto ovalado y ocho apéndices cónicos segmentados",
+          "material": "piel orgánica húmeda, mate-satinada y flexible",
+          "color": "#e8d5c7",
+          "dimensions": [
+            2.8,
+            2.4,
+            2.8
+          ]
         },
         {
           "id": "rock-10",
@@ -1289,7 +1697,16 @@
           "scale": 1,
           "action": "permanece fija",
           "motion": "permanece fija",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "formación rocosa irregular de dos volúmenes redondeados, superficie erosionada, bordes desiguales y pequeñas grietas; sirve como referencia física para el camuflaje.",
+          "shape": "dos masas pétreas irregulares superpuestas",
+          "material": "roca mineral rugosa de alta aspereza",
+          "color": "#625f58",
+          "dimensions": [
+            2.8,
+            1.4,
+            2
+          ]
         },
         {
           "id": "kelp-10",
@@ -1304,7 +1721,16 @@
           "scale": 1,
           "action": "se balancea suavemente",
           "motion": "se balancea suavemente",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "conjunto de hojas largas y ondulantes que nacen de una base común, con láminas verdes separadas y bordes suaves que sugieren corriente submarina.",
+          "shape": "hojas largas, estrechas y flexibles agrupadas",
+          "material": "tejido vegetal húmedo semitranslúcido",
+          "color": "#397d54",
+          "dimensions": [
+            1.8,
+            2.8,
+            0.8
+          ]
         },
         {
           "id": "coral-10",
@@ -1319,7 +1745,16 @@
           "scale": 1,
           "action": "permanece fijo",
           "motion": "permanece fijo",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "estructura coralina ramificada con tronco central y brazos orgánicos que se dividen en puntas; silueta claramente distinguible de roca y algas.",
+          "shape": "estructura ramificada con ramas cilíndricas y puntas",
+          "material": "esqueleto calcáreo poroso, mate",
+          "color": "#e28b6c",
+          "dimensions": [
+            1.5,
+            2,
+            1.5
+          ]
         },
         {
           "id": "sand-10",
@@ -1334,7 +1769,16 @@
           "scale": 1,
           "action": "aporta continuidad del fondo",
           "motion": "aporta continuidad del fondo",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "parche horizontal de arena fina con ondulaciones paralelas, pequeñas sombras entre crestas y tono cálido que contrasta con la roca.",
+          "shape": "superficie plana con crestas onduladas",
+          "material": "sedimento fino mate y granular",
+          "color": "#c5aa7b",
+          "dimensions": [
+            3,
+            0.2,
+            2
+          ]
         }
       ],
       "beats": [
@@ -1343,6 +1787,12 @@
           "action": "El pulpo se aplana junto a la roca, extiende un brazo entre las algas y curva los demás alrededor del coral",
           "at": 0.2,
           "duration": 4.3
+        },
+        {
+          "entity_id": "rock-10",
+          "action": "Movimiento ambiental secundario: permanece fija.",
+          "at": 1.4,
+          "duration": 3
         }
       ]
     },
@@ -1421,7 +1871,16 @@
           "action": "agrupa los brazos y ondula el cuerpo como otro animal marino",
           "motion": "agrupa los brazos y ondula el cuerpo como otro animal marino",
           "support": "ground",
-          "species": "pulpo"
+          "species": "pulpo",
+          "appearance": "cuerpo ovalado con manto, cabeza, dos ojos visibles y ocho brazos articulados con ventosas; anatomía de cefalópodo reconocible, piel húmeda y proporciones consistentes entre planos.",
+          "shape": "anatomía orgánica blanda con manto ovalado y ocho apéndices cónicos segmentados",
+          "material": "piel orgánica húmeda, mate-satinada y flexible",
+          "color": "#e8d5c7",
+          "dimensions": [
+            2.8,
+            2.4,
+            2.8
+          ]
         },
         {
           "id": "fish-11",
@@ -1436,7 +1895,16 @@
           "scale": 0.8,
           "action": "nada hacia el fondo",
           "motion": "nada hacia el fondo",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "grupo de peces pequeños de cuerpo fusiforme, aletas laterales y caudales visibles, ojos oscuros y acabado plateado; cada individuo mantiene separación y orientación de nado.",
+          "shape": "conjunto de cuerpos fusiformes pequeños con aletas",
+          "material": "escamas satinadas y aletas semitranslúcidas",
+          "color": "#b8c9c9",
+          "dimensions": [
+            1.8,
+            0.8,
+            1.2
+          ]
         },
         {
           "id": "rock-11",
@@ -1451,7 +1919,16 @@
           "scale": 1,
           "action": "permanece fijo",
           "motion": "permanece fijo",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "formación rocosa irregular de dos volúmenes redondeados, superficie erosionada, bordes desiguales y pequeñas grietas; sirve como referencia física para el camuflaje.",
+          "shape": "dos masas pétreas irregulares superpuestas",
+          "material": "roca mineral rugosa de alta aspereza",
+          "color": "#625f58",
+          "dimensions": [
+            2.8,
+            1.4,
+            2
+          ]
         },
         {
           "id": "kelp-11",
@@ -1466,7 +1943,16 @@
           "scale": 1,
           "action": "se mecen en la corriente",
           "motion": "se mecen en la corriente",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "conjunto de hojas largas y ondulantes que nacen de una base común, con láminas verdes separadas y bordes suaves que sugieren corriente submarina.",
+          "shape": "hojas largas, estrechas y flexibles agrupadas",
+          "material": "tejido vegetal húmedo semitranslúcido",
+          "color": "#397d54",
+          "dimensions": [
+            1.8,
+            2.8,
+            0.8
+          ]
         },
         {
           "id": "bubbles-11",
@@ -1481,7 +1967,16 @@
           "scale": 1,
           "action": "ascienden lentamente",
           "motion": "ascienden lentamente",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "conjunto vertical de burbujas de distintos tamaños, transparentes y separadas, que ascienden en una trayectoria visible sin ocultar al protagonista.",
+          "shape": "esferas pequeñas de varios diámetros en columna",
+          "material": "superficie acuosa transparente con reflejos",
+          "color": "#b8e8ed",
+          "dimensions": [
+            0.8,
+            2.8,
+            0.8
+          ]
         }
       ],
       "beats": [
@@ -1490,6 +1985,12 @@
           "action": "El pulpo agrupa los brazos y realiza una ondulación continua mientras cruza el encuadre",
           "at": 0.2,
           "duration": 4.3
+        },
+        {
+          "entity_id": "fish-11",
+          "action": "Movimiento ambiental secundario: nada hacia el fondo.",
+          "at": 1.4,
+          "duration": 3
         }
       ]
     },
@@ -1568,7 +2069,16 @@
           "action": "permanece oculto en la grieta y extiende un brazo hacia la presa",
           "motion": "permanece oculto en la grieta y extiende un brazo hacia la presa",
           "support": "ground",
-          "species": "pulpo"
+          "species": "pulpo",
+          "appearance": "cuerpo ovalado con manto, cabeza, dos ojos visibles y ocho brazos articulados con ventosas; anatomía de cefalópodo reconocible, piel húmeda y proporciones consistentes entre planos.",
+          "shape": "anatomía orgánica blanda con manto ovalado y ocho apéndices cónicos segmentados",
+          "material": "piel orgánica húmeda, mate-satinada y flexible",
+          "color": "#e8d5c7",
+          "dimensions": [
+            2.8,
+            2.4,
+            2.8
+          ]
         },
         {
           "id": "rock-12",
@@ -1583,7 +2093,16 @@
           "scale": 1,
           "action": "oculta parcialmente al pulpo",
           "motion": "oculta parcialmente al pulpo",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "formación rocosa irregular de dos volúmenes redondeados, superficie erosionada, bordes desiguales y pequeñas grietas; sirve como referencia física para el camuflaje.",
+          "shape": "dos masas pétreas irregulares superpuestas",
+          "material": "roca mineral rugosa de alta aspereza",
+          "color": "#625f58",
+          "dimensions": [
+            2.8,
+            1.4,
+            2
+          ]
         },
         {
           "id": "coral-12",
@@ -1598,7 +2117,16 @@
           "scale": 1,
           "action": "permanece fijo",
           "motion": "permanece fijo",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "estructura coralina ramificada con tronco central y brazos orgánicos que se dividen en puntas; silueta claramente distinguible de roca y algas.",
+          "shape": "estructura ramificada con ramas cilíndricas y puntas",
+          "material": "esqueleto calcáreo poroso, mate",
+          "color": "#e28b6c",
+          "dimensions": [
+            1.5,
+            2,
+            1.5
+          ]
         },
         {
           "id": "crab-12",
@@ -1613,7 +2141,16 @@
           "scale": 0.55,
           "action": "camina lentamente por la arena",
           "motion": "camina lentamente por la arena",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "cangrejo pequeño con caparazón ovalado rojizo, dos pinzas diferenciadas y patas articuladas que se extienden a ambos lados; silueta baja apoyada sobre la arena.",
+          "shape": "caparazón ovalado con pinzas y patas laterales",
+          "material": "exoesqueleto duro ligeramente brillante",
+          "color": "#8d4032",
+          "dimensions": [
+            1.8,
+            0.9,
+            1.5
+          ]
         },
         {
           "id": "sand-12",
@@ -1628,7 +2165,16 @@
           "scale": 1,
           "action": "permanece bajo la escena",
           "motion": "permanece bajo la escena",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "parche horizontal de arena fina con ondulaciones paralelas, pequeñas sombras entre crestas y tono cálido que contrasta con la roca.",
+          "shape": "superficie plana con crestas onduladas",
+          "material": "sedimento fino mate y granular",
+          "color": "#c5aa7b",
+          "dimensions": [
+            3,
+            0.2,
+            2
+          ]
         }
       ],
       "beats": [
@@ -1721,7 +2267,16 @@
           "action": "cambia color y postura sin desplazarse del fondo",
           "motion": "cambia color y postura sin desplazarse del fondo",
           "support": "ground",
-          "species": "pulpo"
+          "species": "pulpo",
+          "appearance": "cuerpo ovalado con manto, cabeza, dos ojos visibles y ocho brazos articulados con ventosas; anatomía de cefalópodo reconocible, piel húmeda y proporciones consistentes entre planos.",
+          "shape": "anatomía orgánica blanda con manto ovalado y ocho apéndices cónicos segmentados",
+          "material": "piel orgánica húmeda, mate-satinada y flexible",
+          "color": "#e8d5c7",
+          "dimensions": [
+            2.8,
+            2.4,
+            2.8
+          ]
         },
         {
           "id": "rock-13",
@@ -1736,7 +2291,16 @@
           "scale": 1,
           "action": "permanece fija",
           "motion": "permanece fija",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "formación rocosa irregular de dos volúmenes redondeados, superficie erosionada, bordes desiguales y pequeñas grietas; sirve como referencia física para el camuflaje.",
+          "shape": "dos masas pétreas irregulares superpuestas",
+          "material": "roca mineral rugosa de alta aspereza",
+          "color": "#625f58",
+          "dimensions": [
+            2.8,
+            1.4,
+            2
+          ]
         },
         {
           "id": "coral-13",
@@ -1751,7 +2315,16 @@
           "scale": 1,
           "action": "permanece fijo",
           "motion": "permanece fijo",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "estructura coralina ramificada con tronco central y brazos orgánicos que se dividen en puntas; silueta claramente distinguible de roca y algas.",
+          "shape": "estructura ramificada con ramas cilíndricas y puntas",
+          "material": "esqueleto calcáreo poroso, mate",
+          "color": "#e28b6c",
+          "dimensions": [
+            1.5,
+            2,
+            1.5
+          ]
         },
         {
           "id": "sand-13",
@@ -1766,7 +2339,16 @@
           "scale": 1,
           "action": "permanece inmóvil",
           "motion": "permanece inmóvil",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "parche horizontal de arena fina con ondulaciones paralelas, pequeñas sombras entre crestas y tono cálido que contrasta con la roca.",
+          "shape": "superficie plana con crestas onduladas",
+          "material": "sedimento fino mate y granular",
+          "color": "#c5aa7b",
+          "dimensions": [
+            3,
+            0.2,
+            2
+          ]
         },
         {
           "id": "kelp-13",
@@ -1781,7 +2363,16 @@
           "scale": 1,
           "action": "se balancean suavemente",
           "motion": "se balancean suavemente",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "conjunto de hojas largas y ondulantes que nacen de una base común, con láminas verdes separadas y bordes suaves que sugieren corriente submarina.",
+          "shape": "hojas largas, estrechas y flexibles agrupadas",
+          "material": "tejido vegetal húmedo semitranslúcido",
+          "color": "#397d54",
+          "dimensions": [
+            1.8,
+            2.8,
+            0.8
+          ]
         }
       ],
       "beats": [
@@ -1790,6 +2381,12 @@
           "action": "El pulpo cambia el tono y la postura manteniendo la misma posición sobre la arena",
           "at": 0.2,
           "duration": 4.3
+        },
+        {
+          "entity_id": "rock-13",
+          "action": "Movimiento ambiental secundario: permanece fija.",
+          "at": 1.4,
+          "duration": 3
         }
       ]
     },
@@ -1868,7 +2465,16 @@
           "action": "recoge los brazos y se desliza por una abertura estrecha",
           "motion": "recoge los brazos y se desliza por una abertura estrecha",
           "support": "ground",
-          "species": "pulpo"
+          "species": "pulpo",
+          "appearance": "cuerpo ovalado con manto, cabeza, dos ojos visibles y ocho brazos articulados con ventosas; anatomía de cefalópodo reconocible, piel húmeda y proporciones consistentes entre planos.",
+          "shape": "anatomía orgánica blanda con manto ovalado y ocho apéndices cónicos segmentados",
+          "material": "piel orgánica húmeda, mate-satinada y flexible",
+          "color": "#e8d5c7",
+          "dimensions": [
+            2.8,
+            2.4,
+            2.8
+          ]
         },
         {
           "id": "rock-14a",
@@ -1883,7 +2489,16 @@
           "scale": 1,
           "action": "forma un lado de la abertura",
           "motion": "forma un lado de la abertura",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "formación rocosa irregular de dos volúmenes redondeados, superficie erosionada, bordes desiguales y pequeñas grietas; sirve como referencia física para el camuflaje.",
+          "shape": "dos masas pétreas irregulares superpuestas",
+          "material": "roca mineral rugosa de alta aspereza",
+          "color": "#625f58",
+          "dimensions": [
+            2.8,
+            1.4,
+            2
+          ]
         },
         {
           "id": "rock-14b",
@@ -1898,7 +2513,16 @@
           "scale": 1,
           "action": "forma el otro lado de la abertura",
           "motion": "forma el otro lado de la abertura",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "formación rocosa irregular de dos volúmenes redondeados, superficie erosionada, bordes desiguales y pequeñas grietas; sirve como referencia física para el camuflaje.",
+          "shape": "dos masas pétreas irregulares superpuestas",
+          "material": "roca mineral rugosa de alta aspereza",
+          "color": "#625f58",
+          "dimensions": [
+            2.8,
+            1.4,
+            2
+          ]
         },
         {
           "id": "coral-14",
@@ -1913,7 +2537,16 @@
           "scale": 1,
           "action": "permanece en el fondo",
           "motion": "permanece en el fondo",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "estructura coralina ramificada con tronco central y brazos orgánicos que se dividen en puntas; silueta claramente distinguible de roca y algas.",
+          "shape": "estructura ramificada con ramas cilíndricas y puntas",
+          "material": "esqueleto calcáreo poroso, mate",
+          "color": "#e28b6c",
+          "dimensions": [
+            1.5,
+            2,
+            1.5
+          ]
         },
         {
           "id": "bubbles-14",
@@ -1928,7 +2561,16 @@
           "scale": 1,
           "action": "ascienden tras el movimiento",
           "motion": "ascienden tras el movimiento",
-          "support": "ground"
+          "support": "ground",
+          "appearance": "conjunto vertical de burbujas de distintos tamaños, transparentes y separadas, que ascienden en una trayectoria visible sin ocultar al protagonista.",
+          "shape": "esferas pequeñas de varios diámetros en columna",
+          "material": "superficie acuosa transparente con reflejos",
+          "color": "#b8e8ed",
+          "dimensions": [
+            0.8,
+            2.8,
+            0.8
+          ]
         }
       ],
       "beats": [
@@ -1937,6 +2579,12 @@
           "action": "El pulpo recoge los ocho brazos, comprime el manto y atraviesa la abertura entre las rocas",
           "at": 0.3,
           "duration": 4.1
+        },
+        {
+          "entity_id": "rock-14a",
+          "action": "Movimiento ambiental secundario: forma un lado de la abertura.",
+          "at": 1.5,
+          "duration": 3
         }
       ]
     }
@@ -4849,7 +5497,8 @@
           "amplitude": 0.12,
           "frequency": 1.1
         }
-      ]
+      ],
+      "version": 1
     },
     "muscle-chromatophore": {
       "parts": [
@@ -5133,7 +5782,8 @@
           "amplitude": 0.25,
           "frequency": 1.4
         }
-      ]
+      ],
+      "version": 1
     },
     "iridophore-cell": {
       "parts": [
@@ -5318,7 +5968,8 @@
           "amplitude": 0.16,
           "frequency": 1.3
         }
-      ]
+      ],
+      "version": 1
     },
     "papillae-skin": {
       "parts": [
@@ -5771,7 +6422,8 @@
           "frequency": 1,
           "phase": 3.74
         }
-      ]
+      ],
+      "version": 1
     },
     "papillae-cluster": {
       "parts": [
@@ -6065,7 +6717,8 @@
           "frequency": 1.1,
           "phase": 2.2
         }
-      ]
+      ],
+      "version": 1
     },
     "skin-surface": {
       "parts": [
@@ -6100,7 +6753,9 @@
           "color": "#d18a73",
           "roughness": 0.25
         }
-      ]
+      ],
+      "version": 1,
+      "animations": []
     },
     "skin-comparison": {
       "parts": [
@@ -6384,7 +7039,8 @@
           "amplitude": 0.08,
           "frequency": 1
         }
-      ]
+      ],
+      "version": 1
     },
     "muscle-fibres": {
       "parts": [
@@ -6588,7 +7244,9 @@
             0.1125
           ]
         }
-      ]
+      ],
+      "version": 1,
+      "animations": []
     },
     "micro-ring": {
       "parts": [
@@ -6610,7 +7268,9 @@
           "color": "#9cc4c8",
           "metalness": 0.5
         }
-      ]
+      ],
+      "version": 1,
+      "animations": []
     },
     "cell-particles": {
       "parts": [
@@ -6884,7 +7544,9 @@
           ],
           "color": "#c7e5e6"
         }
-      ]
+      ],
+      "version": 1,
+      "animations": []
     },
     "cell-membrane": {
       "parts": [
@@ -6904,7 +7566,9 @@
           "color": "#c8e4dc",
           "roughness": 0.2
         }
-      ]
+      ],
+      "version": 1,
+      "animations": []
     },
     "light-beam": {
       "parts": [
@@ -6924,7 +7588,9 @@
           "color": "#d8e9ee",
           "roughness": 0.2
         }
-      ]
+      ],
+      "version": 1,
+      "animations": []
     },
     "crab-model": {
       "parts": [
@@ -7133,7 +7799,9 @@
             0.4242640687119284
           ]
         }
-      ]
+      ],
+      "version": 1,
+      "animations": []
     }
   }
 }
