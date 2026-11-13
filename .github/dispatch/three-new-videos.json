@@ -1,5 +1,5 @@
 {
-  "batch": "octopus-overlay-validation-fix",
+  "batch": "octopus-visual-standard-v1",
   "files": [
     "scripts/manual/2026-11-14-pulpo-camuflaje.json"
   ]
