@@ -57,7 +57,7 @@ def make_material(spec):
         if "alpha" in spec:
             alpha = float(spec["alpha"])
             bsdf.inputs["Alpha"].default_value = alpha
-            if alpha < 1:
+            if alpha < 1 and hasattr(mat, "surface_render_method"):
                 mat.surface_render_method = "DITHERED"
     return mat
 
@@ -215,7 +215,7 @@ def setup_world(environment):
 def build_shot(shot, project, project_dir, output_dir, shot_index):
     clear_scene()
     scene = bpy.context.scene
-    scene.render.engine = "BLENDER_EEVEE_NEXT"
+    scene.render.engine = "BLENDER_EEVEE_NEXT" if "BLENDER_EEVEE_NEXT" in bpy.types.RenderSettings.bl_rna.properties["engine"].enum_items.keys() else "BLENDER_EEVEE"
     scene.render.resolution_x = int(project["resolution"][0])
     scene.render.resolution_y = int(project["resolution"][1])
     scene.render.resolution_percentage = 100
@@ -223,7 +223,10 @@ def build_shot(shot, project, project_dir, output_dir, shot_index):
     scene.render.image_settings.file_format = "PNG"
     scene.render.image_settings.color_mode = "RGBA"
     scene.render.image_settings.color_depth = "8"
-    scene.view_settings.view_transform = "AgX"
+    if "AgX" in bpy.types.ColorManagedViewSettings.bl_rna.properties["view_transform"].enum_items.keys():
+        scene.view_settings.view_transform = "AgX"
+    if hasattr(scene, "eevee"):
+        scene.eevee.taa_render_samples = 64
     setup_world(shot.get("environment", {}))
     for entity in shot.get("entities", []):
         create_entity(entity, project_dir)
