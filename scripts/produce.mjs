@@ -317,7 +317,7 @@ const aiResponse = await groqChat({
     response_format: { type: 'json_object' },
     reasoning_effort: 'low',
     temperature: 0.7,
-    max_completion_tokens: 1750,
+    max_completion_tokens: 4500,
     stream: false,
   }, 'guion');
 const ai = await aiResponse.json();
