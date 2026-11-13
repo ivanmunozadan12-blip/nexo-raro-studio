@@ -25,7 +25,7 @@ export default function Studio(){
  },[session]);
  useEffect(()=>{db.auth.getSession().then(({data}:any)=>setSession(data.session));const {data}=db.auth.onAuthStateChange((_e:any,s:any)=>setSession(s));return()=>data.subscription.unsubscribe()},[]);
  useEffect(()=>{load()},[load]);
- useEffect(()=>{if(!session||!jobs.some(j=>['queued','voicing','rendering','publishing'].includes(j.status)))return;const timer=window.setInterval(load,20000);return()=>window.clearInterval(timer)},[session,jobs,load]);
+ useEffect(()=>{if(!session||(!jobs.some(j=>['queued','voicing','rendering','publishing'].includes(j.status))&&!posts.some(p=>p.status==='publishing')))return;const timer=window.setInterval(load,20000);return()=>window.clearInterval(timer)},[session,jobs,posts,load]);
  useEffect(()=>{let active=true;(async()=>{const next:Record<string,string>={};for(const v of videos){const {data}=await db.storage.from('nexo-videos').createSignedUrl(v.storage_path,3600);if(data?.signedUrl)next[v.id]=data.signedUrl;}if(active)setSigned(next)})();return()=>{active=false}},[videos]);
  async function auth(e:any){e.preventDefault();const r=signup?await db.auth.signUp({email,password}):await db.auth.signInWithPassword({email,password});setMessage(r.error?.message||(signup?'Revisa tu correo para confirmar la cuenta.':'Sesión iniciada.'))}
  async function generateAll(){
