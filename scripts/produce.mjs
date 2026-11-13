@@ -245,6 +245,9 @@ const entityRegistry = new Map();
 for (const [sceneIndex, scene] of script.scenes.entries()) {
   const entities = Array.isArray(scene.entities) ? scene.entities : [];
   if (entities.length < 2 || entities.length > 12) throw new Error('La escena ' + (sceneIndex + 1) + ' necesita entre 2 y 12 entidades 3D explícitas para el nuevo motor procedural.');
+  const entityIds = new Set(entities.map(entity => String(entity.id || '')));
+  if (!scene.camera_target || !entityIds.has(String(scene.camera_target))) throw new Error('La cámara de la escena ' + (sceneIndex + 1) + ' necesita un camera_target que coincida con el id de una entidad real.');
+  if (!Array.isArray(scene.beats) || scene.beats.length < 2 || scene.beats.length > 12) throw new Error('La escena ' + (sceneIndex + 1) + ' necesita entre 2 y 12 beats narrativos temporizados.');
   for (const entity of entities) {
     const entityType = String(entity.type || '').toLowerCase();
     if (!entity.id || !entity.name || !allowedEntityTypes.has(entityType) || !Array.isArray(entity.position) || entity.position.length !== 3 || !entity.position.every(value => Number.isFinite(Number(value))) || !entity.action || countWords(entity.action) < 3 || !entity.motion || countWords(entity.motion) < 3 || !(Number.isFinite(Number(entity.scale)) && Number(entity.scale) > 0) && !(Array.isArray(entity.scale) && entity.scale.length === 3 && entity.scale.every(value => Number.isFinite(Number(value)) && Number(value) > 0)) || (!entity.appearance || String(entity.appearance).trim().length < 100) && (!entity.description || String(entity.description).trim().length < 100) || !entity.dimensions || !Array.isArray(entity.dimensions) || entity.dimensions.length !== 3 || !entity.dimensions.every(value => Number.isFinite(Number(value)) && Number(value) > 0) || !entity.shape || !entity.material || !entity.color || !entity.support) {
@@ -290,8 +293,8 @@ for (const [sceneIndex, scene] of script.scenes.entries()) {
     });
     if (overlap.every(value => value > .82)) throw new Error('Solapamiento 3D grave entre "' + A.name + '" y "' + B.name + '" en la escena ' + (sceneIndex + 1) + '; separa sus posiciones o define un soporte/relación física real.');
   }
-  if (!Array.isArray(scene.beats) || scene.beats.length < 2 || scene.beats.length > 12 || scene.beats.some(beat => !beat.entity_id || !entities.some(entity => String(entity.id) === String(beat.entity_id)) || !beat.action || !Number.isFinite(Number(beat.at)) || Number(beat.at) < 0 || Number(beat.duration || 0) <= 0)) {
-    throw new Error('Los beats de la escena ' + (sceneIndex + 1) + ' deben tener entity_id, acción y segundo de inicio válidos.');
+  if (scene.beats.some(beat => !beat.entity_id || !entityIds.has(String(beat.entity_id)) || !beat.action || countWords(beat.action) < 3 || !Number.isFinite(Number(beat.at)) || Number(beat.at) < 0 || !Number.isFinite(Number(beat.duration)) || Number(beat.duration) <= 0)) {
+    throw new Error('Los beats de la escena ' + (sceneIndex + 1) + ' deben tener entidad existente, acción concreta y tiempos positivos.');
   }
 }
 const sourceHosts = new Set();
