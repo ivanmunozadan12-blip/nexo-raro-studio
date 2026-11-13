@@ -8,7 +8,8 @@ const fixture=JSON.parse(await readFile(path.join(root,'scripts','columbus-test-
 const work=path.join(root,'.artifacts','columbus-visual-test');
 await mkdir(work,{recursive:true});
 await run('npx',['esbuild','scripts/scene-engine.js','--bundle','--format=iife','--minify','--outfile='+path.join(work,'scene-engine.bundle.js')],root);
-const engineTag='<script src="scene-engine.bundle.js"></script>';
+const sceneEngine=await readFile(path.join(work,'scene-engine.bundle.js'),'utf8');
+const engineTag='<script>'+sceneEngine+'</script>';
 const duration=4.5;
 const escape=value=>String(value||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const clips=fixture.scenes.map((scene,index)=>{
