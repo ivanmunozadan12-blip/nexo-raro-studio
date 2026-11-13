@@ -1,5 +1,5 @@
 import unittest
-from render_video import base_frame, draw_scene, render_frame, draw_caption, W, H, S
+from render_video import base_frame, draw_scene, render_frame, draw_caption, draw_enzo, W, H, S
 from PIL import Image
 
 class RendererTests(unittest.TestCase):
@@ -48,6 +48,13 @@ class RendererTests(unittest.TestCase):
             self.assertEqual(frame.size,(W,H),kind)
             self.assertGreater(len(frame.getcolors(W*H) or []),20,kind)
 
+    def test_enzo_is_a_consistent_visible_recurring_character(self):
+        a=Image.new("RGBA",(W*S,H*S),(0,0,0,0))
+        b=Image.new("RGBA",(W*S,H*S),(0,0,0,0))
+        draw_enzo(a,1.0,"#62d9cf")
+        draw_enzo(b,1.0,"#62d9cf")
+        self.assertEqual(list(a.getdata()),list(b.getdata()))
+        self.assertGreater(sum(1 for px in a.getdata() if px[3]>0),2500)
     def test_same_timestamp_is_deterministic(self):
         scene={"headline":"Prueba","subtitle":"Sin parpadeos","visual_type":"map","background":"dark_lab","narration_excerpt":"Texto de prueba.","callout":"Mapa esquemático.","labels":["A","B","C"],"accent":"#62d9cf"}
         script={"scenes":[scene],"captions":[]}
