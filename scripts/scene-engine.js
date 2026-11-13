@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { directScene, animateEntities, createProceduralEntity } from './procedural-engine.js';
+import { directScene, animateEntities, createProceduralEntity, detectEnvironment } from './procedural-engine.js';
 
 const MAT = (color, roughness=0.9) => new THREE.MeshStandardMaterial({ color, roughness, flatShading:true });
 const box = (g,x,y,z,sx,sy,sz,color) => { const m=new THREE.Mesh(new THREE.BoxGeometry(sx,sy,sz),MAT(color));m.position.set(x,y,z);g.add(m);return m; };
@@ -128,29 +128,28 @@ function buildScene(renderer,d){
 }
 
 function buildGenericScene(renderer,d){
- const scene=new THREE.Scene(),world=new THREE.Group();scene.add(world);scene.background=new THREE.Color('#9ac9df');scene.fog=new THREE.Fog('#9ac9df',24,65);scene.add(new THREE.HemisphereLight('#fff', '#65766c',2));const sun=new THREE.DirectionalLight('#fff0ce',2);sun.position.set(-8,14,9);scene.add(sun);
- const words=(d.title+' '+d.visual+' '+d.setting+' '+d.action+' '+(d.props||[]).join(' ')+' '+(d.objects||[]).join(' ')+' '+JSON.stringify(d.entities||[])).toLowerCase(),water=/mar|oceano|agua|rio|barco|ballena|coral/.test(words)||d.type==='ocean',space=/espacio|planeta|luna|estrella|orbita|galax/.test(words)||d.type==='space',historic=d.type==='history'||/antigu|romano|egipto|medieval|castillo|imperio/.test(words),forest=/bosque|selva|arbol|jungla/.test(words),science=d.type==='science'||/laboratorio|experimento|motor|maquina|ciencia/.test(words);
+ const scene=new THREE.Scene(),world=new THREE.Group();scene.add(world);scene.background=new THREE.Color('#9ac9df');scene.fog=new THREE.Fog('#9ac9df',24,65);scene.add(new THREE.HemisphereLight('#fff', '#65766c',2));const sun=new THREE.DirectionalLight('#fff0ce',2.3);sun.position.set(-8,14,9);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);sun.shadow.camera.near=.5;sun.shadow.camera.far=60;sun.shadow.bias=-.00015;scene.add(sun);
+ const words=d.title+' '+d.visual+' '+d.setting+' '+d.action+' '+(d.props||[]).join(' ')+' '+(d.objects||[]).join(' ')+' '+JSON.stringify(d.entities||[]);const {water,space,historic,forest,science}=detectEnvironment(words,d.type);
  const groundColor=space?'#263b6a':forest?'#557b4c':historic?'#9a8b75':science?'#647b83':'#9b9a83';
- if(water){
-   // Escenario costero: tierra firme al fondo y mar en primer plano; nunca cubrir edificios con agua.
-   box(world,0,-.5,-11,28,1,10,groundColor);
-   const waterMesh=new THREE.Mesh(new THREE.PlaneGeometry(30,25,40,40),MAT('#247f9e'));waterMesh.rotation.x=-Math.PI/2;waterMesh.position.set(0,-.08,3);world.add(waterMesh);
- } else box(world,0,-.5,-3,28,1,30,groundColor);
- if(space){scene.background.set('#17294d');for(let i=0;i<100;i++)sphere(world,(Math.sin(i*9)*.5)*24,Math.cos(i*3)*10,-10,.035,.035,.035,'#fff',0);sphere(world,0,2,-7,3,3,3,'#d69b59',2);}
+ if(space){scene.background.set('#111d3a');for(let i=0;i<130;i++){const x=Math.sin(i*9)*22,y=Math.cos(i*3)*13,z=-18+(i%7)*1.5;sphere(world,x,y,z,.025,.025,.025,'#fff',0);}}
+ if(water){box(world,0,-.5,-11,28,1,10,groundColor);const waterMesh=new THREE.Mesh(new THREE.PlaneGeometry(30,25,40,40),MAT('#247f9e'));waterMesh.rotation.x=-Math.PI/2;waterMesh.position.set(0,-.08,3);world.add(waterMesh);}
+ else if(!space) box(world,0,-.5,-3,28,1,30,groundColor);
  if(forest){for(let i=0;i<12;i++){const x=(i%4-1.5)*5.4,z=-12+Math.floor(i/4)*5;createProceduralEntity(world,{id:'background-tree-'+i,type:'tree',name:'Árbol tropical',position:[x,0,z],scale:.9+(i%3)*.18},i);}}
- if(historic){for(let i=0;i<4;i++){box(world,(i-1.5)*5,1.8,-7,3.4,3.6,2.5,'#c5b391');for(let x of [-1,1])box(world,(i-1.5)*5+x,2.2,-5.7,.45,1.4,.1,'#4a5360');}}
- if(science){box(world,0,1,-6,8,2.2,3,'#a5b6b8');for(let i=0;i<4;i++){cyl(world,-3+i*2,.6,-4,.25,.25,1.1,['#4e9ab4','#b77a54','#6b9a71','#a38ac3'][i],10);}}
+ if(historic){for(const side of [-1,1])createProceduralEntity(world,{id:'background-house-'+side,type:'building',name:'Casa medieval de piedra',position:[side*7,0,-13],scale:.72},side+2);box(world,0,.02,-5,18,.08,3,'#8a7c69');}
+ if(science){cylinder(world,[0,-.08,-6],4.8,5.2,.28,'#68767c',48);cylinder(world,[0,.08,-6],3.8,4.1,.08,'#9ca8a9',48);for(let i=0;i<8;i++){const a=i*Math.PI/4;const light=cylinder(world,[Math.cos(a)*4.4,.18,-6+Math.sin(a)*4.4],.13,.13,.16,i%2?'#d8a44d':'#6ba4b3',12);light.material.emissive=new THREE.Color(i%2?'#80501d':'#174b5d');light.material.emissiveIntensity=.3;}}
  const entities=directScene(world,d);
- const camera=new THREE.PerspectiveCamera(48,1080/1920,.1,160);const duration=Math.max(1,Number(d.duration)||8);
+ const camera=new THREE.PerspectiveCamera(56,1080/1920,.1,180);const duration=Math.max(1,Number(d.duration)||8);
  const cameraPlan=String(d.camera||'').toLowerCase();
  return t=>{const sceneStart=Number(d.start||0);if(t<sceneStart||t>=sceneStart+duration)return;const local=Math.max(0,t-sceneStart),p=Math.min(1,local/duration),ease=p*p*(3-2*p);
   animateEntities(entities,local);
-  const focus=entities.find(e=>['human','animal'].includes(e.userData.entity?.type))||entities[0];
-  const target=focus?focus.position.clone():new THREE.Vector3(0,1,-4);target.y+=focus?.userData.entity?.type==='human'?1.15:.8;
+  const targetId=String(d.camera_target||'');const targetEntity=entities.find(e=>e.userData.entity?.id===targetId);
+  const subjects=entities.filter(e=>['human','animal','vehicle','ship'].includes(e.userData.entity?.type));
+  const points=targetEntity?[targetEntity]:subjects.length?subjects:entities;
+  const target=points.reduce((sum,e)=>sum.add(e.position),new THREE.Vector3()).multiplyScalar(1/Math.max(1,points.length));target.y+=1.05;
   if(/cenital|aereo|desde arriba|vista superior/.test(cameraPlan)){camera.position.set(target.x+1,18,target.z+8);}
-  else if(/orbita|rode|gira alrededor|circular/.test(cameraPlan)){const angle=ease*Math.PI*.8;camera.position.set(target.x+Math.cos(angle)*11,4.2,target.z+Math.sin(angle)*11);}
-  else if(/primer plano|detalle|acercamiento|zoom/.test(cameraPlan)){camera.position.set(target.x+3.5-1.5*ease,target.y+1.2,target.z+7-2.5*ease);}
-  else {camera.position.set(target.x+8-5*ease,4.8+Math.sin(p*Math.PI)*.8,target.z+15-4*ease);}
+  else if(/orbita|rode|gira alrededor|circular/.test(cameraPlan)){const angle=ease*Math.PI*.8;camera.position.set(target.x+Math.cos(angle)*13,5,target.z+Math.sin(angle)*13);}
+  else if(/primer plano|detalle|acercamiento|zoom/.test(cameraPlan)){camera.position.set(target.x+3.5-1.5*ease,target.y+1.2,target.z+8-2.5*ease);}
+  else {camera.position.set(target.x+6-3.5*ease,target.y+4.2+Math.sin(p*Math.PI)*.5,target.z+14-2.5*ease);}
   camera.lookAt(target);renderer.render(scene,camera);};
 }
 const canvas=document.querySelector('#world-canvas');const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false});renderer.setPixelRatio(1);renderer.setSize(1080,1920,false);renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.08;const nodes=[...document.querySelectorAll('.scene')];const renderers=nodes.map(node=>{const data=JSON.parse(node.dataset.scene);if(data.storyId!=='columbus-1492')return buildGenericScene(renderer,data);return buildScene(renderer,data);});
