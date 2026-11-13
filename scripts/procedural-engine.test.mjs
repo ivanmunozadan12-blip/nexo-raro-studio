@@ -97,3 +97,34 @@ test('scene director creates named entities and animation advances without error
   animateEntities(entities, 0.5);
   assert.ok(entities.every(x => Number.isFinite(x.position.y)));
 });
+
+test('blueprint animation is deterministic, positive-scale safe, and supports camouflage palette transitions', () => {
+  const world = new THREE.Group();
+  const model = createProceduralEntity(world, {
+    id: 'octopus-animation-test', type: 'animal', name: 'Pulpo de prueba', species: 'pulpo',
+    position: [0, 0, -3], palette: { body: '#a65e4b' },
+    colorAnimation: { from: '#a65e4b', to: '#777d7d', at: 0, duration: 4 },
+    blueprint: {
+      version: 1,
+      parts: [
+        { id: 'mantle', primitive: 'sphere', size: [1, 1, 1], color: '#a65e4b' },
+        { id: 'arm-0-segment-0', primitive: 'cylinder', size: [.1, 1, .1], color: '#a65e4b' },
+        { id: 'papilla-0', primitive: 'cone', size: [.2, .2, .2], color: '#a65e4b' }
+      ],
+      animations: [
+        { target: 'papilla-0', property: 'scale', axis: 'y', base: .1, amplitude: .9, frequency: 1 }
+      ]
+    }
+  });
+  const mantle = model.userData.paletteMaterials[0];
+  const initial = mantle.material.color.clone();
+  animateEntities([model], 2);
+  const middle = mantle.material.color.clone();
+  assert.notDeepEqual(middle.toArray(), initial.toArray());
+  const papilla = model.userData.blueprintNodes.get('papilla-0');
+  animateEntities([model], Math.PI * 1.5);
+  assert.ok(papilla.scale.y >= .045, 'animated geometry must never collapse through a negative scale');
+  const firstAtTwo = mantle.material.color.clone();
+  animateEntities([model], 2);
+  assert.deepEqual(mantle.material.color.toArray(), firstAtTwo.toArray(), 'the same timeline time must render identically');
+});
