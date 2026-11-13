@@ -1,8 +1,6 @@
 {
-  "batch": "inline-three-engine-no-raf-retry",
+  "batch": "octopus-14-scene-visual-redesign",
   "files": [
-    "scripts/manual/2026-11-14-pulpo-camuflaje.json",
-    "scripts/manual/2026-11-14-hormigon-romano.json",
-    "scripts/manual/2026-11-14-atardecer-marte.json"
+    "scripts/manual/2026-11-14-pulpo-camuflaje.json"
   ]
 }
