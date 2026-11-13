@@ -1,0 +1,259 @@
+{
+  "version": 2,
+  "project": {
+    "title": "BDM 3D Studio v2 — demo",
+    "fps": 24,
+    "resolution": [
+      540,
+      960
+    ],
+    "duration_seconds": 5,
+    "seed": 114
+  },
+  "shots": [
+    {
+      "id": "hero-reveal",
+      "duration_seconds": 5,
+      "environment": {
+        "background": "#071522",
+        "ambient_strength": 0.3,
+        "ground": true,
+        "ground_material": {
+          "base_color": "#172d35",
+          "roughness": 0.92
+        }
+      },
+      "camera": {
+        "position": [
+          7,
+          -10,
+          6
+        ],
+        "target": [
+          0,
+          1,
+          0
+        ],
+        "lens_mm": 48,
+        "dof": false,
+        "movement": [
+          {
+            "frame": 1,
+            "position": [
+              8,
+              -12,
+              6
+            ],
+            "target": [
+              0,
+              1,
+              0
+            ]
+          },
+          {
+            "frame": 120,
+            "position": [
+              5,
+              -8,
+              4
+            ],
+            "target": [
+              0,
+              1,
+              0
+            ]
+          }
+        ]
+      },
+      "lights": [
+        {
+          "type": "AREA",
+          "position": [
+            -4,
+            -5,
+            7
+          ],
+          "target": [
+            0,
+            1,
+            0
+          ],
+          "power": 1800,
+          "size": 5,
+          "color": "#b8e4ff"
+        },
+        {
+          "type": "AREA",
+          "position": [
+            4,
+            3,
+            5
+          ],
+          "target": [
+            0,
+            1,
+            0
+          ],
+          "power": 1300,
+          "size": 4,
+          "color": "#ffb66b"
+        },
+        {
+          "type": "POINT",
+          "position": [
+            0,
+            2,
+            -3
+          ],
+          "power": 220,
+          "color": "#55b9e8"
+        }
+      ],
+      "entities": [
+        {
+          "id": "orb",
+          "name": "Luminous mineral core",
+          "kind": "primitive",
+          "primitive": "UV_SPHERE",
+          "transform": {
+            "location": [
+              0,
+              1.5,
+              0
+            ],
+            "scale": [
+              1.1,
+              1.1,
+              1.1
+            ]
+          },
+          "material": {
+            "base_color": "#42a8c5",
+            "metallic": 0.35,
+            "roughness": 0.2
+          },
+          "animation": [
+            {
+              "property": "rotation_euler",
+              "axis": 2,
+              "start_frame": 1,
+              "end_frame": 120,
+              "amplitude": 1.2,
+              "cycles": 1
+            }
+          ]
+        },
+        {
+          "id": "ring-a",
+          "name": "Orbiting ring",
+          "kind": "primitive",
+          "primitive": "TORUS",
+          "transform": {
+            "location": [
+              0,
+              1.5,
+              0
+            ],
+            "rotation": [
+              1.1,
+              0.25,
+              0
+            ],
+            "scale": [
+              1.8,
+              1.8,
+              1.8
+            ]
+          },
+          "material": {
+            "base_color": "#e5a95d",
+            "metallic": 0.65,
+            "roughness": 0.28
+          },
+          "animation": [
+            {
+              "property": "rotation_euler",
+              "axis": 2,
+              "start_frame": 1,
+              "end_frame": 120,
+              "amplitude": 2,
+              "cycles": 1
+            }
+          ]
+        },
+        {
+          "id": "ring-b",
+          "name": "Second orbital ring",
+          "kind": "primitive",
+          "primitive": "TORUS",
+          "transform": {
+            "location": [
+              0,
+              1.5,
+              0
+            ],
+            "rotation": [
+              0.2,
+              1.1,
+              0.4
+            ],
+            "scale": [
+              2.2,
+              2.2,
+              2.2
+            ]
+          },
+          "material": {
+            "base_color": "#b6d6e3",
+            "metallic": 0.55,
+            "roughness": 0.3
+          },
+          "animation": [
+            {
+              "property": "rotation_euler",
+              "axis": 1,
+              "start_frame": 1,
+              "end_frame": 120,
+              "amplitude": 1.5,
+              "cycles": 1
+            }
+          ]
+        },
+        {
+          "id": "satellite",
+          "name": "Satellite sphere",
+          "kind": "primitive",
+          "primitive": "ICO_SPHERE",
+          "transform": {
+            "location": [
+              2.8,
+              2.4,
+              0
+            ],
+            "scale": [
+              0.32,
+              0.32,
+              0.32
+            ]
+          },
+          "material": {
+            "base_color": "#f2c27a",
+            "metallic": 0.2,
+            "roughness": 0.35
+          },
+          "animation": [
+            {
+              "property": "location",
+              "axis": 1,
+              "start_frame": 1,
+              "end_frame": 120,
+              "amplitude": 0.7,
+              "cycles": 2
+            }
+          ]
+        }
+      ],
+      "graphics": []
+    }
+  ]
+}
