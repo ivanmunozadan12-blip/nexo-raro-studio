@@ -838,5 +838,19 @@
       ]
     }
   ],
-  "captions": []
+  "captions": [],
+  "sources": [
+    {
+      "title": "FDA — Microwave oven radiation",
+      "url": "https://www.fda.gov/radiation-emitting-products/home-business-and-entertainment-products/microwave-oven-radiation"
+    },
+    {
+      "title": "U.S. Department of Energy — Microwave ovens",
+      "url": "https://www.energy.gov/energysaver/microwave-ovens"
+    },
+    {
+      "title": "Encyclopaedia Britannica — Microwave oven",
+      "url": "https://www.britannica.com/technology/microwave-oven"
+    }
+  ]
 }
