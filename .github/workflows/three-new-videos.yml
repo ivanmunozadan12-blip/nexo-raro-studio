@@ -47,6 +47,7 @@ echo "$MATRIX" | jq -e 'all(.[]; (.file | type == "string") and (.file | endswit
       MANUAL_DATE: ${{ needs.prepare.outputs.date }}
       MANUAL_SLOT: ${{ matrix.slot }}
       MANUAL_QUEUE_INDEX: ${{ matrix.queue_index }}
+      MANUAL_SCRIPT_FILE: ${{ matrix.file }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
