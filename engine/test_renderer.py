@@ -4,7 +4,7 @@ from PIL import Image
 
 class RendererTests(unittest.TestCase):
     def test_all_scene_families_render(self):
-        kinds=["microwave","machine","object_cutaway","illustration","interior","molecule","process","timeline","fact","map","abstract","aircraft","vehicle","engine","phone","turbine","industrial","flamingo","satellite","gps","octopus","roman_concrete","mars"]
+        kinds=["microwave","machine","object_cutaway","illustration","interior","molecule","process","timeline","fact","map","abstract","aircraft","vehicle","engine","phone","turbine","industrial","flamingo","satellite","gps","octopus","roman_concrete","mars","mars_sunset","curiosity_rover"]
         for kind in kinds:
             scene={"headline":"Una explicación visual","subtitle":"Prueba de composición","visual_type":kind,"narration_excerpt":"Este es un fragmento de narración de prueba.","callout":"No se debe pintar el guion completo al pie.","labels":["Entrada","Proceso","Resultado"],"accent":"#62d9cf","metric":{"value":"2,45 GHz","label":"Frecuencia","detail":"Dato de demostración"}}
             frame=render_frame(12,{"scenes":[scene],"captions":[]},[0],[60])
@@ -40,7 +40,7 @@ class RendererTests(unittest.TestCase):
         self.assertNotEqual(list(a.getdata()),list(b.getdata()))
 
     def test_subject_specific_art_is_preserved_when_json_overlays_exist(self):
-        kinds=["microwave","phone","satellite","flamingo","octopus","roman_concrete","mars"]
+        kinds=["microwave","phone","satellite","flamingo","octopus","roman_concrete","mars","mars_sunset","curiosity_rover"]
         elements=[{"shape":"circle","x":500,"y":500,"width":70,"height":70,"color":"#62d9cf","label":"detalle","role":"detail","description":"Detalle específico","motion":"pulse"}]
         for kind in kinds:
             scene={"headline":"Prueba visual","subtitle":"El sujeto debe seguir visible","visual_type":kind,"background":"clean","accent":"#62d9cf","visual_elements":elements}
