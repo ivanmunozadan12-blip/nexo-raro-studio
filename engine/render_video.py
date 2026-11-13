@@ -94,9 +94,6 @@ def base_frame(t, accent, scene=None):
     for i in range(7):
         x=((i*155+t*13)%900)-180
         d.polygon([(int(x*S),0),(int((x+30)*S),0),(int((x-210)*S),H*S),(int((x-240)*S),H*S)],fill=(150,205,255,4))
-    for i in range(7):
-        x=((i*155+t*13)%900)-180
-        d.polygon([(int(x*S),0),(int((x+30)*S),0),(int((x-210)*S),H*S),(int((x-240)*S),H*S)],fill=(150,205,255,4))
     if background not in ("sky","clean","workshop","ocean","nature"):
         for x,y,r,p in PARTICLES:
             yy=(y-t*(9+r*2))%(H+20)-10
