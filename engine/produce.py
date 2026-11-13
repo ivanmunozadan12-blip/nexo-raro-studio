@@ -82,7 +82,25 @@ Devuelve SOLO JSON: {{"title":"...","hook":"...","category":"{slot}","narration"
     words=len(script["narration"].split())
     if not 110<=words<=175: raise ValueError(f"Narración fuera de rango: {words} palabras.")
     if len({s.get("visual_type") for s in script["scenes"]})<4: raise ValueError("Las escenas no tienen variedad visual suficiente.")
-    if any(not isinstance(s.get("visual_elements"),list) or len(s["visual_elements"])<6 for s in script["scenes"]): raise ValueError("Cada escena necesita al menos seis elementos visuales específicos.")
+    allowed_shapes={"rect","rounded_rect","circle","ellipse","line","arrow","polygon","gear","wave","arc","text"}
+    allowed_motion={"none","float","pulse","rotate","flow"}
+    for scene in script["scenes"]:
+        elements=scene.get("visual_elements")
+        if not isinstance(elements,list) or not 6<=len(elements)<=14:
+            raise ValueError("Cada escena necesita entre 6 y 14 elementos visuales específicos.")
+        for element in elements:
+            if not isinstance(element,dict) or element.get("shape") not in allowed_shapes:
+                raise ValueError("El plan visual contiene una forma no compatible.")
+            if element.get("motion","none") not in allowed_motion:
+                raise ValueError("El plan visual contiene un movimiento no compatible.")
+            for axis in ("x","y"):
+                try: element[axis]=max(0,min(1000,float(element.get(axis,500))))
+                except (TypeError,ValueError): raise ValueError("Coordenadas visuales no válidas.")
+            for size in ("width","height"):
+                try: element[size]=max(12,min(700,float(element.get(size,100))))
+                except (TypeError,ValueError): raise ValueError("Tamaño visual no válido.")
+            if not re.fullmatch(r"#[0-9a-fA-F]{6}",str(element.get("color","#62d9cf"))):
+                element["color"]=scene.get("accent","#62d9cf")
     if any(s.get("sound_effect") not in ("mechanical","electric","water","impact","click","wind","whoosh") for s in script["scenes"]): raise ValueError("Cada escena necesita un efecto sonoro válido.")
     if len(script.get("sources",[]))<3: raise ValueError("Faltan tres fuentes documentales.")
     if any(not s.get("narration_excerpt") or s["narration_excerpt"] not in script["narration"] for s in script["scenes"]): raise ValueError("Los fragmentos de escena deben aparecer literalmente en la narración.")
