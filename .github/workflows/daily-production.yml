@@ -21,7 +21,12 @@ on:
         type: boolean
         default: false
       script_id:
-        description: "ID de guion importado (omite Groq)"
+        description: "ID de guion importado desde el panel"
+        required: false
+        type: string
+        default: ""
+      script_file:
+        description: "Ruta de un JSON editorial aprobado dentro del repositorio"
         required: false
         type: string
         default: ""
@@ -73,6 +78,7 @@ jobs:
           MANUAL_DATE: ${{ inputs.production_date || '' }}
           RESET_PRODUCTION: ${{ inputs.reset_production || false }}
           MANUAL_SCRIPT_ID: ${{ inputs.script_id || '' }}
+          MANUAL_SCRIPT_FILE: ${{ inputs.script_file || '' }}
           MANUAL_QUEUE_INDEX: ${{ inputs.queue_index || '0' }}
         run: npm run produce
       - name: Guardar MP4 como artefacto de respaldo
