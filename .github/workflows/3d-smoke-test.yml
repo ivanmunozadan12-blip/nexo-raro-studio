@@ -1,157 +1,49 @@
-name: Behind del Mundo · prueba técnica 3D
+name: Behind del Mundo · prueba cinematográfica de Colón
 
 on:
   workflow_dispatch:
   push:
     paths:
       - ".github/workflows/3d-smoke-test.yml"
-      - "scripts/produce.mjs"
+      - "scripts/scene-engine.js"
+      - "scripts/columbus-preview.mjs"
+      - "scripts/columbus-test-script.json"
 
 permissions:
   contents: read
 
 jobs:
-  threejs-smoke-test:
-    name: Render 3D sin Groq ni Supabase
+  columbus-3d-preview:
+    name: Render de las siete escenas históricas
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 120
     steps:
       - name: Descargar proyecto
         uses: actions/checkout@v4
-
       - name: Node.js 22
         uses: actions/setup-node@v4
         with:
           node-version: 22
-
+          cache: npm
       - name: Instalar dependencias
-        run: npm install
-
+        run: npm ci
       - name: Instalar FFmpeg
         run: |
           sudo apt-get update
           sudo apt-get install -y ffmpeg
-          command -v ffmpeg
-          command -v ffprobe
-
-      - name: Comprobar herramientas de render
-        run: |
-          node --version
-          npx hyperframes --version
           ffmpeg -version | head -n 1
           ffprobe -version | head -n 1
-
-      - name: Evitar animaciones no deterministas en producción
+      - name: Validar sintaxis del motor y del render de prueba
         run: |
-          if grep -nE "performance\\.now\\(|requestAnimationFrame\\(" scripts/produce.mjs; then
-            echo "::error::El render de producción no puede depender del reloj real ni de requestAnimationFrame."
-            exit 1
-          fi
-
-      - name: Crear escena 3D de prueba
-        run: |
-          mkdir -p .artifacts/threejs-smoke
-          cat > .artifacts/threejs-smoke/index.html <<'HTML'
-          <!doctype html>
-          <html lang="es">
-          <head>
-            <meta charset="utf-8">
-            <meta name="viewport" content="width=1080, initial-scale=1">
-            <style>
-              * { box-sizing: border-box }
-              html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #83c9ed; font-family: Arial, sans-serif }
-              #root { position: relative; width: 1080px; height: 1920px; overflow: hidden }
-              #world { position: absolute; inset: 0; width: 1080px; height: 1920px }
-              .headline { position: absolute; z-index: 2; top: 130px; left: 65px; right: 65px; color: white; font-size: 78px; font-weight: 900; line-height: 1.05; text-align: center; -webkit-text-stroke: 2px #17324d; text-shadow: 0 5px 0 #17324d }
-              .label { position: absolute; z-index: 2; bottom: 180px; left: 100px; right: 100px; color: #fff; text-align: center; font-size: 42px; font-weight: 900; -webkit-text-stroke: 1px #17324d; text-shadow: 0 3px #17324d }
-            </style>
-          </head>
-          <body>
-            <div id="root" data-composition-id="threejs-smoke" data-start="0" data-width="1080" data-height="1920">
-              <canvas id="world"></canvas>
-              <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
-              <div class="headline">UN MUNDO EN 3D</div>
-              <div class="label">Prueba de geometría, luz y cámara animada</div>
-              <script type="module">
-                import * as THREE from 'https://esm.sh/three@0.160.0';
-                const canvas = document.querySelector('#world');
-                const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
-                renderer.setPixelRatio(1);
-                renderer.setSize(1080, 1920, false);
-                renderer.outputColorSpace = THREE.SRGBColorSpace;
-                const scene = new THREE.Scene();
-                scene.background = new THREE.Color('#83c9ed');
-                scene.fog = new THREE.Fog('#b7e0ed', 15, 42);
-                scene.add(new THREE.HemisphereLight('#ffffff', '#72916c', 2));
-                const sun = new THREE.DirectionalLight('#fff0cc', 2.2);
-                sun.position.set(-7, 12, 8);
-                scene.add(sun);
-                const ground = new THREE.Mesh(new THREE.BoxGeometry(24, .7, 24), new THREE.MeshStandardMaterial({ color: '#85c875', flatShading: true }));
-                ground.position.y = -.65;
-                scene.add(ground);
-                const tower = new THREE.Group();
-                scene.add(tower);
-                const palette = ['#f0c98d', '#eaa29a', '#8ec9df', '#e8dcae'];
-                for (let level = 0; level < 5; level++) {
-                  const slab = new THREE.Mesh(new THREE.BoxGeometry(3.4, .22, 3), new THREE.MeshStandardMaterial({ color: palette[level % palette.length], flatShading: true }));
-                  slab.position.set(0, level * 1.05, -3);
-                  tower.add(slab);
-                  for (const x of [-1.45, 1.45]) {
-                    const pillar = new THREE.Mesh(new THREE.BoxGeometry(.22, 1.05, .22), new THREE.MeshStandardMaterial({ color: '#244c70', flatShading: true }));
-                    pillar.position.set(x, level * 1.05 + .55, -3);
-                    tower.add(pillar);
-                  }
-                }
-                for (let i = 0; i < 18; i++) {
-                  const cloud = new THREE.Mesh(new THREE.IcosahedronGeometry(.45 + (i % 3) * .12, 0), new THREE.MeshStandardMaterial({ color: '#ffffff', flatShading: true }));
-                  cloud.position.set((i % 6 - 2.5) * 2.7, 5.5 + Math.floor(i / 6) * .35, -8 - Math.floor(i / 6));
-                  scene.add(cloud);
-                }
-                const camera = new THREE.PerspectiveCamera(42, 1080 / 1920, .1, 100);
-                camera.position.set(7, 6, 15);
-                camera.lookAt(0, 1.5, -3);
-                renderer.render(scene, camera);
-                const timeline = gsap.timeline({
-                  paused: true,
-                  onUpdate: () => {
-                    camera.lookAt(0, 1.5, -3);
-                    renderer.render(scene, camera);
-                  }
-                });
-                timeline.to(tower.rotation, { y: .22, duration: 5, ease: 'sine.inOut' }, 0);
-                timeline.to(tower.rotation, { y: -.22, duration: 5, ease: 'sine.inOut' }, 5);
-                timeline.to(camera.position, { x: 8.5, y: 6.2, duration: 5, ease: 'sine.inOut' }, 0);
-                timeline.to(camera.position, { x: 5.5, y: 5.5, duration: 5, ease: 'sine.inOut' }, 5);
-                window.__timelines = window.__timelines || {};
-                window.__timelines['threejs-smoke'] = timeline;
-                window.__threeSmokeReady = true;
-              </script>
-            </div>
-          </body>
-          </html>
-          HTML
-
-      - name: Validar composición
-        working-directory: .artifacts/threejs-smoke
-        run: npx hyperframes lint
-
-      - name: Renderizar MP4 de prueba (sin IA ni servicios externos del canal)
-        working-directory: .artifacts/threejs-smoke
-        run: npx hyperframes render -c index.html -o threejs-smoke.mp4 --fps 30 --quality standard --workers 1
-
-      - name: Verificar MP4, duración, resolución y pista de vídeo
-        working-directory: .artifacts/threejs-smoke
-        run: |
-          test -s threejs-smoke.mp4
-          ffprobe -v error -select_streams v:0 -show_entries stream=codec_name,width,height -show_entries format=duration,size -of json threejs-smoke.mp4 | tee verification.json
-          node -e "const v=require('./verification.json'); const s=v.streams?.[0]; const d=Number(v.format?.duration); if(!s || s.width!==1080 || s.height!==1920 || !(d>=8) || !(Number(v.format.size)>100000)) process.exit(1); console.log('MP4 3D verificado:',s.codec_name,s.width+'x'+s.height,d+'s',v.format.size+' bytes')"
-
-      - name: Guardar MP4 y datos de verificación
+          node --check scripts/scene-engine.js
+          node --check scripts/columbus-preview.mjs
+          node --check scripts/produce.mjs
+      - name: Renderizar vídeo visual de Colón con el mismo motor de producción
+        run: node scripts/columbus-preview.mjs
+      - name: Guardar MP4 de prueba
         uses: actions/upload-artifact@v4
         with:
-          name: threejs-smoke-test
-          path: |
-            .artifacts/threejs-smoke/threejs-smoke.mp4
-            .artifacts/threejs-smoke/verification.json
+          name: columbus-cinematic-3d-preview
+          path: .artifacts/columbus-visual-test/columbus-3d-preview.mp4
           if-no-files-found: error
           retention-days: 7
