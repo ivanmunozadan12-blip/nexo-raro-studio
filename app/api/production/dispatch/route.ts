@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
       const response = await fetch(`https://api.github.com/repos/ivanmunozadan12-blip/nexo-raro-studio/actions/workflows/${workflow}/dispatches`, {
         method: 'POST',
         headers: { Authorization: 'Bearer ' + github, Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28', 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ref: 'prompt-video-studio', inputs: { slot: slots[i], prompt: prompts[i] } })
+        body: JSON.stringify({ ref: 'prompt-video-studio', inputs: { slot: slots[i], prompt: prompts[i], publish: true } })
       });
       if (!response.ok) {
         return NextResponse.json({ error: `No se pudo iniciar el vídeo ${i + 1} (HTTP ${response.status}). ${(await response.text()).slice(0, 350)}`, started: results }, { status: 502 });
