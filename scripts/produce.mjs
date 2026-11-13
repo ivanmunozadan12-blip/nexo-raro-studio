@@ -468,6 +468,8 @@ tl.set({}, {},${targetDuration});
 window.__timelines=window.__timelines||{};window.__timelines['behind-del-mundo']=tl;
 </script>${sceneEngineTag}</div></body></html>`;
 
+await writeFile(path.join(work, 'index.html'), html);
+
 const lintDir = path.join(work, 'lint-check');
 await mkdir(lintDir, { recursive: true });
 // Three.js internals contain Math.random/requestAnimationFrame implementations that the static linter flags even though this renderer never calls them; lint the composition structure separately from the vendor bundle.
