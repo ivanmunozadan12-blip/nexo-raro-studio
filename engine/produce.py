@@ -60,7 +60,7 @@ scheduled=local_slot.isoformat()
 existing=db("production_jobs","?user_id=eq."+user+"&scheduled_for=eq."+urllib.parse.quote(scheduled,safe="")+"&select=id,status,script_id&limit=1")
 if existing and existing[0]["status"]=="ready":
     print("Este espacio diario ya tiene un vídeo terminado. No se duplica."); sys.exit(0)
-if existing and existing[0]["status"] in ("queued","voicing","rendering"):
+if existing and existing[0]["status"] in ("queued","voicing","rendering","publishing"):
     raise SystemExit("Ya existe un render activo para este espacio diario.")
 if existing:
     job=db("production_jobs","?id=eq."+existing[0]["id"],"PATCH",{"status":"voicing","attempt_count":1,"started_at":now.isoformat(),"completed_at":None,"error_message":None})[0]
