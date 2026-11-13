@@ -218,10 +218,10 @@ def draw_scene(im, scene, local_t, accent):
         panel(d,(50,310,526,800),fill=(11,48,62,220),outline=rgba(accent,160))
         for i in range(12):
             x=70+i*38
-            d.line((x*S,330*S,(x+random.randrange(-12,15))*S,780*S),fill=(105,172,169,45),width=2*S)
+            d.line((x*S,330*S,(x+12*math.sin(i*1.7))*S,780*S),fill=(105,172,169,45),width=2*S)
         for i in range(10):
             y=350+i*43
-            d.line((55*S,y*S,520*S,(y+random.randrange(-12,15))*S),fill=(105,172,169,45),width=2*S)
+            d.line((55*S,y*S,520*S,(y+10*math.sin(i*1.3))*S),fill=(105,172,169,45),width=2*S)
         for i,label in enumerate(scene.get("labels",["Punto A","Punto B","Punto C"])[:3]):
             x=135+i*145; y=450+(i%2)*140
             d.ellipse(((x-11)*S,(y-11)*S,(x+11)*S,(y+11)*S),fill=rgba(accent))
