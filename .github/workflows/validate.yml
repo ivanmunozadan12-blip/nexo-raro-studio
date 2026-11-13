@@ -31,6 +31,9 @@ jobs:
       - name: Instalar dependencias
         run: npm install
       - name: Validar sintaxis del worker
-        run: node --check scripts/produce.mjs
+        run: |
+          node --check scripts/produce.mjs
+          node --check scripts/scene-engine.js
+          node --check scripts/columbus-preview.mjs
       - name: Comprobar TypeScript
         run: npm run typecheck
