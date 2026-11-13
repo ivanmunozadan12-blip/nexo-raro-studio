@@ -49,7 +49,7 @@ jobs:
           fi
           cat > "$RUNNER_TEMP/chrome-webgl" <<EOF
           #!/usr/bin/env bash
-          exec "$CHROME_BIN" --enable-webgl --ignore-gpu-blocklist --use-gl=angle --use-angle=swiftshader --enable-unsafe-swiftshader "$@"
+          exec "$CHROME_BIN" --enable-webgl --ignore-gpu-blocklist --use-gl=angle --use-angle=swiftshader --enable-unsafe-swiftshader "\$@"
           EOF
           chmod +x "$RUNNER_TEMP/chrome-webgl"
           echo "HYPERFRAMES_BROWSER_PATH=$RUNNER_TEMP/chrome-webgl" >> "$GITHUB_ENV"
