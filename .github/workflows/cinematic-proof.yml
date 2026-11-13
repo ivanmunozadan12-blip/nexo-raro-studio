@@ -61,11 +61,17 @@ jobs:
           python -m pip install --disable-pip-version-check edge-tts
           for attempt in 1 2 3 4; do
             rm -f out/narration.mp3
-            edge-tts --voice es-ES-AlvaroNeural --rate="+4%" --pitch="-2Hz" --text "En mil novecientos uno, unos buceadores hallaron un pecio frente a Anticitera. Entre sus restos apareció un fragmento de bronce. En su interior había engranajes diminutos y precisos. Representaba ciclos del cielo y anticipaba eclipses. Hoy se reconstruye su funcionamiento pieza a pieza. Dos mil años después, sigue asombrando al mundo." --write-media out/narration.mp3 && test -s out/narration.mp3 && break
+            edge-tts --voice es-ES-AlvaroNeural --rate="+8%" --pitch="-2Hz" --text "En mil novecientos uno, unos buceadores hallaron un pecio. Frente a Anticitera apareció un fragmento de bronce. Dentro había engranajes diminutos. La máquina seguía los ciclos del cielo. También anticipaba eclipses. Dos mil años después, aún asombra." --write-media out/narration.mp3 && test -s out/narration.mp3 && break
             echo "Fallo de voz; reintentando..."
             sleep $((attempt * 5))
           done
           test -s out/narration.mp3
+          python - <<'PY'
+          import subprocess
+          duration=float(subprocess.check_output(["ffprobe","-v","error","-show_entries","format=duration","-of","csv=p=0","out/narration.mp3"],text=True))
+          assert duration <= 17.4, f"Narration would be cut off by the 18s picture: {duration:.2f}s"
+          print("Narration duration verified:",round(duration,2),"seconds")
+          PY
           ffmpeg -y -f lavfi -i "anoisesrc=color=pink:sample_rate=48000:amplitude=0.018:duration=18" -f lavfi -i "sine=frequency=54:sample_rate=48000:duration=18" -filter_complex "[0:a]lowpass=f=420,volume=0.42[a0];[1:a]lowpass=f=90,volume=0.12[a1];[a0][a1]amix=inputs=2:duration=longest,afade=t=in:st=0:d=2,afade=t=out:st=15:d=3,volume=0.6[amb]" -map "[amb]" -c:a libmp3lame -q:a 5 out/ambience.mp3
           ffmpeg -y -i out/visual-only.mp4 -i out/narration.mp3 -i out/ambience.mp3 -filter_complex "[1:a]adelay=450|450,volume=1.0[voice];[2:a]volume=0.34[bed];[voice][bed]amix=inputs=2:duration=longest:dropout_transition=2,alimiter=limit=0.95[a]" -map 0:v:0 -map "[a]" -c:v copy -c:a aac -b:a 192k -shortest out/behind-del-mundo-cinematic-proof.mp4
       - name: Verify video, audio and frame quality
