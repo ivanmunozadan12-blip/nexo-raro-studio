@@ -1,5 +1,5 @@
 import unittest
-from render_video import base_frame, draw_scene, render_frame, draw_caption, W, H
+from render_video import base_frame, draw_scene, render_frame, draw_caption, W, H, S
 from PIL import Image
 
 class RendererTests(unittest.TestCase):
