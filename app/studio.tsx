@@ -11,16 +11,16 @@ export default function Studio(){
  const load=useCallback(async()=>{
   if(!session)return;
   setBusy(true);
-  const [s,j,v,m,p]=await Promise.all([
-   db.from('scripts').select('id,title,hook,narration,status,created_at,source_notes').order('created_at',{ascending:false}).limit(18),
+  const [j,v,p]=await Promise.all([
    db.from('production_jobs').select('id,status,error_message,started_at,completed_at,scheduled_for,script_id').order('created_at',{ascending:false}).limit(18),
    db.from('videos').select('id,storage_path,duration_seconds,width,height,quality_check,created_at').order('created_at',{ascending:false}).limit(12),
-   db.from('editorial_memory').select('id,topic,angle,memory_status,created_at').order('created_at',{ascending:false}).limit(40),
    db.from('social_posts').select('id,video_id,platform,status,external_post_id,error_message,created_at').order('created_at',{ascending:false}).limit(60)
   ]);
   const error=j.error||v.error||p.error;
   if(error)setMessage('No se han podido cargar todos los datos: '+error.message);
-  setJobs(j.data||[]);setVideos(v.data||[]);setPosts(p.data||[]);\n  const socialResponse=await fetch('/api/social/status',{headers:{Authorization:'Bearer '+session.access_token},cache:'no-store'});if(socialResponse.ok)setSocial(await socialResponse.json());
+  setJobs(j.data||[]);setVideos(v.data||[]);setPosts(p.data||[]);
+  const socialResponse=await fetch('/api/social/status',{headers:{Authorization:'Bearer '+session.access_token},cache:'no-store'});
+  if(socialResponse.ok)setSocial(await socialResponse.json());
   setBusy(false);
  },[session]);
  useEffect(()=>{db.auth.getSession().then(({data}:any)=>setSession(data.session));const {data}=db.auth.onAuthStateChange((_e:any,s:any)=>setSession(s));return()=>data.subscription.unsubscribe()},[]);
