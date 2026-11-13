@@ -88,6 +88,10 @@ def tiktok_upload(path,title):
     payload={"post_info":{"title":title[:2200],"privacy_level":privacy,"disable_duet":False,"disable_comment":False,"disable_stitch":False,"is_aigc":True},"source_info":{"source":"FILE_UPLOAD","video_size":size,"chunk_size":chunk,"total_chunk_count":count}}
     code,_,raw=http("https://open.tiktokapis.com/v2/post/publish/video/init/","POST",payload,{"Authorization":"Bearer "+token,"Content-Type":"application/json; charset=UTF-8"})
     init=json.loads(raw or b"{}")
+    if init.get("error",{}).get("code")=="unaudited_client_can_only_post_to_private_accounts" and "SELF_ONLY" in options:
+        privacy="SELF_ONLY"; payload["post_info"]["privacy_level"]=privacy
+        code,_,raw=http("https://open.tiktokapis.com/v2/post/publish/video/init/","POST",payload,{"Authorization":"Bearer "+token,"Content-Type":"application/json; charset=UTF-8"})
+        init=json.loads(raw or b"{}")
     if code!=200 or init.get("error",{}).get("code")!="ok": raise RuntimeError("TikTok no aceptó la publicación: "+str(init)[:700])
     upload=init["data"]["upload_url"]; publish_id=init["data"]["publish_id"]
     sent=0
