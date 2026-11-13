@@ -443,7 +443,6 @@ await supabase('production_jobs', { method: 'PATCH', query: `?id=eq.${jobId}`, b
 const escaped = value => String(value || '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const assetsDir = path.join(work, 'assets');
 await mkdir(assetsDir, { recursive: true });
-await command('node', ['scripts/prepare-3d-assets.mjs', work], { cwd: root });
 const sceneWordCounts = script.scenes.map(scene => String(scene.narration_excerpt || '').trim().split(/\s+/).filter(Boolean).length);
 const totalSceneWords = sceneWordCounts.reduce((sum, count) => sum + count, 0) || 1;
 let elapsedSceneSeconds = 0;
