@@ -584,6 +584,8 @@ export function createProceduralEntity(parent, input, index = 0) {
   model.userData.entity = { id: String(spec.id || seed), name: String(name), type, action: spec.action || spec.motion || 'idle', support: spec.support || 'ground', dimensions: spec.dimensions || null, shape: spec.shape || null, material: spec.material || null, color: spec.color || null };
   model.userData.rig = model.userData.rig || {};
   model.userData.basePosition = model.position.clone();
+  model.userData.baseRotationY = model.rotation.y;
+  model.userData.baseRotationZ = model.rotation.z;
   parent.add(model);
   return model;
 }
@@ -636,8 +638,14 @@ export function animateEntities(entities, time = 0) {
     if (rig.wheels) rig.wheels.forEach(wheel => { wheel.rotation.x = time * 1.2; });
     if (rig.flag) rig.flag.rotation.y = .15 * Math.sin(time * 3);
     if (rig.flames) rig.flames.forEach((flame, i) => { flame.scale.y = .75 + .3 * Math.sin(time * 12 + i); });
-    if (entity.userData.entity?.type === 'ship') entity.rotation.z = .018 * Math.sin(time * 1.4);
-    if (entity.userData.entity?.type === 'tree') entity.rotation.z = .012 * Math.sin(time * .7 + entities.indexOf(entity));
+    if (entity.userData.entity?.type === 'ship') entity.rotation.z = .025 * Math.sin(time * 1.4);
+    if (entity.userData.entity?.type === 'tree') entity.rotation.z = .018 * Math.sin(time * .7 + entities.indexOf(entity));
+    if (/girar|rotar|dar vueltas|orbitar|spin/.test(action)) entity.rotation.y = (entity.userData.baseRotationY || 0) + time * .65;
+    if (/balancear|oscilar|temblar|vibrar|latir/.test(action)) entity.rotation.z = (entity.userData.baseRotationZ || 0) + .07 * Math.sin(time * 4);
+    if (/moverse|desplazarse|avanzar|retroceder|rodar|caminar|nadar|volar/.test(action)) {
+      entity.position.x = base.x + .18 * Math.sin(time * 1.25 + entities.indexOf(entity));
+      entity.position.z = base.z + .14 * Math.cos(time * 1.1 + entities.indexOf(entity));
+    }
     if (/despegar|ascender|launch/.test(action)) entity.position.y = base.y + Math.min(1.8, time * .3);
     else if (/volar|nadar|flotar/.test(action)) entity.position.y = base.y + .16 * Math.sin(time * 2.2);
   }
