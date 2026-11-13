@@ -136,7 +136,7 @@ function buildGenericScene(renderer,d){
  else if(!space) box(world,0,-.5,-3,28,1,30,groundColor);
  if(forest){for(let i=0;i<12;i++){const x=(i%4-1.5)*5.4,z=-12+Math.floor(i/4)*5;createProceduralEntity(world,{id:'background-tree-'+i,type:'tree',name:'Árbol tropical',position:[x,0,z],scale:.9+(i%3)*.18},i);}}
  if(historic){for(const side of [-1,1])createProceduralEntity(world,{id:'background-house-'+side,type:'building',name:'Casa medieval de piedra',position:[side*7,0,-13],scale:.72},side+2);box(world,0,.02,-5,18,.08,3,'#8a7c69');}
- if(science){cylinder(world,[0,-.08,-6],4.8,5.2,.28,'#68767c',48);cylinder(world,[0,.08,-6],3.8,4.1,.08,'#9ca8a9',48);for(let i=0;i<8;i++){const a=i*Math.PI/4;const light=cylinder(world,[Math.cos(a)*4.4,.18,-6+Math.sin(a)*4.4],.13,.13,.16,i%2?'#d8a44d':'#6ba4b3',12);light.material.emissive=new THREE.Color(i%2?'#80501d':'#174b5d');light.material.emissiveIntensity=.3;}}
+ if(science){cyl(world,0,-.08,-6,4.8,5.2,.28,'#68767c',48);cyl(world,0,.08,-6,3.8,4.1,.08,'#9ca8a9',48);for(let i=0;i<8;i++){const a=i*Math.PI/4;const light=cyl(world,Math.cos(a)*4.4,.18,-6+Math.sin(a)*4.4,.13,.13,.16,i%2?'#d8a44d':'#6ba4b3',12);light.material.emissive=new THREE.Color(i%2?'#80501d':'#174b5d');light.material.emissiveIntensity=.3;}}
  const entities=directScene(world,d);
  const camera=new THREE.PerspectiveCamera(56,1080/1920,.1,180);const duration=Math.max(1,Number(d.duration)||8);
  const cameraPlan=String(d.camera||'').toLowerCase();
@@ -152,7 +152,22 @@ function buildGenericScene(renderer,d){
   else {camera.position.set(target.x+6-3.5*ease,target.y+4.2+Math.sin(p*Math.PI)*.5,target.z+14-2.5*ease);}
   camera.lookAt(target);renderer.render(scene,camera);};
 }
-const canvas=document.querySelector('#world-canvas');const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false});renderer.setPixelRatio(1);renderer.setSize(1080,1920,false);renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.08;const nodes=[...document.querySelectorAll('.scene')];const renderers=nodes.map(node=>{const data=JSON.parse(node.dataset.scene);if(data.storyId!=='columbus-1492')return buildGenericScene(renderer,data);return buildScene(renderer,data);});
-// Se conserva la flota diferenciada hasta integrar modelos específicos para nao y carabelas.
-window.__renderReady = Promise.resolve();
-const timeline=window.__timelines?.['behind-del-mundo']||window.__timelines?.['columbus-3d-preview']||Object.values(window.__timelines||{})[0];if(timeline){timeline.eventCallback('onUpdate',()=>{const t=timeline.time();renderers.forEach(render=>render(t));});}renderers.forEach(render=>render(0));
+window.__renderReady = new Promise((resolve,reject)=>{window.__resolveSceneReady=resolve;window.__rejectSceneReady=reject;});
+try {
+ const canvas=document.querySelector('#world-canvas');
+ if(!canvas) throw new Error('No se encontró el canvas compartido del motor 3D.');
+ const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false});
+ renderer.setPixelRatio(1);renderer.setSize(1080,1920,false);renderer.outputColorSpace=THREE.SRGBColorSpace;
+ renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.08;
+ const nodes=[...document.querySelectorAll('.scene')];
+ const renderers=nodes.map(node=>{const data=JSON.parse(node.dataset.scene);if(data.storyId!=='columbus-1492')return buildGenericScene(renderer,data);return buildScene(renderer,data);});
+ const timeline=window.__timelines?.['behind-del-mundo']||window.__timelines?.['columbus-3d-preview']||Object.values(window.__timelines||{})[0];
+ if(timeline) timeline.eventCallback('onUpdate',()=>{const t=timeline.time();renderers.forEach(render=>render(t));});
+ renderers.forEach(render=>render(0));
+ window.__playerReady=Promise.resolve();
+ window.__resolveSceneReady();
+} catch(error) {
+ window.__renderError=String(error?.stack||error);
+ window.__rejectSceneReady(error);
+ throw error;
+}
