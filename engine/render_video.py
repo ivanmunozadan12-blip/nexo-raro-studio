@@ -193,6 +193,75 @@ def draw_fact(d,cx,cy,t,accent,metric):
     text_fit(d,(cx,cy+18),metric.get("label",""),21,(255,255,255),max_width=430,anchor="mm")
     text_fit(d,(cx,cy+65),metric.get("detail",""),13,(190,215,230),max_width=420,anchor="mm",bold=False)
 
+def draw_aircraft(d,cx,cy,t,accent):
+    panel(d,(48,330,528,790),fill=(7,27,50,175),outline=rgba(accent,130),radius=28)
+    body=[(92,555),(150,525),(360,520),(468,548),(488,568),(450,582),(160,585),(100,575)]
+    d.polygon([(x*S,y*S) for x,y in body],fill=(205,220,232),outline=(255,255,255),width=4*S)
+    d.polygon([(245*S,548*S),(345*S,430*S),(390*S,432*S),(330*S,558*S)],fill=(104,147,180),outline=(226,239,248),width=3*S)
+    d.polygon([(265*S,575*S),(365*S,675*S),(400*S,673*S),(330*S,574*S)],fill=(71,113,151),outline=(226,239,248),width=3*S)
+    d.polygon([(120*S,545*S),(155*S,480*S),(190*S,480*S),(175*S,552*S)],fill=(123,166,196),outline=(240,248,255),width=3*S)
+    for i in range(8):
+        x=205+i*27
+        d.rounded_rectangle((x*S,542*S,(x+13)*S,554*S),radius=4*S,fill=(35,72,102))
+    for x,y,r in ((300,585,30),(395,565,25)):
+        d.ellipse(((x-r)*S,(y-r)*S,(x+r)*S,(y+r)*S),fill=(12,29,45),outline=rgba(accent),width=4*S)
+        for k in range(8):
+            a=t*5+k*math.pi/4
+            d.line((x*S,y*S,(x+math.cos(a)*r*.8)*S,(y+math.sin(a)*r*.8)*S),fill=(190,220,238),width=3*S)
+    for k in range(5):
+        x=90-k*16+((t*30)%30)
+        d.line((x*S,600*S,(x-22)*S,600*S),fill=rgba(accent,120),width=2*S)
+    text_fit(d,(285,720),"SUSTENTACIÓN · EMPUJE · CONTROL",12,(235,247,255),max_width=420,anchor="mm",bold=False)
+
+def draw_vehicle(d,cx,cy,t,accent):
+    panel(d,(48,340,528,790),fill=(7,27,50,170),outline=rgba(accent,130),radius=28)
+    body=[(88,620),(110,570),(180,545),(230,480),(360,480),(415,540),(472,570),(492,620),(475,650),(105,650)]
+    d.polygon([(x*S,y*S) for x,y in body],fill=(47,112,150),outline=(229,241,249),width=4*S)
+    d.polygon([(195*S,540*S),(245*S,495*S),(350*S,495*S),(390*S,540*S)],fill=(8,30,49),outline=(188,222,239),width=3*S)
+    for x in (180,405):
+        d.ellipse(((x-42)*S,610*S,(x+42)*S,694*S),fill=(7,14,24),outline=(210,225,235),width=5*S)
+        d.ellipse(((x-19)*S,633*S,(x+19)*S,671*S),fill=(130,153,168),outline=rgba(accent),width=3*S)
+        for k in range(6):
+            a=t*3+k*math.pi/3
+            d.line((x*S,652*S,(x+16*math.cos(a))*S,(652+16*math.sin(a))*S),fill=(235,243,248),width=2*S)
+    d.rounded_rectangle((115*S,570*S,177*S,613*S),radius=8*S,fill=(245,190,91),outline=(255,240,205),width=2*S)
+    d.rounded_rectangle((420*S,580*S,472*S,610*S),radius=8*S,fill=(255,92,80),outline=(255,220,210),width=2*S)
+    d.rectangle((250*S,556*S,335*S,600*S),fill=(18,48,67),outline=rgba(accent),width=3*S)
+    for k in range(3):
+        x=265+k*25
+        d.line((x*S,564*S,x*S,590*S),fill=rgba(accent,180),width=3*S)
+    text_fit(d,(290,735),"MOTOR · TRANSMISIÓN · RUEDAS",12,(235,247,255),max_width=420,anchor="mm",bold=False)
+
+def draw_phone(d,cx,cy,t,accent):
+    panel(d,(48,320,528,805),fill=(7,27,50,175),outline=rgba(accent,130),radius=28)
+    d.rounded_rectangle((190*S,350*S,386*S,770*S),radius=30*S,fill=(4,10,20),outline=(222,235,244),width=5*S)
+    d.rounded_rectangle((203*S,382*S,373*S,730*S),radius=18*S,fill=(20,64,89),outline=rgba(accent),width=3*S)
+    d.rounded_rectangle((260*S,362*S,316*S,370*S),radius=4*S,fill=(80,105,122))
+    for i in range(5):
+        y=430+i*52
+        d.rounded_rectangle((220*S,y*S,355*S,(y+30)*S),radius=8*S,fill=(31+i*8,94+i*10,125+i*8),outline=(128,198,220),width=2*S)
+    d.ellipse((275*S,690*S,300*S,715*S),outline=(220,235,244),width=2*S)
+    for i in range(3):
+        r=70+i*34+int(4*math.sin(t*5+i))
+        d.arc(((cx-r)*S,(cy-r)*S,(cx+r)*S,(cy+r)*S),210,330,fill=rgba(accent,210-i*35),width=3*S)
+    text_fit(d,(288,790),"PANTALLA · BATERÍA · ANTENAS",11,(235,247,255),max_width=430,anchor="mm",bold=False)
+
+def draw_turbine(d,cx,cy,t,accent):
+    panel(d,(48,330,528,790),fill=(7,27,50,175),outline=rgba(accent,130),radius=28)
+    cx,cy=288,550
+    d.ellipse((118*S,380*S,458*S,720*S),fill=(13,34,52),outline=(200,224,237),width=7*S)
+    d.ellipse((143*S,405*S,433*S,695*S),fill=(5,17,31),outline=rgba(accent),width=3*S)
+    for k in range(9):
+        a=t*4+k*2*math.pi/9
+        p1=(cx+20*math.cos(a),cy+20*math.sin(a))
+        p2=(cx+135*math.cos(a+.24),cy+135*math.sin(a+.24))
+        p3=(cx+115*math.cos(a+.55),cy+115*math.sin(a+.55))
+        d.polygon([(x*S,y*S) for x,y in (p1,p2,p3)],fill=(117,157,184),outline=(234,245,250))
+    d.ellipse((cx-28*S,cy-28*S,cx+28*S,cy+28*S),fill=rgba(accent),outline=(255,255,255),width=3*S)
+    for k in range(4):
+        y=735+k*12
+        d.line(((190+k*12)*S,y*S,(385-k*12)*S,y*S),fill=rgba(accent,150),width=2*S)
+
 def draw_visual_elements(d, elements, t, accent):
     """Render the scene-specific objects described by the prompt planner."""
     palette_fallback=rgba(accent,235)
@@ -266,7 +335,15 @@ def draw_scene(im, scene, local_t, accent):
         draw_microwave(d,cx,cy,.95,.3+local_t,accent)
     elif kind in ("machine","engine","turbine","industrial"):
         draw_machine(d,cx,cy,local_t,accent,scene.get("labels"))
-    elif kind in ("object_cutaway","vehicle","aircraft","phone"):
+    elif kind=="aircraft":
+        draw_aircraft(d,cx,cy,local_t,accent)
+    elif kind=="vehicle":
+        draw_vehicle(d,cx,cy,local_t,accent)
+    elif kind=="phone":
+        draw_phone(d,cx,cy,local_t,accent)
+    elif kind=="turbine":
+        draw_turbine(d,cx,cy,local_t,accent)
+    elif kind=="object_cutaway":
         draw_cutaway(d,cx,cy,local_t,accent,scene.get("labels"))
     elif kind in ("interior","building_cutaway","facility"):
         draw_building(d,cx,cy,local_t,accent)
