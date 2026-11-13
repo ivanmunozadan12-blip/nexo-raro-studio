@@ -3,7 +3,7 @@
   "scenes": [
     {
       "overlay": "LA SELVA COBRA VIDA",
-      "scene_type": "nature",
+      "scene_type": "landscape",
       "visual": "Una selva tropical húmeda, con árboles altos, hojas grandes, raíces expuestas y luz cálida filtrándose entre la vegetación. Un jaguar adulto avanza entre la maleza mientras una exploradora observa desde una roca.",
       "setting": "Selva tropical densa al amanecer, suelo húmedo cubierto de hojas, árboles altos al fondo y una pequeña zona abierta en primer plano.",
       "action": "El jaguar camina lentamente hacia la cámara, mueve la cabeza y la cola; la exploradora levanta el brazo para señalarlo sin acercarse.",
