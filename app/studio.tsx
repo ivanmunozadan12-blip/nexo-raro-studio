@@ -75,7 +75,7 @@ export default function Studio(){
   return found;
  }
  function parseExternalScript(raw:string,index:number){
-  const cleaned=raw.replace(/^\\uFEFF/,'').trim().replace(/^\`\`\`(?:json)?\\s*/i,'').replace(/\\s*\`\`\`$/,'').trim();
+  const cleaned=raw.replace(/^\uFEFF/,'').trim().replace(/^\`\`\`(?:json)?\s*/i,'').replace(/\s*\`\`\`$/,'').trim();
   let parsed:any;try{parsed=JSON.parse(cleaned)}catch(error:any){throw new Error('El JSON '+(index+1)+' no es válido ('+(error instanceof Error?error.message:'sintaxis incorrecta')+').');}
   if(!parsed||typeof parsed!=='object'||Array.isArray(parsed))throw new Error('El JSON '+(index+1)+' debe contener un único objeto.');
   for(const key of ['title','hook','narration','scenes','sources','caption','category','models'])if(!(key in parsed))throw new Error('Al JSON '+(index+1)+' le falta el campo '+key+'.');
