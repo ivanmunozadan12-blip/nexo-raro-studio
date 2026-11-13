@@ -23,7 +23,13 @@ export function seededRandom(seed = 'behind-del-mundo') {
 const material = (color, roughness = 0.78, metalness = 0) =>
   new THREE.MeshStandardMaterial({ color, roughness, metalness });
 const addMesh = (group, geometry, color, position, scale = [1, 1, 1], opts = {}) => {
-  const mesh = new THREE.Mesh(geometry, material(color, opts.roughness, opts.metalness));
+  const meshMaterial = material(color, opts.roughness, opts.metalness);
+  if (opts.transparent) {
+    meshMaterial.transparent = true;
+    meshMaterial.opacity = Number.isFinite(Number(opts.opacity)) ? Number(opts.opacity) : .58;
+    meshMaterial.depthWrite = false;
+  }
+  const mesh = new THREE.Mesh(geometry, meshMaterial);
   mesh.position.set(...position);
   mesh.scale.set(...scale);
   mesh.castShadow = true;
