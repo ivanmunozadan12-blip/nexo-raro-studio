@@ -43,6 +43,8 @@ jobs:
       - name: Validar sintaxis del motor y del render de prueba
         run: |
           node --check scripts/scene-engine.js
+          node --check scripts/procedural-engine.js
+          node --check scripts/procedural-preview.mjs
           node --check scripts/columbus-preview.mjs
           node --check scripts/produce.mjs
           node --test scripts/procedural-engine.test.mjs
