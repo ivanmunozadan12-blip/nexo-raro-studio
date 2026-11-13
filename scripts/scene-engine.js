@@ -102,9 +102,9 @@ function coast(g,night=false){
 }
 function buildScene(canvas,d){
  const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false});renderer.setPixelRatio(1);renderer.setSize(1080,1920,false);renderer.outputColorSpace=THREE.SRGBColorSpace;
- const scene=new THREE.Scene();scene.background=new THREE.Color(d.index===3?'#6c91a8':'#9ac9df');scene.fog=new THREE.Fog(scene.background,24,65);
+ const scene=new THREE.Scene();scene.background=new THREE.Color(d.index===5?'#26394e':'#9ac9df');scene.fog=new THREE.Fog(scene.background,24,65);
  scene.add(new THREE.HemisphereLight('#fff4df','#596a68',2.05));const sun=new THREE.DirectionalLight('#ffe4b7',2.2);sun.position.set(-9,15,8);scene.add(sun);
- const world=new THREE.Group();scene.add(world);const people=[],ships=[];let animateWater=()=>{};
+ if(d.index===5)scene.fog.color.set('#26394e');const world=new THREE.Group();scene.add(world);const people=[],ships=[];let animateWater=()=>{};
  const idx=d.index,words=(d.title+' '+d.visual+' '+d.setting+' '+d.action+' '+(d.props||[]).join(' ')).toLowerCase();
  if(idx===0||idx===1){scene.background.set('#b9a78d');scene.fog.color.set('#b9a78d');hall(world);if(idx===0){people.push(person(world,-2.25,1.1,'columbus',1.05),person(world,-.1,-4.3,'king',1.12),person(world,2.15,-4.2,'queen',1.12));person(world,-4,-1.2,'crew',.9);person(world,4,-1.2,'crew',.9);}else{people.push(person(world,-.55,1.1,'columbus',1.05),person(world,-2.2,-4.3,'king',1.12),person(world,2.2,-4.2,'queen',1.12),person(world,4,-1.2,'crew',.88));}}
  else if(idx===2){const fleet=harbor(world);ships.push(...fleet);for(let i=0;i<12;i++)people.push(person(world,-10+(i%6)*4.1,-1.4+Math.floor(i/6)*1.3,'crew',.78));}
