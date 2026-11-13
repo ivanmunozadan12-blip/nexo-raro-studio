@@ -449,7 +449,7 @@ const srtBlocks = srtText.trim().split(/\r?\n\s*\r?\n/);
 const wordCues = srtBlocks.map(block=>{const lines=block.split(/\r?\n/);const ix=lines.findIndex(line=>line.includes('-->'));if(ix<0)return null;const [from,to]=lines[ix].split('-->').map(x=>x.trim());return {start:parseSrtTime(from),end:parseSrtTime(to),text:lines.slice(ix+1).join(' ').trim()};}).filter(Boolean);
 if (!wordCues.length) throw new Error('Edge TTS no ha devuelto marcas temporales de subtítulos; se cancela el render para evitar texto desincronizado.');
 const subtitleCues = [];
-for(let i=0;i<wordCues.length;i+=4){const group=wordCues.slice(i,i+4);subtitleCues.push({start:group[0].start,end:group[group.length-1].end,text:group.map(x=>x.text).join(' ')});}
+for(let i=0;i<wordCues.length;i+=3){const group=wordCues.slice(i,i+3);subtitleCues.push({start:group[0].start,end:group[group.length-1].end,text:group.map(x=>x.text).join(' ')});}
 
 const sceneEngine = await readFile(path.join(root, 'scripts', 'scene-engine.js'), 'utf8');
 await writeFile(path.join(work, 'scene-engine.js'), sceneEngine);
