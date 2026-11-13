@@ -285,6 +285,28 @@ for (const [sceneIndex, scene] of script.scenes.entries()) {
       throw new Error('Entidad 3D incompleta en escena ' + (sceneIndex + 1) + ': cada modelo necesita id, nombre, tipo, apariencia, posición, dimensiones, forma, material, color, soporte y acción.');
     }
     if (['human','animal'].includes(entityType) && !entity.appearance && !entity.description) throw new Error('El personaje o animal ' + entity.name + ' necesita una apariencia visual concreta.');
+
+    const blueprint = entity.blueprint;
+    if (!blueprint || blueprint.version !== 1 || !Array.isArray(blueprint.parts) || blueprint.parts.length < 1 || !Array.isArray(blueprint.animations)) {
+      throw new Error('La entidad "' + entity.name + '" necesita un blueprint 3D autocontenido en su JSON (piezas, geometría y animaciones).');
+    }
+    const partIds = new Set(['root']);
+    const primitives = new Set(['box','sphere','cylinder','cone','torus']);
+    for (const part of blueprint.parts) {
+      if (!part.id || partIds.has(String(part.id))) throw new Error('Pieza 3D con id vacío o duplicado en "' + entity.name + '".');
+      if (part.parent && !partIds.has(String(part.parent))) throw new Error('La pieza "' + part.id + '" referencia un padre que todavía no existe en "' + entity.name + '".');
+      if (!part.group && (!primitives.has(part.primitive) || !Array.isArray(part.size) || part.size.length !== 3 || !part.size.every(value => Number.isFinite(Number(value)) && Number(value) > 0) || !part.color)) {
+        throw new Error('La pieza "' + part.id + '" de "' + entity.name + '" necesita primitiva admitida, tamaño y color explícitos.');
+      }
+      if (part.position && (!Array.isArray(part.position) || part.position.length !== 3 || !part.position.every(value => Number.isFinite(Number(value))))) throw new Error('Posición 3D inválida en pieza "' + part.id + '".');
+      partIds.add(String(part.id));
+    }
+    for (const animation of blueprint.animations) {
+      if (!partIds.has(String(animation.target)) || !['rotation','position','scale'].includes(animation.property) || !['x','y','z'].includes(animation.axis) || !Number.isFinite(Number(animation.amplitude)) || !Number.isFinite(Number(animation.frequency))) {
+        throw new Error('Animación 3D inválida en "' + entity.name + '": cada pista debe apuntar a una pieza y definir propiedad, eje, amplitud y frecuencia.');
+      }
+    }
+
     const signature = JSON.stringify({ type: entityType, name: String(entity.name), appearance: String(entity.appearance || entity.description || '') });
     const previous = entityRegistry.get(String(entity.id));
     if (previous && previous !== signature) throw new Error('El identificador ' + entity.id + ' cambia de aspecto o tipo entre escenas; rompe la continuidad visual.');
