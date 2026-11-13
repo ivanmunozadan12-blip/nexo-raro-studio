@@ -46,7 +46,7 @@ TikTok automatic publishing:
 - TIKTOK_ACCESS_TOKEN and/or TIKTOK_REFRESH_TOKEN
 - Optional TIKTOK_PRIVACY (default PUBLIC_TO_EVERYONE)
 
-TikTok tokens are refreshed and stored in the private social_connections table. Apply supabase/migrations/20261113180000_social_connections.sql before enabling token persistence. The TikTok app must have the Content Posting API and approved video.publish scope. TikTok restricts unaudited clients to private posts; public publishing requires TikTok's app audit. The account owner must complete the official OAuth authorization.
+TikTok tokens are refreshed and stored in the private social_connections table. Apply supabase/migrations/20261113173647_social_connections.sql before enabling token persistence. The TikTok app must have the Content Posting API and approved video.publish scope. TikTok restricts unaudited clients to private posts; public publishing requires TikTok's app audit. The account owner must complete the official OAuth authorization.
 
 ## Social publishing behaviour
 
