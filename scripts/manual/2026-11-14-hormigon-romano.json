@@ -22,26 +22,54 @@
   "scenes": [
     {
       "scene_type": "history",
-      "visual": "Plano 1. Hay edificios romanos que siguen en pie después de casi dos mil años. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (andamio de madera, herramientas de albañil, ánfora romana, cubo de agua). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "visual": "Plano 1. Hay edificios romanos que siguen en pie después de casi dos mil años. La composición muestra el sujeto principal con anatomía, escala y materiales consistentes, y cuatro elementos ambientales construidos como modelos 3D separados: Andamio de madera, Herramientas de albañil, Ánfora romana, Cubo de agua. En primer término se aprecian detalles de superficie y partículas; en el plano medio ocurre la acción científica o histórica; al fondo se mantiene un entorno reconocible que aporta profundidad y contexto. La cámara vertical 9:16 realiza un movimiento suave, con un encuadre distinto en cada plano y un acercamiento cuando la narración explica un detalle. La iluminación es direccional y volumétrica, con contraste suficiente para separar todas las siluetas. Cada objeto conserva su posición física y su proporción respecto al protagonista. Reservar el tercio inferior para subtítulos blancos. No añadir texto, rótulos, logotipos ni marcas de agua.",
       "setting": "Obra romana con muro de mortero, andamio, herramientas, ánforas, cal y ceniza volcánica; luz cálida lateral.",
-      "action": "Acción ilustrativa: Hay edificios romanos que siguen en pie después de casi dos mil años. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
-      "camera": "travelling lateral de contexto",
+      "action": "La acción representa con claridad el fragmento narrado: Hay edificios romanos que siguen en pie después de casi dos mil años. El sujeto principal ejecuta un movimiento reconocible con inicio, desarrollo y final; los elementos secundarios responden de forma limitada y coherente con su naturaleza. Las piezas rígidas permanecen apoyadas y las partículas o elementos ligeros se mueven suavemente.",
+      "camera": "travelling lateral de contexto. Desplazamiento controlado con paralaje entre primer plano, sujeto y fondo; mantener el horizonte estable, evitar giros bruscos y terminar en un encuadre que permita enlazar con el plano siguiente.",
       "camera_target": "El hormigón romano que podía cerrar sus propias grietas",
-      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos. Conservar el mismo diseño de los modelos, paleta de materiales, escala relativa y dirección de iluminación entre planos; los objetos no deben cambiar de forma, desaparecer ni teletransportarse durante los cortes.",
       "characters": [],
       "props": [
-        "material principal",
-        "partículas ambientales",
-        "elemento de escala",
-        "detalle de superficie"
+        {
+          "name": "Andamio de madera",
+          "description": "Andamio de madera modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Herramientas de albañil",
+          "description": "Herramientas de albañil modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Ánfora romana",
+          "description": "Ánfora romana modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Cubo de agua",
+          "description": "Cubo de agua modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        }
       ],
       "objects": [
-        "sujeto principal",
-        "entorno reconocible",
-        "elemento secundario",
-        "detalle en profundidad"
+        {
+          "name": "Andamio de madera",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Herramientas de albañil",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Ánfora romana",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Cubo de agua",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        }
       ],
-      "overlay": "Pista romana",
+      "overlay": "Una receta romana",
       "narration_excerpt": "Hay edificios romanos que siguen en pie después de casi dos mil años.",
       "entities": [
         {
@@ -206,26 +234,54 @@
     },
     {
       "scene_type": "history",
-      "visual": "Plano 2. Durante mucho tiempo, su hormigón fue un misterio para los investigadores. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (fragmentos de cal viva, ceniza volcánica, cubo de agua, horno de obra). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "visual": "Plano 2. Durante mucho tiempo, su hormigón fue un misterio para los investigadores. La composición muestra el sujeto principal con anatomía, escala y materiales consistentes, y cuatro elementos ambientales construidos como modelos 3D separados: Fragmentos de cal viva, Ceniza volcánica, Cubo de agua, Horno de obra. En primer término se aprecian detalles de superficie y partículas; en el plano medio ocurre la acción científica o histórica; al fondo se mantiene un entorno reconocible que aporta profundidad y contexto. La cámara vertical 9:16 realiza un movimiento suave, con un encuadre distinto en cada plano y un acercamiento cuando la narración explica un detalle. La iluminación es direccional y volumétrica, con contraste suficiente para separar todas las siluetas. Cada objeto conserva su posición física y su proporción respecto al protagonista. Reservar el tercio inferior para subtítulos blancos. No añadir texto, rótulos, logotipos ni marcas de agua.",
       "setting": "Obra romana con muro de mortero, andamio, herramientas, ánforas, cal y ceniza volcánica; luz cálida lateral.",
-      "action": "Acción ilustrativa: Durante mucho tiempo, su hormigón fue un misterio para los investigadores. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
-      "camera": "acercamiento macro al detalle",
+      "action": "La acción representa con claridad el fragmento narrado: Durante mucho tiempo, su hormigón fue un misterio para los investigadores. El sujeto principal ejecuta un movimiento reconocible con inicio, desarrollo y final; los elementos secundarios responden de forma limitada y coherente con su naturaleza. Las piezas rígidas permanecen apoyadas y las partículas o elementos ligeros se mueven suavemente.",
+      "camera": "acercamiento macro al detalle. Desplazamiento controlado con paralaje entre primer plano, sujeto y fondo; mantener el horizonte estable, evitar giros bruscos y terminar en un encuadre que permita enlazar con el plano siguiente.",
       "camera_target": "El hormigón romano que podía cerrar sus propias grietas",
-      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos. Conservar el mismo diseño de los modelos, paleta de materiales, escala relativa y dirección de iluminación entre planos; los objetos no deben cambiar de forma, desaparecer ni teletransportarse durante los cortes.",
       "characters": [],
       "props": [
-        "material principal",
-        "partículas ambientales",
-        "elemento de escala",
-        "detalle de superficie"
+        {
+          "name": "Fragmentos de cal viva",
+          "description": "Fragmentos de cal viva modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Ceniza volcánica",
+          "description": "Ceniza volcánica modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Cubo de agua",
+          "description": "Cubo de agua modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Horno de obra",
+          "description": "Horno de obra modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        }
       ],
       "objects": [
-        "sujeto principal",
-        "entorno reconocible",
-        "elemento secundario",
-        "detalle en profundidad"
+        {
+          "name": "Fragmentos de cal viva",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Ceniza volcánica",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Cubo de agua",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Horno de obra",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        }
       ],
-      "overlay": "Pista romana",
+      "overlay": "Grietas que se cierran",
       "narration_excerpt": "Durante mucho tiempo, su hormigón fue un misterio para los investigadores.",
       "entities": [
         {
@@ -390,26 +446,54 @@
     },
     {
       "scene_type": "history",
-      "visual": "Plano 3. La receta mezclaba cal, ceniza volcánica y fragmentos de roca. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (herramientas de albañil, ánfora romana, horno de obra, andamio de madera). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "visual": "Plano 3. La receta mezclaba cal, ceniza volcánica y fragmentos de roca. La composición muestra el sujeto principal con anatomía, escala y materiales consistentes, y cuatro elementos ambientales construidos como modelos 3D separados: Herramientas de albañil, Ánfora romana, Horno de obra, Andamio de madera. En primer término se aprecian detalles de superficie y partículas; en el plano medio ocurre la acción científica o histórica; al fondo se mantiene un entorno reconocible que aporta profundidad y contexto. La cámara vertical 9:16 realiza un movimiento suave, con un encuadre distinto en cada plano y un acercamiento cuando la narración explica un detalle. La iluminación es direccional y volumétrica, con contraste suficiente para separar todas las siluetas. Cada objeto conserva su posición física y su proporción respecto al protagonista. Reservar el tercio inferior para subtítulos blancos. No añadir texto, rótulos, logotipos ni marcas de agua.",
       "setting": "Obra romana con muro de mortero, andamio, herramientas, ánforas, cal y ceniza volcánica; luz cálida lateral.",
-      "action": "Acción ilustrativa: La receta mezclaba cal, ceniza volcánica y fragmentos de roca. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
-      "camera": "órbita corta alrededor del sujeto",
+      "action": "La acción representa con claridad el fragmento narrado: La receta mezclaba cal, ceniza volcánica y fragmentos de roca. El sujeto principal ejecuta un movimiento reconocible con inicio, desarrollo y final; los elementos secundarios responden de forma limitada y coherente con su naturaleza. Las piezas rígidas permanecen apoyadas y las partículas o elementos ligeros se mueven suavemente.",
+      "camera": "órbita corta alrededor del sujeto. Desplazamiento controlado con paralaje entre primer plano, sujeto y fondo; mantener el horizonte estable, evitar giros bruscos y terminar en un encuadre que permita enlazar con el plano siguiente.",
       "camera_target": "El hormigón romano que podía cerrar sus propias grietas",
-      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos. Conservar el mismo diseño de los modelos, paleta de materiales, escala relativa y dirección de iluminación entre planos; los objetos no deben cambiar de forma, desaparecer ni teletransportarse durante los cortes.",
       "characters": [],
       "props": [
-        "material principal",
-        "partículas ambientales",
-        "elemento de escala",
-        "detalle de superficie"
+        {
+          "name": "Herramientas de albañil",
+          "description": "Herramientas de albañil modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Ánfora romana",
+          "description": "Ánfora romana modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Horno de obra",
+          "description": "Horno de obra modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Andamio de madera",
+          "description": "Andamio de madera modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        }
       ],
       "objects": [
-        "sujeto principal",
-        "entorno reconocible",
-        "elemento secundario",
-        "detalle en profundidad"
+        {
+          "name": "Herramientas de albañil",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Ánfora romana",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Horno de obra",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Andamio de madera",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        }
       ],
-      "overlay": "Pista romana",
+      "overlay": "Cal viva en acción",
       "narration_excerpt": "La receta mezclaba cal, ceniza volcánica y fragmentos de roca.",
       "entities": [
         {
@@ -574,26 +658,54 @@
     },
     {
       "scene_type": "history",
-      "visual": "Plano 4. Pero algunos muros conservan pequeñas piezas blancas que escondían una pista. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (ceniza volcánica, cubo de agua, andamio de madera, fragmentos de cal viva). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "visual": "Plano 4. Pero algunos muros conservan pequeñas piezas blancas que escondían una pista. La composición muestra el sujeto principal con anatomía, escala y materiales consistentes, y cuatro elementos ambientales construidos como modelos 3D separados: Ceniza volcánica, Cubo de agua, Andamio de madera, Fragmentos de cal viva. En primer término se aprecian detalles de superficie y partículas; en el plano medio ocurre la acción científica o histórica; al fondo se mantiene un entorno reconocible que aporta profundidad y contexto. La cámara vertical 9:16 realiza un movimiento suave, con un encuadre distinto en cada plano y un acercamiento cuando la narración explica un detalle. La iluminación es direccional y volumétrica, con contraste suficiente para separar todas las siluetas. Cada objeto conserva su posición física y su proporción respecto al protagonista. Reservar el tercio inferior para subtítulos blancos. No añadir texto, rótulos, logotipos ni marcas de agua.",
       "setting": "Obra romana con muro de mortero, andamio, herramientas, ánforas, cal y ceniza volcánica; luz cálida lateral.",
-      "action": "Acción ilustrativa: Pero algunos muros conservan pequeñas piezas blancas que escondían una pista. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
-      "camera": "retroceso para revelar el entorno",
+      "action": "La acción representa con claridad el fragmento narrado: Pero algunos muros conservan pequeñas piezas blancas que escondían una pista. El sujeto principal ejecuta un movimiento reconocible con inicio, desarrollo y final; los elementos secundarios responden de forma limitada y coherente con su naturaleza. Las piezas rígidas permanecen apoyadas y las partículas o elementos ligeros se mueven suavemente.",
+      "camera": "retroceso para revelar el entorno. Desplazamiento controlado con paralaje entre primer plano, sujeto y fondo; mantener el horizonte estable, evitar giros bruscos y terminar en un encuadre que permita enlazar con el plano siguiente.",
       "camera_target": "El hormigón romano que podía cerrar sus propias grietas",
-      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos. Conservar el mismo diseño de los modelos, paleta de materiales, escala relativa y dirección de iluminación entre planos; los objetos no deben cambiar de forma, desaparecer ni teletransportarse durante los cortes.",
       "characters": [],
       "props": [
-        "material principal",
-        "partículas ambientales",
-        "elemento de escala",
-        "detalle de superficie"
+        {
+          "name": "Ceniza volcánica",
+          "description": "Ceniza volcánica modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Cubo de agua",
+          "description": "Cubo de agua modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Andamio de madera",
+          "description": "Andamio de madera modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Fragmentos de cal viva",
+          "description": "Fragmentos de cal viva modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        }
       ],
       "objects": [
-        "sujeto principal",
-        "entorno reconocible",
-        "elemento secundario",
-        "detalle en profundidad"
+        {
+          "name": "Ceniza volcánica",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Cubo de agua",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Andamio de madera",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Fragmentos de cal viva",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        }
       ],
-      "overlay": "Pista romana",
+      "overlay": "Hormigón antiguo",
       "narration_excerpt": "Pero algunos muros conservan pequeñas piezas blancas que escondían una pista.",
       "entities": [
         {
@@ -758,26 +870,54 @@
     },
     {
       "scene_type": "history",
-      "visual": "Plano 5. Un estudio de 2023 analizó esos fragmentos y encontró señales de cal viva. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (ánfora romana, horno de obra, fragmentos de cal viva, herramientas de albañil). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "visual": "Plano 5. Un estudio de 2023 analizó esos fragmentos y encontró señales de cal viva. La composición muestra el sujeto principal con anatomía, escala y materiales consistentes, y cuatro elementos ambientales construidos como modelos 3D separados: Ánfora romana, Horno de obra, Fragmentos de cal viva, Herramientas de albañil. En primer término se aprecian detalles de superficie y partículas; en el plano medio ocurre la acción científica o histórica; al fondo se mantiene un entorno reconocible que aporta profundidad y contexto. La cámara vertical 9:16 realiza un movimiento suave, con un encuadre distinto en cada plano y un acercamiento cuando la narración explica un detalle. La iluminación es direccional y volumétrica, con contraste suficiente para separar todas las siluetas. Cada objeto conserva su posición física y su proporción respecto al protagonista. Reservar el tercio inferior para subtítulos blancos. No añadir texto, rótulos, logotipos ni marcas de agua.",
       "setting": "Obra romana con muro de mortero, andamio, herramientas, ánforas, cal y ceniza volcánica; luz cálida lateral.",
-      "action": "Acción ilustrativa: Un estudio de 2023 analizó esos fragmentos y encontró señales de cal viva. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
-      "camera": "travelling lateral de contexto",
+      "action": "La acción representa con claridad el fragmento narrado: Un estudio de 2023 analizó esos fragmentos y encontró señales de cal viva. El sujeto principal ejecuta un movimiento reconocible con inicio, desarrollo y final; los elementos secundarios responden de forma limitada y coherente con su naturaleza. Las piezas rígidas permanecen apoyadas y las partículas o elementos ligeros se mueven suavemente.",
+      "camera": "travelling lateral de contexto. Desplazamiento controlado con paralaje entre primer plano, sujeto y fondo; mantener el horizonte estable, evitar giros bruscos y terminar en un encuadre que permita enlazar con el plano siguiente.",
       "camera_target": "El hormigón romano que podía cerrar sus propias grietas",
-      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos. Conservar el mismo diseño de los modelos, paleta de materiales, escala relativa y dirección de iluminación entre planos; los objetos no deben cambiar de forma, desaparecer ni teletransportarse durante los cortes.",
       "characters": [],
       "props": [
-        "material principal",
-        "partículas ambientales",
-        "elemento de escala",
-        "detalle de superficie"
+        {
+          "name": "Ánfora romana",
+          "description": "Ánfora romana modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Horno de obra",
+          "description": "Horno de obra modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Fragmentos de cal viva",
+          "description": "Fragmentos de cal viva modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Herramientas de albañil",
+          "description": "Herramientas de albañil modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        }
       ],
       "objects": [
-        "sujeto principal",
-        "entorno reconocible",
-        "elemento secundario",
-        "detalle en profundidad"
+        {
+          "name": "Ánfora romana",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Horno de obra",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Fragmentos de cal viva",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Herramientas de albañil",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        }
       ],
-      "overlay": "Pista romana",
+      "overlay": "Un muro especial",
       "narration_excerpt": "Un estudio de 2023 analizó esos fragmentos y encontró señales de cal viva.",
       "entities": [
         {
@@ -942,26 +1082,54 @@
     },
     {
       "scene_type": "history",
-      "visual": "Plano 6. La hipótesis es que los romanos mezclaban los ingredientes mientras la cal reaccionaba. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (cubo de agua, andamio de madera, herramientas de albañil, ceniza volcánica). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "visual": "Plano 6. La hipótesis es que los romanos mezclaban los ingredientes mientras la cal reaccionaba. La composición muestra el sujeto principal con anatomía, escala y materiales consistentes, y cuatro elementos ambientales construidos como modelos 3D separados: Cubo de agua, Andamio de madera, Herramientas de albañil, Ceniza volcánica. En primer término se aprecian detalles de superficie y partículas; en el plano medio ocurre la acción científica o histórica; al fondo se mantiene un entorno reconocible que aporta profundidad y contexto. La cámara vertical 9:16 realiza un movimiento suave, con un encuadre distinto en cada plano y un acercamiento cuando la narración explica un detalle. La iluminación es direccional y volumétrica, con contraste suficiente para separar todas las siluetas. Cada objeto conserva su posición física y su proporción respecto al protagonista. Reservar el tercio inferior para subtítulos blancos. No añadir texto, rótulos, logotipos ni marcas de agua.",
       "setting": "Obra romana con muro de mortero, andamio, herramientas, ánforas, cal y ceniza volcánica; luz cálida lateral.",
-      "action": "Acción ilustrativa: La hipótesis es que los romanos mezclaban los ingredientes mientras la cal reaccionaba. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
-      "camera": "acercamiento macro al detalle",
+      "action": "La acción representa con claridad el fragmento narrado: La hipótesis es que los romanos mezclaban los ingredientes mientras la cal reaccionaba. El sujeto principal ejecuta un movimiento reconocible con inicio, desarrollo y final; los elementos secundarios responden de forma limitada y coherente con su naturaleza. Las piezas rígidas permanecen apoyadas y las partículas o elementos ligeros se mueven suavemente.",
+      "camera": "acercamiento macro al detalle. Desplazamiento controlado con paralaje entre primer plano, sujeto y fondo; mantener el horizonte estable, evitar giros bruscos y terminar en un encuadre que permita enlazar con el plano siguiente.",
       "camera_target": "El hormigón romano que podía cerrar sus propias grietas",
-      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos. Conservar el mismo diseño de los modelos, paleta de materiales, escala relativa y dirección de iluminación entre planos; los objetos no deben cambiar de forma, desaparecer ni teletransportarse durante los cortes.",
       "characters": [],
       "props": [
-        "material principal",
-        "partículas ambientales",
-        "elemento de escala",
-        "detalle de superficie"
+        {
+          "name": "Cubo de agua",
+          "description": "Cubo de agua modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Andamio de madera",
+          "description": "Andamio de madera modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Herramientas de albañil",
+          "description": "Herramientas de albañil modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Ceniza volcánica",
+          "description": "Ceniza volcánica modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        }
       ],
       "objects": [
-        "sujeto principal",
-        "entorno reconocible",
-        "elemento secundario",
-        "detalle en profundidad"
+        {
+          "name": "Cubo de agua",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Andamio de madera",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Herramientas de albañil",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Ceniza volcánica",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        }
       ],
-      "overlay": "Pista romana",
+      "overlay": "La mezcla caliente",
       "narration_excerpt": "La hipótesis es que los romanos mezclaban los ingredientes mientras la cal reaccionaba.",
       "entities": [
         {
@@ -1126,26 +1294,54 @@
     },
     {
       "scene_type": "history",
-      "visual": "Plano 7. Ese proceso, conocido como mezcla en caliente, generaba inclusiones minerales dentro del mortero. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (horno de obra, fragmentos de cal viva, ceniza volcánica, ánfora romana). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "visual": "Plano 7. Ese proceso, conocido como mezcla en caliente, generaba inclusiones minerales dentro del mortero. La composición muestra el sujeto principal con anatomía, escala y materiales consistentes, y cuatro elementos ambientales construidos como modelos 3D separados: Horno de obra, Fragmentos de cal viva, Ceniza volcánica, Ánfora romana. En primer término se aprecian detalles de superficie y partículas; en el plano medio ocurre la acción científica o histórica; al fondo se mantiene un entorno reconocible que aporta profundidad y contexto. La cámara vertical 9:16 realiza un movimiento suave, con un encuadre distinto en cada plano y un acercamiento cuando la narración explica un detalle. La iluminación es direccional y volumétrica, con contraste suficiente para separar todas las siluetas. Cada objeto conserva su posición física y su proporción respecto al protagonista. Reservar el tercio inferior para subtítulos blancos. No añadir texto, rótulos, logotipos ni marcas de agua.",
       "setting": "Obra romana con muro de mortero, andamio, herramientas, ánforas, cal y ceniza volcánica; luz cálida lateral.",
-      "action": "Acción ilustrativa: Ese proceso, conocido como mezcla en caliente, generaba inclusiones minerales dentro del mortero. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
-      "camera": "órbita corta alrededor del sujeto",
+      "action": "La acción representa con claridad el fragmento narrado: Ese proceso, conocido como mezcla en caliente, generaba inclusiones minerales dentro del mortero. El sujeto principal ejecuta un movimiento reconocible con inicio, desarrollo y final; los elementos secundarios responden de forma limitada y coherente con su naturaleza. Las piezas rígidas permanecen apoyadas y las partículas o elementos ligeros se mueven suavemente.",
+      "camera": "órbita corta alrededor del sujeto. Desplazamiento controlado con paralaje entre primer plano, sujeto y fondo; mantener el horizonte estable, evitar giros bruscos y terminar en un encuadre que permita enlazar con el plano siguiente.",
       "camera_target": "El hormigón romano que podía cerrar sus propias grietas",
-      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos. Conservar el mismo diseño de los modelos, paleta de materiales, escala relativa y dirección de iluminación entre planos; los objetos no deben cambiar de forma, desaparecer ni teletransportarse durante los cortes.",
       "characters": [],
       "props": [
-        "material principal",
-        "partículas ambientales",
-        "elemento de escala",
-        "detalle de superficie"
+        {
+          "name": "Horno de obra",
+          "description": "Horno de obra modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Fragmentos de cal viva",
+          "description": "Fragmentos de cal viva modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Ceniza volcánica",
+          "description": "Ceniza volcánica modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Ánfora romana",
+          "description": "Ánfora romana modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        }
       ],
       "objects": [
-        "sujeto principal",
-        "entorno reconocible",
-        "elemento secundario",
-        "detalle en profundidad"
+        {
+          "name": "Horno de obra",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Fragmentos de cal viva",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Ceniza volcánica",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Ánfora romana",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        }
       ],
-      "overlay": "Pista romana",
+      "overlay": "Piedra y ceniza",
       "narration_excerpt": "Ese proceso, conocido como mezcla en caliente, generaba inclusiones minerales dentro del mortero.",
       "entities": [
         {
@@ -1310,26 +1506,54 @@
     },
     {
       "scene_type": "history",
-      "visual": "Plano 8. Y esas inclusiones podrían ayudar a cerrar pequeñas grietas con el paso del tiempo. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (andamio de madera, herramientas de albañil, ánfora romana, cubo de agua). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "visual": "Plano 8. Y esas inclusiones podrían ayudar a cerrar pequeñas grietas con el paso del tiempo. La composición muestra el sujeto principal con anatomía, escala y materiales consistentes, y cuatro elementos ambientales construidos como modelos 3D separados: Andamio de madera, Herramientas de albañil, Ánfora romana, Cubo de agua. En primer término se aprecian detalles de superficie y partículas; en el plano medio ocurre la acción científica o histórica; al fondo se mantiene un entorno reconocible que aporta profundidad y contexto. La cámara vertical 9:16 realiza un movimiento suave, con un encuadre distinto en cada plano y un acercamiento cuando la narración explica un detalle. La iluminación es direccional y volumétrica, con contraste suficiente para separar todas las siluetas. Cada objeto conserva su posición física y su proporción respecto al protagonista. Reservar el tercio inferior para subtítulos blancos. No añadir texto, rótulos, logotipos ni marcas de agua.",
       "setting": "Obra romana con muro de mortero, andamio, herramientas, ánforas, cal y ceniza volcánica; luz cálida lateral.",
-      "action": "Acción ilustrativa: Y esas inclusiones podrían ayudar a cerrar pequeñas grietas con el paso del tiempo. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
-      "camera": "retroceso para revelar el entorno",
+      "action": "La acción representa con claridad el fragmento narrado: Y esas inclusiones podrían ayudar a cerrar pequeñas grietas con el paso del tiempo. El sujeto principal ejecuta un movimiento reconocible con inicio, desarrollo y final; los elementos secundarios responden de forma limitada y coherente con su naturaleza. Las piezas rígidas permanecen apoyadas y las partículas o elementos ligeros se mueven suavemente.",
+      "camera": "retroceso para revelar el entorno. Desplazamiento controlado con paralaje entre primer plano, sujeto y fondo; mantener el horizonte estable, evitar giros bruscos y terminar en un encuadre que permita enlazar con el plano siguiente.",
       "camera_target": "El hormigón romano que podía cerrar sus propias grietas",
-      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos. Conservar el mismo diseño de los modelos, paleta de materiales, escala relativa y dirección de iluminación entre planos; los objetos no deben cambiar de forma, desaparecer ni teletransportarse durante los cortes.",
       "characters": [],
       "props": [
-        "material principal",
-        "partículas ambientales",
-        "elemento de escala",
-        "detalle de superficie"
+        {
+          "name": "Andamio de madera",
+          "description": "Andamio de madera modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Herramientas de albañil",
+          "description": "Herramientas de albañil modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Ánfora romana",
+          "description": "Ánfora romana modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Cubo de agua",
+          "description": "Cubo de agua modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        }
       ],
       "objects": [
-        "sujeto principal",
-        "entorno reconocible",
-        "elemento secundario",
-        "detalle en profundidad"
+        {
+          "name": "Andamio de madera",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Herramientas de albañil",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Ánfora romana",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Cubo de agua",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        }
       ],
-      "overlay": "Pista romana",
+      "overlay": "La obra romana",
       "narration_excerpt": "Y esas inclusiones podrían ayudar a cerrar pequeñas grietas con el paso del tiempo.",
       "entities": [
         {
@@ -1494,26 +1718,54 @@
     },
     {
       "scene_type": "history",
-      "visual": "Plano 9. Cuando entra agua, parte del calcio puede disolverse y desplazarse por el material. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (fragmentos de cal viva, ceniza volcánica, cubo de agua, horno de obra). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "visual": "Plano 9. Cuando entra agua, parte del calcio puede disolverse y desplazarse por el material. La composición muestra el sujeto principal con anatomía, escala y materiales consistentes, y cuatro elementos ambientales construidos como modelos 3D separados: Fragmentos de cal viva, Ceniza volcánica, Cubo de agua, Horno de obra. En primer término se aprecian detalles de superficie y partículas; en el plano medio ocurre la acción científica o histórica; al fondo se mantiene un entorno reconocible que aporta profundidad y contexto. La cámara vertical 9:16 realiza un movimiento suave, con un encuadre distinto en cada plano y un acercamiento cuando la narración explica un detalle. La iluminación es direccional y volumétrica, con contraste suficiente para separar todas las siluetas. Cada objeto conserva su posición física y su proporción respecto al protagonista. Reservar el tercio inferior para subtítulos blancos. No añadir texto, rótulos, logotipos ni marcas de agua.",
       "setting": "Obra romana con muro de mortero, andamio, herramientas, ánforas, cal y ceniza volcánica; luz cálida lateral.",
-      "action": "Acción ilustrativa: Cuando entra agua, parte del calcio puede disolverse y desplazarse por el material. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
-      "camera": "travelling lateral de contexto",
+      "action": "La acción representa con claridad el fragmento narrado: Cuando entra agua, parte del calcio puede disolverse y desplazarse por el material. El sujeto principal ejecuta un movimiento reconocible con inicio, desarrollo y final; los elementos secundarios responden de forma limitada y coherente con su naturaleza. Las piezas rígidas permanecen apoyadas y las partículas o elementos ligeros se mueven suavemente.",
+      "camera": "travelling lateral de contexto. Desplazamiento controlado con paralaje entre primer plano, sujeto y fondo; mantener el horizonte estable, evitar giros bruscos y terminar en un encuadre que permita enlazar con el plano siguiente.",
       "camera_target": "El hormigón romano que podía cerrar sus propias grietas",
-      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos. Conservar el mismo diseño de los modelos, paleta de materiales, escala relativa y dirección de iluminación entre planos; los objetos no deben cambiar de forma, desaparecer ni teletransportarse durante los cortes.",
       "characters": [],
       "props": [
-        "material principal",
-        "partículas ambientales",
-        "elemento de escala",
-        "detalle de superficie"
+        {
+          "name": "Fragmentos de cal viva",
+          "description": "Fragmentos de cal viva modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Ceniza volcánica",
+          "description": "Ceniza volcánica modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Cubo de agua",
+          "description": "Cubo de agua modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Horno de obra",
+          "description": "Horno de obra modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        }
       ],
       "objects": [
-        "sujeto principal",
-        "entorno reconocible",
-        "elemento secundario",
-        "detalle en profundidad"
+        {
+          "name": "Fragmentos de cal viva",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Ceniza volcánica",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Cubo de agua",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Horno de obra",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        }
       ],
-      "overlay": "Pista romana",
+      "overlay": "El secreto mineral",
       "narration_excerpt": "Cuando entra agua, parte del calcio puede disolverse y desplazarse por el material.",
       "entities": [
         {
@@ -1678,26 +1930,54 @@
     },
     {
       "scene_type": "history",
-      "visual": "Plano 10. Después puede volver a precipitar y rellenar poros o fisuras muy pequeñas. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (herramientas de albañil, ánfora romana, horno de obra, andamio de madera). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "visual": "Plano 10. Después puede volver a precipitar y rellenar poros o fisuras muy pequeñas. La composición muestra el sujeto principal con anatomía, escala y materiales consistentes, y cuatro elementos ambientales construidos como modelos 3D separados: Herramientas de albañil, Ánfora romana, Horno de obra, Andamio de madera. En primer término se aprecian detalles de superficie y partículas; en el plano medio ocurre la acción científica o histórica; al fondo se mantiene un entorno reconocible que aporta profundidad y contexto. La cámara vertical 9:16 realiza un movimiento suave, con un encuadre distinto en cada plano y un acercamiento cuando la narración explica un detalle. La iluminación es direccional y volumétrica, con contraste suficiente para separar todas las siluetas. Cada objeto conserva su posición física y su proporción respecto al protagonista. Reservar el tercio inferior para subtítulos blancos. No añadir texto, rótulos, logotipos ni marcas de agua.",
       "setting": "Obra romana con muro de mortero, andamio, herramientas, ánforas, cal y ceniza volcánica; luz cálida lateral.",
-      "action": "Acción ilustrativa: Después puede volver a precipitar y rellenar poros o fisuras muy pequeñas. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
-      "camera": "acercamiento macro al detalle",
+      "action": "La acción representa con claridad el fragmento narrado: Después puede volver a precipitar y rellenar poros o fisuras muy pequeñas. El sujeto principal ejecuta un movimiento reconocible con inicio, desarrollo y final; los elementos secundarios responden de forma limitada y coherente con su naturaleza. Las piezas rígidas permanecen apoyadas y las partículas o elementos ligeros se mueven suavemente.",
+      "camera": "acercamiento macro al detalle. Desplazamiento controlado con paralaje entre primer plano, sujeto y fondo; mantener el horizonte estable, evitar giros bruscos y terminar en un encuadre que permita enlazar con el plano siguiente.",
       "camera_target": "El hormigón romano que podía cerrar sus propias grietas",
-      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos. Conservar el mismo diseño de los modelos, paleta de materiales, escala relativa y dirección de iluminación entre planos; los objetos no deben cambiar de forma, desaparecer ni teletransportarse durante los cortes.",
       "characters": [],
       "props": [
-        "material principal",
-        "partículas ambientales",
-        "elemento de escala",
-        "detalle de superficie"
+        {
+          "name": "Herramientas de albañil",
+          "description": "Herramientas de albañil modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Ánfora romana",
+          "description": "Ánfora romana modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Horno de obra",
+          "description": "Horno de obra modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Andamio de madera",
+          "description": "Andamio de madera modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        }
       ],
       "objects": [
-        "sujeto principal",
-        "entorno reconocible",
-        "elemento secundario",
-        "detalle en profundidad"
+        {
+          "name": "Herramientas de albañil",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Ánfora romana",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Horno de obra",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Andamio de madera",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        }
       ],
-      "overlay": "Pista romana",
+      "overlay": "Resistencia milenaria",
       "narration_excerpt": "Después puede volver a precipitar y rellenar poros o fisuras muy pequeñas.",
       "entities": [
         {
@@ -1862,26 +2142,54 @@
     },
     {
       "scene_type": "history",
-      "visual": "Plano 11. El equipo también fabricó mezclas modernas inspiradas en aquella técnica antigua. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (ceniza volcánica, cubo de agua, andamio de madera, fragmentos de cal viva). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "visual": "Plano 11. El equipo también fabricó mezclas modernas inspiradas en aquella técnica antigua. La composición muestra el sujeto principal con anatomía, escala y materiales consistentes, y cuatro elementos ambientales construidos como modelos 3D separados: Ceniza volcánica, Cubo de agua, Andamio de madera, Fragmentos de cal viva. En primer término se aprecian detalles de superficie y partículas; en el plano medio ocurre la acción científica o histórica; al fondo se mantiene un entorno reconocible que aporta profundidad y contexto. La cámara vertical 9:16 realiza un movimiento suave, con un encuadre distinto en cada plano y un acercamiento cuando la narración explica un detalle. La iluminación es direccional y volumétrica, con contraste suficiente para separar todas las siluetas. Cada objeto conserva su posición física y su proporción respecto al protagonista. Reservar el tercio inferior para subtítulos blancos. No añadir texto, rótulos, logotipos ni marcas de agua.",
       "setting": "Obra romana con muro de mortero, andamio, herramientas, ánforas, cal y ceniza volcánica; luz cálida lateral.",
-      "action": "Acción ilustrativa: El equipo también fabricó mezclas modernas inspiradas en aquella técnica antigua. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
-      "camera": "órbita corta alrededor del sujeto",
+      "action": "La acción representa con claridad el fragmento narrado: El equipo también fabricó mezclas modernas inspiradas en aquella técnica antigua. El sujeto principal ejecuta un movimiento reconocible con inicio, desarrollo y final; los elementos secundarios responden de forma limitada y coherente con su naturaleza. Las piezas rígidas permanecen apoyadas y las partículas o elementos ligeros se mueven suavemente.",
+      "camera": "órbita corta alrededor del sujeto. Desplazamiento controlado con paralaje entre primer plano, sujeto y fondo; mantener el horizonte estable, evitar giros bruscos y terminar en un encuadre que permita enlazar con el plano siguiente.",
       "camera_target": "El hormigón romano que podía cerrar sus propias grietas",
-      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos. Conservar el mismo diseño de los modelos, paleta de materiales, escala relativa y dirección de iluminación entre planos; los objetos no deben cambiar de forma, desaparecer ni teletransportarse durante los cortes.",
       "characters": [],
       "props": [
-        "material principal",
-        "partículas ambientales",
-        "elemento de escala",
-        "detalle de superficie"
+        {
+          "name": "Ceniza volcánica",
+          "description": "Ceniza volcánica modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Cubo de agua",
+          "description": "Cubo de agua modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Andamio de madera",
+          "description": "Andamio de madera modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Fragmentos de cal viva",
+          "description": "Fragmentos de cal viva modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        }
       ],
       "objects": [
-        "sujeto principal",
-        "entorno reconocible",
-        "elemento secundario",
-        "detalle en profundidad"
+        {
+          "name": "Ceniza volcánica",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Cubo de agua",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Andamio de madera",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Fragmentos de cal viva",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        }
       ],
-      "overlay": "Pista romana",
+      "overlay": "Un material vivo",
       "narration_excerpt": "El equipo también fabricó mezclas modernas inspiradas en aquella técnica antigua.",
       "entities": [
         {
@@ -2046,26 +2354,54 @@
     },
     {
       "scene_type": "history",
-      "visual": "Plano 12. En sus pruebas, algunas grietas inducidas de hasta medio milímetro llegaron a sellarse. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (ánfora romana, horno de obra, fragmentos de cal viva, herramientas de albañil). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "visual": "Plano 12. En sus pruebas, algunas grietas inducidas de hasta medio milímetro llegaron a sellarse. La composición muestra el sujeto principal con anatomía, escala y materiales consistentes, y cuatro elementos ambientales construidos como modelos 3D separados: Ánfora romana, Horno de obra, Fragmentos de cal viva, Herramientas de albañil. En primer término se aprecian detalles de superficie y partículas; en el plano medio ocurre la acción científica o histórica; al fondo se mantiene un entorno reconocible que aporta profundidad y contexto. La cámara vertical 9:16 realiza un movimiento suave, con un encuadre distinto en cada plano y un acercamiento cuando la narración explica un detalle. La iluminación es direccional y volumétrica, con contraste suficiente para separar todas las siluetas. Cada objeto conserva su posición física y su proporción respecto al protagonista. Reservar el tercio inferior para subtítulos blancos. No añadir texto, rótulos, logotipos ni marcas de agua.",
       "setting": "Obra romana con muro de mortero, andamio, herramientas, ánforas, cal y ceniza volcánica; luz cálida lateral.",
-      "action": "Acción ilustrativa: En sus pruebas, algunas grietas inducidas de hasta medio milímetro llegaron a sellarse. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
-      "camera": "retroceso para revelar el entorno",
+      "action": "La acción representa con claridad el fragmento narrado: En sus pruebas, algunas grietas inducidas de hasta medio milímetro llegaron a sellarse. El sujeto principal ejecuta un movimiento reconocible con inicio, desarrollo y final; los elementos secundarios responden de forma limitada y coherente con su naturaleza. Las piezas rígidas permanecen apoyadas y las partículas o elementos ligeros se mueven suavemente.",
+      "camera": "retroceso para revelar el entorno. Desplazamiento controlado con paralaje entre primer plano, sujeto y fondo; mantener el horizonte estable, evitar giros bruscos y terminar en un encuadre que permita enlazar con el plano siguiente.",
       "camera_target": "El hormigón romano que podía cerrar sus propias grietas",
-      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos. Conservar el mismo diseño de los modelos, paleta de materiales, escala relativa y dirección de iluminación entre planos; los objetos no deben cambiar de forma, desaparecer ni teletransportarse durante los cortes.",
       "characters": [],
       "props": [
-        "material principal",
-        "partículas ambientales",
-        "elemento de escala",
-        "detalle de superficie"
+        {
+          "name": "Ánfora romana",
+          "description": "Ánfora romana modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Horno de obra",
+          "description": "Horno de obra modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Fragmentos de cal viva",
+          "description": "Fragmentos de cal viva modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Herramientas de albañil",
+          "description": "Herramientas de albañil modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        }
       ],
       "objects": [
-        "sujeto principal",
-        "entorno reconocible",
-        "elemento secundario",
-        "detalle en profundidad"
+        {
+          "name": "Ánfora romana",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Horno de obra",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Fragmentos de cal viva",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Herramientas de albañil",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        }
       ],
-      "overlay": "Pista romana",
+      "overlay": "La pista blanca",
       "narration_excerpt": "En sus pruebas, algunas grietas inducidas de hasta medio milímetro llegaron a sellarse.",
       "entities": [
         {
@@ -2230,26 +2566,54 @@
     },
     {
       "scene_type": "history",
-      "visual": "Plano 13. Eso no significa que cualquier muro romano se repare solo ni que conozcamos toda la receta. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (cubo de agua, andamio de madera, herramientas de albañil, ceniza volcánica). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "visual": "Plano 13. Eso no significa que cualquier muro romano se repare solo ni que conozcamos toda la receta. La composición muestra el sujeto principal con anatomía, escala y materiales consistentes, y cuatro elementos ambientales construidos como modelos 3D separados: Cubo de agua, Andamio de madera, Herramientas de albañil, Ceniza volcánica. En primer término se aprecian detalles de superficie y partículas; en el plano medio ocurre la acción científica o histórica; al fondo se mantiene un entorno reconocible que aporta profundidad y contexto. La cámara vertical 9:16 realiza un movimiento suave, con un encuadre distinto en cada plano y un acercamiento cuando la narración explica un detalle. La iluminación es direccional y volumétrica, con contraste suficiente para separar todas las siluetas. Cada objeto conserva su posición física y su proporción respecto al protagonista. Reservar el tercio inferior para subtítulos blancos. No añadir texto, rótulos, logotipos ni marcas de agua.",
       "setting": "Obra romana con muro de mortero, andamio, herramientas, ánforas, cal y ceniza volcánica; luz cálida lateral.",
-      "action": "Acción ilustrativa: Eso no significa que cualquier muro romano se repare solo ni que conozcamos toda la receta. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
-      "camera": "travelling lateral de contexto",
+      "action": "La acción representa con claridad el fragmento narrado: Eso no significa que cualquier muro romano se repare solo ni que conozcamos toda la receta. El sujeto principal ejecuta un movimiento reconocible con inicio, desarrollo y final; los elementos secundarios responden de forma limitada y coherente con su naturaleza. Las piezas rígidas permanecen apoyadas y las partículas o elementos ligeros se mueven suavemente.",
+      "camera": "travelling lateral de contexto. Desplazamiento controlado con paralaje entre primer plano, sujeto y fondo; mantener el horizonte estable, evitar giros bruscos y terminar en un encuadre que permita enlazar con el plano siguiente.",
       "camera_target": "El hormigón romano que podía cerrar sus propias grietas",
-      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos. Conservar el mismo diseño de los modelos, paleta de materiales, escala relativa y dirección de iluminación entre planos; los objetos no deben cambiar de forma, desaparecer ni teletransportarse durante los cortes.",
       "characters": [],
       "props": [
-        "material principal",
-        "partículas ambientales",
-        "elemento de escala",
-        "detalle de superficie"
+        {
+          "name": "Cubo de agua",
+          "description": "Cubo de agua modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Andamio de madera",
+          "description": "Andamio de madera modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Herramientas de albañil",
+          "description": "Herramientas de albañil modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Ceniza volcánica",
+          "description": "Ceniza volcánica modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        }
       ],
       "objects": [
-        "sujeto principal",
-        "entorno reconocible",
-        "elemento secundario",
-        "detalle en profundidad"
+        {
+          "name": "Cubo de agua",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Andamio de madera",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Herramientas de albañil",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Ceniza volcánica",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        }
       ],
-      "overlay": "Pista romana",
+      "overlay": "Reparación natural",
       "narration_excerpt": "Eso no significa que cualquier muro romano se repare solo ni que conozcamos toda la receta.",
       "entities": [
         {
@@ -2414,26 +2778,54 @@
     },
     {
       "scene_type": "history",
-      "visual": "Plano 14. Pero revela que una pista diminuta puede explicar parte de una durabilidad extraordinaria. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (horno de obra, fragmentos de cal viva, ceniza volcánica, ánfora romana). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "visual": "Plano 14. Pero revela que una pista diminuta puede explicar parte de una durabilidad extraordinaria. La composición muestra el sujeto principal con anatomía, escala y materiales consistentes, y cuatro elementos ambientales construidos como modelos 3D separados: Horno de obra, Fragmentos de cal viva, Ceniza volcánica, Ánfora romana. En primer término se aprecian detalles de superficie y partículas; en el plano medio ocurre la acción científica o histórica; al fondo se mantiene un entorno reconocible que aporta profundidad y contexto. La cámara vertical 9:16 realiza un movimiento suave, con un encuadre distinto en cada plano y un acercamiento cuando la narración explica un detalle. La iluminación es direccional y volumétrica, con contraste suficiente para separar todas las siluetas. Cada objeto conserva su posición física y su proporción respecto al protagonista. Reservar el tercio inferior para subtítulos blancos. No añadir texto, rótulos, logotipos ni marcas de agua.",
       "setting": "Obra romana con muro de mortero, andamio, herramientas, ánforas, cal y ceniza volcánica; luz cálida lateral.",
-      "action": "Acción ilustrativa: Pero revela que una pista diminuta puede explicar parte de una durabilidad extraordinaria. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
-      "camera": "acercamiento macro al detalle",
+      "action": "La acción representa con claridad el fragmento narrado: Pero revela que una pista diminuta puede explicar parte de una durabilidad extraordinaria. El sujeto principal ejecuta un movimiento reconocible con inicio, desarrollo y final; los elementos secundarios responden de forma limitada y coherente con su naturaleza. Las piezas rígidas permanecen apoyadas y las partículas o elementos ligeros se mueven suavemente.",
+      "camera": "acercamiento macro al detalle. Desplazamiento controlado con paralaje entre primer plano, sujeto y fondo; mantener el horizonte estable, evitar giros bruscos y terminar en un encuadre que permita enlazar con el plano siguiente.",
       "camera_target": "El hormigón romano que podía cerrar sus propias grietas",
-      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos. Conservar el mismo diseño de los modelos, paleta de materiales, escala relativa y dirección de iluminación entre planos; los objetos no deben cambiar de forma, desaparecer ni teletransportarse durante los cortes.",
       "characters": [],
       "props": [
-        "material principal",
-        "partículas ambientales",
-        "elemento de escala",
-        "detalle de superficie"
+        {
+          "name": "Horno de obra",
+          "description": "Horno de obra modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Fragmentos de cal viva",
+          "description": "Fragmentos de cal viva modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Ceniza volcánica",
+          "description": "Ceniza volcánica modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Ánfora romana",
+          "description": "Ánfora romana modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        }
       ],
       "objects": [
-        "sujeto principal",
-        "entorno reconocible",
-        "elemento secundario",
-        "detalle en profundidad"
+        {
+          "name": "Horno de obra",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Fragmentos de cal viva",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Ceniza volcánica",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Ánfora romana",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        }
       ],
-      "overlay": "Pista romana",
+      "overlay": "Ingenio romano",
       "narration_excerpt": "Pero revela que una pista diminuta puede explicar parte de una durabilidad extraordinaria.",
       "entities": [
         {
