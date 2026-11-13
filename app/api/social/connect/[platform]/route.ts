@@ -4,7 +4,7 @@ import { callbackUrl, signState, SocialPlatform } from '@/lib/social-oauth';
 
 export const dynamic = 'force-dynamic';
 
-export async function GET(request: NextRequest, context: { params: Promise<{ platform: string }> }) {
+export async function POST(request: NextRequest, context: { params: Promise<{ platform: string }> }) {
   try {
     const { platform } = await context.params;
     if (platform !== 'youtube' && platform !== 'tiktok') return NextResponse.json({ error: 'Plataforma no válida.' }, { status: 404 });
@@ -28,7 +28,7 @@ export async function GET(request: NextRequest, context: { params: Promise<{ pla
       if (!clientKey) return NextResponse.json({ error: 'Falta TIKTOK_CLIENT_KEY en Vercel.' }, { status: 503 });
       target.search = new URLSearchParams({ client_key: clientKey, redirect_uri: redirect, response_type: 'code', scope: 'user.info.basic,video.publish', state }).toString();
     }
-    return NextResponse.redirect(target);
+    return NextResponse.json({ url: target.toString() });
   } catch (error) {
     return NextResponse.json({ error: error instanceof Error ? error.message : 'No se pudo iniciar la conexión.' }, { status: 500 });
   }
