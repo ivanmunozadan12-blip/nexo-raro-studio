@@ -1,12 +1,19 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import * as THREE from 'three';
-import { seededRandom, inferEntityType, createProceduralEntity, directScene, animateEntities } from './procedural-engine.js';
+import { seededRandom, inferEntityType, detectEnvironment, createProceduralEntity, directScene, animateEntities } from './procedural-engine.js';
 
 test('the seeded generator is repeatable', () => {
   const a = seededRandom('same-entity');
   const b = seededRandom('same-entity');
   assert.deepEqual([a(), a(), a(), a()], [b(), b(), b(), b()]);
+});
+
+test('environment detection does not confuse ordinary words with sea keywords', () => {
+  assert.equal(detectEnvironment('Jaguar camina por la selva y una exploradora lo observa', 'landscape').water, false);
+  assert.equal(detectEnvironment('Castillo medieval en una colina con patio exterior', 'history').water, false);
+  assert.equal(detectEnvironment('Tres barcos navegan por el mar abierto', 'ocean').water, true);
+  assert.equal(detectEnvironment('Un cohete despega hacia el espacio', 'science').space, true);
 });
 
 test('semantic names resolve to distinct model families', () => {
