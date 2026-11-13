@@ -20,9 +20,9 @@ jobs:
       - id: prepare
         name: Leer fecha y horarios
         run: |
-          MATRIX=$(jq -c '[.slots | to_entries[] | {slot: .value, queue_index: (.key | tostring), file: .files[.key]}]' .github/dispatch/three-new-videos.json)
+          MATRIX=$(jq -c '. as $root | [$root.slots | to_entries[] | {slot: .value, queue_index: (.key | tostring), file: $root.files[.key]}]' .github/dispatch/three-new-videos.json)
           test "$(echo "$MATRIX" | jq 'length')" -eq 3
-echo "$MATRIX" | jq -e 'all(.[]; (.file | type == "string") and (.file | endswith(".json")))' >/dev/null
+          echo "$MATRIX" | jq -e 'all(.[]; (.file | type == "string") and (.file | endswith(".json")))' >/dev/null
           echo "matrix=$MATRIX" >> "$GITHUB_OUTPUT"
           echo "date=$(jq -r '.production_date' .github/dispatch/three-new-videos.json)" >> "$GITHUB_OUTPUT"
           echo "Se producirán tres vídeos: $MATRIX"
