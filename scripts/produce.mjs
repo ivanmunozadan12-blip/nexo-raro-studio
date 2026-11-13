@@ -394,12 +394,17 @@ for (const [index, scene] of script.scenes.entries()) {
   const sceneType = String(scene.scene_type || '').toLowerCase();
   const validSceneTypes = new Set(['landscape','architecture','science','ocean','space','history','object','abstract']);
   if (!validSceneTypes.has(sceneType)) throw new Error('La escena ' + (index + 1) + ' tiene un scene_type no admitido: ' + sceneType + '.');
-  if (!scene.visual || String(scene.visual).trim().length < 450 || !scene.setting || String(scene.setting).trim().length < 90 || !scene.action || String(scene.action).trim().length < 100 || !scene.camera || String(scene.camera).trim().length < 55 || !scene.continuity || String(scene.continuity).trim().length < 70 || !Array.isArray(scene.characters) || !Array.isArray(scene.props) || scene.props.length < 3 || scene.props.length > 8 || !Array.isArray(scene.objects) || scene.objects.length < 3 || scene.objects.length > 8 || !scene.overlay || String(scene.overlay).trim().split(/\\s+/).length > 4 || !scene.narration_excerpt) throw new Error('La escena ' + (index + 1) + ' no alcanza el estándar cinematográfico: hacen falta lugar, acción desarrollada, cámara, continuidad y objetos concretos.');
+  if (!scene.visual || String(scene.visual).trim().length < 450 || !scene.setting || String(scene.setting).trim().length < 90 || !scene.action || String(scene.action).trim().length < 100 || !scene.camera || String(scene.camera).trim().length < 55 || !scene.continuity || String(scene.continuity).trim().length < 70 || !Array.isArray(scene.characters) || !Array.isArray(scene.props) || scene.props.length < 3 || scene.props.length > 8 || !Array.isArray(scene.objects) || scene.objects.length < 3 || scene.objects.length > 8 || !scene.overlay || String(scene.overlay).trim().split(/\s+/).length > 4 || !scene.narration_excerpt) throw new Error('La escena ' + (index + 1) + ' no alcanza el estándar cinematográfico: hacen falta lugar, acción desarrollada, cámara, continuidad y objetos concretos.');
   const excerptWords = countWords(scene.narration_excerpt);
   if (excerptWords < 8 || !script.narration.includes(scene.narration_excerpt)) throw new Error('El fragmento de narración de la escena ' + (index + 1) + ' debe contener al menos 8 palabras y coincidir literalmente con la voz.');
   for (const character of scene.characters) if (!character.role || !character.appearance || String(character.appearance).length < 35 || !character.action || String(character.action).length < 25) throw new Error('Personaje incompleto en escena ' + (index + 1) + ': cada personaje necesita identidad, aspecto y acción propios.');
 }
-for (const source of script.sources) if (!source.url || !/^https:\/\//i.test(source.url)) throw new Error('Una fuente no contiene una URL HTTPS válida.');
+const sourceHosts = new Set();
+for (const source of script.sources) {
+  if (!source.title || !source.url || !/^https:\/\//i.test(source.url)) throw new Error('Una fuente no contiene título y URL HTTPS válidos.');
+  try { sourceHosts.add(new URL(source.url).hostname.replace(/^www\./i, '').toLowerCase()); } catch { throw new Error('URL de fuente inválida: ' + source.url); }
+}
+if (sourceHosts.size < 3) throw new Error('La historia necesita al menos 3 dominios de fuentes independientes; recibidos: ' + sourceHosts.size + '.');
 
 let jobId = null;
 let storagePath = null;
