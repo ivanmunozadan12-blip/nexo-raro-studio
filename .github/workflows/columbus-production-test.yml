@@ -1,0 +1,59 @@
+name: Behind del Mundo · prueba de producción Colón
+
+on:
+  push:
+    paths:
+      - "scripts/run-columbus-production-test.txt"
+
+concurrency:
+  group: columbus-production-test
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  produce-columbus-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      TZ: Europe/Madrid
+    steps:
+      - name: Descargar proyecto
+        uses: actions/checkout@v4
+      - name: Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Instalar FFmpeg y dependencias
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+          npm install
+          python -m pip install --upgrade pip edge-tts
+      - name: Comprobar configuración
+        run: |
+          test -n "$SUPABASE_URL"
+          test -n "$SUPABASE_SERVICE_ROLE_KEY"
+      - name: Generar vídeo de prueba importado (sin Groq)
+        env:
+          MANUAL_SLOT: "20:30"
+          MANUAL_DATE: "2026-11-13"
+          RESET_PRODUCTION: "false"
+          MANUAL_SCRIPT_ID: "f3b2e8c1-9a4d-4e73-8f2c-1492a1b30001"
+          MANUAL_QUEUE_INDEX: "0"
+        run: npm run produce
+      - name: Guardar MP4 de prueba
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: behind-del-mundo-columbus-full-test
+          path: renders/*.mp4
+          if-no-files-found: error
+          retention-days: 14
