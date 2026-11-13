@@ -4,7 +4,7 @@ import argparse, datetime, json, os, pathlib, time, urllib.parse, urllib.request
 
 API=os.environ.get("SUPABASE_URL","").rstrip("/")
 KEY=os.environ.get("SUPABASE_SERVICE_ROLE_KEY","")
-HEAD={"apikey":KEY,"Authorization":"Bearer "+KEY,"Content-Type":"application/json","Prefer":"return=representation"}
+HEAD={"apikey":KEY,**({"Authorization":"Bearer "+KEY} if KEY and not KEY.startswith("sb_secret_") else {}),"Content-Type":"application/json","Prefer":"return=representation"}
 
 def http(url, method="GET", body=None, headers=None, timeout=120):
     data=body if isinstance(body,(bytes,bytearray)) else (json.dumps(body).encode() if body is not None else None)
