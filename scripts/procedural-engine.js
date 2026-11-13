@@ -433,9 +433,9 @@ function createVehicle(spec, rng) {
       window.position.set(0, y, .435);g.add(window);
       cylinder(g, [0, y, .43], .15, .15, .025, '#aeb8ba', 20).rotation.x = Math.PI / 2;
     }
-    cone(g, [0, -.25, 0], .34, .9, '#f18a37', 16);
-    cone(g, [0, -.55, 0], .2, .7, '#f7d36b', 16);
-    g.userData.rig = { motion: 'launch' };
+    const flameOuter = cone(g, [0, -.25, 0], .34, .9, '#f18a37', 16);
+    const flameInner = cone(g, [0, -.55, 0], .2, .7, '#f7d36b', 16);
+    g.userData.rig = { motion: 'launch', flames: [flameOuter, flameInner] };
   } else if (/avion|helicoptero/.test(name)) {
     ellipsoid(g, [0, 1.35, 0], [.42, .38, 1.9], bodyColor, 4);
     ellipsoid(g, [0, 1.48, 1.15], [.28, .23, .42], '#8ab1c2', 3);
@@ -489,9 +489,9 @@ function createLab(spec, rng) {
 function createCelestial(spec, rng) {
   const g = new THREE.Group();
   const name = clean(spec.name || spec.description || '');
-  const color = spec.color || (/luna/.test(name) ? '#a9a9a4' : /sol|estrella/.test(name) ? '#f2b94d' : '#b16c54');
+  const color = spec.color || (/luna/.test(name) ? '#a9a9a4' : /tierra/.test(name) ? '#347ca8' : /sol|estrella/.test(name) ? '#f2b94d' : '#b16c54');
   ellipsoid(g, [0, 1.6, 0], [1.35, 1.35, 1.35], color, 4);
-  if (/planeta|tierra|saturno/.test(name)) {
+  if (/saturno/.test(name)) {
     const ring = new THREE.Mesh(new THREE.TorusGeometry(1.9, .12, 8, 64), material('#c6b18b'));
     ring.rotation.x = Math.PI / 2.7; ring.position.y = 1.6; g.add(ring);
   }
@@ -620,7 +620,10 @@ export function animateEntities(entities, time = 0) {
     if (rig.fins) rig.fins.forEach((fin, i) => { fin.rotation.y = .18 * Math.sin(time * 3 + i); });
     if (rig.wheels) rig.wheels.forEach(wheel => { wheel.rotation.x = time * 1.2; });
     if (rig.flag) rig.flag.rotation.y = .15 * Math.sin(time * 3);
+    if (rig.flames) rig.flames.forEach((flame, i) => { flame.scale.y = .75 + .3 * Math.sin(time * 12 + i); });
     if (entity.userData.entity?.type === 'ship') entity.rotation.z = .018 * Math.sin(time * 1.4);
-    if (/volar|nadar|flotar|despegar|ascender/.test(action)) entity.position.y = base.y + .16 * Math.sin(time * 2.2);
+    if (entity.userData.entity?.type === 'tree') entity.rotation.z = .012 * Math.sin(time * .7 + entities.indexOf(entity));
+    if (/despegar|ascender|launch/.test(action)) entity.position.y = base.y + Math.min(1.8, time * .3);
+    else if (/volar|nadar|flotar/.test(action)) entity.position.y = base.y + .16 * Math.sin(time * 2.2);
   }
 }
