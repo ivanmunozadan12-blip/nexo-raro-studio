@@ -1,0 +1,38 @@
+name: BDM 3D Studio v2 · smoke render
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "render3d/**"
+      - ".github/workflows/3d-studio-v2-smoke.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Blender and FFmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y blender ffmpeg
+          blender --version | head -n 2
+          ffmpeg -version | head -n 1
+      - name: Render general-purpose demo
+        run: |
+          mkdir -p renders
+          blender --background --python render3d/blender_renderer.py -- render3d/demo-project.json renders/studio-v2-demo.mp4
+      - name: Verify output
+        run: |
+          test -s renders/studio-v2-demo.mp4
+          ffprobe -v error -show_entries stream=width,height,codec_name -show_entries format=duration -of json renders/studio-v2-demo.mp4
+          ffmpeg -v error -i renders/studio-v2-demo.mp4 -vf "blackdetect=d=0.5:pix_th=0.98" -an -f null -
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bdm-3d-studio-v2-smoke
+          path: renders/studio-v2-demo.mp4
+          retention-days: 14
