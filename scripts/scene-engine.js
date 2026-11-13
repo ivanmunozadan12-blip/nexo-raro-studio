@@ -49,7 +49,7 @@ function hall(g){
  for(let x of [-5,5]){cyl(g,x,.55,-1,.22,.25,1.1,'#74563c');cyl(g,x,1.18,-1,.45,.45,.12,'#a88a62');}
 }
 function ship(g,x,z,index=0){
- const root=new THREE.Group();root.position.set(x,0,z);root.userData.baseX=x;root.userData.baseZ=z;g.add(root);
+ const root=new THREE.Group();root.position.set(x,0,z);root.userData.baseX=x;root.userData.baseZ=z;if(index===0)root.scale.set(1.18,1.08,1.18);g.add(root);
  const wood=MAT('#68442d'),dark=MAT('#493426'),sail=MAT(index===1?'#eee5cd':'#dfd2b4'),rope=MAT('#a88a5e');
  // tapered hull mesh, bow at +z, stern at -z
  const verts=[],inds=[];const sections=[[-2.9,.12,.08],[-2.2,.65,.02],[-1,.82,-.08],[1,.78,-.1],[2.2,.57,.05],[2.9,.08,.32]];
@@ -105,7 +105,7 @@ function buildScene(canvas,d){
  const scene=new THREE.Scene();scene.background=new THREE.Color(d.index===3?'#6c91a8':'#9ac9df');scene.fog=new THREE.Fog(scene.background,24,65);
  scene.add(new THREE.HemisphereLight('#fff4df','#596a68',2.05));const sun=new THREE.DirectionalLight('#ffe4b7',2.2);sun.position.set(-9,15,8);scene.add(sun);
  const world=new THREE.Group();scene.add(world);const people=[],ships=[];let animateWater=()=>{};
- const idx=d.index,words=(d.title+' '+d.visual+' '+d.setting+' '+d.action+' '+d.props.join(' ')).toLowerCase();
+ const idx=d.index,words=(d.title+' '+d.visual+' '+d.setting+' '+d.action+' '+(d.props||[]).join(' ')).toLowerCase();
  if(idx===0){scene.background.set('#b9a78d');scene.fog.color.set('#b9a78d');hall(world);people.push(person(world,-2.25,1.1,'columbus',1.05),person(world,-.1,-4.3,'king',1.12),person(world,2.15,-4.2,'queen',1.12));person(world,-4,-1.2,'crew',.9);person(world,4,-1.2,'crew',.9);}
  else if(idx===1){const fleet=harbor(world);ships.push(...fleet);for(let i=0;i<12;i++)people.push(person(world,-10+(i%6)*4.1,-1.4+Math.floor(i/6)*1.3,'crew',.78));}
  else if(idx===2){const fleet=harbor(world);ships.push(...fleet);world.children.filter(o=>o!==fleet[0]&&o!==fleet[1]&&o!==fleet[2]).forEach(o=>{if(o.position.z<-7)o.visible=false;});}
@@ -125,5 +125,21 @@ function buildScene(canvas,d){
  people.forEach((p,i)=>{p.rotation.y=.08*Math.sin(local*1.2+i);p.position.y=.025*Math.sin(local*2+i);});
  animateWater(local);renderer.render(scene,camera);};
 }
-const nodes=[...document.querySelectorAll('.world-canvas')];const renderers=nodes.map(node=>{const data=JSON.parse(node.dataset.scene);return buildScene(node,data);});
+
+function buildGenericScene(canvas,d){
+ const renderer=new THREE.WebGLRenderer({canvas,antialias:true});renderer.setPixelRatio(1);renderer.setSize(1080,1920,false);renderer.outputColorSpace=THREE.SRGBColorSpace;
+ const scene=new THREE.Scene(),world=new THREE.Group();scene.add(world);scene.background=new THREE.Color('#9ac9df');scene.fog=new THREE.Fog('#9ac9df',24,65);scene.add(new THREE.HemisphereLight('#fff', '#65766c',2));const sun=new THREE.DirectionalLight('#fff0ce',2);sun.position.set(-8,14,9);scene.add(sun);
+ const words=(d.title+' '+d.visual+' '+d.setting+' '+d.action+' '+(d.props||[]).join(' ')).toLowerCase(),water=/mar|oceano|agua|rio|barco|ballena|coral/.test(words)||d.type==='ocean',space=/espacio|planeta|luna|estrella|orbita|galax/.test(words)||d.type==='space',historic=d.type==='history'||/antigu|romano|egipto|medieval|castillo|imperio/.test(words),forest=/bosque|selva|arbol|jungla/.test(words),science=d.type==='science'||/laboratorio|experimento|motor|maquina|ciencia/.test(words);
+ const groundColor=water?'#277f9e':space?'#263b6a':forest?'#557b4c':historic?'#9a8b75':science?'#647b83':'#9b9a83';box(world,0,-.5,-3,28,1,30,groundColor);
+ if(water){const waterMesh=new THREE.Mesh(new THREE.PlaneGeometry(30,30,40,40),MAT('#328ba8'));waterMesh.rotation.x=-Math.PI/2;waterMesh.position.y=.04;world.add(waterMesh);}
+ if(space){scene.background.set('#17294d');for(let i=0;i<100;i++)sphere(world,(Math.sin(i*9)*.5)*24,Math.cos(i*3)*10,-10,.035,.035,.035,'#fff',0);sphere(world,0,2,-7,3,3,3,'#d69b59',2);}
+ if(forest){for(let i=0;i<20;i++){const x=(i%5-2)*4,z=-10+Math.floor(i/5)*4;rod(world,[x,0,z],[x,.9,z],.18,'#745036');sphere(world,x,1.6,z,1,1.2,1,'#4e965b',1);}}
+ if(historic){for(let i=0;i<4;i++){box(world,(i-1.5)*5,1.8,-7,3.4,3.6,2.5,'#c5b391');for(let x of [-1,1])box(world,(i-1.5)*5+x,2.2,-5.7,.45,1.4,.1,'#4a5360');}}
+ if(science){box(world,0,1,-6,8,2.2,3,'#a5b6b8');for(let i=0;i<4;i++){cyl(world,-3+i*2,.6,-4,.25,.25,1.1,['#4e9ab4','#b77a54','#6b9a71','#a38ac3'][i],10);}}
+ (d.characters||[]).slice(0,6).forEach((c,i)=>person(world,(i-2.5)*1.8,1,String(c.role||'crew').toLowerCase().includes('rey')?'king':'crew',.9));
+ (d.props||[]).slice(0,8).forEach((p,i)=>{const n=String(p).toLowerCase(),x=(i-3.5)*2.1;if(/barco|carabela|navio/.test(n))ship(world,x,-4,i%3);else if(/arbol|palmera/.test(n)){rod(world,[x,0,-3],[x,2,-3],.14,'#765033');sphere(world,x,2.6,-3,.9,1,.9,'#4c985b',1);}else if(/edificio|casa|templo|castillo/.test(n))box(world,x,1.5,-5,1.8,3,1.8,'#c7b18e');else if(/persona|soldado|marinero/.test(n))person(world,x,0,'crew',.9);else sphere(world,x,.8,-2,.65,.8,.65,['#c89b64','#5b9fb0','#a85e54','#7c9c65'][i%4],1);});
+ const camera=new THREE.PerspectiveCamera(42,1080/1920,.1,120);const duration=Math.max(1,Number(d.duration)||8);
+ return t=>{const p=Math.min(1,Math.max(0,(t-Number(d.start||0))/duration));camera.position.set(8-5*p,5+Math.sin(p*Math.PI),15-4*p);camera.lookAt(0,1,-4);renderer.render(scene,camera);};
+}
+const nodes=[...document.querySelectorAll('.world-canvas')];const renderers=nodes.map(node=>{const data=JSON.parse(node.dataset.scene);if(data.storyId!=='columbus-1492')return buildGenericScene(node,data);return buildScene(node,data);});
 const timeline=window.__timelines?.['behind-del-mundo'];if(timeline){timeline.eventCallback('onUpdate',()=>{const t=timeline.time();renderers.forEach(render=>render(t));});renderers.forEach(render=>render(0));}
