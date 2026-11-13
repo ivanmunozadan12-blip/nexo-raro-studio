@@ -582,6 +582,76 @@ def draw_scene(im, scene, local_t, accent):
     if elements: draw_visual_elements(d,elements,local_t,accent)
     im.alpha_composite(overlay)
 
+def draw_enzo(im,t,accent):
+    """Recurring explorer mascot. Fixed silhouette, outfit and palette across every episode."""
+    layer=Image.new("RGBA",im.size,(0,0,0,0))
+    d=ImageDraw.Draw(layer,"RGBA")
+    x,y=478,748
+    s=.66
+    bob=2*math.sin(t*2.2)
+    y+=bob
+    def ellipse(box,fill,outline=(20,27,31,255),width=2):
+        d.ellipse((int((x+box[0]*s)*S),int((y+box[1]*s)*S),int((x+box[2]*s)*S),int((y+box[3]*s)*S)),fill=fill,outline=outline,width=max(1,int(width*S)))
+    def poly(points,fill,outline=(20,27,31,255),width=2):
+        d.polygon([(int((x+px*s)*S),int((y+py*s)*S)) for px,py in points],fill=fill)
+        if outline:
+            d.line([(int((x+px*s)*S),int((y+py*s)*S)) for px,py in points+[points[0]]],fill=outline,width=max(1,int(width*S)),joint="curve")
+    def line(points,fill,width=3):
+        d.line([(int((x+px*s)*S),int((y+py*s)*S)) for px,py in points],fill=fill,width=max(1,int(width*S)),joint="curve")
+    # Soft grounding shadow.
+    ellipse((-43,132,43,145),(0,0,0,105),outline=None)
+    # Backpack, always on the same shoulder.
+    poly([(-31,-35),(-49,-28),(-48,35),(-31,48),(-20,30),(-20,-20)],(119,91,62,255))
+    line([(-42,-16),(-35,-4),(-39,25)],(218,184,126,255),3)
+    # Neck and face.
+    poly([(-13,-52),(13,-52),(14,-35),(-13,-35)],(190,129,91,255))
+    ellipse((-28,-111,29,-48),(224,169,126,255),outline=(54,39,32,255),width=2)
+    # Hair fringe and side locks.
+    poly([(-27,-88),(-33,-105),(-21,-119),(-7,-115),(1,-124),(19,-116),(29,-99),(23,-87),(13,-99),(3,-91),(-7,-101),(-18,-91)],(91,57,39,255))
+    poly([(-27,-91),(-34,-77),(-28,-57),(-20,-65)],(91,57,39,255))
+    # Ears and expressive eyes.
+    ellipse((-33,-88,-25,-72),(224,169,126,255),outline=(54,39,32,255),width=1)
+    ellipse((25,-88,33,-72),(224,169,126,255),outline=(54,39,32,255),width=1)
+    ellipse((-16,-85,-5,-69),(255,255,245,255),outline=(65,47,37,255),width=1)
+    ellipse((6,-85,17,-69),(255,255,245,255),outline=(65,47,37,255),width=1)
+    ellipse((-11,-82,-5,-72),(91,57,39,255),outline=None)
+    ellipse((10,-82,16,-72),(91,57,39,255),outline=None)
+    ellipse((-9,-81,-6,-78),(255,255,255,255),outline=None)
+    ellipse((12,-81,15,-78),(255,255,255,255),outline=None)
+    line([(-16,-91),(-7,-94)],(67,43,32,255),2)
+    line([(7,-94),(17,-91)],(67,43,32,255),2)
+    line([(-5,-58),(3,-56),(10,-59)],(117,55,49,255),2)
+    # Official explorer hat: broad brim, crown and band.
+    poly([(-39,-112),(-32,-132),(-17,-144),(13,-143),(29,-127),(35,-111),(22,-106),(-24,-106)],(188,153,101,255))
+    d.rounded_rectangle(((x-42*s)*S,(y-116*s)*S,(x+43*s)*S,(y-106*s)*S),radius=5*S,fill=(151,111,69,255),outline=(66,48,34,255),width=2*S)
+    line([(-18,-136),(12,-136)],(235,211,158,255),2)
+    # Beige adventure jacket with shaded panels.
+    poly([(-19,-38),(-31,-31),(-37,14),(-25,29),(0,20),(25,29),(38,14),(31,-31),(18,-38),(0,-29)],(205,184,143,255))
+    poly([(-4,-30),(0,-19),(4,-30),(3,15),(-3,15)],(235,219,183,255),outline=None)
+    line([(-27,-19),(-18,-2),(-20,22)],(119,91,62,255),3)
+    line([(27,-19),(18,-2),(20,22)],(119,91,62,255),3)
+    # Arms, cuffs and hands.
+    line([(-31,-24),(-42,1),(-34,20)],(205,184,143,255),10)
+    line([(31,-24),(42,1),(34,20)],(205,184,143,255),10)
+    ellipse((-40,13,-29,27),(224,169,126,255),outline=(54,39,32,255),width=1)
+    ellipse((29,13,40,27),(224,169,126,255),outline=(54,39,32,255),width=1)
+    # Compass on chest, a stable signature detail.
+    ellipse((8,-13,25,4),(58,77,75,255),outline=(238,218,165,255),width=2)
+    line([(16,-10),(21,-1),(13,-3),(16,-10)],(246,219,139,255),2)
+    # Cargo shorts, legs and sturdy brown boots.
+    poly([(-24,22),(0,23),(2,64),(-22,64)],(151,119,82,255))
+    poly([(0,23),(24,22),(22,64),(2,64)],(151,119,82,255))
+    line([(-12,64),(-14,91)],(224,169,126,255),9)
+    line([(13,64),(14,91)],(224,169,126,255),9)
+    poly([(-28,88),(-8,88),(-7,107),(-34,107),(-39,101)],(83,57,42,255))
+    poly([(7,88),(27,88),(38,101),(33,107),(7,107)],(83,57,42,255))
+    line([(-34,101),(-10,101)],(218,184,126,255),2)
+    line([(11,101),(34,101)],(218,184,126,255),2)
+    # Small name tab makes the recurring guide identifiable without dominating the shot.
+    d.rounded_rectangle(((x-37*s)*S,(y+111*s)*S,(x+37*s)*S,(y+130*s)*S),radius=7*S,fill=(7,22,42,205),outline=rgba(accent,190),width=1*S)
+    text_fit(d,(x,y+120),"ENZO",10,(255,255,255,245),max_width=48,anchor="mm")
+    im.alpha_composite(layer)
+
 def draw_caption(im,cue,t,accent):
     start=float(cue["start"]); end=max(start+.05,float(cue["end"]))
     progress=clamp((t-start)/(end-start))
@@ -614,6 +684,7 @@ def render_frame(i, script, starts, durations):
     accent=scene.get("accent","#62d9cf")
     im=base_frame(t,accent,scene)
     draw_scene(im,scene,local,accent)
+    if script.get("show_explorer",True): draw_enzo(im,t,accent)
     for cue in script.get("captions",[]):
         if float(cue["start"])<=t<float(cue["end"]):
             draw_caption(im,cue,t,accent)
