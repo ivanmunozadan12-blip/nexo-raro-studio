@@ -47,7 +47,8 @@ class RendererTests(unittest.TestCase):
             frame=render_frame(18,{"scenes":[scene],"captions":[]},[0],[60])
             self.assertEqual(frame.size,(W,H),kind)
             self.assertGreater(len(frame.getcolors(W*H) or []),20,kind)
-\n    def test_same_timestamp_is_deterministic(self):
+
+    def test_same_timestamp_is_deterministic(self):
         scene={"headline":"Prueba","subtitle":"Sin parpadeos","visual_type":"map","background":"dark_lab","narration_excerpt":"Texto de prueba.","callout":"Mapa esquemático.","labels":["A","B","C"],"accent":"#62d9cf"}
         script={"scenes":[scene],"captions":[]}
         a=render_frame(45,script,[0],[60]); b=render_frame(45,script,[0],[60])
