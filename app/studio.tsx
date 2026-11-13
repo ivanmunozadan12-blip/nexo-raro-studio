@@ -15,7 +15,8 @@ export default function Studio(){
    db.from('scripts').select('id,title,hook,narration,status,created_at,source_notes').order('created_at',{ascending:false}).limit(18),
    db.from('production_jobs').select('id,status,error_message,started_at,completed_at,scheduled_for,script_id').order('created_at',{ascending:false}).limit(18),
    db.from('videos').select('id,storage_path,duration_seconds,width,height,quality_check,created_at').order('created_at',{ascending:false}).limit(12),
-   db.from('editorial_memory').select('id,topic,angle,memory_status,created_at').order('created_at',{ascending:false}).limit(40)
+   db.from('editorial_memory').select('id,topic,angle,memory_status,created_at').order('created_at',{ascending:false}).limit(40),
+   db.from('social_posts').select('id,video_id,platform,status,external_post_id,error_message,created_at').order('created_at',{ascending:false}).limit(60)
   ]);
   const error=s.error||j.error||v.error||m.error||p.error;
   if(error)setMessage('No se han podido cargar todos los datos: '+error.message);
