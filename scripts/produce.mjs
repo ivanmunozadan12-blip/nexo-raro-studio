@@ -150,9 +150,9 @@ const [settings] = await supabase('channel_settings', { query: '?brand_slug=eq.n
 if (!settings) throw new Error('No hay una cuenta configurada en el panel. Inicia sesión y termina el asistente inicial.');
 const userId = settings.user_id;
 
-// Reinicio explícito y acotado de producción; conserva configuración y memoria editorial.
+// Reinicio explícito de contenidos; conserva ajustes, series y el histórico de consumo.
 if (String(process.env.RESET_PRODUCTION || '').toLowerCase() === 'true') {
-  console.warn('RESET_PRODUCTION activo: limpiando vídeos, guiones, trabajos y consumo.');
+  console.warn('RESET_PRODUCTION activo: limpiando vídeos, publicaciones, guiones, trabajos y memoria editorial.');
   const oldVideos = await supabase('videos', { query: '?user_id=eq.' + userId + '&select=id,storage_path' });
   for (const video of oldVideos) {
     if (!video.storage_path) continue;
@@ -166,11 +166,12 @@ if (String(process.env.RESET_PRODUCTION || '').toLowerCase() === 'true') {
       throw new Error('No se pudo borrar el MP4 ' + video.storage_path + ': Storage HTTP ' + response.status + ': ' + body.slice(0,500));
     }
   }
+  await supabase('social_posts', { method: 'DELETE', query: '?user_id=eq.' + userId });
   await supabase('videos', { method: 'DELETE', query: '?user_id=eq.' + userId });
-  await supabase('scripts', { method: 'DELETE', query: '?user_id=eq.' + userId });
+  await supabase('editorial_memory', { method: 'DELETE', query: '?user_id=eq.' + userId });
   await supabase('production_jobs', { method: 'DELETE', query: '?user_id=eq.' + userId });
-  await supabase('provider_usage', { method: 'DELETE', query: '?user_id=eq.' + userId });
-  console.log('Reinicio de producción completado: ' + oldVideos.length + ' MP4 eliminados y tablas de producción vaciadas.');
+  await supabase('scripts', { method: 'DELETE', query: '?user_id=eq.' + userId });
+  console.log('Reinicio completado: ' + oldVideos.length + ' MP4 eliminados. Se conservan provider_usage, series y channel_settings.');
 }
 const scheduledAt = process.env.MANUAL_SCRIPT_ID ? new Date(Date.now() + Number(process.env.MANUAL_QUEUE_INDEX || 0) * 60000).toISOString() : new Date(new Date(`${local}T${slot}:00`).toLocaleString('en-US', { timeZone: tz })).toISOString();
 const existing = await supabase('production_jobs', { query: `?user_id=eq.${userId}&scheduled_for=eq.${encodeURIComponent(scheduledAt)}&select=id,status,attempt_count,started_at,completed_at,script_id&limit=1` });
