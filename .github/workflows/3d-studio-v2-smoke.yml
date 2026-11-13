@@ -31,7 +31,8 @@ jobs:
       - name: Render fast pipeline smoke test
         run: |
           mkdir -p renders
-          blender --background --python render3d/blender_renderer.py -- render3d/demo-project.json renders/studio-v2-demo.mp4
+          blender --background --python-exit-code 1 --python render3d/blender_renderer.py -- render3d/demo-project.json renders/studio-v2-demo.mp4
+          test -s renders/studio-v2-demo.mp4
       - name: Verify MP4 output
         run: |
           test -s renders/studio-v2-demo.mp4
