@@ -30,8 +30,13 @@ const minutesOfDay = value => {
 const nearestSlot = slots
   .map(value => ({ value, distance: Math.abs(minutesOfDay(localTime) - minutesOfDay(value)) }))
   .sort((a, b) => a.distance - b.distance)[0];
+const explicitManualFile = Boolean(String(process.env.MANUAL_SCRIPT_FILE || '').trim());
 const slot = process.env.MANUAL_SLOT || (nearestSlot?.distance <= 90 ? nearestSlot.value : null);
-if (!slot || !slots.includes(slot)) {
+if (explicitManualFile) {
+  if (!slot || !/^([01]\\d|2[0-3]):[0-5]\\d$/.test(slot)) {
+    throw new Error('MANUAL_SLOT debe ser una hora válida HH:MM cuando se produce un JSON manual.');
+  }
+} else if (!slot || !slots.includes(slot)) {
   throw new Error(`Ejecución fuera de la ventana de producción: hora local ${localTime} (${tz}); horarios válidos ${slots.join(', ')}. Se marca como fallo y no como éxito vacío.`);
 }
 // Evita que un clic accidental en un horario ya pasado se convierta
