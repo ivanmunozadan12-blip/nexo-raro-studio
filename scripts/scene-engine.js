@@ -113,7 +113,7 @@ function buildScene(renderer,d){
  else {coast(world);const landing=ship(world,-6,-7,0);landing.scale.set(.38,.38,.48);ships.push(landing);for(let i=0;i<5;i++)people.push(person(world,-4+i*1.7,-1+i*.15,i===0?'columbus':'crew',.85));for(let x of [-5,0,5]){const hut=new THREE.Mesh(new THREE.ConeGeometry(1.7,1.2,7),MAT('#a98251'));hut.position.set(x,1.8,-7);world.add(hut);box(world,x,0,-7,2.3,1.4,1.8,'#9b7954');box(world,x,1,-6.08,.65,1.3,.08,'#4d3c2d');}for(let i=0;i<4;i++)people.push(person(world,-5+i*2.2,-.4,'lucayan',.82));}
  // Camera direction and scene-specific motion; every shot has its own establishing move.
  const camera=new THREE.PerspectiveCamera(42,1080/1920,.1,120);const duration=Math.max(1,Number(d.duration)||8);
- return t=>{const local=Math.max(0,t-Number(d.start||0));const p=Math.min(1,local/duration),ease=p*p*(3-2*p);if(idx===0){camera.position.set(8-5*ease,5.2+Math.sin(p*Math.PI)*.6,14-7*ease);camera.lookAt(0,2,-3);}
+ return t=>{const sceneStart=Number(d.start||0);if(t<sceneStart||t>=sceneStart+duration)return;const local=Math.max(0,t-sceneStart);const p=Math.min(1,local/duration),ease=p*p*(3-2*p);if(idx===0){camera.position.set(8-5*ease,5.2+Math.sin(p*Math.PI)*.6,14-7*ease);camera.lookAt(0,2,-3);}
  else if(idx===1){camera.position.set(1.5-1.2*ease,3.1,9-2*ease);camera.lookAt(0,1,-1.3);}
  else if(idx===2){camera.position.set(-12+20*ease,7.5,12-5*ease);camera.lookAt(0,1,-4);}
  else if(idx===3){camera.position.set(0,8,16-5*ease);camera.lookAt(0,1,-4);ships.forEach((s,i)=>{s.position.z=s.userData.baseZ-local*.22;s.position.x=s.userData.baseX+(i-1)*local*.035;});}
