@@ -1714,7 +1714,7 @@
           "type": "prop",
           "model_id": "kelp-cluster",
           "position": [
-            0,
+            5,
             0.05,
             -5.2
           ],
@@ -1960,7 +1960,7 @@
           "type": "prop",
           "model_id": "bubble-column",
           "position": [
-            -4,
+            -5.5,
             0.2,
             -8
           ],
@@ -2068,7 +2068,7 @@
           "scale": 1,
           "action": "permanece oculto en la grieta y extiende un brazo hacia la presa",
           "motion": "permanece oculto en la grieta y extiende un brazo hacia la presa",
-          "support": "ground",
+          "support": "rock-12",
           "species": "pulpo",
           "appearance": "cuerpo ovalado con manto, cabeza, dos ojos visibles y ocho brazos articulados con ventosas; anatomía de cefalópodo reconocible, piel húmeda y proporciones consistentes entre planos.",
           "shape": "anatomía orgánica blanda con manto ovalado y ocho apéndices cónicos segmentados",
