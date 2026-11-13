@@ -579,6 +579,48 @@ function createProp(spec, rng) {
   return g;
 }
 
+
+function createFromBlueprint(spec) {
+  const blueprint = spec.blueprint;
+  if (!blueprint || !Array.isArray(blueprint.parts) || !blueprint.parts.length) return null;
+  const root = new THREE.Group();
+  const nodes = new Map([['root', root]]);
+  for (const part of blueprint.parts) {
+    const parent = nodes.get(part.parent || 'root') || root;
+    const position = Array.isArray(part.position) ? part.position : [0,0,0];
+    const size = Array.isArray(part.size) ? part.size : [1,1,1];
+    const color = part.color || spec.color || '#9b978e';
+    const node = part.group ? new THREE.Group() : (() => {
+      let geometry;
+      switch (part.primitive) {
+        case 'box': geometry = new THREE.BoxGeometry(...size); break;
+        case 'cylinder': geometry = new THREE.CylinderGeometry(Number(part.radiusTop ?? size[0]/2), Number(part.radiusBottom ?? size[0]/2), Number(part.height ?? size[1]), Number(part.segments ?? 12)); break;
+        case 'cone': geometry = new THREE.ConeGeometry(Number(part.radius ?? size[0]/2), Number(part.height ?? size[1]), Number(part.segments ?? 12)); break;
+        case 'torus': geometry = new THREE.TorusGeometry(Number(part.radius ?? size[0]/2), Number(part.tube ?? .04), 8, Number(part.segments ?? 20)); break;
+        case 'sphere':
+        default: geometry = new THREE.SphereGeometry(1, Number(part.widthSegments ?? 16), Number(part.heightSegments ?? 12)); break;
+      }
+      return addMesh(new THREE.Group(), geometry, color, [0,0,0], size, {roughness:part.roughness ?? .78, metalness:part.metalness ?? 0});
+    })();
+    if (part.group) node.position.set(...position);
+    else node.children[0].position.set(...position);
+    const actual = part.group ? node : node.children[0];
+    actual.name = String(part.id || 'part');
+    if (part.rotation) actual.rotation.set(...part.rotation);
+    if (!part.group) {
+      const mesh = actual;
+      parent.add(mesh);
+      nodes.set(part.id, mesh);
+    } else {
+      parent.add(node);
+      nodes.set(part.id, node);
+    }
+  }
+  root.userData.blueprintNodes = nodes;
+  root.userData.blueprintAnimations = Array.isArray(blueprint.animations) ? blueprint.animations : [];
+  return root;
+}
+
 export function createProceduralEntity(parent, input, index = 0) {
   const spec = typeof input === 'string' ? { name: input } : { ...(input || {}) };
   const name = spec.name || spec.label || spec.role || spec.description || spec.type || 'objeto';
@@ -596,18 +638,18 @@ export function createProceduralEntity(parent, input, index = 0) {
   if (type === 'tree') spec.leafColor = spec.leafColor || spec.color;
   if (type === 'human') spec.clothingColor = spec.clothingColor || spec.color;
   if (type === 'animal') spec.palette = { ...(spec.palette || {}), body: (spec.palette && spec.palette.body) || spec.color };
-  let model;
-  if (type === 'human') model = createHuman(spec, rng);
-  else if (type === 'animal') model = createAnimal(spec, rng);
-  else if (type === 'ship') model = createShip(spec, rng);
-  else if (type === 'tree') model = createTree(spec, rng);
-  else if (type === 'building') model = createBuilding(spec, rng);
-  else if (type === 'vehicle') model = createVehicle(spec, rng);
-  else if (type === 'machine') model = createMachine(spec, rng);
-  else if (type === 'lab') model = createLab(spec, rng);
-  else if (type === 'celestial') model = createCelestial(spec, rng);
-  else if (type === 'furniture') model = createFurniture(spec, rng);
-  else model = createProp(spec, rng);
+  let model = createFromBlueprint(spec);
+  if (!model && type === 'human') model = createHuman(spec, rng);
+  else if (!model && type === 'animal') model = createAnimal(spec, rng);
+  else if (!model && type === 'ship') model = createShip(spec, rng);
+  else if (!model && type === 'tree') model = createTree(spec, rng);
+  else if (!model && type === 'building') model = createBuilding(spec, rng);
+  else if (!model && type === 'vehicle') model = createVehicle(spec, rng);
+  else if (!model && type === 'machine') model = createMachine(spec, rng);
+  else if (!model && type === 'lab') model = createLab(spec, rng);
+  else if (!model && type === 'celestial') model = createCelestial(spec, rng);
+  else if (!model && type === 'furniture') model = createFurniture(spec, rng);
+  else if (!model) model = createProp(spec, rng);
 
   const pos = Array.isArray(spec.position) ? spec.position : [spec.x ?? ((index - 1.5) * 3), spec.y ?? 0, spec.z ?? -3];
   const scale = spec.scale ?? 1;
@@ -617,6 +659,8 @@ export function createProceduralEntity(parent, input, index = 0) {
   if (Number.isFinite(Number(spec.rotationY))) model.rotation.y = Number(spec.rotationY);
   model.userData.entity = { id: String(spec.id || seed), name: String(name), type, action: spec.action || spec.motion || 'idle', support: spec.support || 'ground', dimensions: spec.dimensions || null, shape: spec.shape || null, material: spec.material || null, color: spec.color || null };
   model.userData.rig = model.userData.rig || {};
+  model.userData.blueprintNodes = model.userData.blueprintNodes || new Map();
+  model.userData.blueprintAnimations = model.userData.blueprintAnimations || [];
   model.userData.basePosition = model.position.clone();
   model.userData.baseRotationY = model.rotation.y;
   model.userData.baseRotationZ = model.rotation.z;
@@ -660,6 +704,17 @@ export function animateEntities(entities, time = 0) {
     const action = clean(beat?.action || entity.userData.entity?.action || rig.motion || 'idle');
     const base = entity.userData.basePosition || entity.position;
     entity.position.y = base.y + .035 * Math.sin(time * 1.6 + entities.indexOf(entity));
+
+    for (const track of entity.userData.blueprintAnimations || []) {
+      const node = entity.userData.blueprintNodes.get(track.target);
+      if (!node) continue;
+      const phase = Number(track.phase || 0);
+      const value = Number(track.amplitude || 0) * Math.sin(time * Number(track.frequency || 1) + phase);
+      const axis = ['x','y','z'].includes(track.axis) ? track.axis : 'z';
+      if (track.property === 'rotation') node.rotation[axis] = Number(track.base || 0) + value;
+      else if (track.property === 'position') node.position[axis] = Number(track.base || 0) + value;
+      else if (track.property === 'scale') node.scale[axis] = Number(track.base || 1) + value;
+    }
     const walking = /caminar|andar|correr|walk|run|marchar|avanzar|acercarse|alejarse|perseguir/.test(action);
     const working = /examinar|observar|mirar|manipular|construir|reparar|levantar|girar|abrir|cerrar|escribir|medir|tocar|sujetar|golpear|lanzar|recoger|senalar|señalar|hablar|gesticular|indicar/.test(action);
     if (rig.legs) rig.legs.forEach((leg, i) => { leg.rotation.x = walking ? Math.sin(time * 6 + i * Math.PI) * .38 : 0; });
