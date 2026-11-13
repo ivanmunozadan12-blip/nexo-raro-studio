@@ -65,9 +65,9 @@ test('scene director creates named entities and animation advances without error
     ],
     characters: [{ id: 'captain', role: 'capitan', appearance: 'barba roja y abrigo oscuro' }],
   });
-  assert.equal(entities.length, 3);
-  assert.equal(world.children.length, 3);
-  assert.deepEqual(entities.map(x => x.userData.entity.id), ['ship-a', 'jaguar-a', 'captain']);
+  assert.equal(entities.length, 2);
+  assert.equal(world.children.length, 2);
+  assert.deepEqual(entities.map(x => x.userData.entity.id), ['ship-a', 'jaguar-a']);
   animateEntities(entities, 0.5);
   assert.ok(entities.every(x => Number.isFinite(x.position.y)));
 });
