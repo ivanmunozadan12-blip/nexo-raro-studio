@@ -32,7 +32,7 @@ const Gear: React.FC<{size:number;top:string;left:string;delay?:number;opacity?:
 
 const Scene: React.FC<{data:typeof scenes[number];index:number}> = ({data,index}) => {
   const f=useCurrentFrame();
-  const local=f-index*90;
+  const local=f;
   const enter=interpolate(local,[0,22],[0,1],{extrapolateLeft:"clamp",extrapolateRight:"clamp",easing:Easing.out(Easing.cubic)});
   const exit=interpolate(local,[72,90],[1,0],{extrapolateLeft:"clamp",extrapolateRight:"clamp"});
   const zoom=interpolate(local,[0,90],[data.zoom,data.zoom+0.1]);
