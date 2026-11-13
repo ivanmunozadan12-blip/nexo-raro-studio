@@ -180,7 +180,22 @@ try {
  const timeline=window.__timelines?.['behind-del-mundo']||window.__timelines?.['columbus-3d-preview']||Object.values(window.__timelines||{})[0];
  const renderAt=time=>{renderers.forEach(render=>render(time));};
  window.__renderSceneAt=renderAt;
- if(timeline) timeline.eventCallback('onUpdate',()=>renderAt(timeline.time()));
+ if(!timeline) throw new Error('No se encontró la línea de tiempo GSAP; no se puede garantizar el movimiento de las escenas.');
+ timeline.eventCallback('onUpdate',()=>renderAt(timeline.time()));
+ // QC real del motor: fuerza el render de cada plano y exige geometría dibujada.
+ // Así el trabajo no puede quedar verde si solo se exportan los rótulos HTML.
+ const sceneDiagnostics=[];
+ nodes.forEach((node,index)=>{
+   const data=JSON.parse(node.dataset.scene);
+   const sampleTime=Number(data.start||0)+Math.min(.8,Math.max(.25,Number(data.duration||1)*.2));
+   renderAt(sampleTime);
+   const triangles=Number(renderer.info.render.triangles||0);
+   const calls=Number(renderer.info.render.calls||0);
+   if(triangles<100||calls<2) throw new Error('QC 3D fallido en escena '+(index+1)+': solo '+triangles+' triángulos en '+calls+' llamadas de dibujo.');
+   sceneDiagnostics.push({scene:index+1,entities:data.entities.length,triangles,calls});
+ });
+ window.__sceneDiagnostics=sceneDiagnostics;
+ console.info('[BDM-3D-QC] todos los planos dibujados',JSON.stringify(sceneDiagnostics));
  renderAt(0);
  window.__playerReady=Promise.resolve();
  window.__resolveSceneReady();
