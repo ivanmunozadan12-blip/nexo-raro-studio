@@ -1,15 +1,15 @@
 import React from "react";
 import {
-  AbsoluteFill, Img, Sequence, useCurrentFrame, interpolate, Easing, staticFile
+  AbsoluteFill, Img, Sequence, useCurrentFrame, interpolate, staticFile
 } from "remotion";
 
 const scenes = [
-  { image:"scene-01.jpg", kicker:"MAR EGEO · 1901", title:"UN SECRETO\nBAJO EL MAR", sub:"En 1901, unos buceadores hallaron un pecio frente a Anticitera.", align:"left", zoom:1.12, x:-2, y:1, tone:"blue" },
-  { image:"scene-02.jpg", kicker:"UN HALLAZGO IMPOSIBLE", title:"NO ERA UN\nTESORO NORMAL", sub:"Entre sus restos apareció un fragmento de bronce.", align:"right", zoom:1.18, x:3, y:-1, tone:"gold" },
-  { image:"scene-03.jpg", kicker:"MÁS DE 2.000 AÑOS", title:"ENGRANAJES\nDE PRECISIÓN", sub:"En su interior había engranajes diminutos y precisos.", align:"left", zoom:1.22, x:-3, y:2, tone:"gold" },
-  { image:"scene-04.jpg", kicker:"UNA MÁQUINA ASTRONÓMICA", title:"CALCULABA\nEL CIELO", sub:"Representaba ciclos del cielo y anticipaba eclipses.", align:"right", zoom:1.16, x:2, y:0, tone:"blue" },
-  { image:"scene-05.jpg", kicker:"RECONSTRUCCIÓN DIGITAL", title:"EL COSMOS\nEN BRONCE", sub:"Hoy se reconstruye su funcionamiento pieza a pieza.", align:"left", zoom:1.14, x:-2, y:-1, tone:"gold" },
-  { image:"scene-06.jpg", kicker:"EL MECANISMO DE ANTICITERA", title:"UNA IDEA\nADELANTADA", sub:"Dos mil años después, sigue asombrando al mundo.", align:"center", zoom:1.2, x:0, y:0, tone:"blue" }
+  { image:"scene-01.jpg", kicker:"MAR EGEO · 1901", title:"UN SECRETO\nBAJO EL MAR", sub:"En 1901, unos buceadores hallaron un pecio.", align:"left", zoom:1.12, x:-2, y:1 },
+  { image:"scene-02.jpg", kicker:"EL HALLAZGO", title:"EL FRAGMENTO\nDE BRONCE", sub:"Frente a Anticitera apareció un fragmento de bronce.", align:"right", zoom:1.18, x:3, y:-1 },
+  { image:"scene-03.jpg", kicker:"MÁS DE 2.000 AÑOS", title:"ENGRANAJES\nDIMINUTOS", sub:"Dentro había engranajes diminutos.", align:"left", zoom:1.22, x:-3, y:2 },
+  { image:"scene-04.jpg", kicker:"UNA CALCULADORA ASTRONÓMICA", title:"SEGUÍA\nEL CIELO", sub:"La máquina seguía los ciclos del cielo.", align:"right", zoom:1.16, x:2, y:0 },
+  { image:"scene-05.jpg", kicker:"CICLOS Y ECLIPSES", title:"ANTICIPABA\nECLIPSES", sub:"También anticipaba eclipses.", align:"left", zoom:1.14, x:-2, y:-1 },
+  { image:"scene-06.jpg", kicker:"EL MECANISMO DE ANTICITERA", title:"UNA IDEA\nADELANTADA", sub:"Dos mil años después, aún asombra.", align:"center", zoom:1.2, x:0, y:0 }
 ];
 
 const Grain: React.FC = () => (
@@ -22,7 +22,7 @@ const Gear: React.FC<{size:number;top:string;left:string;delay?:number;opacity?:
   const f=useCurrentFrame();
   const rotation=(f+delay)*0.55;
   return <div style={{position:"absolute",top,left,width:size,height:size,borderRadius:"50%",
-    border:"12px solid rgba(208,164,91,.8)", opacity, transform:"rotate("+rotation+"deg)",
+    border:"12px solid rgba(208,164,91,.8)", opacity, transform:"perspective(900px) rotateX(58deg) rotate("+rotation+"deg)",
     boxShadow:"0 0 36px rgba(201,155,78,.24), inset 0 0 25px rgba(201,155,78,.16)"}}>
     <div style={{position:"absolute",inset:"18%",border:"8px solid rgba(208,164,91,.72)",borderRadius:"50%"}}/>
     <div style={{position:"absolute",inset:"42%",background:"rgba(224,185,117,.85)",borderRadius:"50%"}}/>
@@ -30,14 +30,16 @@ const Gear: React.FC<{size:number;top:string;left:string;delay?:number;opacity?:
   </div>;
 };
 
-const Scene: React.FC<{data:typeof scenes[number];index:number}> = ({data,index}) => {
+const Scene: React.FC<{data:typeof scenes[number];index:number;duration:number}> = ({data,index,duration}) => {
   const f=useCurrentFrame();
   const local=f;
-  const enter=interpolate(local,[0,22],[0,1],{extrapolateLeft:"clamp",extrapolateRight:"clamp",easing:Easing.out(Easing.cubic)});
-  const exit=interpolate(local,[72,90],[1,0],{extrapolateLeft:"clamp",extrapolateRight:"clamp"});
-  const zoom=interpolate(local,[0,90],[data.zoom,data.zoom+0.1]);
-  const drift=interpolate(local,[0,90],[-18,18]);
-  const textY=interpolate(local,[12,36],[55,0],{extrapolateLeft:"clamp",extrapolateRight:"clamp",easing:Easing.out(Easing.cubic)});
+  const isFirst=index===0;
+  const isLast=index===scenes.length-1;
+  const enter=isFirst?1:interpolate(local,[0,18],[0,1],{extrapolateLeft:"clamp",extrapolateRight:"clamp"});
+  const exit=isLast?1:interpolate(local,[duration-18,duration],[1,0],{extrapolateLeft:"clamp",extrapolateRight:"clamp"});
+  const zoom=interpolate(local,[0,duration],[data.zoom,data.zoom+0.1]);
+  const drift=interpolate(local,[0,duration],[-18,18]);
+  const textY=interpolate(local,[12,36],[55,0],{extrapolateLeft:"clamp",extrapolateRight:"clamp"});
   const isCenter=data.align==="center";
   const left=data.align==="right"?"auto":"8%";
   const right=data.align==="right"?"8%":"auto";
@@ -47,7 +49,7 @@ const Scene: React.FC<{data:typeof scenes[number];index:number}> = ({data,index}
       filter:"brightness(.84) contrast(1.08) saturate(.92)"}} />
     <AbsoluteFill style={{background:"linear-gradient(180deg,rgba(2,7,12,.06) 0%,rgba(2,7,12,.02) 35%,rgba(2,7,12,.76) 100%)"}}/>
     <AbsoluteFill style={{background:"linear-gradient(90deg,rgba(3,8,14,.62),transparent 72%)",opacity:data.align==="right"?.35:.75}}/>
-    {index===2 || index===3 ? <><Gear size={360} top="10%" left={index===2?"-8%":"60%"} delay={index*40} opacity={.28}/><Gear size={210} top="33%" left={index===2?"63%":"-5%"} delay={90} opacity={.34}/></>:null}
+    {index===2 || index===3 ? <><Gear size={360} top="10%" left={index===2?"-8%":"60%"} delay={index*40} opacity={.34}/><Gear size={210} top="33%" left={index===2?"63%":"-5%"} delay={90} opacity={.4}/></>:null}
     <div style={{position:"absolute",top:"8%",left:"8%",right:"8%",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
       <div style={{fontFamily:"Arial,sans-serif",fontSize:23,fontWeight:800,letterSpacing:5,color:"#f1d6a2"}}>BEHIND DEL MUNDO</div>
       <div style={{width:66,height:3,background:"#d7ad6c"}}/>
@@ -61,7 +63,7 @@ const Scene: React.FC<{data:typeof scenes[number];index:number}> = ({data,index}
       <div style={{fontFamily:"Arial,sans-serif",fontSize:31,lineHeight:1.35,fontWeight:500,color:"rgba(255,255,255,.92)",textShadow:"0 3px 18px #000"}}>{data.sub}</div>
     </div>
     <div style={{position:"absolute",left:"8%",right:"8%",bottom:"7%",height:3,background:"rgba(255,255,255,.24)"}}>
-      <div style={{height:"100%",width:(local/90*100)+"%",background:"#d9ad6e"}}/>
+      <div style={{height:"100%",width:(local/duration*100)+"%",background:"#d9ad6e"}}/>
     </div>
     <div style={{position:"absolute",right:"8%",bottom:"8.5%",fontSize:20,letterSpacing:3,color:"rgba(255,255,255,.65)"}}>0{index+1} / 06</div>
     <Grain/>
@@ -70,8 +72,12 @@ const Scene: React.FC<{data:typeof scenes[number];index:number}> = ({data,index}
 
 export const AntikytheraFilm: React.FC = () => (
   <AbsoluteFill style={{background:"#05090e"}}>
-    {scenes.map((scene,index)=><Sequence key={scene.image} from={index*90} durationInFrames={90}>
-      <Scene data={scene} index={index}/>
-    </Sequence>)}
+    {scenes.map((scene,index)=>{
+      const start=index*84;
+      const duration=index===scenes.length-1?120:102;
+      return <Sequence key={scene.image} from={start} durationInFrames={duration}>
+        <Scene data={scene} index={index} duration={duration}/>
+      </Sequence>;
+    })}
   </AbsoluteFill>
 );
