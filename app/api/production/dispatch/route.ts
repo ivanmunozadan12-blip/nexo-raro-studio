@@ -25,7 +25,17 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Escribe los tres prompts (al menos 12 caracteres cada uno).' }, { status: 400 });
     }
     if (prompts.some((p) => p.length > 45000)) {
-      return NextResponse.json({ error: 'Cada prompt debe tener como máximo 45.000 caracteres.' }, { status: 400 });
+      return NextResponse.json({ error: 'Cada guion debe tener como máximo 45.000 caracteres.' }, { status: 400 });
+    }
+    for (let i = 0; i < prompts.length; i++) {
+      try {
+        const script = JSON.parse(prompts[i].replace(/^\s*```(?:json)?\s*|\s*```\s*$/gi, '').trim());
+        if (!script || typeof script !== 'object' || !Array.isArray(script.scenes) || script.scenes.length !== 8 || typeof script.narration !== 'string' || !Array.isArray(script.sources)) {
+          throw new Error('El JSON debe incluir narration, sources y exactamente 8 scenes.');
+        }
+      } catch (e) {
+        return NextResponse.json({ error: `El vídeo ${i + 1} no contiene un guion técnico JSON válido. ${e instanceof Error ? e.message : ''}` }, { status: 400 });
+      }
     }
 
     const { data: channel, error: channelError } = await db.from('channel_settings')
