@@ -1,0 +1,65 @@
+name: BEHIND DEL MUNDO · vídeo diario
+
+on:
+  schedule:
+    - cron: '30 6 * * *'
+    - cron: '30 13 * * *'
+    - cron: '30 19 * * *'
+  workflow_dispatch:
+    inputs:
+      slot:
+        description: Franja editorial que se quiere generar
+        required: true
+        type: choice
+        options:
+          - how-it-works
+          - inside
+          - curiosities
+
+permissions:
+  contents: read
+
+concurrency:
+  group: behind-del-mundo-daily-${{ github.event.schedule || inputs.slot || github.run_id }}
+  cancel-in-progress: false
+
+jobs:
+  produce:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      TZ: Europe/Madrid
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+      GROQ_MODEL: openai/gpt-oss-120b
+      VIDEO_SLOT: ${{ inputs.slot || (github.event.schedule == '30 6 * * *' && 'how-it-works') || (github.event.schedule == '30 13 * * *' && 'inside') || 'curiosities' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Instalar FFmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+          ffmpeg -version | head -n 1
+      - name: Instalar motor Python
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r engine/requirements.txt
+      - name: Validar credenciales
+        run: |
+          test -n "$SUPABASE_URL" || (echo "::error::Falta SUPABASE_URL" && exit 1)
+          test -n "$SUPABASE_SERVICE_ROLE_KEY" || (echo "::error::Falta SUPABASE_SERVICE_ROLE_KEY" && exit 1)
+          test -n "$GROQ_API_KEY" || (echo "::error::Falta GROQ_API_KEY" && exit 1)
+      - name: Generar tema, guion, voz, animación y MP4
+        run: python engine/produce.py
+      - name: Guardar MP4 de respaldo
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: behind-del-mundo-${{ env.VIDEO_SLOT }}-${{ github.run_id }}
+          path: renders/**/*.mp4
+          if-no-files-found: ignore
+          retention-days: 14
