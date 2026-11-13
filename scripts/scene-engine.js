@@ -26,7 +26,7 @@ function person(g,x,z,kind='crew',scale=1){
  else if(sailor){sphere(p,0,1.91,0,.24,.09,.23,'#4b392d',1);cyl(p,0,1.96,0,.25,.25,.045,'#d1b37d',8);}
  else {sphere(p,0,1.91,0,.24,.12,.22,kind==='queen'?'#3d2836':'#4a342b',1);if(royal){cyl(p,0,2.04,0,.22,.26,.12,'#d5ad47',8);for(let k=0;k<5;k++)sphere(p,Math.sin(k*1.256)*.2,2.13,Math.cos(k*1.256)*.2,.045,.13,.045,'#f0d16b',1);}}
  // arms with sleeves, forearms and hands
- for(const side of [-1,1]){rod(p,[side*.25,1.27,0],[side*.42,.96,.05],.105,royal?'#b58b45':cloth.color);rod(p,[side*.42,.96,.05],[side*.48,.75,.15],.075,cloth.color);sphere(p,side*.48,.7,.17,.075,.08,.07,'#d6a27e',1);}
+ p.userData.arms=[];for(const side of [-1,1]){const arm=new THREE.Group();arm.position.set(side*.25,1.27,0);rod(arm,[0,0,0],[side*.17,-.31,.05],.105,royal?'#b58b45':cloth.color);rod(arm,[side*.17,-.31,.05],[side*.23,-.52,.15],.075,cloth.color);sphere(arm,side*.23,-.57,.17,.075,.08,.07,'#d6a27e',1);p.add(arm);p.userData.arms.push({arm,side});if(kind==='columbus'&&side===1)arm.rotation.z=-.32;}
  if(kind==='columbus'){rod(p,[.48,.76,.17],[.58,.58,.22],.025,'#8a795d');}
  return p;
 }
@@ -66,12 +66,12 @@ function ship(g,x,z,index=0){
  // three masts, yards, shaped billowing sails and rigging
  const mastZ=[-1.25,0,1.25],mastH=[2.8,4.2,3.2];
  mastZ.forEach((mz,i)=>{const h=mastH[i];rod(root,[0,.12,mz],[0,h,mz],.075,dark,7);rod(root,[-.8,h*.68,mz],[.8,h*.68,mz],.045,dark,6);
-  const sailShape=new THREE.Shape();sailShape.moveTo(-.68,.1);sailShape.quadraticCurveTo(-.8,h*.22,0,h*.42);sailShape.quadraticCurveTo(.8,h*.22,.68,.1);sailShape.closePath();const sg=new THREE.ShapeGeometry(sailShape,8);const sm=new THREE.Mesh(sg,sail);sm.position.set(0,h*.27,mz+.045);root.add(sm);
+  const sailShape=new THREE.Shape();sailShape.moveTo(-.68,.1);sailShape.quadraticCurveTo(-.8,h*.22,0,h*.42);sailShape.quadraticCurveTo(.8,h*.22,.68,.1);sailShape.closePath();const sg=new THREE.ShapeGeometry(sailShape,8);const sm=new THREE.Mesh(sg,sail);sm.position.set(0,h*.27,mz+.045);root.add(sm);root.userData.sails=root.userData.sails||[];root.userData.sails.push(sm);
   for(let k=0;k<4;k++)rod(root,[0,.2,mz],[(-.8+k*.53),h*.65,mz],.012,'#b7a17c',4);
   rod(root,[0,h,mz],[0,h+.32,mz],.025,dark,5);
  });
  // bowsprit, flag, anchor, rudder
- rod(root,[0,.25,2.15],[0,1.3,3.35],.055,dark,6);const flag=plane(root,0,4.5,-1.25,.72,.36,index===1?'#b52f3a':'#e2c66c');flag.rotation.y=Math.PI/2;
+ rod(root,[0,.25,2.15],[0,1.3,3.35],.055,dark,6);const flag=plane(root,0,4.5,-1.25,.72,.36,index===1?'#b52f3a':'#e2c66c');flag.rotation.y=Math.PI/2;root.userData.flag=flag;
  rod(root,[0,.2,-2.3],[0,-.55,-2.9],.09,dark);return root;
 }
 function harbor(g){
@@ -122,7 +122,7 @@ function buildScene(canvas,d){
  else if(idx===4){camera.position.set(10-8*ease,6,15-6*ease);camera.lookAt(0,1,-8);ships.forEach((s,i)=>{s.position.z=s.userData.baseZ+local*.13;s.rotation.y=.08*Math.sin(local+i);});}
  else if(idx===5){camera.position.set(8-9*ease,5,13-4*ease);camera.lookAt(0,1,-3);ships.forEach(s=>{s.position.z=s.userData.baseZ+local*.1;});}
  else {camera.position.set(-12+14*ease,8,17-5*ease);camera.lookAt(0,1,-7);}
- people.forEach((p,i)=>{p.rotation.y=.08*Math.sin(local*1.2+i);p.position.y=.025*Math.sin(local*2+i);});
+ people.forEach((p,i)=>{p.rotation.y=.08*Math.sin(local*1.2+i);p.position.y=.025*Math.sin(local*2+i);(p.userData.arms||[]).forEach(({arm,side})=>{arm.rotation.z+=(side*.045*Math.sin(local*1.8+i+side));});});ships.forEach((s,i)=>{(s.userData.sails||[]).forEach((sail,j)=>{sail.rotation.y=.045*Math.sin(local*1.4+i+j);});if(s.userData.flag)s.userData.flag.rotation.y=Math.PI/2+.12*Math.sin(local*2+i);});
  animateWater(local);renderer.render(scene,camera);};
 }
 
