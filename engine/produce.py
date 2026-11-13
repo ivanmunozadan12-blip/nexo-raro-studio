@@ -10,9 +10,9 @@ GROQ=os.environ["GROQ_API_KEY"]
 MODEL=os.getenv("GROQ_MODEL","openai/gpt-oss-120b")
 if urllib.parse.urlparse(API).hostname.split(".")[0]!="fnivzsazuovldhbkxrqv":
     raise SystemExit("SUPABASE_URL no corresponde al proyecto configurado de BEHIND DEL MUNDO.")
-HEAD={"apikey":KEY,"Authorization":"Bearer "+KEY,"Content-Type":"application/json","Prefer":"return=representation"}
+HEAD={"apikey":KEY,**({"Authorization":"Bearer "+KEY} if not KEY.startswith("sb_secret_") else {}),"Content-Type":"application/json","Prefer":"return=representation"}
 def request(url,method="GET",body=None,headers=None):
-    data=json.dumps(body).encode() if body is not None else None
+    data=body if isinstance(body,(bytes,bytearray)) else (json.dumps(body).encode() if body is not None else None)
     req=urllib.request.Request(url,data=data,method=method,headers={**HEAD,**(headers or {})})
     with urllib.request.urlopen(req,timeout=90) as r:
         raw=r.read()
@@ -102,7 +102,7 @@ Devuelve SOLO JSON: {{"title":"...","hook":"...","category":"{slot}","narration"
     script["captions"]=captions
     script_json=work/"script.json"; script_json.write_text(json.dumps(script,ensure_ascii=False),encoding="utf-8")
     music=work/"music.wav"; silent=work/"silent.mp4"; final=work/"behind-del-mundo.mp4"
-    duration=math.ceil(voice_duration+1) if False else int(voice_duration+1.999)
+    duration=int(voice_duration+1.999)
     run(["python","engine/audio_bed.py","--duration",str(duration),"--output",str(music)])
     db("production_jobs","?id=eq."+job["id"],"PATCH",{"status":"rendering"})
     run(["python","engine/render_video.py","--script",str(script_json),"--voice",str(voice),"--output",str(silent)])
@@ -122,7 +122,7 @@ Devuelve SOLO JSON: {{"title":"...","hook":"...","category":"{slot}","narration"
 except Exception as e:
     message=str(e)[:1600]
     if storage_path:
-        try: request(API+"/storage/v1/object/nexo-videos/"+"/".join(urllib.parse.quote(x,safe="") for x in storage_path.split("/")),"DELETE",headers={"apikey":KEY,"Authorization":"Bearer "+KEY})
+        try: request(API+"/storage/v1/object/nexo-videos/"+"/".join(urllib.parse.quote(x,safe="") for x in storage_path.split("/")),"DELETE",headers={"apikey":KEY,**({"Authorization":"Bearer "+KEY} if not KEY.startswith("sb_secret_") else {})})
         except Exception: pass
     if script_id:
         try: db("scripts","?id=eq."+script_id,"PATCH",{"status":"approved"})
