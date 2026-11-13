@@ -399,12 +399,11 @@ for (const [index, scene] of script.scenes.entries()) {
   if (excerptWords < 8 || !script.narration.includes(scene.narration_excerpt)) throw new Error('El fragmento de narración de la escena ' + (index + 1) + ' debe contener al menos 8 palabras y coincidir literalmente con la voz.');
   for (const character of scene.characters) if (!character.role || !character.appearance || String(character.appearance).length < 25 || !character.action || String(character.action).length < 25) throw new Error('Personaje incompleto en escena ' + (index + 1) + ': cada personaje necesita identidad, aspecto y acción propios.');
 }
-const isColumbusStory = /col[oó]n|descubrimiento de am[eé]rica|primer viaje a las indias/i.test(script.title || '');
 const allowedEntityTypes = new Set(['human','animal','ship','tree','building','vehicle','machine','lab','celestial','furniture','prop','artifact']);
 const entityRegistry = new Map();
 for (const [sceneIndex, scene] of script.scenes.entries()) {
   const entities = Array.isArray(scene.entities) ? scene.entities : [];
-  if (!isColumbusStory && (entities.length < 2 || entities.length > 18)) throw new Error('La escena ' + (sceneIndex + 1) + ' necesita entre 2 y 18 entidades 3D explícitas para el nuevo motor procedural.');
+  if (entities.length < 2 || entities.length > 18) throw new Error('La escena ' + (sceneIndex + 1) + ' necesita entre 2 y 18 entidades 3D explícitas para el nuevo motor procedural.');
   for (const entity of entities) {
     const entityType = String(entity.type || '').toLowerCase();
     if (!entity.id || !entity.name || !allowedEntityTypes.has(entityType) || !Array.isArray(entity.position) || entity.position.length !== 3 || !entity.position.every(value => Number.isFinite(Number(value))) || !entity.action || countWords(entity.action) < 3) {
@@ -471,7 +470,7 @@ const clips = script.scenes.map((scene, i) => {
   const durationSeconds = i === script.scenes.length - 1 ? targetDuration - elapsedSceneSeconds : targetDuration * sceneWordCounts[i] / totalSceneWords;
   const start = elapsedSceneSeconds.toFixed(3), duration = durationSeconds.toFixed(3);
   elapsedSceneSeconds += durationSeconds;
-  const sceneData = escaped(JSON.stringify({title:script.title,visual:scene.visual||'',setting:scene.setting||'',action:scene.action||'',camera:scene.camera||'',camera_target:scene.camera_target||'',continuity:scene.continuity||'',characters:Array.isArray(scene.characters)?scene.characters:[],props:Array.isArray(scene.props)?scene.props:[],type:scene.scene_type||'object',objects:Array.isArray(scene.objects)?scene.objects.slice(0,12):[],entities:Array.isArray(scene.entities)?scene.entities.slice(0,18):[],beats:Array.isArray(scene.beats)?scene.beats.slice(0,12):[],index:i,start:Number(start),duration:Number(duration),storyId:script.story_id||(/col[oó]n|descubrimiento de am[eé]rica|primer viaje a las indias/i.test(script.title)?'columbus-1492':'') }));
+  const sceneData = escaped(JSON.stringify({title:script.title,visual:scene.visual||'',setting:scene.setting||'',action:scene.action||'',camera:scene.camera||'',camera_target:scene.camera_target||'',continuity:scene.continuity||'',characters:Array.isArray(scene.characters)?scene.characters:[],props:Array.isArray(scene.props)?scene.props:[],type:scene.scene_type||'object',objects:Array.isArray(scene.objects)?scene.objects.slice(0,12):[],entities:Array.isArray(scene.entities)?scene.entities.slice(0,18):[],beats:Array.isArray(scene.beats)?scene.beats.slice(0,12):[],index:i,start:Number(start),duration:Number(duration),storyId:script.story_id||'' }));
   return '<section id="scene-'+(i+1)+'" class="clip scene motion-'+(i%4)+'" data-start="'+start+'" data-duration="'+duration+'" data-track-index="0" data-scene="'+sceneData+'"><div class="brand-mark">BEHIND <i>DEL MUNDO</i></div><div class="scene-copy"><h1>'+escaped(scene.overlay)+'</h1></div></section>';
 }).join('');
 const parseSrtTime = value => { const m=String(value).match(/(\d+):(\d{2}):(\d{2}),(\d{3})/); return m ? Number(m[1])*3600+Number(m[2])*60+Number(m[3])+Number(m[4])/1000 : 0; };
