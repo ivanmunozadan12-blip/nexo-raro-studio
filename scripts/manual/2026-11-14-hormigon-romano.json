@@ -65,7 +65,192 @@
             0,
             -4
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; human height 1.9 metres; local origin at feet",
+            "parts": [
+              {
+                "id": "body",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.15,
+                  0
+                ],
+                "size": [
+                  0.58,
+                  0.9,
+                  0.3
+                ],
+                "color": "#a87943"
+              },
+              {
+                "id": "head",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  1.78,
+                  0.02
+                ],
+                "size": [
+                  0.22,
+                  0.25,
+                  0.22
+                ],
+                "color": "#bd8b68"
+              },
+              {
+                "id": "hair",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  1.91,
+                  -0.01
+                ],
+                "size": [
+                  0.23,
+                  0.12,
+                  0.23
+                ],
+                "color": "#382b22"
+              },
+              {
+                "id": "left-arm",
+                "group": true,
+                "position": [
+                  -0.35,
+                  1.48,
+                  0
+                ]
+              },
+              {
+                "id": "left-upper",
+                "parent": "left-arm",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.18,
+                  0
+                ],
+                "size": [
+                  0.12,
+                  0.38,
+                  0.12
+                ],
+                "color": "#a87943"
+              },
+              {
+                "id": "right-arm",
+                "group": true,
+                "position": [
+                  0.35,
+                  1.48,
+                  0
+                ]
+              },
+              {
+                "id": "right-upper",
+                "parent": "right-arm",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.18,
+                  0
+                ],
+                "size": [
+                  0.12,
+                  0.38,
+                  0.12
+                ],
+                "color": "#a87943"
+              },
+              {
+                "id": "left-leg",
+                "group": true,
+                "position": [
+                  -0.16,
+                  0.68,
+                  0
+                ]
+              },
+              {
+                "id": "left-thigh",
+                "parent": "left-leg",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.22,
+                  0
+                ],
+                "size": [
+                  0.16,
+                  0.48,
+                  0.16
+                ],
+                "color": "#8c633e"
+              },
+              {
+                "id": "right-leg",
+                "group": true,
+                "position": [
+                  0.16,
+                  0.68,
+                  0
+                ]
+              },
+              {
+                "id": "right-thigh",
+                "parent": "right-leg",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.22,
+                  0
+                ],
+                "size": [
+                  0.16,
+                  0.48,
+                  0.16
+                ],
+                "color": "#8c633e"
+              }
+            ],
+            "animations": [
+              {
+                "target": "left-arm",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0.34,
+                "frequency": 2,
+                "phase": 0
+              },
+              {
+                "target": "right-arm",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0.34,
+                "frequency": 2,
+                "phase": 3.141592653589793
+              },
+              {
+                "target": "left-leg",
+                "property": "rotation",
+                "axis": "x",
+                "amplitude": 0.22,
+                "frequency": 2,
+                "phase": 0
+              },
+              {
+                "target": "right-leg",
+                "property": "rotation",
+                "axis": "x",
+                "amplitude": 0.22,
+                "frequency": 2,
+                "phase": 3.141592653589793
+              }
+            ]
+          }
         },
         {
           "id": "roman-wall",
@@ -88,7 +273,329 @@
             0,
             -5
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; metres; origin at wall centre base",
+            "parts": [
+              {
+                "id": "core",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.3,
+                  0
+                ],
+                "size": [
+                  2.2,
+                  2.6,
+                  0.9
+                ],
+                "color": "#9b8972"
+              },
+              {
+                "id": "stone-0",
+                "primitive": "box",
+                "position": [
+                  -0.85,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-1",
+                "primitive": "box",
+                "position": [
+                  -0.2899999999999999,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-2",
+                "primitive": "box",
+                "position": [
+                  0.27000000000000013,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "stone-3",
+                "primitive": "box",
+                "position": [
+                  0.8300000000000002,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-4",
+                "primitive": "box",
+                "position": [
+                  -0.85,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-5",
+                "primitive": "box",
+                "position": [
+                  -0.2899999999999999,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "stone-6",
+                "primitive": "box",
+                "position": [
+                  0.27000000000000013,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-7",
+                "primitive": "box",
+                "position": [
+                  0.8300000000000002,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-8",
+                "primitive": "box",
+                "position": [
+                  -0.85,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "stone-9",
+                "primitive": "box",
+                "position": [
+                  -0.2899999999999999,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-10",
+                "primitive": "box",
+                "position": [
+                  0.27000000000000013,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-11",
+                "primitive": "box",
+                "position": [
+                  0.8300000000000002,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "lime-0",
+                "primitive": "sphere",
+                "position": [
+                  -0.8,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-1",
+                "primitive": "sphere",
+                "position": [
+                  -0.28,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-2",
+                "primitive": "sphere",
+                "position": [
+                  0.24,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-3",
+                "primitive": "sphere",
+                "position": [
+                  0.76,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-4",
+                "primitive": "sphere",
+                "position": [
+                  -0.8,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-5",
+                "primitive": "sphere",
+                "position": [
+                  -0.28,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-6",
+                "primitive": "sphere",
+                "position": [
+                  0.24,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-7",
+                "primitive": "sphere",
+                "position": [
+                  0.76,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              }
+            ],
+            "animations": []
+          }
         }
       ],
       "beats": [
@@ -151,7 +658,192 @@
             0,
             -4.6
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; human height 1.9 metres; local origin at feet",
+            "parts": [
+              {
+                "id": "body",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.15,
+                  0
+                ],
+                "size": [
+                  0.58,
+                  0.9,
+                  0.3
+                ],
+                "color": "#a87943"
+              },
+              {
+                "id": "head",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  1.78,
+                  0.02
+                ],
+                "size": [
+                  0.22,
+                  0.25,
+                  0.22
+                ],
+                "color": "#bd8b68"
+              },
+              {
+                "id": "hair",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  1.91,
+                  -0.01
+                ],
+                "size": [
+                  0.23,
+                  0.12,
+                  0.23
+                ],
+                "color": "#382b22"
+              },
+              {
+                "id": "left-arm",
+                "group": true,
+                "position": [
+                  -0.35,
+                  1.48,
+                  0
+                ]
+              },
+              {
+                "id": "left-upper",
+                "parent": "left-arm",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.18,
+                  0
+                ],
+                "size": [
+                  0.12,
+                  0.38,
+                  0.12
+                ],
+                "color": "#a87943"
+              },
+              {
+                "id": "right-arm",
+                "group": true,
+                "position": [
+                  0.35,
+                  1.48,
+                  0
+                ]
+              },
+              {
+                "id": "right-upper",
+                "parent": "right-arm",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.18,
+                  0
+                ],
+                "size": [
+                  0.12,
+                  0.38,
+                  0.12
+                ],
+                "color": "#a87943"
+              },
+              {
+                "id": "left-leg",
+                "group": true,
+                "position": [
+                  -0.16,
+                  0.68,
+                  0
+                ]
+              },
+              {
+                "id": "left-thigh",
+                "parent": "left-leg",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.22,
+                  0
+                ],
+                "size": [
+                  0.16,
+                  0.48,
+                  0.16
+                ],
+                "color": "#8c633e"
+              },
+              {
+                "id": "right-leg",
+                "group": true,
+                "position": [
+                  0.16,
+                  0.68,
+                  0
+                ]
+              },
+              {
+                "id": "right-thigh",
+                "parent": "right-leg",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.22,
+                  0
+                ],
+                "size": [
+                  0.16,
+                  0.48,
+                  0.16
+                ],
+                "color": "#8c633e"
+              }
+            ],
+            "animations": [
+              {
+                "target": "left-arm",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0.34,
+                "frequency": 2,
+                "phase": 0
+              },
+              {
+                "target": "right-arm",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0.34,
+                "frequency": 2,
+                "phase": 3.141592653589793
+              },
+              {
+                "target": "left-leg",
+                "property": "rotation",
+                "axis": "x",
+                "amplitude": 0.22,
+                "frequency": 2,
+                "phase": 0
+              },
+              {
+                "target": "right-leg",
+                "property": "rotation",
+                "axis": "x",
+                "amplitude": 0.22,
+                "frequency": 2,
+                "phase": 3.141592653589793
+              }
+            ]
+          }
         },
         {
           "id": "roman-wall",
@@ -174,7 +866,329 @@
             0,
             -5.6
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; metres; origin at wall centre base",
+            "parts": [
+              {
+                "id": "core",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.3,
+                  0
+                ],
+                "size": [
+                  2.2,
+                  2.6,
+                  0.9
+                ],
+                "color": "#9b8972"
+              },
+              {
+                "id": "stone-0",
+                "primitive": "box",
+                "position": [
+                  -0.85,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-1",
+                "primitive": "box",
+                "position": [
+                  -0.2899999999999999,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-2",
+                "primitive": "box",
+                "position": [
+                  0.27000000000000013,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "stone-3",
+                "primitive": "box",
+                "position": [
+                  0.8300000000000002,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-4",
+                "primitive": "box",
+                "position": [
+                  -0.85,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-5",
+                "primitive": "box",
+                "position": [
+                  -0.2899999999999999,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "stone-6",
+                "primitive": "box",
+                "position": [
+                  0.27000000000000013,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-7",
+                "primitive": "box",
+                "position": [
+                  0.8300000000000002,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-8",
+                "primitive": "box",
+                "position": [
+                  -0.85,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "stone-9",
+                "primitive": "box",
+                "position": [
+                  -0.2899999999999999,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-10",
+                "primitive": "box",
+                "position": [
+                  0.27000000000000013,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-11",
+                "primitive": "box",
+                "position": [
+                  0.8300000000000002,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "lime-0",
+                "primitive": "sphere",
+                "position": [
+                  -0.8,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-1",
+                "primitive": "sphere",
+                "position": [
+                  -0.28,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-2",
+                "primitive": "sphere",
+                "position": [
+                  0.24,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-3",
+                "primitive": "sphere",
+                "position": [
+                  0.76,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-4",
+                "primitive": "sphere",
+                "position": [
+                  -0.8,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-5",
+                "primitive": "sphere",
+                "position": [
+                  -0.28,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-6",
+                "primitive": "sphere",
+                "position": [
+                  0.24,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-7",
+                "primitive": "sphere",
+                "position": [
+                  0.76,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              }
+            ],
+            "animations": []
+          }
         }
       ],
       "beats": [
@@ -237,7 +1251,192 @@
             0,
             -5.2
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; human height 1.9 metres; local origin at feet",
+            "parts": [
+              {
+                "id": "body",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.15,
+                  0
+                ],
+                "size": [
+                  0.58,
+                  0.9,
+                  0.3
+                ],
+                "color": "#a87943"
+              },
+              {
+                "id": "head",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  1.78,
+                  0.02
+                ],
+                "size": [
+                  0.22,
+                  0.25,
+                  0.22
+                ],
+                "color": "#bd8b68"
+              },
+              {
+                "id": "hair",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  1.91,
+                  -0.01
+                ],
+                "size": [
+                  0.23,
+                  0.12,
+                  0.23
+                ],
+                "color": "#382b22"
+              },
+              {
+                "id": "left-arm",
+                "group": true,
+                "position": [
+                  -0.35,
+                  1.48,
+                  0
+                ]
+              },
+              {
+                "id": "left-upper",
+                "parent": "left-arm",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.18,
+                  0
+                ],
+                "size": [
+                  0.12,
+                  0.38,
+                  0.12
+                ],
+                "color": "#a87943"
+              },
+              {
+                "id": "right-arm",
+                "group": true,
+                "position": [
+                  0.35,
+                  1.48,
+                  0
+                ]
+              },
+              {
+                "id": "right-upper",
+                "parent": "right-arm",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.18,
+                  0
+                ],
+                "size": [
+                  0.12,
+                  0.38,
+                  0.12
+                ],
+                "color": "#a87943"
+              },
+              {
+                "id": "left-leg",
+                "group": true,
+                "position": [
+                  -0.16,
+                  0.68,
+                  0
+                ]
+              },
+              {
+                "id": "left-thigh",
+                "parent": "left-leg",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.22,
+                  0
+                ],
+                "size": [
+                  0.16,
+                  0.48,
+                  0.16
+                ],
+                "color": "#8c633e"
+              },
+              {
+                "id": "right-leg",
+                "group": true,
+                "position": [
+                  0.16,
+                  0.68,
+                  0
+                ]
+              },
+              {
+                "id": "right-thigh",
+                "parent": "right-leg",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.22,
+                  0
+                ],
+                "size": [
+                  0.16,
+                  0.48,
+                  0.16
+                ],
+                "color": "#8c633e"
+              }
+            ],
+            "animations": [
+              {
+                "target": "left-arm",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0.34,
+                "frequency": 2,
+                "phase": 0
+              },
+              {
+                "target": "right-arm",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0.34,
+                "frequency": 2,
+                "phase": 3.141592653589793
+              },
+              {
+                "target": "left-leg",
+                "property": "rotation",
+                "axis": "x",
+                "amplitude": 0.22,
+                "frequency": 2,
+                "phase": 0
+              },
+              {
+                "target": "right-leg",
+                "property": "rotation",
+                "axis": "x",
+                "amplitude": 0.22,
+                "frequency": 2,
+                "phase": 3.141592653589793
+              }
+            ]
+          }
         },
         {
           "id": "roman-wall",
@@ -260,7 +1459,329 @@
             0,
             -6.2
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; metres; origin at wall centre base",
+            "parts": [
+              {
+                "id": "core",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.3,
+                  0
+                ],
+                "size": [
+                  2.2,
+                  2.6,
+                  0.9
+                ],
+                "color": "#9b8972"
+              },
+              {
+                "id": "stone-0",
+                "primitive": "box",
+                "position": [
+                  -0.85,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-1",
+                "primitive": "box",
+                "position": [
+                  -0.2899999999999999,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-2",
+                "primitive": "box",
+                "position": [
+                  0.27000000000000013,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "stone-3",
+                "primitive": "box",
+                "position": [
+                  0.8300000000000002,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-4",
+                "primitive": "box",
+                "position": [
+                  -0.85,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-5",
+                "primitive": "box",
+                "position": [
+                  -0.2899999999999999,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "stone-6",
+                "primitive": "box",
+                "position": [
+                  0.27000000000000013,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-7",
+                "primitive": "box",
+                "position": [
+                  0.8300000000000002,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-8",
+                "primitive": "box",
+                "position": [
+                  -0.85,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "stone-9",
+                "primitive": "box",
+                "position": [
+                  -0.2899999999999999,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-10",
+                "primitive": "box",
+                "position": [
+                  0.27000000000000013,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-11",
+                "primitive": "box",
+                "position": [
+                  0.8300000000000002,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "lime-0",
+                "primitive": "sphere",
+                "position": [
+                  -0.8,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-1",
+                "primitive": "sphere",
+                "position": [
+                  -0.28,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-2",
+                "primitive": "sphere",
+                "position": [
+                  0.24,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-3",
+                "primitive": "sphere",
+                "position": [
+                  0.76,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-4",
+                "primitive": "sphere",
+                "position": [
+                  -0.8,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-5",
+                "primitive": "sphere",
+                "position": [
+                  -0.28,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-6",
+                "primitive": "sphere",
+                "position": [
+                  0.24,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-7",
+                "primitive": "sphere",
+                "position": [
+                  0.76,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              }
+            ],
+            "animations": []
+          }
         }
       ],
       "beats": [
@@ -323,7 +1844,192 @@
             0,
             -4
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; human height 1.9 metres; local origin at feet",
+            "parts": [
+              {
+                "id": "body",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.15,
+                  0
+                ],
+                "size": [
+                  0.58,
+                  0.9,
+                  0.3
+                ],
+                "color": "#a87943"
+              },
+              {
+                "id": "head",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  1.78,
+                  0.02
+                ],
+                "size": [
+                  0.22,
+                  0.25,
+                  0.22
+                ],
+                "color": "#bd8b68"
+              },
+              {
+                "id": "hair",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  1.91,
+                  -0.01
+                ],
+                "size": [
+                  0.23,
+                  0.12,
+                  0.23
+                ],
+                "color": "#382b22"
+              },
+              {
+                "id": "left-arm",
+                "group": true,
+                "position": [
+                  -0.35,
+                  1.48,
+                  0
+                ]
+              },
+              {
+                "id": "left-upper",
+                "parent": "left-arm",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.18,
+                  0
+                ],
+                "size": [
+                  0.12,
+                  0.38,
+                  0.12
+                ],
+                "color": "#a87943"
+              },
+              {
+                "id": "right-arm",
+                "group": true,
+                "position": [
+                  0.35,
+                  1.48,
+                  0
+                ]
+              },
+              {
+                "id": "right-upper",
+                "parent": "right-arm",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.18,
+                  0
+                ],
+                "size": [
+                  0.12,
+                  0.38,
+                  0.12
+                ],
+                "color": "#a87943"
+              },
+              {
+                "id": "left-leg",
+                "group": true,
+                "position": [
+                  -0.16,
+                  0.68,
+                  0
+                ]
+              },
+              {
+                "id": "left-thigh",
+                "parent": "left-leg",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.22,
+                  0
+                ],
+                "size": [
+                  0.16,
+                  0.48,
+                  0.16
+                ],
+                "color": "#8c633e"
+              },
+              {
+                "id": "right-leg",
+                "group": true,
+                "position": [
+                  0.16,
+                  0.68,
+                  0
+                ]
+              },
+              {
+                "id": "right-thigh",
+                "parent": "right-leg",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.22,
+                  0
+                ],
+                "size": [
+                  0.16,
+                  0.48,
+                  0.16
+                ],
+                "color": "#8c633e"
+              }
+            ],
+            "animations": [
+              {
+                "target": "left-arm",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0.34,
+                "frequency": 2,
+                "phase": 0
+              },
+              {
+                "target": "right-arm",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0.34,
+                "frequency": 2,
+                "phase": 3.141592653589793
+              },
+              {
+                "target": "left-leg",
+                "property": "rotation",
+                "axis": "x",
+                "amplitude": 0.22,
+                "frequency": 2,
+                "phase": 0
+              },
+              {
+                "target": "right-leg",
+                "property": "rotation",
+                "axis": "x",
+                "amplitude": 0.22,
+                "frequency": 2,
+                "phase": 3.141592653589793
+              }
+            ]
+          }
         },
         {
           "id": "roman-wall",
@@ -346,7 +2052,329 @@
             0,
             -5
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; metres; origin at wall centre base",
+            "parts": [
+              {
+                "id": "core",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.3,
+                  0
+                ],
+                "size": [
+                  2.2,
+                  2.6,
+                  0.9
+                ],
+                "color": "#9b8972"
+              },
+              {
+                "id": "stone-0",
+                "primitive": "box",
+                "position": [
+                  -0.85,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-1",
+                "primitive": "box",
+                "position": [
+                  -0.2899999999999999,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-2",
+                "primitive": "box",
+                "position": [
+                  0.27000000000000013,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "stone-3",
+                "primitive": "box",
+                "position": [
+                  0.8300000000000002,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-4",
+                "primitive": "box",
+                "position": [
+                  -0.85,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-5",
+                "primitive": "box",
+                "position": [
+                  -0.2899999999999999,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "stone-6",
+                "primitive": "box",
+                "position": [
+                  0.27000000000000013,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-7",
+                "primitive": "box",
+                "position": [
+                  0.8300000000000002,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-8",
+                "primitive": "box",
+                "position": [
+                  -0.85,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "stone-9",
+                "primitive": "box",
+                "position": [
+                  -0.2899999999999999,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-10",
+                "primitive": "box",
+                "position": [
+                  0.27000000000000013,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-11",
+                "primitive": "box",
+                "position": [
+                  0.8300000000000002,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "lime-0",
+                "primitive": "sphere",
+                "position": [
+                  -0.8,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-1",
+                "primitive": "sphere",
+                "position": [
+                  -0.28,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-2",
+                "primitive": "sphere",
+                "position": [
+                  0.24,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-3",
+                "primitive": "sphere",
+                "position": [
+                  0.76,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-4",
+                "primitive": "sphere",
+                "position": [
+                  -0.8,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-5",
+                "primitive": "sphere",
+                "position": [
+                  -0.28,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-6",
+                "primitive": "sphere",
+                "position": [
+                  0.24,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-7",
+                "primitive": "sphere",
+                "position": [
+                  0.76,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              }
+            ],
+            "animations": []
+          }
         }
       ],
       "beats": [
@@ -409,7 +2437,192 @@
             0,
             -4.6
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; human height 1.9 metres; local origin at feet",
+            "parts": [
+              {
+                "id": "body",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.15,
+                  0
+                ],
+                "size": [
+                  0.58,
+                  0.9,
+                  0.3
+                ],
+                "color": "#a87943"
+              },
+              {
+                "id": "head",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  1.78,
+                  0.02
+                ],
+                "size": [
+                  0.22,
+                  0.25,
+                  0.22
+                ],
+                "color": "#bd8b68"
+              },
+              {
+                "id": "hair",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  1.91,
+                  -0.01
+                ],
+                "size": [
+                  0.23,
+                  0.12,
+                  0.23
+                ],
+                "color": "#382b22"
+              },
+              {
+                "id": "left-arm",
+                "group": true,
+                "position": [
+                  -0.35,
+                  1.48,
+                  0
+                ]
+              },
+              {
+                "id": "left-upper",
+                "parent": "left-arm",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.18,
+                  0
+                ],
+                "size": [
+                  0.12,
+                  0.38,
+                  0.12
+                ],
+                "color": "#a87943"
+              },
+              {
+                "id": "right-arm",
+                "group": true,
+                "position": [
+                  0.35,
+                  1.48,
+                  0
+                ]
+              },
+              {
+                "id": "right-upper",
+                "parent": "right-arm",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.18,
+                  0
+                ],
+                "size": [
+                  0.12,
+                  0.38,
+                  0.12
+                ],
+                "color": "#a87943"
+              },
+              {
+                "id": "left-leg",
+                "group": true,
+                "position": [
+                  -0.16,
+                  0.68,
+                  0
+                ]
+              },
+              {
+                "id": "left-thigh",
+                "parent": "left-leg",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.22,
+                  0
+                ],
+                "size": [
+                  0.16,
+                  0.48,
+                  0.16
+                ],
+                "color": "#8c633e"
+              },
+              {
+                "id": "right-leg",
+                "group": true,
+                "position": [
+                  0.16,
+                  0.68,
+                  0
+                ]
+              },
+              {
+                "id": "right-thigh",
+                "parent": "right-leg",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.22,
+                  0
+                ],
+                "size": [
+                  0.16,
+                  0.48,
+                  0.16
+                ],
+                "color": "#8c633e"
+              }
+            ],
+            "animations": [
+              {
+                "target": "left-arm",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0.34,
+                "frequency": 2,
+                "phase": 0
+              },
+              {
+                "target": "right-arm",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0.34,
+                "frequency": 2,
+                "phase": 3.141592653589793
+              },
+              {
+                "target": "left-leg",
+                "property": "rotation",
+                "axis": "x",
+                "amplitude": 0.22,
+                "frequency": 2,
+                "phase": 0
+              },
+              {
+                "target": "right-leg",
+                "property": "rotation",
+                "axis": "x",
+                "amplitude": 0.22,
+                "frequency": 2,
+                "phase": 3.141592653589793
+              }
+            ]
+          }
         },
         {
           "id": "roman-wall",
@@ -432,7 +2645,329 @@
             0,
             -5.6
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; metres; origin at wall centre base",
+            "parts": [
+              {
+                "id": "core",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.3,
+                  0
+                ],
+                "size": [
+                  2.2,
+                  2.6,
+                  0.9
+                ],
+                "color": "#9b8972"
+              },
+              {
+                "id": "stone-0",
+                "primitive": "box",
+                "position": [
+                  -0.85,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-1",
+                "primitive": "box",
+                "position": [
+                  -0.2899999999999999,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-2",
+                "primitive": "box",
+                "position": [
+                  0.27000000000000013,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "stone-3",
+                "primitive": "box",
+                "position": [
+                  0.8300000000000002,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-4",
+                "primitive": "box",
+                "position": [
+                  -0.85,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-5",
+                "primitive": "box",
+                "position": [
+                  -0.2899999999999999,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "stone-6",
+                "primitive": "box",
+                "position": [
+                  0.27000000000000013,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-7",
+                "primitive": "box",
+                "position": [
+                  0.8300000000000002,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-8",
+                "primitive": "box",
+                "position": [
+                  -0.85,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "stone-9",
+                "primitive": "box",
+                "position": [
+                  -0.2899999999999999,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-10",
+                "primitive": "box",
+                "position": [
+                  0.27000000000000013,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-11",
+                "primitive": "box",
+                "position": [
+                  0.8300000000000002,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "lime-0",
+                "primitive": "sphere",
+                "position": [
+                  -0.8,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-1",
+                "primitive": "sphere",
+                "position": [
+                  -0.28,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-2",
+                "primitive": "sphere",
+                "position": [
+                  0.24,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-3",
+                "primitive": "sphere",
+                "position": [
+                  0.76,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-4",
+                "primitive": "sphere",
+                "position": [
+                  -0.8,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-5",
+                "primitive": "sphere",
+                "position": [
+                  -0.28,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-6",
+                "primitive": "sphere",
+                "position": [
+                  0.24,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-7",
+                "primitive": "sphere",
+                "position": [
+                  0.76,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              }
+            ],
+            "animations": []
+          }
         }
       ],
       "beats": [
@@ -495,7 +3030,192 @@
             0,
             -5.2
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; human height 1.9 metres; local origin at feet",
+            "parts": [
+              {
+                "id": "body",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.15,
+                  0
+                ],
+                "size": [
+                  0.58,
+                  0.9,
+                  0.3
+                ],
+                "color": "#a87943"
+              },
+              {
+                "id": "head",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  1.78,
+                  0.02
+                ],
+                "size": [
+                  0.22,
+                  0.25,
+                  0.22
+                ],
+                "color": "#bd8b68"
+              },
+              {
+                "id": "hair",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  1.91,
+                  -0.01
+                ],
+                "size": [
+                  0.23,
+                  0.12,
+                  0.23
+                ],
+                "color": "#382b22"
+              },
+              {
+                "id": "left-arm",
+                "group": true,
+                "position": [
+                  -0.35,
+                  1.48,
+                  0
+                ]
+              },
+              {
+                "id": "left-upper",
+                "parent": "left-arm",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.18,
+                  0
+                ],
+                "size": [
+                  0.12,
+                  0.38,
+                  0.12
+                ],
+                "color": "#a87943"
+              },
+              {
+                "id": "right-arm",
+                "group": true,
+                "position": [
+                  0.35,
+                  1.48,
+                  0
+                ]
+              },
+              {
+                "id": "right-upper",
+                "parent": "right-arm",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.18,
+                  0
+                ],
+                "size": [
+                  0.12,
+                  0.38,
+                  0.12
+                ],
+                "color": "#a87943"
+              },
+              {
+                "id": "left-leg",
+                "group": true,
+                "position": [
+                  -0.16,
+                  0.68,
+                  0
+                ]
+              },
+              {
+                "id": "left-thigh",
+                "parent": "left-leg",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.22,
+                  0
+                ],
+                "size": [
+                  0.16,
+                  0.48,
+                  0.16
+                ],
+                "color": "#8c633e"
+              },
+              {
+                "id": "right-leg",
+                "group": true,
+                "position": [
+                  0.16,
+                  0.68,
+                  0
+                ]
+              },
+              {
+                "id": "right-thigh",
+                "parent": "right-leg",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.22,
+                  0
+                ],
+                "size": [
+                  0.16,
+                  0.48,
+                  0.16
+                ],
+                "color": "#8c633e"
+              }
+            ],
+            "animations": [
+              {
+                "target": "left-arm",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0.34,
+                "frequency": 2,
+                "phase": 0
+              },
+              {
+                "target": "right-arm",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0.34,
+                "frequency": 2,
+                "phase": 3.141592653589793
+              },
+              {
+                "target": "left-leg",
+                "property": "rotation",
+                "axis": "x",
+                "amplitude": 0.22,
+                "frequency": 2,
+                "phase": 0
+              },
+              {
+                "target": "right-leg",
+                "property": "rotation",
+                "axis": "x",
+                "amplitude": 0.22,
+                "frequency": 2,
+                "phase": 3.141592653589793
+              }
+            ]
+          }
         },
         {
           "id": "roman-wall",
@@ -518,7 +3238,329 @@
             0,
             -6.2
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; metres; origin at wall centre base",
+            "parts": [
+              {
+                "id": "core",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.3,
+                  0
+                ],
+                "size": [
+                  2.2,
+                  2.6,
+                  0.9
+                ],
+                "color": "#9b8972"
+              },
+              {
+                "id": "stone-0",
+                "primitive": "box",
+                "position": [
+                  -0.85,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-1",
+                "primitive": "box",
+                "position": [
+                  -0.2899999999999999,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-2",
+                "primitive": "box",
+                "position": [
+                  0.27000000000000013,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "stone-3",
+                "primitive": "box",
+                "position": [
+                  0.8300000000000002,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-4",
+                "primitive": "box",
+                "position": [
+                  -0.85,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-5",
+                "primitive": "box",
+                "position": [
+                  -0.2899999999999999,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "stone-6",
+                "primitive": "box",
+                "position": [
+                  0.27000000000000013,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-7",
+                "primitive": "box",
+                "position": [
+                  0.8300000000000002,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-8",
+                "primitive": "box",
+                "position": [
+                  -0.85,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "stone-9",
+                "primitive": "box",
+                "position": [
+                  -0.2899999999999999,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-10",
+                "primitive": "box",
+                "position": [
+                  0.27000000000000013,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-11",
+                "primitive": "box",
+                "position": [
+                  0.8300000000000002,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "lime-0",
+                "primitive": "sphere",
+                "position": [
+                  -0.8,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-1",
+                "primitive": "sphere",
+                "position": [
+                  -0.28,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-2",
+                "primitive": "sphere",
+                "position": [
+                  0.24,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-3",
+                "primitive": "sphere",
+                "position": [
+                  0.76,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-4",
+                "primitive": "sphere",
+                "position": [
+                  -0.8,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-5",
+                "primitive": "sphere",
+                "position": [
+                  -0.28,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-6",
+                "primitive": "sphere",
+                "position": [
+                  0.24,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-7",
+                "primitive": "sphere",
+                "position": [
+                  0.76,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              }
+            ],
+            "animations": []
+          }
         }
       ],
       "beats": [
@@ -581,7 +3623,192 @@
             0,
             -4
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; human height 1.9 metres; local origin at feet",
+            "parts": [
+              {
+                "id": "body",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.15,
+                  0
+                ],
+                "size": [
+                  0.58,
+                  0.9,
+                  0.3
+                ],
+                "color": "#a87943"
+              },
+              {
+                "id": "head",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  1.78,
+                  0.02
+                ],
+                "size": [
+                  0.22,
+                  0.25,
+                  0.22
+                ],
+                "color": "#bd8b68"
+              },
+              {
+                "id": "hair",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  1.91,
+                  -0.01
+                ],
+                "size": [
+                  0.23,
+                  0.12,
+                  0.23
+                ],
+                "color": "#382b22"
+              },
+              {
+                "id": "left-arm",
+                "group": true,
+                "position": [
+                  -0.35,
+                  1.48,
+                  0
+                ]
+              },
+              {
+                "id": "left-upper",
+                "parent": "left-arm",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.18,
+                  0
+                ],
+                "size": [
+                  0.12,
+                  0.38,
+                  0.12
+                ],
+                "color": "#a87943"
+              },
+              {
+                "id": "right-arm",
+                "group": true,
+                "position": [
+                  0.35,
+                  1.48,
+                  0
+                ]
+              },
+              {
+                "id": "right-upper",
+                "parent": "right-arm",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.18,
+                  0
+                ],
+                "size": [
+                  0.12,
+                  0.38,
+                  0.12
+                ],
+                "color": "#a87943"
+              },
+              {
+                "id": "left-leg",
+                "group": true,
+                "position": [
+                  -0.16,
+                  0.68,
+                  0
+                ]
+              },
+              {
+                "id": "left-thigh",
+                "parent": "left-leg",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.22,
+                  0
+                ],
+                "size": [
+                  0.16,
+                  0.48,
+                  0.16
+                ],
+                "color": "#8c633e"
+              },
+              {
+                "id": "right-leg",
+                "group": true,
+                "position": [
+                  0.16,
+                  0.68,
+                  0
+                ]
+              },
+              {
+                "id": "right-thigh",
+                "parent": "right-leg",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.22,
+                  0
+                ],
+                "size": [
+                  0.16,
+                  0.48,
+                  0.16
+                ],
+                "color": "#8c633e"
+              }
+            ],
+            "animations": [
+              {
+                "target": "left-arm",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0.34,
+                "frequency": 2,
+                "phase": 0
+              },
+              {
+                "target": "right-arm",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0.34,
+                "frequency": 2,
+                "phase": 3.141592653589793
+              },
+              {
+                "target": "left-leg",
+                "property": "rotation",
+                "axis": "x",
+                "amplitude": 0.22,
+                "frequency": 2,
+                "phase": 0
+              },
+              {
+                "target": "right-leg",
+                "property": "rotation",
+                "axis": "x",
+                "amplitude": 0.22,
+                "frequency": 2,
+                "phase": 3.141592653589793
+              }
+            ]
+          }
         },
         {
           "id": "roman-wall",
@@ -604,7 +3831,329 @@
             0,
             -5
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; metres; origin at wall centre base",
+            "parts": [
+              {
+                "id": "core",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.3,
+                  0
+                ],
+                "size": [
+                  2.2,
+                  2.6,
+                  0.9
+                ],
+                "color": "#9b8972"
+              },
+              {
+                "id": "stone-0",
+                "primitive": "box",
+                "position": [
+                  -0.85,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-1",
+                "primitive": "box",
+                "position": [
+                  -0.2899999999999999,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-2",
+                "primitive": "box",
+                "position": [
+                  0.27000000000000013,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "stone-3",
+                "primitive": "box",
+                "position": [
+                  0.8300000000000002,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-4",
+                "primitive": "box",
+                "position": [
+                  -0.85,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-5",
+                "primitive": "box",
+                "position": [
+                  -0.2899999999999999,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "stone-6",
+                "primitive": "box",
+                "position": [
+                  0.27000000000000013,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-7",
+                "primitive": "box",
+                "position": [
+                  0.8300000000000002,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-8",
+                "primitive": "box",
+                "position": [
+                  -0.85,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "stone-9",
+                "primitive": "box",
+                "position": [
+                  -0.2899999999999999,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-10",
+                "primitive": "box",
+                "position": [
+                  0.27000000000000013,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-11",
+                "primitive": "box",
+                "position": [
+                  0.8300000000000002,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "lime-0",
+                "primitive": "sphere",
+                "position": [
+                  -0.8,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-1",
+                "primitive": "sphere",
+                "position": [
+                  -0.28,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-2",
+                "primitive": "sphere",
+                "position": [
+                  0.24,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-3",
+                "primitive": "sphere",
+                "position": [
+                  0.76,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-4",
+                "primitive": "sphere",
+                "position": [
+                  -0.8,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-5",
+                "primitive": "sphere",
+                "position": [
+                  -0.28,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-6",
+                "primitive": "sphere",
+                "position": [
+                  0.24,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-7",
+                "primitive": "sphere",
+                "position": [
+                  0.76,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              }
+            ],
+            "animations": []
+          }
         }
       ],
       "beats": [
@@ -667,7 +4216,192 @@
             0,
             -4.6
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; human height 1.9 metres; local origin at feet",
+            "parts": [
+              {
+                "id": "body",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.15,
+                  0
+                ],
+                "size": [
+                  0.58,
+                  0.9,
+                  0.3
+                ],
+                "color": "#a87943"
+              },
+              {
+                "id": "head",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  1.78,
+                  0.02
+                ],
+                "size": [
+                  0.22,
+                  0.25,
+                  0.22
+                ],
+                "color": "#bd8b68"
+              },
+              {
+                "id": "hair",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  1.91,
+                  -0.01
+                ],
+                "size": [
+                  0.23,
+                  0.12,
+                  0.23
+                ],
+                "color": "#382b22"
+              },
+              {
+                "id": "left-arm",
+                "group": true,
+                "position": [
+                  -0.35,
+                  1.48,
+                  0
+                ]
+              },
+              {
+                "id": "left-upper",
+                "parent": "left-arm",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.18,
+                  0
+                ],
+                "size": [
+                  0.12,
+                  0.38,
+                  0.12
+                ],
+                "color": "#a87943"
+              },
+              {
+                "id": "right-arm",
+                "group": true,
+                "position": [
+                  0.35,
+                  1.48,
+                  0
+                ]
+              },
+              {
+                "id": "right-upper",
+                "parent": "right-arm",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.18,
+                  0
+                ],
+                "size": [
+                  0.12,
+                  0.38,
+                  0.12
+                ],
+                "color": "#a87943"
+              },
+              {
+                "id": "left-leg",
+                "group": true,
+                "position": [
+                  -0.16,
+                  0.68,
+                  0
+                ]
+              },
+              {
+                "id": "left-thigh",
+                "parent": "left-leg",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.22,
+                  0
+                ],
+                "size": [
+                  0.16,
+                  0.48,
+                  0.16
+                ],
+                "color": "#8c633e"
+              },
+              {
+                "id": "right-leg",
+                "group": true,
+                "position": [
+                  0.16,
+                  0.68,
+                  0
+                ]
+              },
+              {
+                "id": "right-thigh",
+                "parent": "right-leg",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.22,
+                  0
+                ],
+                "size": [
+                  0.16,
+                  0.48,
+                  0.16
+                ],
+                "color": "#8c633e"
+              }
+            ],
+            "animations": [
+              {
+                "target": "left-arm",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0.34,
+                "frequency": 2,
+                "phase": 0
+              },
+              {
+                "target": "right-arm",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0.34,
+                "frequency": 2,
+                "phase": 3.141592653589793
+              },
+              {
+                "target": "left-leg",
+                "property": "rotation",
+                "axis": "x",
+                "amplitude": 0.22,
+                "frequency": 2,
+                "phase": 0
+              },
+              {
+                "target": "right-leg",
+                "property": "rotation",
+                "axis": "x",
+                "amplitude": 0.22,
+                "frequency": 2,
+                "phase": 3.141592653589793
+              }
+            ]
+          }
         },
         {
           "id": "roman-wall",
@@ -690,7 +4424,329 @@
             0,
             -5.6
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; metres; origin at wall centre base",
+            "parts": [
+              {
+                "id": "core",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.3,
+                  0
+                ],
+                "size": [
+                  2.2,
+                  2.6,
+                  0.9
+                ],
+                "color": "#9b8972"
+              },
+              {
+                "id": "stone-0",
+                "primitive": "box",
+                "position": [
+                  -0.85,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-1",
+                "primitive": "box",
+                "position": [
+                  -0.2899999999999999,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-2",
+                "primitive": "box",
+                "position": [
+                  0.27000000000000013,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "stone-3",
+                "primitive": "box",
+                "position": [
+                  0.8300000000000002,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-4",
+                "primitive": "box",
+                "position": [
+                  -0.85,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-5",
+                "primitive": "box",
+                "position": [
+                  -0.2899999999999999,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "stone-6",
+                "primitive": "box",
+                "position": [
+                  0.27000000000000013,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-7",
+                "primitive": "box",
+                "position": [
+                  0.8300000000000002,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-8",
+                "primitive": "box",
+                "position": [
+                  -0.85,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "stone-9",
+                "primitive": "box",
+                "position": [
+                  -0.2899999999999999,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-10",
+                "primitive": "box",
+                "position": [
+                  0.27000000000000013,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-11",
+                "primitive": "box",
+                "position": [
+                  0.8300000000000002,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "lime-0",
+                "primitive": "sphere",
+                "position": [
+                  -0.8,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-1",
+                "primitive": "sphere",
+                "position": [
+                  -0.28,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-2",
+                "primitive": "sphere",
+                "position": [
+                  0.24,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-3",
+                "primitive": "sphere",
+                "position": [
+                  0.76,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-4",
+                "primitive": "sphere",
+                "position": [
+                  -0.8,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-5",
+                "primitive": "sphere",
+                "position": [
+                  -0.28,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-6",
+                "primitive": "sphere",
+                "position": [
+                  0.24,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-7",
+                "primitive": "sphere",
+                "position": [
+                  0.76,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              }
+            ],
+            "animations": []
+          }
         }
       ],
       "beats": [
@@ -753,7 +4809,192 @@
             0,
             -5.2
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; human height 1.9 metres; local origin at feet",
+            "parts": [
+              {
+                "id": "body",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.15,
+                  0
+                ],
+                "size": [
+                  0.58,
+                  0.9,
+                  0.3
+                ],
+                "color": "#a87943"
+              },
+              {
+                "id": "head",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  1.78,
+                  0.02
+                ],
+                "size": [
+                  0.22,
+                  0.25,
+                  0.22
+                ],
+                "color": "#bd8b68"
+              },
+              {
+                "id": "hair",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  1.91,
+                  -0.01
+                ],
+                "size": [
+                  0.23,
+                  0.12,
+                  0.23
+                ],
+                "color": "#382b22"
+              },
+              {
+                "id": "left-arm",
+                "group": true,
+                "position": [
+                  -0.35,
+                  1.48,
+                  0
+                ]
+              },
+              {
+                "id": "left-upper",
+                "parent": "left-arm",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.18,
+                  0
+                ],
+                "size": [
+                  0.12,
+                  0.38,
+                  0.12
+                ],
+                "color": "#a87943"
+              },
+              {
+                "id": "right-arm",
+                "group": true,
+                "position": [
+                  0.35,
+                  1.48,
+                  0
+                ]
+              },
+              {
+                "id": "right-upper",
+                "parent": "right-arm",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.18,
+                  0
+                ],
+                "size": [
+                  0.12,
+                  0.38,
+                  0.12
+                ],
+                "color": "#a87943"
+              },
+              {
+                "id": "left-leg",
+                "group": true,
+                "position": [
+                  -0.16,
+                  0.68,
+                  0
+                ]
+              },
+              {
+                "id": "left-thigh",
+                "parent": "left-leg",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.22,
+                  0
+                ],
+                "size": [
+                  0.16,
+                  0.48,
+                  0.16
+                ],
+                "color": "#8c633e"
+              },
+              {
+                "id": "right-leg",
+                "group": true,
+                "position": [
+                  0.16,
+                  0.68,
+                  0
+                ]
+              },
+              {
+                "id": "right-thigh",
+                "parent": "right-leg",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.22,
+                  0
+                ],
+                "size": [
+                  0.16,
+                  0.48,
+                  0.16
+                ],
+                "color": "#8c633e"
+              }
+            ],
+            "animations": [
+              {
+                "target": "left-arm",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0.34,
+                "frequency": 2,
+                "phase": 0
+              },
+              {
+                "target": "right-arm",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0.34,
+                "frequency": 2,
+                "phase": 3.141592653589793
+              },
+              {
+                "target": "left-leg",
+                "property": "rotation",
+                "axis": "x",
+                "amplitude": 0.22,
+                "frequency": 2,
+                "phase": 0
+              },
+              {
+                "target": "right-leg",
+                "property": "rotation",
+                "axis": "x",
+                "amplitude": 0.22,
+                "frequency": 2,
+                "phase": 3.141592653589793
+              }
+            ]
+          }
         },
         {
           "id": "roman-wall",
@@ -776,7 +5017,329 @@
             0,
             -6.2
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; metres; origin at wall centre base",
+            "parts": [
+              {
+                "id": "core",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.3,
+                  0
+                ],
+                "size": [
+                  2.2,
+                  2.6,
+                  0.9
+                ],
+                "color": "#9b8972"
+              },
+              {
+                "id": "stone-0",
+                "primitive": "box",
+                "position": [
+                  -0.85,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-1",
+                "primitive": "box",
+                "position": [
+                  -0.2899999999999999,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-2",
+                "primitive": "box",
+                "position": [
+                  0.27000000000000013,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "stone-3",
+                "primitive": "box",
+                "position": [
+                  0.8300000000000002,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-4",
+                "primitive": "box",
+                "position": [
+                  -0.85,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-5",
+                "primitive": "box",
+                "position": [
+                  -0.2899999999999999,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "stone-6",
+                "primitive": "box",
+                "position": [
+                  0.27000000000000013,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-7",
+                "primitive": "box",
+                "position": [
+                  0.8300000000000002,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-8",
+                "primitive": "box",
+                "position": [
+                  -0.85,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "stone-9",
+                "primitive": "box",
+                "position": [
+                  -0.2899999999999999,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-10",
+                "primitive": "box",
+                "position": [
+                  0.27000000000000013,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-11",
+                "primitive": "box",
+                "position": [
+                  0.8300000000000002,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "lime-0",
+                "primitive": "sphere",
+                "position": [
+                  -0.8,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-1",
+                "primitive": "sphere",
+                "position": [
+                  -0.28,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-2",
+                "primitive": "sphere",
+                "position": [
+                  0.24,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-3",
+                "primitive": "sphere",
+                "position": [
+                  0.76,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-4",
+                "primitive": "sphere",
+                "position": [
+                  -0.8,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-5",
+                "primitive": "sphere",
+                "position": [
+                  -0.28,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-6",
+                "primitive": "sphere",
+                "position": [
+                  0.24,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-7",
+                "primitive": "sphere",
+                "position": [
+                  0.76,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              }
+            ],
+            "animations": []
+          }
         }
       ],
       "beats": [
@@ -839,7 +5402,192 @@
             0,
             -4
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; human height 1.9 metres; local origin at feet",
+            "parts": [
+              {
+                "id": "body",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.15,
+                  0
+                ],
+                "size": [
+                  0.58,
+                  0.9,
+                  0.3
+                ],
+                "color": "#a87943"
+              },
+              {
+                "id": "head",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  1.78,
+                  0.02
+                ],
+                "size": [
+                  0.22,
+                  0.25,
+                  0.22
+                ],
+                "color": "#bd8b68"
+              },
+              {
+                "id": "hair",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  1.91,
+                  -0.01
+                ],
+                "size": [
+                  0.23,
+                  0.12,
+                  0.23
+                ],
+                "color": "#382b22"
+              },
+              {
+                "id": "left-arm",
+                "group": true,
+                "position": [
+                  -0.35,
+                  1.48,
+                  0
+                ]
+              },
+              {
+                "id": "left-upper",
+                "parent": "left-arm",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.18,
+                  0
+                ],
+                "size": [
+                  0.12,
+                  0.38,
+                  0.12
+                ],
+                "color": "#a87943"
+              },
+              {
+                "id": "right-arm",
+                "group": true,
+                "position": [
+                  0.35,
+                  1.48,
+                  0
+                ]
+              },
+              {
+                "id": "right-upper",
+                "parent": "right-arm",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.18,
+                  0
+                ],
+                "size": [
+                  0.12,
+                  0.38,
+                  0.12
+                ],
+                "color": "#a87943"
+              },
+              {
+                "id": "left-leg",
+                "group": true,
+                "position": [
+                  -0.16,
+                  0.68,
+                  0
+                ]
+              },
+              {
+                "id": "left-thigh",
+                "parent": "left-leg",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.22,
+                  0
+                ],
+                "size": [
+                  0.16,
+                  0.48,
+                  0.16
+                ],
+                "color": "#8c633e"
+              },
+              {
+                "id": "right-leg",
+                "group": true,
+                "position": [
+                  0.16,
+                  0.68,
+                  0
+                ]
+              },
+              {
+                "id": "right-thigh",
+                "parent": "right-leg",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.22,
+                  0
+                ],
+                "size": [
+                  0.16,
+                  0.48,
+                  0.16
+                ],
+                "color": "#8c633e"
+              }
+            ],
+            "animations": [
+              {
+                "target": "left-arm",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0.34,
+                "frequency": 2,
+                "phase": 0
+              },
+              {
+                "target": "right-arm",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0.34,
+                "frequency": 2,
+                "phase": 3.141592653589793
+              },
+              {
+                "target": "left-leg",
+                "property": "rotation",
+                "axis": "x",
+                "amplitude": 0.22,
+                "frequency": 2,
+                "phase": 0
+              },
+              {
+                "target": "right-leg",
+                "property": "rotation",
+                "axis": "x",
+                "amplitude": 0.22,
+                "frequency": 2,
+                "phase": 3.141592653589793
+              }
+            ]
+          }
         },
         {
           "id": "roman-wall",
@@ -862,7 +5610,329 @@
             0,
             -5
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; metres; origin at wall centre base",
+            "parts": [
+              {
+                "id": "core",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.3,
+                  0
+                ],
+                "size": [
+                  2.2,
+                  2.6,
+                  0.9
+                ],
+                "color": "#9b8972"
+              },
+              {
+                "id": "stone-0",
+                "primitive": "box",
+                "position": [
+                  -0.85,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-1",
+                "primitive": "box",
+                "position": [
+                  -0.2899999999999999,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-2",
+                "primitive": "box",
+                "position": [
+                  0.27000000000000013,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "stone-3",
+                "primitive": "box",
+                "position": [
+                  0.8300000000000002,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-4",
+                "primitive": "box",
+                "position": [
+                  -0.85,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-5",
+                "primitive": "box",
+                "position": [
+                  -0.2899999999999999,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "stone-6",
+                "primitive": "box",
+                "position": [
+                  0.27000000000000013,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-7",
+                "primitive": "box",
+                "position": [
+                  0.8300000000000002,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-8",
+                "primitive": "box",
+                "position": [
+                  -0.85,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "stone-9",
+                "primitive": "box",
+                "position": [
+                  -0.2899999999999999,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-10",
+                "primitive": "box",
+                "position": [
+                  0.27000000000000013,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-11",
+                "primitive": "box",
+                "position": [
+                  0.8300000000000002,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "lime-0",
+                "primitive": "sphere",
+                "position": [
+                  -0.8,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-1",
+                "primitive": "sphere",
+                "position": [
+                  -0.28,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-2",
+                "primitive": "sphere",
+                "position": [
+                  0.24,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-3",
+                "primitive": "sphere",
+                "position": [
+                  0.76,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-4",
+                "primitive": "sphere",
+                "position": [
+                  -0.8,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-5",
+                "primitive": "sphere",
+                "position": [
+                  -0.28,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-6",
+                "primitive": "sphere",
+                "position": [
+                  0.24,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-7",
+                "primitive": "sphere",
+                "position": [
+                  0.76,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              }
+            ],
+            "animations": []
+          }
         }
       ],
       "beats": [
@@ -925,7 +5995,192 @@
             0,
             -4.6
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; human height 1.9 metres; local origin at feet",
+            "parts": [
+              {
+                "id": "body",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.15,
+                  0
+                ],
+                "size": [
+                  0.58,
+                  0.9,
+                  0.3
+                ],
+                "color": "#a87943"
+              },
+              {
+                "id": "head",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  1.78,
+                  0.02
+                ],
+                "size": [
+                  0.22,
+                  0.25,
+                  0.22
+                ],
+                "color": "#bd8b68"
+              },
+              {
+                "id": "hair",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  1.91,
+                  -0.01
+                ],
+                "size": [
+                  0.23,
+                  0.12,
+                  0.23
+                ],
+                "color": "#382b22"
+              },
+              {
+                "id": "left-arm",
+                "group": true,
+                "position": [
+                  -0.35,
+                  1.48,
+                  0
+                ]
+              },
+              {
+                "id": "left-upper",
+                "parent": "left-arm",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.18,
+                  0
+                ],
+                "size": [
+                  0.12,
+                  0.38,
+                  0.12
+                ],
+                "color": "#a87943"
+              },
+              {
+                "id": "right-arm",
+                "group": true,
+                "position": [
+                  0.35,
+                  1.48,
+                  0
+                ]
+              },
+              {
+                "id": "right-upper",
+                "parent": "right-arm",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.18,
+                  0
+                ],
+                "size": [
+                  0.12,
+                  0.38,
+                  0.12
+                ],
+                "color": "#a87943"
+              },
+              {
+                "id": "left-leg",
+                "group": true,
+                "position": [
+                  -0.16,
+                  0.68,
+                  0
+                ]
+              },
+              {
+                "id": "left-thigh",
+                "parent": "left-leg",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.22,
+                  0
+                ],
+                "size": [
+                  0.16,
+                  0.48,
+                  0.16
+                ],
+                "color": "#8c633e"
+              },
+              {
+                "id": "right-leg",
+                "group": true,
+                "position": [
+                  0.16,
+                  0.68,
+                  0
+                ]
+              },
+              {
+                "id": "right-thigh",
+                "parent": "right-leg",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.22,
+                  0
+                ],
+                "size": [
+                  0.16,
+                  0.48,
+                  0.16
+                ],
+                "color": "#8c633e"
+              }
+            ],
+            "animations": [
+              {
+                "target": "left-arm",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0.34,
+                "frequency": 2,
+                "phase": 0
+              },
+              {
+                "target": "right-arm",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0.34,
+                "frequency": 2,
+                "phase": 3.141592653589793
+              },
+              {
+                "target": "left-leg",
+                "property": "rotation",
+                "axis": "x",
+                "amplitude": 0.22,
+                "frequency": 2,
+                "phase": 0
+              },
+              {
+                "target": "right-leg",
+                "property": "rotation",
+                "axis": "x",
+                "amplitude": 0.22,
+                "frequency": 2,
+                "phase": 3.141592653589793
+              }
+            ]
+          }
         },
         {
           "id": "roman-wall",
@@ -948,7 +6203,329 @@
             0,
             -5.6
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; metres; origin at wall centre base",
+            "parts": [
+              {
+                "id": "core",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.3,
+                  0
+                ],
+                "size": [
+                  2.2,
+                  2.6,
+                  0.9
+                ],
+                "color": "#9b8972"
+              },
+              {
+                "id": "stone-0",
+                "primitive": "box",
+                "position": [
+                  -0.85,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-1",
+                "primitive": "box",
+                "position": [
+                  -0.2899999999999999,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-2",
+                "primitive": "box",
+                "position": [
+                  0.27000000000000013,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "stone-3",
+                "primitive": "box",
+                "position": [
+                  0.8300000000000002,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-4",
+                "primitive": "box",
+                "position": [
+                  -0.85,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-5",
+                "primitive": "box",
+                "position": [
+                  -0.2899999999999999,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "stone-6",
+                "primitive": "box",
+                "position": [
+                  0.27000000000000013,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-7",
+                "primitive": "box",
+                "position": [
+                  0.8300000000000002,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-8",
+                "primitive": "box",
+                "position": [
+                  -0.85,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "stone-9",
+                "primitive": "box",
+                "position": [
+                  -0.2899999999999999,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-10",
+                "primitive": "box",
+                "position": [
+                  0.27000000000000013,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-11",
+                "primitive": "box",
+                "position": [
+                  0.8300000000000002,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "lime-0",
+                "primitive": "sphere",
+                "position": [
+                  -0.8,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-1",
+                "primitive": "sphere",
+                "position": [
+                  -0.28,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-2",
+                "primitive": "sphere",
+                "position": [
+                  0.24,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-3",
+                "primitive": "sphere",
+                "position": [
+                  0.76,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-4",
+                "primitive": "sphere",
+                "position": [
+                  -0.8,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-5",
+                "primitive": "sphere",
+                "position": [
+                  -0.28,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-6",
+                "primitive": "sphere",
+                "position": [
+                  0.24,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-7",
+                "primitive": "sphere",
+                "position": [
+                  0.76,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              }
+            ],
+            "animations": []
+          }
         }
       ],
       "beats": [
@@ -1011,7 +6588,192 @@
             0,
             -5.2
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; human height 1.9 metres; local origin at feet",
+            "parts": [
+              {
+                "id": "body",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.15,
+                  0
+                ],
+                "size": [
+                  0.58,
+                  0.9,
+                  0.3
+                ],
+                "color": "#a87943"
+              },
+              {
+                "id": "head",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  1.78,
+                  0.02
+                ],
+                "size": [
+                  0.22,
+                  0.25,
+                  0.22
+                ],
+                "color": "#bd8b68"
+              },
+              {
+                "id": "hair",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  1.91,
+                  -0.01
+                ],
+                "size": [
+                  0.23,
+                  0.12,
+                  0.23
+                ],
+                "color": "#382b22"
+              },
+              {
+                "id": "left-arm",
+                "group": true,
+                "position": [
+                  -0.35,
+                  1.48,
+                  0
+                ]
+              },
+              {
+                "id": "left-upper",
+                "parent": "left-arm",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.18,
+                  0
+                ],
+                "size": [
+                  0.12,
+                  0.38,
+                  0.12
+                ],
+                "color": "#a87943"
+              },
+              {
+                "id": "right-arm",
+                "group": true,
+                "position": [
+                  0.35,
+                  1.48,
+                  0
+                ]
+              },
+              {
+                "id": "right-upper",
+                "parent": "right-arm",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.18,
+                  0
+                ],
+                "size": [
+                  0.12,
+                  0.38,
+                  0.12
+                ],
+                "color": "#a87943"
+              },
+              {
+                "id": "left-leg",
+                "group": true,
+                "position": [
+                  -0.16,
+                  0.68,
+                  0
+                ]
+              },
+              {
+                "id": "left-thigh",
+                "parent": "left-leg",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.22,
+                  0
+                ],
+                "size": [
+                  0.16,
+                  0.48,
+                  0.16
+                ],
+                "color": "#8c633e"
+              },
+              {
+                "id": "right-leg",
+                "group": true,
+                "position": [
+                  0.16,
+                  0.68,
+                  0
+                ]
+              },
+              {
+                "id": "right-thigh",
+                "parent": "right-leg",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.22,
+                  0
+                ],
+                "size": [
+                  0.16,
+                  0.48,
+                  0.16
+                ],
+                "color": "#8c633e"
+              }
+            ],
+            "animations": [
+              {
+                "target": "left-arm",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0.34,
+                "frequency": 2,
+                "phase": 0
+              },
+              {
+                "target": "right-arm",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0.34,
+                "frequency": 2,
+                "phase": 3.141592653589793
+              },
+              {
+                "target": "left-leg",
+                "property": "rotation",
+                "axis": "x",
+                "amplitude": 0.22,
+                "frequency": 2,
+                "phase": 0
+              },
+              {
+                "target": "right-leg",
+                "property": "rotation",
+                "axis": "x",
+                "amplitude": 0.22,
+                "frequency": 2,
+                "phase": 3.141592653589793
+              }
+            ]
+          }
         },
         {
           "id": "roman-wall",
@@ -1034,7 +6796,329 @@
             0,
             -6.2
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; metres; origin at wall centre base",
+            "parts": [
+              {
+                "id": "core",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.3,
+                  0
+                ],
+                "size": [
+                  2.2,
+                  2.6,
+                  0.9
+                ],
+                "color": "#9b8972"
+              },
+              {
+                "id": "stone-0",
+                "primitive": "box",
+                "position": [
+                  -0.85,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-1",
+                "primitive": "box",
+                "position": [
+                  -0.2899999999999999,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-2",
+                "primitive": "box",
+                "position": [
+                  0.27000000000000013,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "stone-3",
+                "primitive": "box",
+                "position": [
+                  0.8300000000000002,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-4",
+                "primitive": "box",
+                "position": [
+                  -0.85,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-5",
+                "primitive": "box",
+                "position": [
+                  -0.2899999999999999,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "stone-6",
+                "primitive": "box",
+                "position": [
+                  0.27000000000000013,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-7",
+                "primitive": "box",
+                "position": [
+                  0.8300000000000002,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-8",
+                "primitive": "box",
+                "position": [
+                  -0.85,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "stone-9",
+                "primitive": "box",
+                "position": [
+                  -0.2899999999999999,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-10",
+                "primitive": "box",
+                "position": [
+                  0.27000000000000013,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-11",
+                "primitive": "box",
+                "position": [
+                  0.8300000000000002,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "lime-0",
+                "primitive": "sphere",
+                "position": [
+                  -0.8,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-1",
+                "primitive": "sphere",
+                "position": [
+                  -0.28,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-2",
+                "primitive": "sphere",
+                "position": [
+                  0.24,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-3",
+                "primitive": "sphere",
+                "position": [
+                  0.76,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-4",
+                "primitive": "sphere",
+                "position": [
+                  -0.8,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-5",
+                "primitive": "sphere",
+                "position": [
+                  -0.28,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-6",
+                "primitive": "sphere",
+                "position": [
+                  0.24,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-7",
+                "primitive": "sphere",
+                "position": [
+                  0.76,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              }
+            ],
+            "animations": []
+          }
         }
       ],
       "beats": [
@@ -1097,7 +7181,192 @@
             0,
             -4
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; human height 1.9 metres; local origin at feet",
+            "parts": [
+              {
+                "id": "body",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.15,
+                  0
+                ],
+                "size": [
+                  0.58,
+                  0.9,
+                  0.3
+                ],
+                "color": "#a87943"
+              },
+              {
+                "id": "head",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  1.78,
+                  0.02
+                ],
+                "size": [
+                  0.22,
+                  0.25,
+                  0.22
+                ],
+                "color": "#bd8b68"
+              },
+              {
+                "id": "hair",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  1.91,
+                  -0.01
+                ],
+                "size": [
+                  0.23,
+                  0.12,
+                  0.23
+                ],
+                "color": "#382b22"
+              },
+              {
+                "id": "left-arm",
+                "group": true,
+                "position": [
+                  -0.35,
+                  1.48,
+                  0
+                ]
+              },
+              {
+                "id": "left-upper",
+                "parent": "left-arm",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.18,
+                  0
+                ],
+                "size": [
+                  0.12,
+                  0.38,
+                  0.12
+                ],
+                "color": "#a87943"
+              },
+              {
+                "id": "right-arm",
+                "group": true,
+                "position": [
+                  0.35,
+                  1.48,
+                  0
+                ]
+              },
+              {
+                "id": "right-upper",
+                "parent": "right-arm",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.18,
+                  0
+                ],
+                "size": [
+                  0.12,
+                  0.38,
+                  0.12
+                ],
+                "color": "#a87943"
+              },
+              {
+                "id": "left-leg",
+                "group": true,
+                "position": [
+                  -0.16,
+                  0.68,
+                  0
+                ]
+              },
+              {
+                "id": "left-thigh",
+                "parent": "left-leg",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.22,
+                  0
+                ],
+                "size": [
+                  0.16,
+                  0.48,
+                  0.16
+                ],
+                "color": "#8c633e"
+              },
+              {
+                "id": "right-leg",
+                "group": true,
+                "position": [
+                  0.16,
+                  0.68,
+                  0
+                ]
+              },
+              {
+                "id": "right-thigh",
+                "parent": "right-leg",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.22,
+                  0
+                ],
+                "size": [
+                  0.16,
+                  0.48,
+                  0.16
+                ],
+                "color": "#8c633e"
+              }
+            ],
+            "animations": [
+              {
+                "target": "left-arm",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0.34,
+                "frequency": 2,
+                "phase": 0
+              },
+              {
+                "target": "right-arm",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0.34,
+                "frequency": 2,
+                "phase": 3.141592653589793
+              },
+              {
+                "target": "left-leg",
+                "property": "rotation",
+                "axis": "x",
+                "amplitude": 0.22,
+                "frequency": 2,
+                "phase": 0
+              },
+              {
+                "target": "right-leg",
+                "property": "rotation",
+                "axis": "x",
+                "amplitude": 0.22,
+                "frequency": 2,
+                "phase": 3.141592653589793
+              }
+            ]
+          }
         },
         {
           "id": "roman-wall",
@@ -1120,7 +7389,329 @@
             0,
             -5
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; metres; origin at wall centre base",
+            "parts": [
+              {
+                "id": "core",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.3,
+                  0
+                ],
+                "size": [
+                  2.2,
+                  2.6,
+                  0.9
+                ],
+                "color": "#9b8972"
+              },
+              {
+                "id": "stone-0",
+                "primitive": "box",
+                "position": [
+                  -0.85,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-1",
+                "primitive": "box",
+                "position": [
+                  -0.2899999999999999,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-2",
+                "primitive": "box",
+                "position": [
+                  0.27000000000000013,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "stone-3",
+                "primitive": "box",
+                "position": [
+                  0.8300000000000002,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-4",
+                "primitive": "box",
+                "position": [
+                  -0.85,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-5",
+                "primitive": "box",
+                "position": [
+                  -0.2899999999999999,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "stone-6",
+                "primitive": "box",
+                "position": [
+                  0.27000000000000013,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-7",
+                "primitive": "box",
+                "position": [
+                  0.8300000000000002,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-8",
+                "primitive": "box",
+                "position": [
+                  -0.85,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "stone-9",
+                "primitive": "box",
+                "position": [
+                  -0.2899999999999999,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-10",
+                "primitive": "box",
+                "position": [
+                  0.27000000000000013,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-11",
+                "primitive": "box",
+                "position": [
+                  0.8300000000000002,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "lime-0",
+                "primitive": "sphere",
+                "position": [
+                  -0.8,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-1",
+                "primitive": "sphere",
+                "position": [
+                  -0.28,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-2",
+                "primitive": "sphere",
+                "position": [
+                  0.24,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-3",
+                "primitive": "sphere",
+                "position": [
+                  0.76,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-4",
+                "primitive": "sphere",
+                "position": [
+                  -0.8,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-5",
+                "primitive": "sphere",
+                "position": [
+                  -0.28,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-6",
+                "primitive": "sphere",
+                "position": [
+                  0.24,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-7",
+                "primitive": "sphere",
+                "position": [
+                  0.76,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              }
+            ],
+            "animations": []
+          }
         }
       ],
       "beats": [
@@ -1183,7 +7774,192 @@
             0,
             -4.6
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; human height 1.9 metres; local origin at feet",
+            "parts": [
+              {
+                "id": "body",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.15,
+                  0
+                ],
+                "size": [
+                  0.58,
+                  0.9,
+                  0.3
+                ],
+                "color": "#a87943"
+              },
+              {
+                "id": "head",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  1.78,
+                  0.02
+                ],
+                "size": [
+                  0.22,
+                  0.25,
+                  0.22
+                ],
+                "color": "#bd8b68"
+              },
+              {
+                "id": "hair",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  1.91,
+                  -0.01
+                ],
+                "size": [
+                  0.23,
+                  0.12,
+                  0.23
+                ],
+                "color": "#382b22"
+              },
+              {
+                "id": "left-arm",
+                "group": true,
+                "position": [
+                  -0.35,
+                  1.48,
+                  0
+                ]
+              },
+              {
+                "id": "left-upper",
+                "parent": "left-arm",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.18,
+                  0
+                ],
+                "size": [
+                  0.12,
+                  0.38,
+                  0.12
+                ],
+                "color": "#a87943"
+              },
+              {
+                "id": "right-arm",
+                "group": true,
+                "position": [
+                  0.35,
+                  1.48,
+                  0
+                ]
+              },
+              {
+                "id": "right-upper",
+                "parent": "right-arm",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.18,
+                  0
+                ],
+                "size": [
+                  0.12,
+                  0.38,
+                  0.12
+                ],
+                "color": "#a87943"
+              },
+              {
+                "id": "left-leg",
+                "group": true,
+                "position": [
+                  -0.16,
+                  0.68,
+                  0
+                ]
+              },
+              {
+                "id": "left-thigh",
+                "parent": "left-leg",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.22,
+                  0
+                ],
+                "size": [
+                  0.16,
+                  0.48,
+                  0.16
+                ],
+                "color": "#8c633e"
+              },
+              {
+                "id": "right-leg",
+                "group": true,
+                "position": [
+                  0.16,
+                  0.68,
+                  0
+                ]
+              },
+              {
+                "id": "right-thigh",
+                "parent": "right-leg",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  -0.22,
+                  0
+                ],
+                "size": [
+                  0.16,
+                  0.48,
+                  0.16
+                ],
+                "color": "#8c633e"
+              }
+            ],
+            "animations": [
+              {
+                "target": "left-arm",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0.34,
+                "frequency": 2,
+                "phase": 0
+              },
+              {
+                "target": "right-arm",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0.34,
+                "frequency": 2,
+                "phase": 3.141592653589793
+              },
+              {
+                "target": "left-leg",
+                "property": "rotation",
+                "axis": "x",
+                "amplitude": 0.22,
+                "frequency": 2,
+                "phase": 0
+              },
+              {
+                "target": "right-leg",
+                "property": "rotation",
+                "axis": "x",
+                "amplitude": 0.22,
+                "frequency": 2,
+                "phase": 3.141592653589793
+              }
+            ]
+          }
         },
         {
           "id": "roman-wall",
@@ -1206,7 +7982,329 @@
             0,
             -5.6
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; metres; origin at wall centre base",
+            "parts": [
+              {
+                "id": "core",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.3,
+                  0
+                ],
+                "size": [
+                  2.2,
+                  2.6,
+                  0.9
+                ],
+                "color": "#9b8972"
+              },
+              {
+                "id": "stone-0",
+                "primitive": "box",
+                "position": [
+                  -0.85,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-1",
+                "primitive": "box",
+                "position": [
+                  -0.2899999999999999,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-2",
+                "primitive": "box",
+                "position": [
+                  0.27000000000000013,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "stone-3",
+                "primitive": "box",
+                "position": [
+                  0.8300000000000002,
+                  0.25,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-4",
+                "primitive": "box",
+                "position": [
+                  -0.85,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-5",
+                "primitive": "box",
+                "position": [
+                  -0.2899999999999999,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "stone-6",
+                "primitive": "box",
+                "position": [
+                  0.27000000000000013,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-7",
+                "primitive": "box",
+                "position": [
+                  0.8300000000000002,
+                  1.0699999999999998,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-8",
+                "primitive": "box",
+                "position": [
+                  -0.85,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "stone-9",
+                "primitive": "box",
+                "position": [
+                  -0.2899999999999999,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#b09b80"
+              },
+              {
+                "id": "stone-10",
+                "primitive": "box",
+                "position": [
+                  0.27000000000000013,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#887b6a"
+              },
+              {
+                "id": "stone-11",
+                "primitive": "box",
+                "position": [
+                  0.8300000000000002,
+                  1.89,
+                  0.47
+                ],
+                "size": [
+                  0.48,
+                  0.62,
+                  0.07
+                ],
+                "color": "#a3917a"
+              },
+              {
+                "id": "lime-0",
+                "primitive": "sphere",
+                "position": [
+                  -0.8,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-1",
+                "primitive": "sphere",
+                "position": [
+                  -0.28,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-2",
+                "primitive": "sphere",
+                "position": [
+                  0.24,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-3",
+                "primitive": "sphere",
+                "position": [
+                  0.76,
+                  0.35,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-4",
+                "primitive": "sphere",
+                "position": [
+                  -0.8,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-5",
+                "primitive": "sphere",
+                "position": [
+                  -0.28,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-6",
+                "primitive": "sphere",
+                "position": [
+                  0.24,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              },
+              {
+                "id": "lime-7",
+                "primitive": "sphere",
+                "position": [
+                  0.76,
+                  1.7000000000000002,
+                  0.54
+                ],
+                "size": [
+                  0.08,
+                  0.06,
+                  0.035
+                ],
+                "color": "#e5ddc8"
+              }
+            ],
+            "animations": []
+          }
         }
       ],
       "beats": [
