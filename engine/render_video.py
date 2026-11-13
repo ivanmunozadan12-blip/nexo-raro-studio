@@ -394,6 +394,46 @@ def draw_mars(d,cx,cy,t,accent):
         d.polygon([(x*S,740*S),((x+65)*S,(690+i%2*22)*S),((x+145)*S,740*S)],fill=(112,57,48))
     for r in range(8,0,-1):
         d.ellipse(((cx-r*27)*S,(690-r*9)*S,(cx+r*27)*S,(690+r*9)*S),outline=(68,160,231,18),width=2*S)
+
+def draw_mars_sunset(d,cx,cy,t,accent):
+    # Paisaje marciano al ocaso: horizonte cálido y halo azul junto al Sol.
+    for y in range(300,760,4):
+        q=(y-300)/460
+        col=(int(19+34*q),int(34+24*q),int(67-23*q),255)
+        d.rectangle((0,y*S,W*S,(y+4)*S),fill=col)
+    sun_x=390+int(5*math.sin(t*.7)); sun_y=600
+    d.ellipse(((sun_x-34)*S,(sun_y-34)*S,(sun_x+34)*S,(sun_y+34)*S),fill=(245,190,125,255))
+    for r in (68,94,120):
+        d.arc(((sun_x-r)*S,(sun_y-r*.72)*S,(sun_x+r)*S,(sun_y+r*.72)*S),205,335,fill=(92,174,231,170),width=4*S)
+    d.polygon([(0,735*S),(85*S,690*S),(170*S,720*S),(260*S,665*S),(355*S,715*S),(450*S,680*S),(W*S,730*S),(W*S,H*S),(0,H*S)],fill=(119,57,48,255))
+    d.polygon([(0,790*S),(120*S,755*S),(230*S,790*S),(350*S,748*S),(470*S,780*S),(W*S,760*S),(W*S,H*S),(0,H*S)],fill=(76,43,43,255))
+    for i in range(18):
+        x=(i*83+int(t*4))%(W+30)-15; y=650+(i*37)%170
+        r=2+(i%3)*2
+        d.ellipse(((x-r)*S,(y-r)*S,(x+r)*S,(y+r)*S),fill=(190,120,90,130))
+
+def draw_curiosity_rover(d,cx,cy,t,accent):
+    # Rover Curiosity reconocible: seis ruedas, cuerpo elevado, mástil y cámara.
+    ground=755
+    d.line((65*S,ground*S,510*S,ground*S),fill=(183,112,83,180),width=3*S)
+    for x in (175,285,395):
+        y=690+int(2*math.sin(t*2+x))
+        d.ellipse(((x-34)*S,(y-34)*S,(x+34)*S,(y+34)*S),fill=(24,31,39,255),outline=(205,190,166,255),width=5*S)
+        d.ellipse(((x-14)*S,(y-14)*S,(x+14)*S,(y+14)*S),fill=(126,139,143,255),outline=(238,225,202,255),width=3*S)
+        for k in range(8):
+            a=k*math.pi/4+t*.2
+            d.line((x*S,y*S,(x+28*math.cos(a))*S,(y+28*math.sin(a))*S),fill=(176,187,184,255),width=3*S)
+    d.polygon([(135*S,620*S),(170*S,555*S),(400*S,555*S),(440*S,620*S),(415*S,660*S),(155*S,660*S)],fill=(177,157,126,255),outline=(242,225,191,255))
+    d.rectangle((205*S,570*S,370*S,635*S),fill=(116,129,128,255),outline=(231,222,199,255),width=4*S)
+    d.rectangle((250*S,580*S,335*S,620*S),fill=(38,63,77,255),outline=(190,208,207,255),width=3*S)
+    d.line((292*S,565*S,292*S,405*S),fill=(218,211,190,255),width=7*S)
+    d.line((292*S,430*S,350*S,390*S),fill=(218,211,190,255),width=5*S)
+    d.ellipse((333*S,373*S,372*S,412*S),fill=(70,132,173,255),outline=(238,234,216,255),width=4*S)
+    d.ellipse((278*S,390*S,306*S,418*S),fill=(202,75,63,255),outline=(245,232,204,255),width=3*S)
+    d.line((292*S,640*S,245*S,690*S),fill=(214,199,169,255),width=5*S)
+    d.line((292*S,640*S,340*S,690*S),fill=(214,199,169,255),width=5*S)
+    text_fit(d,(292,735),"CURIOSITY · MASTCAM",12,(245,238,220),max_width=350,anchor="mm",bold=False)
+
 def draw_roman_concrete(d,cx,cy,t,accent):
     # Arco romano y sección de opus caementicium con fragmentos minerales visibles.
     d.rectangle((95*S,600*S,481*S,790*S),fill=(145,119,91),outline=(224,202,163),width=4*S)
@@ -513,6 +553,8 @@ def draw_scene(im, scene, local_t, accent):
     elif kind=="flamingo": draw_flamingo(d,cx,cy,local_t,accent)
     elif kind=="octopus": draw_octopus(d,cx,cy,local_t,accent)
     elif kind=="mars": draw_mars(d,cx,cy,local_t,accent)
+    elif kind=="mars_sunset": draw_mars_sunset(d,cx,cy,local_t,accent)
+    elif kind=="curiosity_rover": draw_curiosity_rover(d,cx,cy,local_t,accent)
     elif kind in ("roman_concrete","pompeii"): draw_roman_concrete(d,cx,cy,local_t,accent)
     elif kind=="turbine": draw_turbine(d,cx,cy,local_t,accent)
     elif kind=="object_cutaway": draw_cutaway(d,cx,cy,local_t,accent,scene.get("labels"))
