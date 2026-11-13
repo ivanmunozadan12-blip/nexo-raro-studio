@@ -590,6 +590,16 @@ function createFromBlueprint(spec) {
     const position = Array.isArray(part.position) ? part.position : [0,0,0];
     const size = Array.isArray(part.size) ? part.size : [1,1,1];
     const color = part.color || spec.color || '#9b978e';
+    const surface = clean(spec.material || '');
+    const defaults = /metal|alumin|acero|reflect|iridoforo/.test(surface)
+      ? { roughness: .28, metalness: .62 }
+      : /cristal|membrana|transluc|vidrio|luz/.test(surface)
+      ? { roughness: .24, metalness: .08, transparent: true, opacity: .58 }
+      : /piedra|roca|arena|calc|mineral/.test(surface)
+      ? { roughness: .94, metalness: .02 }
+      : /piel|tejido|organ|muscular|vegetal/.test(surface)
+      ? { roughness: .48, metalness: .02 }
+      : { roughness: .72, metalness: .04 };
     const node = part.group ? new THREE.Group() : (() => {
       let geometry;
       switch (part.primitive) {
@@ -601,7 +611,7 @@ function createFromBlueprint(spec) {
         default: geometry = new THREE.SphereGeometry(1, Number(part.widthSegments ?? 16), Number(part.heightSegments ?? 12)); break;
       }
       const holder = new THREE.Group();
-      addMesh(holder, geometry, color, [0,0,0], size, {roughness:part.roughness ?? .78, metalness:part.metalness ?? 0});
+      addMesh(holder, geometry, color, [0,0,0], size, {roughness:part.roughness ?? defaults.roughness, metalness:part.metalness ?? defaults.metalness, transparent:part.transparent ?? defaults.transparent, opacity:part.opacity ?? defaults.opacity});
       return holder;
     })();
     if (part.group) node.position.set(...position);
@@ -619,7 +629,13 @@ function createFromBlueprint(spec) {
     }
   }
   root.userData.blueprintNodes = nodes;
-  root.userData.blueprintAnimations = Array.isArray(blueprint.animations) ? blueprint.animations : [];
+  root.userData.blueprintAnimations = (Array.isArray(blueprint.animations) ? blueprint.animations : []).map(track => {
+    const node = nodes.get(track.target);
+    const axis = ['x','y','z'].includes(track.axis) ? track.axis : 'z';
+    const channel = node?.[track.property];
+    const initial = channel ? Number(channel[axis]) : 0;
+    return { ...track, axis, base: Number.isFinite(Number(track.base)) ? Number(track.base) : initial };
+  });
   return root;
 }
 
@@ -706,19 +722,25 @@ export function animateEntities(entities, time = 0) {
     const beat = (entity.userData.beats || []).filter(item => time >= Number(item.at || 0) && time < Number(item.at || 0) + Number(item.duration || 999)).sort((a, b) => Number(a.at || 0) - Number(b.at || 0)).at(-1);
     const action = clean(beat?.action || entity.userData.entity?.action || rig.motion || 'idle');
     const base = entity.userData.basePosition || entity.position;
-    entity.position.y = base.y;
+    const beatStart = Number(beat?.at || 0);
+    const beatDuration = Math.max(.001, Number(beat?.duration || 1));
+    const beatProgress = beat ? Math.max(0, Math.min(1, (time - beatStart) / beatDuration)) : 0;
+    entity.position.set(base.x, base.y, base.z);
+    entity.rotation.y = entity.userData.baseRotationY || 0;
+    entity.rotation.z = entity.userData.baseRotationZ || 0;
     const entityType = entity.userData.entity?.type;
     if (entityType === 'animal' && /nadar|swim|volar|fly|flotar|ascender/.test(action)) entity.position.y = base.y + .12 * Math.sin(time * 1.7 + entities.indexOf(entity));
 
+    const actionBoost = /abrir|expand|extender|replegar|despegar|contraer|elevar|emerger|revelar/.test(action) ? 1.55 : 1;
     for (const track of entity.userData.blueprintAnimations || []) {
       const node = entity.userData.blueprintNodes.get(track.target);
       if (!node) continue;
-      const phase = Number(track.phase || 0);
       const axis = ['x','y','z'].includes(track.axis) ? track.axis : 'z';
       const channel = node[track.property];
-      const baseValue = Number.isFinite(Number(track.base)) ? Number(track.base) : channel[axis];
-      const value = track.mode === 'spin' ? time * Number(track.frequency || 1) : Number(track.amplitude || 0) * Math.sin(time * Number(track.frequency || 1) + phase);
-      channel[axis] = baseValue + value;
+      const phase = Number(track.phase || 0);
+      const baseValue = Number(track.base);
+      const raw = track.mode === 'spin' ? time * Number(track.frequency || 1) : Number(track.amplitude || 0) * actionBoost * Math.sin(time * Number(track.frequency || 1) + phase);
+      channel[axis] = track.property === 'scale' ? Math.max(.045, baseValue + raw) : baseValue + raw;
     }
     const walking = /caminar|andar|correr|walk|run|marchar|avanzar|acercarse|alejarse|perseguir/.test(action);
     const working = /examinar|observar|mirar|manipular|construir|reparar|levantar|girar|abrir|cerrar|escribir|medir|tocar|sujetar|golpear|lanzar|recoger|senalar|señalar|hablar|gesticular|indicar/.test(action);
@@ -737,7 +759,14 @@ export function animateEntities(entities, time = 0) {
     if (entity.userData.entity?.type === 'tree') entity.rotation.z = .018 * Math.sin(time * .7 + entities.indexOf(entity));
     if (/girar|rotar|dar vueltas|orbitar|spin/.test(action)) entity.rotation.y = (entity.userData.baseRotationY || 0) + time * .65;
     if (/balancear|oscilar|temblar|vibrar|latir/.test(action)) entity.rotation.z = (entity.userData.baseRotationZ || 0) + .07 * Math.sin(time * 4);
-    if (/moverse|desplazarse|avanzar|retroceder|rodar|caminar|nadar|volar/.test(action)) {
+    if (beat && /cruza|atraviesa|desaparece por la derecha|pasa por delante/.test(action)) {
+      entity.position.x = base.x + (beatProgress - .5) * 4.2;
+    } else if (beat && /se acerca|acecha|avanza hacia|persigue/.test(action)) {
+      entity.position.z = base.z + beatProgress * .85;
+    } else if (beat && /escapa|sale por la abertura|se desliza hacia la salida/.test(action)) {
+      entity.position.x = base.x + beatProgress * 2.1;
+      entity.position.z = base.z - beatProgress * .7;
+    } else if (/moverse|desplazarse|avanzar|retroceder|rodar|caminar|nadar|volar/.test(action)) {
       entity.position.x = base.x + .18 * Math.sin(time * 1.25 + entities.indexOf(entity));
       entity.position.z = base.z + .14 * Math.cos(time * 1.1 + entities.indexOf(entity));
     }
