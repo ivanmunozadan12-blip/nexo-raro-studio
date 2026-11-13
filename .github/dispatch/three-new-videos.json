@@ -1,5 +1,5 @@
 {
-  "batch": "external-threejs-webgl-render-fix",
+  "batch": "blueprint-fixed-screenshot-capture-production",
   "files": [
     "scripts/manual/2026-11-14-pulpo-camuflaje.json",
     "scripts/manual/2026-11-14-hormigon-romano.json",
