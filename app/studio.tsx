@@ -10,7 +10,7 @@ export default function Studio(){
  const [session,setSession]=useState<any>(null),[email,setEmail]=useState(''),[password,setPassword]=useState(''),[signup,setSignup]=useState(false),[message,setMessage]=useState(''),[busy,setBusy]=useState(false),[tab,setTab]=useState<Tab>('overview');
  const [jobs,setJobs]=useState<any[]>([]),[scripts,setScripts]=useState<any[]>([]),[memory,setMemory]=useState<any[]>([]),[videos,setVideos]=useState<any[]>([]),[posts,setPosts]=useState<any[]>([]),[analytics,setAnalytics]=useState<any[]>([]),[settings,setSettings]=useState<any>(null),[series,setSeries]=useState<any[]>([]);
  const [selectedScript,setSelectedScript]=useState<any>(null),[signed,setSigned]=useState<Record<string,string>>({}),[memoryTopic,setMemoryTopic]=useState(''),[memoryReason,setMemoryReason]=useState('');
- const [scriptBatch,setScriptBatch]=useState(['','','']),[dispatching,setDispatching]=useState(false),[knownReady,setKnownReady]=useState<string[]>([]),[notifyEnabled,setNotifyEnabled]=useState(false),[dispatchConfigured,setDispatchConfigured]=useState<boolean|null>(null);
+ const [scriptBatch,setScriptBatch]=useState(['','','']),[zipName,setZipName]=useState(''),[dispatching,setDispatching]=useState(false),[knownReady,setKnownReady]=useState<string[]>([]),[notifyEnabled,setNotifyEnabled]=useState(false),[dispatchConfigured,setDispatchConfigured]=useState<boolean|null>(null);
  const db=supabase();
  const videoIdsRef=useRef<string[]>([]),videoLoadRef=useRef(false),jobIdsRef=useRef<string[]>([]),jobLoadRef=useRef(false);
  useEffect(()=>{fetch('/api/health').then(r=>r.json()).then(data=>setDispatchConfigured(data.productionDispatch==='configured')).catch(()=>setDispatchConfigured(false));db.auth.getSession().then(({data}:any)=>setSession(data.session));const {data}=db.auth.onAuthStateChange((_e:any,s:any)=>setSession(s));return()=>data.subscription.unsubscribe()},[]);
@@ -43,26 +43,53 @@ export default function Studio(){
  async function enableNotifications(){if(!('Notification' in window)){setMessage('Este navegador no admite notificaciones.');return;}const permission=await Notification.requestPermission();setMessage(permission==='granted'?'Avisos activados en este dispositivo.':'No se han concedido permisos de notificación.');}
  async function submit(e:any){e.preventDefault();setMessage('');const r=signup?await db.auth.signUp({email,password}):await db.auth.signInWithPassword({email,password});setMessage(r.error?.message||(signup?'Revisa tu correo para confirmar la cuenta.':'Sesión iniciada.'))}
  async function addMemoryTopic(e:any){e.preventDefault();const topic=memoryTopic.trim();if(!topic)return;setBusy(true);const topicKey=topic.toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');const {error}=await db.from('editorial_memory').insert({user_id:session.user.id,topic,topic_key:topicKey,angle:'Exclusión manual',summary:'Tema excluido desde el panel',source_urls:[],memory_status:'rejected',reason:memoryReason.trim()||'No volver a tratar este tema'});if(error)setMessage('No se pudo guardar el tema: '+error.message);else{setMemoryTopic('');setMemoryReason('');setMessage('Tema añadido a la lista de exclusión.');await load()}setBusy(false)}
+ async function unzipJsonFiles(file:File):Promise<string[]>{
+  if(!file.name.toLowerCase().endsWith('.zip'))throw new Error('Selecciona un archivo .zip.');
+  if(file.size>12*1024*1024)throw new Error('El ZIP supera el límite de 12 MB.');
+  const bytes=await file.arrayBuffer(),view=new DataView(bytes),u8=new Uint8Array(bytes);
+  let eocd=-1;
+  for(let p=u8.length-22;p>=Math.max(0,u8.length-65557);p--){if(view.getUint32(p,true)===0x06054b50){eocd=p;break;}}
+  if(eocd<0)throw new Error('El ZIP está dañado o no tiene un directorio válido.');
+  const count=view.getUint16(eocd+10,true),centralOffset=view.getUint32(eocd+16,true);
+  if(count>100)throw new Error('El ZIP contiene demasiados archivos.');
+  const found:string[]=[];let cursor=centralOffset;
+  for(let n=0;n<count;n++){
+   if(view.getUint32(cursor,true)!==0x02014b50)throw new Error('El índice interno del ZIP está dañado.');
+   const method=view.getUint16(cursor+10,true),compressedSize=view.getUint32(cursor+20,true),nameLen=view.getUint16(cursor+28,true),extraLen=view.getUint16(cursor+30,true),commentLen=view.getUint16(cursor+32,true),localOffset=view.getUint32(cursor+42,true);
+   const name=new TextDecoder().decode(u8.slice(cursor+46,cursor+46+nameLen));cursor+=46+nameLen+extraLen+commentLen;
+   if(name.endsWith('/')||!name.toLowerCase().endsWith('.json'))continue;
+   if(found.length>=3)throw new Error('El ZIP debe contener exactamente tres JSON, no más.');
+   if(compressedSize>3*1024*1024)throw new Error('Uno de los JSON supera el límite permitido.');
+   if(view.getUint32(localOffset,true)!==0x04034b50)throw new Error('Uno de los archivos del ZIP está dañado.');
+   const localName=view.getUint16(localOffset+26,true),localExtra=view.getUint16(localOffset+28,true),dataStart=localOffset+30+localName+localExtra;
+   const compressed=u8.slice(dataStart,dataStart+compressedSize);let plain:Uint8Array;
+   if(method===0)plain=compressed;
+   else if(method===8){
+    if(typeof DecompressionStream==='undefined')throw new Error('Este navegador no permite descomprimir ZIP. Actualiza Chrome.');
+    const stream=new Blob([compressed]).stream().pipeThrough(new DecompressionStream('deflate-raw' as CompressionFormat));
+    plain=new Uint8Array(await new Response(stream).arrayBuffer());
+   }else throw new Error('El ZIP usa un método de compresión no compatible.');
+   found.push(new TextDecoder('utf-8',{fatal:true}).decode(plain));
+  }
+  if(found.length!==3)throw new Error('El ZIP debe incluir exactamente tres archivos .json. Se han encontrado '+found.length+'.');
+  return found;
+ }
  function parseExternalScript(raw:string,index:number){
-  // Acepta JSON pegado directamente o dentro de un bloque Markdown ```json.
-  const cleaned=raw.replace(/^\uFEFF/,'').trim().replace(/^```(?:json)?\s*/i,'').replace(/\s*```$/,'').trim();
-  let parsed:any;try{parsed=JSON.parse(cleaned)}catch(error:any){
-   const detail=error instanceof Error?error.message:'sintaxis incorrecta';
-   throw new Error('El guion '+(index+1)+' no contiene JSON válido ('+detail+'). Pega un único objeto JSON completo, sin texto adicional.');
-  }
-  if(!parsed||typeof parsed!=='object'||Array.isArray(parsed))throw new Error('El guion '+(index+1)+' debe ser un único objeto JSON, no una lista ni varios guiones juntos.');
-  const required=['title','hook','narration','scenes','sources','caption','category'];
-  for(const key of required)if(!(key in parsed))throw new Error('Al guion '+(index+1)+' le falta el campo '+key+'.');
-  const words=String(parsed.narration||'').trim().split(/\s+/).filter(Boolean).length;
-  if(words<145||words>205)throw new Error('El guion '+(index+1)+' tiene '+words+' palabras. Debe tener entre 145 y 205.');
-  if(!Array.isArray(parsed.scenes)||parsed.scenes.length!==7)throw new Error('El guion '+(index+1)+' debe incluir exactamente 7 escenas.');
+  const cleaned=raw.replace(/^\\uFEFF/,'').trim().replace(/^\`\`\`(?:json)?\\s*/i,'').replace(/\\s*\`\`\`$/,'').trim();
+  let parsed:any;try{parsed=JSON.parse(cleaned)}catch(error:any){throw new Error('El JSON '+(index+1)+' no es válido ('+(error instanceof Error?error.message:'sintaxis incorrecta')+').');}
+  if(!parsed||typeof parsed!=='object'||Array.isArray(parsed))throw new Error('El JSON '+(index+1)+' debe contener un único objeto.');
+  for(const key of ['title','hook','narration','scenes','sources','caption','category','models'])if(!(key in parsed))throw new Error('Al JSON '+(index+1)+' le falta el campo '+key+'.');
+  const words=String(parsed.narration||'').trim().split(/\\s+/).filter(Boolean).length;
+  if(words<145||words>205)throw new Error('El guion '+(index+1)+' tiene '+words+' palabras; debe tener entre 145 y 205.');
+  if(!Array.isArray(parsed.scenes)||parsed.scenes.length!==14)throw new Error('El guion '+(index+1)+' debe incluir exactamente 14 escenas.');
   if(!Array.isArray(parsed.sources)||parsed.sources.length<3)throw new Error('El guion '+(index+1)+' necesita al menos 3 fuentes.');
+  if(!parsed.models||typeof parsed.models!=='object'||!Object.keys(parsed.models).length)throw new Error('El guion '+(index+1)+' no incluye su catálogo de modelos 3D.');
   for(const [sceneIndex,scene] of parsed.scenes.entries()){
-   if(!scene.visual||String(scene.visual).length<100||!['landscape','architecture','science','ocean','space','history','object','abstract'].includes(scene.scene_type)||!scene.setting||String(scene.setting).length<40||!scene.action||String(scene.action).length<35||!scene.camera||String(scene.camera).length<15||!scene.continuity||String(scene.continuity).length<20||!Array.isArray(scene.characters)||!Array.isArray(scene.props)||scene.props.length<3||scene.props.length>8||!Array.isArray(scene.objects)||scene.objects.length<3||scene.objects.length>8||!scene.overlay||String(scene.overlay).trim().split(/\s+/).length>4||!scene.narration_excerpt)throw new Error('La escena '+(sceneIndex+1)+' del guion '+(index+1)+' necesita dirección visual cinematográfica completa.');
-
+   if(!scene.visual||String(scene.visual).length<100||!['landscape','architecture','science','ocean','space','history','object','abstract'].includes(scene.scene_type)||!scene.setting||String(scene.setting).length<40||!scene.action||String(scene.action).length<35||!scene.camera||String(scene.camera).length<15||!scene.continuity||String(scene.continuity).length<20||!Array.isArray(scene.entities)||scene.entities.length<2||!scene.narration_excerpt)throw new Error('La escena '+(sceneIndex+1)+' del guion '+(index+1)+' está incompleta.');
    if(!String(parsed.narration).includes(scene.narration_excerpt))throw new Error('El fragmento de narración de la escena '+(sceneIndex+1)+' no coincide literalmente.');
+   for(const entity of scene.entities){const model=parsed.models[entity.model_id];if(!entity.model_id||!model||model.version!==1||!Array.isArray(model.parts)||!model.parts.length||!Array.isArray(model.animations))throw new Error('La entidad '+(entity.name||entity.id)+' de la escena '+(sceneIndex+1)+' no tiene un blueprint 3D completo en el JSON.');}
   }
-  for(const source of parsed.sources){try{const u=new URL(source.url);if(u.protocol!=='https:')throw 0}catch{throw new Error('Una fuente del guion '+(index+1)+' no tiene una URL HTTPS válida.')}} 
+  for(const source of parsed.sources){try{const u=new URL(source.url);if(u.protocol!=='https:')throw 0}catch{throw new Error('Una fuente del guion '+(index+1)+' no tiene una URL HTTPS válida.');}}
   return parsed;
  }
  async function importAndProduce(){
@@ -73,7 +100,7 @@ export default function Studio(){
    if(new Set(titles.map(x=>x.toLowerCase())).size!==3)throw new Error('Los tres guiones deben tener títulos distintos.');
    const {data:seriesRows,error:seriesError}=await db.from('series').select('id,slug').eq('is_active',true).order('slug');
    if(seriesError)throw seriesError;
-   const rows=parsed.map((item,i)=>({user_id:session.user.id,series_id:seriesRows?.find((x:any)=>x.slug===item.category)?.id||seriesRows?.[i%Math.max(seriesRows.length,1)]?.id||null,title:item.title,hook:item.hook,narration:item.narration,visual_plan:item.scenes,source_notes:item.sources,target_seconds:70,status:'in_production'}));
+   const rows=parsed.map((item,i)=>({user_id:session.user.id,series_id:seriesRows?.find((x:any)=>x.slug===item.category)?.id||seriesRows?.[i%Math.max(seriesRows.length,1)]?.id||null,title:item.title,hook:item.hook,narration:item.narration,visual_plan:{scenes:item.scenes,models:item.models},source_notes:item.sources,target_seconds:70,status:'in_production'}));
    const {data:created,error}=await db.from('scripts').insert(rows).select('id');
    if(error)throw error;
    if(!created||created.length!==3)throw new Error('No se pudieron guardar los tres guiones completos.');
@@ -81,9 +108,15 @@ export default function Studio(){
    const response=await fetch('/api/production/dispatch',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+activeSession?.access_token},body:JSON.stringify({scriptIds:created.map((x:any)=>x.id)})});
    const result=await response.json();
    if(!response.ok)throw new Error(result.error||'GitHub no aceptó la producción.');
-   setMessage('¡Los tres vídeos han entrado en producción! Puedes cerrar la web; el panel actualizará su estado y te avisará cuando terminen.');
-   setScriptBatch(['','','']);await load();
+   setMessage('Los tres JSON se han importado y los vídeos han entrado en producción. No se publicará nada automáticamente.');
+   setScriptBatch(['','','']);setZipName('');await load();
   }catch(error:any){setMessage(error?.message||'No se pudieron importar los guiones.');}
+  finally{setDispatching(false)}
+ }
+ async function handleZip(file?:File){
+  if(!file)return;setDispatching(true);setMessage('');
+  try{const contents=await unzipJsonFiles(file);const parsed=contents.map((raw,i)=>parseExternalScript(raw,i));const titles=parsed.map(x=>String(x.title).trim());if(new Set(titles.map(x=>x.toLowerCase())).size!==3)throw new Error('Los tres JSON deben tener títulos distintos.');setScriptBatch(contents);setZipName(file.name);setMessage('ZIP leído correctamente: '+parsed.map(x=>x.title).join(' · ')+'. Ya puedes iniciar la producción.');}
+  catch(error:any){setScriptBatch(['','','']);setZipName('');setMessage(error?.message||'No se pudo leer el ZIP.');}
   finally{setDispatching(false)}
  }
  async function retryScript(id:string){
@@ -109,7 +142,7 @@ export default function Studio(){
   <nav className="studio-nav">{tabs.map(t=><button key={t.id} className={tab===t.id?'active':''} onClick={()=>setTab(t.id)}>{t.label}</button>)}</nav>
   {message&&<div className="studio-message">{message}<button onClick={()=>setMessage('')}>×</button></div>}
   {tab==='overview'&&<><div className="metric-grid"><Metric label="Vídeos guardados" value={ready} note="MP4 en biblioteca"/><Metric label="Borradores pendientes" value={pending} note="Revisión manual"/><Metric label="Trabajos fallidos" value={failed} note="Revisar incidencias"/><Metric label="Visualizaciones" value={totalViews.toLocaleString('es-ES')} note={totalLikes.toLocaleString('es-ES')+' me gusta'}/></div><div className="studio-columns"><section className="studio-card"><div className="card-kicker">PRODUCCIÓN / RECIENTE</div><h2>Últimos trabajos</h2>{latestJobs.length?latestJobs.map(j=><div className="data-row" key={j.id}><div><b>{fmt(j.scheduled_for)}</b><small>{j.error_message||'Intentos: '+j.attempt_count}</small></div><Status value={j.status}/></div>):<Empty text="Aún no hay trabajos. La primera ejecución válida aparecerá aquí."/>}</section><section className="studio-card"><div className="card-kicker">CALENDARIO FIJO</div><h2>Tres expediciones al día</h2>{(settings?.production_times||['07:30','14:30','20:30']).map((time:string,i:number)=><div className="schedule-row" key={time}><b>{time}</b><span>{['Nadie te lo explica','Detrás de la puerta','¿Cómo es posible?'][i]}</span><small>Europe/Madrid</small></div>)}<p className="muted-copy">Los horarios se ejecutan mediante GitHub Actions.</p></section></div><section className="studio-card"><div className="card-kicker">FLUJO EDITORIAL</div><div className="pipeline"><span>Investigación</span><i>→</i><span>Guion</span><i>→</i><span>Voz</span><i>→</i><span>Render</span><i>→</i><span>Revisión</span><i>→</i><span>Publicación</span></div><p className="muted-copy">La publicación automática está desactivada. Aprobar un borrador no lo envía a ninguna red.</p></section></>}
-  {tab==='import'&&<section className="studio-card"><div className="card-kicker">ENTRADA EDITORIAL / SIN API DE REDACCIÓN</div><h2>Importar los tres guiones del día</h2><p className="muted-copy">Pega cada JSON completo. Cada escena debe describir decorado, personajes, atrezo, acción, cámara y continuidad. Se rechazan escenas genéricas o incompletas.</p>{dispatchConfigured===false&&<p className="notice">Falta configurar GITHUB_ACTIONS_TOKEN en Vercel. Puedes preparar los guiones, pero la web no podrá iniciar los renders hasta añadir ese secreto.</p>}{scriptBatch.map((value,index)=><label className="editor-label" key={index}>Guion {index+1}<textarea value={value} onChange={e=>setScriptBatch(old=>old.map((x,i)=>i===index?e.target.value:x))} placeholder={'Pega aquí el JSON completo del guion '+(index+1)} /></label>)}<div className="button-row"><button className="primary-button" disabled={dispatching||busy||scriptBatch.some(x=>!x.trim())} onClick={importAndProduce}>{dispatching?'Validando y enviando…':'Validar y generar los 3 vídeos'}</button><button className="ghost-button" disabled={dispatching} onClick={()=>setScriptBatch(['','',''])}>Vaciar campos</button></div><p className="muted-copy">La producción usa Edge TTS, Three.js, HyperFrames y FFmpeg. No llama a Groq para guiones externos. Los vídeos quedan como borradores privados: no se publica nada automáticamente.</p></section>}
+  {tab==='import'&&<section className="studio-card"><div className="card-kicker">ENTRADA EDITORIAL / JSON AUTOCONTENIDOS</div><h2>Importar el ZIP del día</h2><p className="muted-copy">Sube un ZIP con exactamente tres archivos JSON. La web los descomprime en el navegador, comprueba las 14 escenas, fuentes y blueprints 3D, y conserva los modelos para el render.</p>{dispatchConfigured===false&&<p className="notice">Falta configurar GITHUB_ACTIONS_TOKEN en Vercel. Puedes cargar el ZIP, pero no iniciar los renders hasta añadir ese secreto.</p>}<label className="zip-drop"> <span>＋</span><b>Seleccionar ZIP del día</b><small>{zipName||'Un ZIP · tres JSON · sin carpetas obligatorias'}</small><input type="file" accept=".zip,application/zip" disabled={dispatching} onChange={e=>handleZip(e.target.files?.[0])}/></label>{scriptBatch.every(x=>x.trim())&&<div className="zip-preview">{scriptBatch.map((raw,i)=>{let title='JSON '+(i+1);try{title=JSON.parse(raw).title||title}catch{}return <div key={i}><span>0{i+1}</span><b>{title}</b><small>JSON validado · 14 escenas</small></div>})}</div>}<div className="button-row"><button className="primary-button" disabled={dispatching||busy||scriptBatch.some(x=>!x.trim())||dispatchConfigured===false} onClick={importAndProduce}>{dispatching?'Validando y enviando…':'Importar y generar los 3 vídeos'}</button><button className="ghost-button" disabled={dispatching} onClick={()=>{setScriptBatch(['','','']);setZipName('')}}>Vaciar selección</button></div><p className="muted-copy">La producción usa Edge TTS, Three.js, HyperFrames y FFmpeg. No se utiliza Groq ni otro modelo externo para redactar. Los vídeos quedan privados para revisión; no se publica nada automáticamente.</p></section>}
   {tab==='calendar'&&<section className="studio-card"><div className="card-kicker">PLANIFICACIÓN / EUROPE-MADRID</div><h2>Historial de producción</h2>{jobs.length?jobs.map(j=><div className="data-row" key={j.id}><div><b>{fmt(j.scheduled_for)}</b><small>{j.error_message||'Intento '+j.attempt_count}</small></div><Status value={j.status}/></div>):<Empty text="El calendario se llenará cuando se ejecuten los primeros trabajos."/>}</section>}
   {tab==='scripts'&&<div className="studio-columns scripts-layout"><section className="studio-card"><div className="card-kicker">ARCHIVO EDITORIAL</div><h2>Guiones ({scripts.length})</h2>{scripts.map(s=><button key={s.id} className={'script-choice '+(selectedScript?.id===s.id?'chosen':'')} onClick={()=>setSelectedScript(s)}><b>{s.title}</b><small>{fmt(s.created_at)} · {seriesName(s.series_id)}</small><Status value={s.status}/></button>)}{!scripts.length&&<Empty text="Todavía no hay guiones generados."/>}</section><section className="studio-card script-detail">{selectedScript?<><div className="card-kicker">REVISIÓN EDITORIAL</div><h2>{selectedScript.title}</h2><p className="hook-line">{selectedScript.hook}</p><label className="editor-label">Narración<textarea value={selectedScript.narration||''} onChange={e=>setSelectedScript({...selectedScript,narration:e.target.value})}/></label><div className="source-list"><b>Fuentes documentales</b>{(selectedScript.source_notes||[]).map((s:any,i:number)=><a key={i} href={s.url} target="_blank" rel="noreferrer">{s.title||s.url} ↗</a>)}</div><div className="button-row"><button className="primary-button" disabled={busy} onClick={()=>updateScript(selectedScript.id,{narration:selectedScript.narration})}>Guardar cambios</button>{selectedScript.status==='approved'&&<button className="primary-button" disabled={busy} onClick={()=>retryScript(selectedScript.id)}>Generar / reintentar vídeo</button>}<button className="ghost-button" disabled={busy} onClick={()=>updateScript(selectedScript.id,{status:'approved'})}>Aprobar guion</button><button className="ghost-button" disabled={busy} onClick={()=>updateScript(selectedScript.id,{status:'rejected'})}>Rechazar</button></div><p className="muted-copy">Los cambios aquí no regeneran un vídeo que ya se haya renderizado.</p></>:<Empty text="Selecciona un guion para revisarlo."/>}</section></div>}
   {tab==='memory'&&<><section className="studio-card"><div className="card-kicker">MEMORIA PERMANENTE / SUPABASE</div><h2>Temas que ya hemos tratado ({memory.length})</h2><p className="muted-copy">El generador compara cada nuevo guion con todo el historial. Los últimos 40 temas se envían a Groq como orientación compacta para ahorrar cuota; la detección local revisa la memoria completa.</p><form className="memory-form" onSubmit={addMemoryTopic}><label>Tema que no quieres volver a tratar<input value={memoryTopic} onChange={e=>setMemoryTopic(e.target.value)} placeholder="Ej. El incidente del paso Dyatlov" required/></label><label>Motivo (opcional)<input value={memoryReason} onChange={e=>setMemoryReason(e.target.value)} placeholder="Ya se ha cubierto o no encaja con el canal"/></label><button className="primary-button" disabled={busy||!memoryTopic.trim()}>Añadir a exclusiones</button></form></section><section className="studio-card"><div className="card-kicker">ARCHIVO / ÚLTIMOS 1000 REGISTROS</div>{memory.length?memory.map(item=><article className="data-row" key={item.id}><div><b>{item.topic}</b><small>{fmt(item.created_at)} · {item.angle||'Sin gancho registrado'} · {(item.source_urls||[]).length} fuentes{item.reason?' · '+item.reason:''}</small></div><Status value={item.memory_status}/></article>):<Empty text="Todavía no hay temas guardados. Se añadirán al completar la primera producción."/>}</section></>}
