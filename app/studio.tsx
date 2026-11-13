@@ -45,7 +45,7 @@ export default function Studio(){
  async function addMemoryTopic(e:any){e.preventDefault();const topic=memoryTopic.trim();if(!topic)return;setBusy(true);const topicKey=topic.toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');const {error}=await db.from('editorial_memory').insert({user_id:session.user.id,topic,topic_key:topicKey,angle:'Exclusión manual',summary:'Tema excluido desde el panel',source_urls:[],memory_status:'rejected',reason:memoryReason.trim()||'No volver a tratar este tema'});if(error)setMessage('No se pudo guardar el tema: '+error.message);else{setMemoryTopic('');setMemoryReason('');setMessage('Tema añadido a la lista de exclusión.');await load()}setBusy(false)}
  function parseExternalScript(raw:string,index:number){
   // Acepta JSON pegado directamente o dentro de un bloque Markdown ```json.
-  const cleaned=raw.replace(/^\\uFEFF/,'').trim().replace(/^```(?:json)?\\s*/i,'').replace(/\\s*```$/,'').trim();
+  const cleaned=raw.replace(/^\uFEFF/,'').trim().replace(/^```(?:json)?\s*/i,'').replace(/\s*```$/,'').trim();
   let parsed:any;try{parsed=JSON.parse(cleaned)}catch(error:any){
    const detail=error instanceof Error?error.message:'sintaxis incorrecta';
    throw new Error('El guion '+(index+1)+' no contiene JSON válido ('+detail+'). Pega un único objeto JSON completo, sin texto adicional.');
