@@ -1,5 +1,5 @@
 {
-  "batch": "reset-library-2026-11-13",
+  "batch": "reset-library-retry-2026-11-13",
   "confirm": "DELETE_PRODUCTION_LIBRARY",
   "preserve_config": true
 }
