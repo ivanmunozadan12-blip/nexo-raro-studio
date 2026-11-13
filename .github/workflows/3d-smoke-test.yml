@@ -10,8 +10,6 @@ on:
       - "scripts/procedural-engine.test.mjs"
       - "scripts/procedural-preview.mjs"
       - "scripts/procedural-preview-script.json"
-      - "scripts/columbus-preview.mjs"
-      - "scripts/columbus-test-script.json"
 
 concurrency:
   group: columbus-3d-preview
@@ -45,19 +43,15 @@ jobs:
           node --check scripts/scene-engine.js
           node --check scripts/procedural-engine.js
           node --check scripts/procedural-preview.mjs
-          node --check scripts/columbus-preview.mjs
           node --check scripts/produce.mjs
           node --test scripts/procedural-engine.test.mjs
       - name: Renderizar escenas variadas con modelos procedurales
         run: node scripts/procedural-preview.mjs
-      - name: Renderizar vídeo histórico de Colón para comprobar compatibilidad
-        run: node scripts/columbus-preview.mjs
-      - name: Guardar pruebas visuales
+      - name: Guardar vista previa procedural
         uses: actions/upload-artifact@v4
         with:
           name: behind-del-mundo-procedural-3d-previews
           path: |
             .artifacts/procedural-3d-preview/procedural-3d-preview.mp4
-            .artifacts/columbus-visual-test/columbus-3d-preview.mp4
           if-no-files-found: error
           retention-days: 7
