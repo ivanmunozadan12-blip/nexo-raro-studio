@@ -40,7 +40,8 @@ BG=gradient()
 PARTICLES=[(random.randrange(W),random.randrange(H),random.randrange(2,6),random.random()*6.28) for _ in range(32)]
 
 def base_frame(t, accent):
-    im=BG.copy(); d=ImageDraw.Draw(im,"RGBA")
+    im=BG.copy()
+    overlay=Image.new("RGBA",im.size,(0,0,0,0)); d=ImageDraw.Draw(overlay,"RGBA")
     for i in range(7):
         x=((i*155+t*13)%900)-180
         d.polygon([(int(x*S),0),(int((x+30)*S),0),(int((x-210)*S),H*S),(int((x-240)*S),H*S)],fill=(150,205,255,4))
@@ -51,7 +52,7 @@ def base_frame(t, accent):
     d.rounded_rectangle((28*S,28*S,548*S,66*S),radius=12*S,fill=(7,22,42,165),outline=(255,255,255,35),width=S)
     text_fit(d,(44,39),"BEHIND DEL MUNDO",15,(245,249,255,245),bold=True)
     d.ellipse((511*S,43*S,521*S,53*S),fill=rgba(accent))
-    return im
+    return Image.alpha_composite(im,overlay)
 
 def panel(d, box, fill=(8,25,48,215), outline=(140,205,240,100), radius=18):
     d.rounded_rectangle(tuple(int(v*S) for v in box),radius=radius*S,fill=fill,outline=outline,width=2*S)
@@ -325,7 +326,7 @@ def draw_visual_elements(d, elements, t, accent):
             text_fit(d,(x,y2+15),label[:22],11,(239,247,255,235),max_width=int(max(75,w+35)*S),anchor="mm",bold=False)
 
 def draw_scene(im, scene, local_t, accent):
-    d=ImageDraw.Draw(im,"RGBA")
+    overlay=Image.new("RGBA",im.size,(0,0,0,0)); d=ImageDraw.Draw(overlay,"RGBA")
     title=str(scene.get("headline",""))[:52]
     subtitle=str(scene.get("subtitle",""))[:90]
     draw_title(d,title,subtitle,local_t,accent)
@@ -378,6 +379,7 @@ def draw_scene(im, scene, local_t, accent):
     if fact:
         panel(d,(48,845,528,935),fill=(5,18,36,220),outline=rgba(accent,105),radius=16)
         text_fit(d,(288,890),fact,15,(245,249,255),max_width=440,anchor="mm",bold=True)
+    im.alpha_composite(overlay)
 
 def render_frame(i, script, starts, durations):
     t=i/FPS
@@ -390,10 +392,11 @@ def render_frame(i, script, starts, durations):
     # Narration captions are supplied as timestamped words from Edge TTS.
     for cue in script.get("captions",[]):
         if cue["start"]<=t<cue["end"]:
-            d=ImageDraw.Draw(im,"RGBA")
+            overlay=Image.new("RGBA",im.size,(0,0,0,0)); d=ImageDraw.Draw(overlay,"RGBA")
             txt=cue["text"]
             panel(d,(45,950,531,1007),fill=(3,12,25,225),outline=(255,255,255,45),radius=12)
             text_fit(d,(288,979),txt,17,(255,255,255),max_width=450,anchor="mm")
+            im.alpha_composite(overlay)
             break
     # A restrained continuous camera push keeps code-drawn scenes alive.
     zoom=1.0+0.035*ease(local)
