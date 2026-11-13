@@ -22,12 +22,12 @@
   "scenes": [
     {
       "scene_type": "ocean",
-      "visual": "Plano 1. Imagina que una roca del fondo marino abre un ojo y desaparece delante de ti. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. En primer plano aparecen Pulpo común y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
-      "setting": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda.",
-      "action": "Imagina que una roca del fondo marino abre un ojo y desaparece delante de ti. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
-      "camera": "Travelling rasante que revela lentamente el sujeto principal y termina en un detalle reconocible. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "visual": "Plano 1. Imagina que una roca del fondo marino abre un ojo y desaparece delante de ti. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (roca de arrecife, coral ramificado, columna de burbujas, lecho de arena). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "setting": "Arrecife submarino con roca erosionada, coral ramificado, algas, arena ondulada, partículas y burbujas; luz azul verdosa filtrada.",
+      "action": "Acción ilustrativa: Imagina que una roca del fondo marino abre un ojo y desaparece delante de ti. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
+      "camera": "travelling lateral de contexto",
       "camera_target": "El animal que convierte su piel en un disfraz",
-      "continuity": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
       "characters": [],
       "props": [
         "material principal",
@@ -58,12 +58,12 @@
             2.2
           ],
           "scale": 1.05,
-          "action": "El pulpo abre y recoge sus brazos mientras ondula sobre el fondo.",
+          "action": "se camufla y ondula sus ocho brazos",
           "motion": "balancea los brazos y avanza lentamente",
           "position": [
-            -2.2,
             0,
-            -4
+            0.2,
+            -3.8
           ],
           "support": "ground",
           "model_id": "octopus-main"
@@ -82,15 +82,63 @@
             1.1
           ],
           "scale": 0.65,
-          "action": "El banco gira y nada en formación por detrás del pulpo.",
+          "action": "nada en grupo",
           "motion": "nada y gira coordinadamente",
           "position": [
-            2.6,
-            0.4,
-            -6
+            1.6,
+            0.1,
+            -5.5
           ],
           "support": "ground",
           "model_id": "fish-school"
+        },
+        {
+          "id": "reef-1-1",
+          "name": "Roca de arrecife",
+          "model_id": "reef-rock",
+          "position": [
+            -3.2,
+            0.05,
+            -2.5
+          ],
+          "scale": 1,
+          "action": "permanece anclado"
+        },
+        {
+          "id": "reef-1-2",
+          "name": "Coral ramificado",
+          "model_id": "branching-coral",
+          "position": [
+            3.1,
+            0.05,
+            -3.5
+          ],
+          "scale": 1,
+          "action": "permanece anclado"
+        },
+        {
+          "id": "reef-1-3",
+          "name": "Columna de burbujas",
+          "model_id": "bubble-column",
+          "position": [
+            -4,
+            0.1,
+            -7
+          ],
+          "scale": 0.8,
+          "action": "las burbujas ascienden"
+        },
+        {
+          "id": "reef-1-4",
+          "name": "Lecho de arena",
+          "model_id": "sand-ripple",
+          "position": [
+            4,
+            0.1,
+            -8
+          ],
+          "scale": 1,
+          "action": "permanece anclado"
         }
       ],
       "beats": [
@@ -110,12 +158,12 @@
     },
     {
       "scene_type": "ocean",
-      "visual": "Plano 2. No es magia: algunos pulpos transforman su piel en un disfraz casi instantáneo. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. En primer plano aparecen Pulpo común y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
-      "setting": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda.",
-      "action": "No es magia: algunos pulpos transforman su piel en un disfraz casi instantáneo. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
-      "camera": "Dolly-in con arco corto alrededor del sujeto mientras cambia su aspecto. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "visual": "Plano 2. No es magia: algunos pulpos transforman su piel en un disfraz casi instantáneo. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (coral ramificado, algas ondulantes, lecho de arena, cromatóforo ampliado). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "setting": "Arrecife submarino con roca erosionada, coral ramificado, algas, arena ondulada, partículas y burbujas; luz azul verdosa filtrada.",
+      "action": "Acción ilustrativa: No es magia: algunos pulpos transforman su piel en un disfraz casi instantáneo. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
+      "camera": "acercamiento macro al detalle",
       "camera_target": "El animal que convierte su piel en un disfraz",
-      "continuity": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
       "characters": [],
       "props": [
         "material principal",
@@ -146,12 +194,12 @@
             2.2
           ],
           "scale": 1.05,
-          "action": "El pulpo abre y recoge sus brazos mientras ondula sobre el fondo.",
+          "action": "extiende un brazo hacia la roca",
           "motion": "balancea los brazos y avanza lentamente",
           "position": [
-            -2.2,
             0,
-            -4.6
+            0.2,
+            -3.8
           ],
           "support": "ground",
           "model_id": "octopus-main"
@@ -170,15 +218,63 @@
             1.1
           ],
           "scale": 0.65,
-          "action": "El banco gira y nada en formación por detrás del pulpo.",
+          "action": "nada en grupo",
           "motion": "nada y gira coordinadamente",
           "position": [
-            2.6,
-            0.4,
-            -6.6
+            1.6,
+            0.1,
+            -5.5
           ],
           "support": "ground",
           "model_id": "fish-school"
+        },
+        {
+          "id": "reef-2-1",
+          "name": "Coral ramificado",
+          "model_id": "branching-coral",
+          "position": [
+            -3.2,
+            0.05,
+            -2.5
+          ],
+          "scale": 1,
+          "action": "permanece anclado"
+        },
+        {
+          "id": "reef-2-2",
+          "name": "Algas ondulantes",
+          "model_id": "kelp-cluster",
+          "position": [
+            3.1,
+            0.05,
+            -3.5
+          ],
+          "scale": 1,
+          "action": "las hojas se balancean con la corriente"
+        },
+        {
+          "id": "reef-2-3",
+          "name": "Lecho de arena",
+          "model_id": "sand-ripple",
+          "position": [
+            -4,
+            0.1,
+            -7
+          ],
+          "scale": 0.8,
+          "action": "permanece anclado"
+        },
+        {
+          "id": "reef-2-4",
+          "name": "Cromatóforo ampliado",
+          "model_id": "pigment-cell",
+          "position": [
+            4,
+            0.1,
+            -8
+          ],
+          "scale": 1,
+          "action": "la célula se expande y contrae"
         }
       ],
       "beats": [
@@ -198,12 +294,12 @@
     },
     {
       "scene_type": "ocean",
-      "visual": "Plano 3. Bajo la superficie esconden miles de células diminutas llamadas cromatóforos, llenas de pigmento. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. En primer plano aparecen Pulpo común y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
-      "setting": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda.",
-      "action": "Bajo la superficie esconden miles de células diminutas llamadas cromatóforos, llenas de pigmento. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
-      "camera": "Macro travelling sobre la superficie, pasando de una zona general a un detalle microscópico. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "visual": "Plano 3. Bajo la superficie esconden miles de células diminutas llamadas cromatóforos, llenas de pigmento. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (algas ondulantes, columna de burbujas, cromatóforo ampliado, roca de arrecife). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "setting": "Arrecife submarino con roca erosionada, coral ramificado, algas, arena ondulada, partículas y burbujas; luz azul verdosa filtrada.",
+      "action": "Acción ilustrativa: Bajo la superficie esconden miles de células diminutas llamadas cromatóforos, llenas de pigmento. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
+      "camera": "órbita corta alrededor del sujeto",
       "camera_target": "El animal que convierte su piel en un disfraz",
-      "continuity": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
       "characters": [],
       "props": [
         "material principal",
@@ -234,12 +330,12 @@
             2.2
           ],
           "scale": 1.05,
-          "action": "El pulpo abre y recoge sus brazos mientras ondula sobre el fondo.",
+          "action": "alterna patrones de color",
           "motion": "balancea los brazos y avanza lentamente",
           "position": [
-            -2.2,
             0,
-            -5.2
+            0.2,
+            -3.8
           ],
           "support": "ground",
           "model_id": "octopus-main"
@@ -258,15 +354,63 @@
             1.1
           ],
           "scale": 0.65,
-          "action": "El banco gira y nada en formación por detrás del pulpo.",
+          "action": "nada en grupo",
           "motion": "nada y gira coordinadamente",
           "position": [
-            2.6,
-            0.4,
-            -7.2
+            1.6,
+            0.1,
+            -5.5
           ],
           "support": "ground",
           "model_id": "fish-school"
+        },
+        {
+          "id": "reef-3-1",
+          "name": "Algas ondulantes",
+          "model_id": "kelp-cluster",
+          "position": [
+            -3.2,
+            0.05,
+            -2.5
+          ],
+          "scale": 1,
+          "action": "las hojas se balancean con la corriente"
+        },
+        {
+          "id": "reef-3-2",
+          "name": "Columna de burbujas",
+          "model_id": "bubble-column",
+          "position": [
+            3.1,
+            0.05,
+            -3.5
+          ],
+          "scale": 1,
+          "action": "las burbujas ascienden"
+        },
+        {
+          "id": "reef-3-3",
+          "name": "Cromatóforo ampliado",
+          "model_id": "pigment-cell",
+          "position": [
+            -4,
+            0.1,
+            -7
+          ],
+          "scale": 0.8,
+          "action": "la célula se expande y contrae"
+        },
+        {
+          "id": "reef-3-4",
+          "name": "Roca de arrecife",
+          "model_id": "reef-rock",
+          "position": [
+            4,
+            0.1,
+            -8
+          ],
+          "scale": 1,
+          "action": "permanece anclado"
         }
       ],
       "beats": [
@@ -286,12 +430,12 @@
     },
     {
       "scene_type": "ocean",
-      "visual": "Plano 4. Cada una funciona como una pequeña bolsa elástica que puede expandirse o contraerse. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. En primer plano aparecen Pulpo común y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
-      "setting": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda.",
-      "action": "Cada una funciona como una pequeña bolsa elástica que puede expandirse o contraerse. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
-      "camera": "Zoom controlado hacia el mecanismo central y órbita corta para mostrar su volumen. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "visual": "Plano 4. Cada una funciona como una pequeña bolsa elástica que puede expandirse o contraerse. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (columna de burbujas, lecho de arena, roca de arrecife, coral ramificado). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "setting": "Arrecife submarino con roca erosionada, coral ramificado, algas, arena ondulada, partículas y burbujas; luz azul verdosa filtrada.",
+      "action": "Acción ilustrativa: Cada una funciona como una pequeña bolsa elástica que puede expandirse o contraerse. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
+      "camera": "retroceso para revelar el entorno",
       "camera_target": "El animal que convierte su piel en un disfraz",
-      "continuity": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
       "characters": [],
       "props": [
         "material principal",
@@ -322,12 +466,12 @@
             2.2
           ],
           "scale": 1.05,
-          "action": "El pulpo abre y recoge sus brazos mientras ondula sobre el fondo.",
+          "action": "eleva las protuberancias de la piel",
           "motion": "balancea los brazos y avanza lentamente",
           "position": [
-            -2.2,
             0,
-            -4
+            0.2,
+            -3.8
           ],
           "support": "ground",
           "model_id": "octopus-main"
@@ -346,15 +490,63 @@
             1.1
           ],
           "scale": 0.65,
-          "action": "El banco gira y nada en formación por detrás del pulpo.",
+          "action": "nada en grupo",
           "motion": "nada y gira coordinadamente",
           "position": [
-            2.6,
-            0.4,
-            -6
+            1.6,
+            0.1,
+            -5.5
           ],
           "support": "ground",
           "model_id": "fish-school"
+        },
+        {
+          "id": "reef-4-1",
+          "name": "Columna de burbujas",
+          "model_id": "bubble-column",
+          "position": [
+            -3.2,
+            0.05,
+            -2.5
+          ],
+          "scale": 1,
+          "action": "las burbujas ascienden"
+        },
+        {
+          "id": "reef-4-2",
+          "name": "Lecho de arena",
+          "model_id": "sand-ripple",
+          "position": [
+            3.1,
+            0.05,
+            -3.5
+          ],
+          "scale": 1,
+          "action": "permanece anclado"
+        },
+        {
+          "id": "reef-4-3",
+          "name": "Roca de arrecife",
+          "model_id": "reef-rock",
+          "position": [
+            -4,
+            0.1,
+            -7
+          ],
+          "scale": 0.8,
+          "action": "permanece anclado"
+        },
+        {
+          "id": "reef-4-4",
+          "name": "Coral ramificado",
+          "model_id": "branching-coral",
+          "position": [
+            4,
+            0.1,
+            -8
+          ],
+          "scale": 1,
+          "action": "permanece anclado"
         }
       ],
       "beats": [
@@ -374,12 +566,12 @@
     },
     {
       "scene_type": "ocean",
-      "visual": "Plano 5. Cuando los músculos tiran de ella, el pigmento ocupa más espacio y cambia el tono. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. En primer plano aparecen Pulpo común y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
-      "setting": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda.",
-      "action": "Cuando los músculos tiran de ella, el pigmento ocupa más espacio y cambia el tono. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
-      "camera": "Push-in durante la acción principal y pausa breve en el instante más legible. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "visual": "Plano 5. Cuando los músculos tiran de ella, el pigmento ocupa más espacio y cambia el tono. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (lecho de arena, cromatóforo ampliado, coral ramificado, algas ondulantes). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "setting": "Arrecife submarino con roca erosionada, coral ramificado, algas, arena ondulada, partículas y burbujas; luz azul verdosa filtrada.",
+      "action": "Acción ilustrativa: Cuando los músculos tiran de ella, el pigmento ocupa más espacio y cambia el tono. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
+      "camera": "travelling lateral de contexto",
       "camera_target": "El animal que convierte su piel en un disfraz",
-      "continuity": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
       "characters": [],
       "props": [
         "material principal",
@@ -410,12 +602,12 @@
             2.2
           ],
           "scale": 1.05,
-          "action": "El pulpo abre y recoge sus brazos mientras ondula sobre el fondo.",
+          "action": "se camufla y ondula sus ocho brazos",
           "motion": "balancea los brazos y avanza lentamente",
           "position": [
-            -2.2,
             0,
-            -4.6
+            0.2,
+            -3.8
           ],
           "support": "ground",
           "model_id": "octopus-main"
@@ -434,15 +626,63 @@
             1.1
           ],
           "scale": 0.65,
-          "action": "El banco gira y nada en formación por detrás del pulpo.",
+          "action": "nada en grupo",
           "motion": "nada y gira coordinadamente",
           "position": [
-            2.6,
-            0.4,
-            -6.6
+            1.6,
+            0.1,
+            -5.5
           ],
           "support": "ground",
           "model_id": "fish-school"
+        },
+        {
+          "id": "reef-5-1",
+          "name": "Lecho de arena",
+          "model_id": "sand-ripple",
+          "position": [
+            -3.2,
+            0.05,
+            -2.5
+          ],
+          "scale": 1,
+          "action": "permanece anclado"
+        },
+        {
+          "id": "reef-5-2",
+          "name": "Cromatóforo ampliado",
+          "model_id": "pigment-cell",
+          "position": [
+            3.1,
+            0.05,
+            -3.5
+          ],
+          "scale": 1,
+          "action": "la célula se expande y contrae"
+        },
+        {
+          "id": "reef-5-3",
+          "name": "Coral ramificado",
+          "model_id": "branching-coral",
+          "position": [
+            -4,
+            0.1,
+            -7
+          ],
+          "scale": 0.8,
+          "action": "permanece anclado"
+        },
+        {
+          "id": "reef-5-4",
+          "name": "Algas ondulantes",
+          "model_id": "kelp-cluster",
+          "position": [
+            4,
+            0.1,
+            -8
+          ],
+          "scale": 1,
+          "action": "las hojas se balancean con la corriente"
         }
       ],
       "beats": [
@@ -462,12 +702,12 @@
     },
     {
       "scene_type": "ocean",
-      "visual": "Plano 6. Otras células reflejan la luz y añaden destellos que parecen cambiar con el entorno. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. En primer plano aparecen Pulpo común y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
-      "setting": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda.",
-      "action": "Otras células reflejan la luz y añaden destellos que parecen cambiar con el entorno. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
-      "camera": "Desplazamiento lateral siguiendo los reflejos y cambio de foco entre capas. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "visual": "Plano 6. Otras células reflejan la luz y añaden destellos que parecen cambiar con el entorno. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (cromatóforo ampliado, roca de arrecife, algas ondulantes, columna de burbujas). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "setting": "Arrecife submarino con roca erosionada, coral ramificado, algas, arena ondulada, partículas y burbujas; luz azul verdosa filtrada.",
+      "action": "Acción ilustrativa: Otras células reflejan la luz y añaden destellos que parecen cambiar con el entorno. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
+      "camera": "acercamiento macro al detalle",
       "camera_target": "El animal que convierte su piel en un disfraz",
-      "continuity": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
       "characters": [],
       "props": [
         "material principal",
@@ -498,12 +738,12 @@
             2.2
           ],
           "scale": 1.05,
-          "action": "El pulpo abre y recoge sus brazos mientras ondula sobre el fondo.",
+          "action": "extiende un brazo hacia la roca",
           "motion": "balancea los brazos y avanza lentamente",
           "position": [
-            -2.2,
             0,
-            -5.2
+            0.2,
+            -3.8
           ],
           "support": "ground",
           "model_id": "octopus-main"
@@ -522,15 +762,63 @@
             1.1
           ],
           "scale": 0.65,
-          "action": "El banco gira y nada en formación por detrás del pulpo.",
+          "action": "nada en grupo",
           "motion": "nada y gira coordinadamente",
           "position": [
-            2.6,
-            0.4,
-            -7.2
+            1.6,
+            0.1,
+            -5.5
           ],
           "support": "ground",
           "model_id": "fish-school"
+        },
+        {
+          "id": "reef-6-1",
+          "name": "Cromatóforo ampliado",
+          "model_id": "pigment-cell",
+          "position": [
+            -3.2,
+            0.05,
+            -2.5
+          ],
+          "scale": 1,
+          "action": "la célula se expande y contrae"
+        },
+        {
+          "id": "reef-6-2",
+          "name": "Roca de arrecife",
+          "model_id": "reef-rock",
+          "position": [
+            3.1,
+            0.05,
+            -3.5
+          ],
+          "scale": 1,
+          "action": "permanece anclado"
+        },
+        {
+          "id": "reef-6-3",
+          "name": "Algas ondulantes",
+          "model_id": "kelp-cluster",
+          "position": [
+            -4,
+            0.1,
+            -7
+          ],
+          "scale": 0.8,
+          "action": "las hojas se balancean con la corriente"
+        },
+        {
+          "id": "reef-6-4",
+          "name": "Columna de burbujas",
+          "model_id": "bubble-column",
+          "position": [
+            4,
+            0.1,
+            -8
+          ],
+          "scale": 1,
+          "action": "las burbujas ascienden"
         }
       ],
       "beats": [
@@ -550,12 +838,12 @@
     },
     {
       "scene_type": "ocean",
-      "visual": "Plano 7. Pero el color es solo una parte de este truco extraordinario. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. En primer plano aparecen Pulpo común y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
-      "setting": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda.",
-      "action": "Pero el color es solo una parte de este truco extraordinario. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
-      "camera": "Retroceso de cámara para revelar el sujeto completo y su entorno. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "visual": "Plano 7. Pero el color es solo una parte de este truco extraordinario. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (roca de arrecife, coral ramificado, columna de burbujas, lecho de arena). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "setting": "Arrecife submarino con roca erosionada, coral ramificado, algas, arena ondulada, partículas y burbujas; luz azul verdosa filtrada.",
+      "action": "Acción ilustrativa: Pero el color es solo una parte de este truco extraordinario. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
+      "camera": "órbita corta alrededor del sujeto",
       "camera_target": "El animal que convierte su piel en un disfraz",
-      "continuity": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
       "characters": [],
       "props": [
         "material principal",
@@ -586,12 +874,12 @@
             2.2
           ],
           "scale": 1.05,
-          "action": "El pulpo abre y recoge sus brazos mientras ondula sobre el fondo.",
+          "action": "alterna patrones de color",
           "motion": "balancea los brazos y avanza lentamente",
           "position": [
-            -2.2,
             0,
-            -4
+            0.2,
+            -3.8
           ],
           "support": "ground",
           "model_id": "octopus-main"
@@ -610,15 +898,63 @@
             1.1
           ],
           "scale": 0.65,
-          "action": "El banco gira y nada en formación por detrás del pulpo.",
+          "action": "nada en grupo",
           "motion": "nada y gira coordinadamente",
           "position": [
-            2.6,
-            0.4,
-            -6
+            1.6,
+            0.1,
+            -5.5
           ],
           "support": "ground",
           "model_id": "fish-school"
+        },
+        {
+          "id": "reef-7-1",
+          "name": "Roca de arrecife",
+          "model_id": "reef-rock",
+          "position": [
+            -3.2,
+            0.05,
+            -2.5
+          ],
+          "scale": 1,
+          "action": "permanece anclado"
+        },
+        {
+          "id": "reef-7-2",
+          "name": "Coral ramificado",
+          "model_id": "branching-coral",
+          "position": [
+            3.1,
+            0.05,
+            -3.5
+          ],
+          "scale": 1,
+          "action": "permanece anclado"
+        },
+        {
+          "id": "reef-7-3",
+          "name": "Columna de burbujas",
+          "model_id": "bubble-column",
+          "position": [
+            -4,
+            0.1,
+            -7
+          ],
+          "scale": 0.8,
+          "action": "las burbujas ascienden"
+        },
+        {
+          "id": "reef-7-4",
+          "name": "Lecho de arena",
+          "model_id": "sand-ripple",
+          "position": [
+            4,
+            0.1,
+            -8
+          ],
+          "scale": 1,
+          "action": "permanece anclado"
         }
       ],
       "beats": [
@@ -638,12 +974,12 @@
     },
     {
       "scene_type": "ocean",
-      "visual": "Plano 8. El pulpo también modifica la textura de su piel mediante pequeñas protuberancias musculares. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. En primer plano aparecen Pulpo común y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
-      "setting": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda.",
-      "action": "El pulpo también modifica la textura de su piel mediante pequeñas protuberancias musculares. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
-      "camera": "Macro ascendente que recorre los detalles desde la base hasta el punto más alto. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "visual": "Plano 8. El pulpo también modifica la textura de su piel mediante pequeñas protuberancias musculares. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (coral ramificado, algas ondulantes, lecho de arena, cromatóforo ampliado). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "setting": "Arrecife submarino con roca erosionada, coral ramificado, algas, arena ondulada, partículas y burbujas; luz azul verdosa filtrada.",
+      "action": "Acción ilustrativa: El pulpo también modifica la textura de su piel mediante pequeñas protuberancias musculares. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
+      "camera": "retroceso para revelar el entorno",
       "camera_target": "El animal que convierte su piel en un disfraz",
-      "continuity": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
       "characters": [],
       "props": [
         "material principal",
@@ -674,12 +1010,12 @@
             2.2
           ],
           "scale": 1.05,
-          "action": "El pulpo abre y recoge sus brazos mientras ondula sobre el fondo.",
+          "action": "eleva las protuberancias de la piel",
           "motion": "balancea los brazos y avanza lentamente",
           "position": [
-            -2.2,
             0,
-            -4.6
+            0.2,
+            -3.8
           ],
           "support": "ground",
           "model_id": "octopus-main"
@@ -698,15 +1034,63 @@
             1.1
           ],
           "scale": 0.65,
-          "action": "El banco gira y nada en formación por detrás del pulpo.",
+          "action": "nada en grupo",
           "motion": "nada y gira coordinadamente",
           "position": [
-            2.6,
-            0.4,
-            -6.6
+            1.6,
+            0.1,
+            -5.5
           ],
           "support": "ground",
           "model_id": "fish-school"
+        },
+        {
+          "id": "reef-8-1",
+          "name": "Coral ramificado",
+          "model_id": "branching-coral",
+          "position": [
+            -3.2,
+            0.05,
+            -2.5
+          ],
+          "scale": 1,
+          "action": "permanece anclado"
+        },
+        {
+          "id": "reef-8-2",
+          "name": "Algas ondulantes",
+          "model_id": "kelp-cluster",
+          "position": [
+            3.1,
+            0.05,
+            -3.5
+          ],
+          "scale": 1,
+          "action": "las hojas se balancean con la corriente"
+        },
+        {
+          "id": "reef-8-3",
+          "name": "Lecho de arena",
+          "model_id": "sand-ripple",
+          "position": [
+            -4,
+            0.1,
+            -7
+          ],
+          "scale": 0.8,
+          "action": "permanece anclado"
+        },
+        {
+          "id": "reef-8-4",
+          "name": "Cromatóforo ampliado",
+          "model_id": "pigment-cell",
+          "position": [
+            4,
+            0.1,
+            -8
+          ],
+          "scale": 1,
+          "action": "la célula se expande y contrae"
         }
       ],
       "beats": [
@@ -726,12 +1110,12 @@
     },
     {
       "scene_type": "ocean",
-      "visual": "Plano 9. Puede pasar de una superficie lisa a otra llena de bultos y picos. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. En primer plano aparecen Pulpo común y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
-      "setting": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda.",
-      "action": "Puede pasar de una superficie lisa a otra llena de bultos y picos. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
-      "camera": "Órbita corta alrededor del sujeto mientras la transformación avanza de forma visible. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "visual": "Plano 9. Puede pasar de una superficie lisa a otra llena de bultos y picos. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (algas ondulantes, columna de burbujas, cromatóforo ampliado, roca de arrecife). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "setting": "Arrecife submarino con roca erosionada, coral ramificado, algas, arena ondulada, partículas y burbujas; luz azul verdosa filtrada.",
+      "action": "Acción ilustrativa: Puede pasar de una superficie lisa a otra llena de bultos y picos. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
+      "camera": "travelling lateral de contexto",
       "camera_target": "El animal que convierte su piel en un disfraz",
-      "continuity": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
       "characters": [],
       "props": [
         "material principal",
@@ -762,12 +1146,12 @@
             2.2
           ],
           "scale": 1.05,
-          "action": "El pulpo abre y recoge sus brazos mientras ondula sobre el fondo.",
+          "action": "se camufla y ondula sus ocho brazos",
           "motion": "balancea los brazos y avanza lentamente",
           "position": [
-            -2.2,
             0,
-            -5.2
+            0.2,
+            -3.8
           ],
           "support": "ground",
           "model_id": "octopus-main"
@@ -786,15 +1170,63 @@
             1.1
           ],
           "scale": 0.65,
-          "action": "El banco gira y nada en formación por detrás del pulpo.",
+          "action": "nada en grupo",
           "motion": "nada y gira coordinadamente",
           "position": [
-            2.6,
-            0.4,
-            -7.2
+            1.6,
+            0.1,
+            -5.5
           ],
           "support": "ground",
           "model_id": "fish-school"
+        },
+        {
+          "id": "reef-9-1",
+          "name": "Algas ondulantes",
+          "model_id": "kelp-cluster",
+          "position": [
+            -3.2,
+            0.05,
+            -2.5
+          ],
+          "scale": 1,
+          "action": "las hojas se balancean con la corriente"
+        },
+        {
+          "id": "reef-9-2",
+          "name": "Columna de burbujas",
+          "model_id": "bubble-column",
+          "position": [
+            3.1,
+            0.05,
+            -3.5
+          ],
+          "scale": 1,
+          "action": "las burbujas ascienden"
+        },
+        {
+          "id": "reef-9-3",
+          "name": "Cromatóforo ampliado",
+          "model_id": "pigment-cell",
+          "position": [
+            -4,
+            0.1,
+            -7
+          ],
+          "scale": 0.8,
+          "action": "la célula se expande y contrae"
+        },
+        {
+          "id": "reef-9-4",
+          "name": "Roca de arrecife",
+          "model_id": "reef-rock",
+          "position": [
+            4,
+            0.1,
+            -8
+          ],
+          "scale": 1,
+          "action": "permanece anclado"
         }
       ],
       "beats": [
@@ -814,12 +1246,12 @@
     },
     {
       "scene_type": "ocean",
-      "visual": "Plano 10. Así imita rocas, algas o corales mientras se esconde o acecha a una presa. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. En primer plano aparecen Pulpo común y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
-      "setting": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda.",
-      "action": "Así imita rocas, algas o corales mientras se esconde o acecha a una presa. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
-      "camera": "Travelling diagonal que cruza el entorno y revela poco a poco el elemento principal. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "visual": "Plano 10. Así imita rocas, algas o corales mientras se esconde o acecha a una presa. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (columna de burbujas, lecho de arena, roca de arrecife, coral ramificado). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "setting": "Arrecife submarino con roca erosionada, coral ramificado, algas, arena ondulada, partículas y burbujas; luz azul verdosa filtrada.",
+      "action": "Acción ilustrativa: Así imita rocas, algas o corales mientras se esconde o acecha a una presa. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
+      "camera": "acercamiento macro al detalle",
       "camera_target": "El animal que convierte su piel en un disfraz",
-      "continuity": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
       "characters": [],
       "props": [
         "material principal",
@@ -850,12 +1282,12 @@
             2.2
           ],
           "scale": 1.05,
-          "action": "El pulpo abre y recoge sus brazos mientras ondula sobre el fondo.",
+          "action": "extiende un brazo hacia la roca",
           "motion": "balancea los brazos y avanza lentamente",
           "position": [
-            -2.2,
             0,
-            -4
+            0.2,
+            -3.8
           ],
           "support": "ground",
           "model_id": "octopus-main"
@@ -874,15 +1306,63 @@
             1.1
           ],
           "scale": 0.65,
-          "action": "El banco gira y nada en formación por detrás del pulpo.",
+          "action": "nada en grupo",
           "motion": "nada y gira coordinadamente",
           "position": [
-            2.6,
-            0.4,
-            -6
+            1.6,
+            0.1,
+            -5.5
           ],
           "support": "ground",
           "model_id": "fish-school"
+        },
+        {
+          "id": "reef-10-1",
+          "name": "Columna de burbujas",
+          "model_id": "bubble-column",
+          "position": [
+            -3.2,
+            0.05,
+            -2.5
+          ],
+          "scale": 1,
+          "action": "las burbujas ascienden"
+        },
+        {
+          "id": "reef-10-2",
+          "name": "Lecho de arena",
+          "model_id": "sand-ripple",
+          "position": [
+            3.1,
+            0.05,
+            -3.5
+          ],
+          "scale": 1,
+          "action": "permanece anclado"
+        },
+        {
+          "id": "reef-10-3",
+          "name": "Roca de arrecife",
+          "model_id": "reef-rock",
+          "position": [
+            -4,
+            0.1,
+            -7
+          ],
+          "scale": 0.8,
+          "action": "permanece anclado"
+        },
+        {
+          "id": "reef-10-4",
+          "name": "Coral ramificado",
+          "model_id": "branching-coral",
+          "position": [
+            4,
+            0.1,
+            -8
+          ],
+          "scale": 1,
+          "action": "permanece anclado"
         }
       ],
       "beats": [
@@ -902,12 +1382,12 @@
     },
     {
       "scene_type": "ocean",
-      "visual": "Plano 11. Algunas especies incluso combinan el camuflaje con movimientos que recuerdan a otros animales. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. En primer plano aparecen Pulpo común y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
-      "setting": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda.",
-      "action": "Algunas especies incluso combinan el camuflaje con movimientos que recuerdan a otros animales. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
-      "camera": "Plano medio con seguimiento lateral del movimiento principal y de sus consecuencias. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "visual": "Plano 11. Algunas especies incluso combinan el camuflaje con movimientos que recuerdan a otros animales. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (lecho de arena, cromatóforo ampliado, coral ramificado, algas ondulantes). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "setting": "Arrecife submarino con roca erosionada, coral ramificado, algas, arena ondulada, partículas y burbujas; luz azul verdosa filtrada.",
+      "action": "Acción ilustrativa: Algunas especies incluso combinan el camuflaje con movimientos que recuerdan a otros animales. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
+      "camera": "órbita corta alrededor del sujeto",
       "camera_target": "El animal que convierte su piel en un disfraz",
-      "continuity": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
       "characters": [],
       "props": [
         "material principal",
@@ -938,12 +1418,12 @@
             2.2
           ],
           "scale": 1.05,
-          "action": "El pulpo abre y recoge sus brazos mientras ondula sobre el fondo.",
+          "action": "alterna patrones de color",
           "motion": "balancea los brazos y avanza lentamente",
           "position": [
-            -2.2,
             0,
-            -4.6
+            0.2,
+            -3.8
           ],
           "support": "ground",
           "model_id": "octopus-main"
@@ -962,15 +1442,63 @@
             1.1
           ],
           "scale": 0.65,
-          "action": "El banco gira y nada en formación por detrás del pulpo.",
+          "action": "nada en grupo",
           "motion": "nada y gira coordinadamente",
           "position": [
-            2.6,
-            0.4,
-            -6.6
+            1.6,
+            0.1,
+            -5.5
           ],
           "support": "ground",
           "model_id": "fish-school"
+        },
+        {
+          "id": "reef-11-1",
+          "name": "Lecho de arena",
+          "model_id": "sand-ripple",
+          "position": [
+            -3.2,
+            0.05,
+            -2.5
+          ],
+          "scale": 1,
+          "action": "permanece anclado"
+        },
+        {
+          "id": "reef-11-2",
+          "name": "Cromatóforo ampliado",
+          "model_id": "pigment-cell",
+          "position": [
+            3.1,
+            0.05,
+            -3.5
+          ],
+          "scale": 1,
+          "action": "la célula se expande y contrae"
+        },
+        {
+          "id": "reef-11-3",
+          "name": "Coral ramificado",
+          "model_id": "branching-coral",
+          "position": [
+            -4,
+            0.1,
+            -7
+          ],
+          "scale": 0.8,
+          "action": "permanece anclado"
+        },
+        {
+          "id": "reef-11-4",
+          "name": "Algas ondulantes",
+          "model_id": "kelp-cluster",
+          "position": [
+            4,
+            0.1,
+            -8
+          ],
+          "scale": 1,
+          "action": "las hojas se balancean con la corriente"
         }
       ],
       "beats": [
@@ -990,12 +1518,12 @@
     },
     {
       "scene_type": "ocean",
-      "visual": "Plano 12. Lo sorprendente es que todo sucede sin cambiar de lugar ni abandonar el fondo. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. En primer plano aparecen Pulpo común y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
-      "setting": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda.",
-      "action": "Lo sorprendente es que todo sucede sin cambiar de lugar ni abandonar el fondo. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
-      "camera": "Dolly circular muy lento que demuestra la relación entre el sujeto y su entorno. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "visual": "Plano 12. Lo sorprendente es que todo sucede sin cambiar de lugar ni abandonar el fondo. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (cromatóforo ampliado, roca de arrecife, algas ondulantes, columna de burbujas). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "setting": "Arrecife submarino con roca erosionada, coral ramificado, algas, arena ondulada, partículas y burbujas; luz azul verdosa filtrada.",
+      "action": "Acción ilustrativa: Lo sorprendente es que todo sucede sin cambiar de lugar ni abandonar el fondo. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
+      "camera": "retroceso para revelar el entorno",
       "camera_target": "El animal que convierte su piel en un disfraz",
-      "continuity": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
       "characters": [],
       "props": [
         "material principal",
@@ -1026,12 +1554,12 @@
             2.2
           ],
           "scale": 1.05,
-          "action": "El pulpo abre y recoge sus brazos mientras ondula sobre el fondo.",
+          "action": "eleva las protuberancias de la piel",
           "motion": "balancea los brazos y avanza lentamente",
           "position": [
-            -2.2,
             0,
-            -5.2
+            0.2,
+            -3.8
           ],
           "support": "ground",
           "model_id": "octopus-main"
@@ -1050,15 +1578,63 @@
             1.1
           ],
           "scale": 0.65,
-          "action": "El banco gira y nada en formación por detrás del pulpo.",
+          "action": "nada en grupo",
           "motion": "nada y gira coordinadamente",
           "position": [
-            2.6,
-            0.4,
-            -7.2
+            1.6,
+            0.1,
+            -5.5
           ],
           "support": "ground",
           "model_id": "fish-school"
+        },
+        {
+          "id": "reef-12-1",
+          "name": "Cromatóforo ampliado",
+          "model_id": "pigment-cell",
+          "position": [
+            -3.2,
+            0.05,
+            -2.5
+          ],
+          "scale": 1,
+          "action": "la célula se expande y contrae"
+        },
+        {
+          "id": "reef-12-2",
+          "name": "Roca de arrecife",
+          "model_id": "reef-rock",
+          "position": [
+            3.1,
+            0.05,
+            -3.5
+          ],
+          "scale": 1,
+          "action": "permanece anclado"
+        },
+        {
+          "id": "reef-12-3",
+          "name": "Algas ondulantes",
+          "model_id": "kelp-cluster",
+          "position": [
+            -4,
+            0.1,
+            -7
+          ],
+          "scale": 0.8,
+          "action": "las hojas se balancean con la corriente"
+        },
+        {
+          "id": "reef-12-4",
+          "name": "Columna de burbujas",
+          "model_id": "bubble-column",
+          "position": [
+            4,
+            0.1,
+            -8
+          ],
+          "scale": 1,
+          "action": "las burbujas ascienden"
         }
       ],
       "beats": [
@@ -1078,12 +1654,12 @@
     },
     {
       "scene_type": "ocean",
-      "visual": "Plano 13. No se vuelve invisible: engaña a los ojos mezclando color, forma y textura. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. En primer plano aparecen Pulpo común y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
-      "setting": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda.",
-      "action": "No se vuelve invisible: engaña a los ojos mezclando color, forma y textura. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
-      "camera": "Desplazamiento de foco desde el fondo hacia el detalle que explica el fenómeno. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "visual": "Plano 13. No se vuelve invisible: engaña a los ojos mezclando color, forma y textura. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (roca de arrecife, coral ramificado, columna de burbujas, lecho de arena). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "setting": "Arrecife submarino con roca erosionada, coral ramificado, algas, arena ondulada, partículas y burbujas; luz azul verdosa filtrada.",
+      "action": "Acción ilustrativa: No se vuelve invisible: engaña a los ojos mezclando color, forma y textura. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
+      "camera": "travelling lateral de contexto",
       "camera_target": "El animal que convierte su piel en un disfraz",
-      "continuity": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
       "characters": [],
       "props": [
         "material principal",
@@ -1114,12 +1690,12 @@
             2.2
           ],
           "scale": 1.05,
-          "action": "El pulpo abre y recoge sus brazos mientras ondula sobre el fondo.",
+          "action": "se camufla y ondula sus ocho brazos",
           "motion": "balancea los brazos y avanza lentamente",
           "position": [
-            -2.2,
             0,
-            -4
+            0.2,
+            -3.8
           ],
           "support": "ground",
           "model_id": "octopus-main"
@@ -1138,15 +1714,63 @@
             1.1
           ],
           "scale": 0.65,
-          "action": "El banco gira y nada en formación por detrás del pulpo.",
+          "action": "nada en grupo",
           "motion": "nada y gira coordinadamente",
           "position": [
-            2.6,
-            0.4,
-            -6
+            1.6,
+            0.1,
+            -5.5
           ],
           "support": "ground",
           "model_id": "fish-school"
+        },
+        {
+          "id": "reef-13-1",
+          "name": "Roca de arrecife",
+          "model_id": "reef-rock",
+          "position": [
+            -3.2,
+            0.05,
+            -2.5
+          ],
+          "scale": 1,
+          "action": "permanece anclado"
+        },
+        {
+          "id": "reef-13-2",
+          "name": "Coral ramificado",
+          "model_id": "branching-coral",
+          "position": [
+            3.1,
+            0.05,
+            -3.5
+          ],
+          "scale": 1,
+          "action": "permanece anclado"
+        },
+        {
+          "id": "reef-13-3",
+          "name": "Columna de burbujas",
+          "model_id": "bubble-column",
+          "position": [
+            -4,
+            0.1,
+            -7
+          ],
+          "scale": 0.8,
+          "action": "las burbujas ascienden"
+        },
+        {
+          "id": "reef-13-4",
+          "name": "Lecho de arena",
+          "model_id": "sand-ripple",
+          "position": [
+            4,
+            0.1,
+            -8
+          ],
+          "scale": 1,
+          "action": "permanece anclado"
         }
       ],
       "beats": [
@@ -1166,12 +1790,12 @@
     },
     {
       "scene_type": "ocean",
-      "visual": "Plano 14. Y cuando el disfraz no basta, todavía puede escapar por una abertura diminuta. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. En primer plano aparecen Pulpo común y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
-      "setting": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda.",
-      "action": "Y cuando el disfraz no basta, todavía puede escapar por una abertura diminuta. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
-      "camera": "Seguimiento cercano que termina con una salida de cámara hacia un plano más amplio. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "visual": "Plano 14. Y cuando el disfraz no basta, todavía puede escapar por una abertura diminuta. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (coral ramificado, algas ondulantes, lecho de arena, cromatóforo ampliado). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "setting": "Arrecife submarino con roca erosionada, coral ramificado, algas, arena ondulada, partículas y burbujas; luz azul verdosa filtrada.",
+      "action": "Acción ilustrativa: Y cuando el disfraz no basta, todavía puede escapar por una abertura diminuta. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
+      "camera": "acercamiento macro al detalle",
       "camera_target": "El animal que convierte su piel en un disfraz",
-      "continuity": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
       "characters": [],
       "props": [
         "material principal",
@@ -1202,12 +1826,12 @@
             2.2
           ],
           "scale": 1.05,
-          "action": "El pulpo abre y recoge sus brazos mientras ondula sobre el fondo.",
+          "action": "extiende un brazo hacia la roca",
           "motion": "balancea los brazos y avanza lentamente",
           "position": [
-            -2.2,
             0,
-            -4.6
+            0.2,
+            -3.8
           ],
           "support": "ground",
           "model_id": "octopus-main"
@@ -1226,15 +1850,63 @@
             1.1
           ],
           "scale": 0.65,
-          "action": "El banco gira y nada en formación por detrás del pulpo.",
+          "action": "nada en grupo",
           "motion": "nada y gira coordinadamente",
           "position": [
-            2.6,
-            0.4,
-            -6.6
+            1.6,
+            0.1,
+            -5.5
           ],
           "support": "ground",
           "model_id": "fish-school"
+        },
+        {
+          "id": "reef-14-1",
+          "name": "Coral ramificado",
+          "model_id": "branching-coral",
+          "position": [
+            -3.2,
+            0.05,
+            -2.5
+          ],
+          "scale": 1,
+          "action": "permanece anclado"
+        },
+        {
+          "id": "reef-14-2",
+          "name": "Algas ondulantes",
+          "model_id": "kelp-cluster",
+          "position": [
+            3.1,
+            0.05,
+            -3.5
+          ],
+          "scale": 1,
+          "action": "las hojas se balancean con la corriente"
+        },
+        {
+          "id": "reef-14-3",
+          "name": "Lecho de arena",
+          "model_id": "sand-ripple",
+          "position": [
+            -4,
+            0.1,
+            -7
+          ],
+          "scale": 0.8,
+          "action": "permanece anclado"
+        },
+        {
+          "id": "reef-14-4",
+          "name": "Cromatóforo ampliado",
+          "model_id": "pigment-cell",
+          "position": [
+            4,
+            0.1,
+            -8
+          ],
+          "scale": 1,
+          "action": "la célula se expande y contrae"
         }
       ],
       "beats": [
@@ -3777,6 +4449,320 @@
           "amplitude": 0.18,
           "frequency": 1.4,
           "phase": 2
+        }
+      ]
+    },
+    "reef-rock": {
+      "version": 1,
+      "parts": [
+        {
+          "id": "core",
+          "primitive": "sphere",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "size": [
+            2.4,
+            0.8,
+            1.5
+          ],
+          "color": "#625f58",
+          "roughness": 0.8
+        },
+        {
+          "id": "cap",
+          "primitive": "sphere",
+          "position": [
+            -0.4,
+            0.55,
+            0
+          ],
+          "size": [
+            1.5,
+            0.5,
+            1.2
+          ],
+          "color": "#77746b",
+          "roughness": 0.8
+        }
+      ],
+      "animations": []
+    },
+    "branching-coral": {
+      "version": 1,
+      "parts": [
+        {
+          "id": "base",
+          "primitive": "cylinder",
+          "position": [
+            0,
+            0.5,
+            0
+          ],
+          "size": [
+            0.3,
+            1,
+            0.3
+          ],
+          "color": "#d66d55",
+          "roughness": 0.8
+        },
+        {
+          "id": "branch-a",
+          "primitive": "cylinder",
+          "position": [
+            -0.3,
+            1.1,
+            0
+          ],
+          "size": [
+            0.16,
+            0.9,
+            0.16
+          ],
+          "color": "#e28b6c",
+          "roughness": 0.8
+        },
+        {
+          "id": "branch-b",
+          "primitive": "cylinder",
+          "position": [
+            0.3,
+            1.25,
+            0
+          ],
+          "size": [
+            0.15,
+            1,
+            0.15
+          ],
+          "color": "#e28b6c",
+          "roughness": 0.8
+        }
+      ],
+      "animations": []
+    },
+    "kelp-cluster": {
+      "version": 1,
+      "parts": [
+        {
+          "id": "stem",
+          "primitive": "cylinder",
+          "position": [
+            0,
+            1,
+            0
+          ],
+          "size": [
+            0.12,
+            2,
+            0.12
+          ],
+          "color": "#397d54",
+          "roughness": 0.8
+        },
+        {
+          "id": "leaf-a",
+          "primitive": "sphere",
+          "position": [
+            -0.35,
+            0.9,
+            0
+          ],
+          "size": [
+            0.45,
+            0.22,
+            0.12
+          ],
+          "color": "#4e9a5d",
+          "roughness": 0.8
+        },
+        {
+          "id": "leaf-b",
+          "primitive": "sphere",
+          "position": [
+            0.35,
+            1.4,
+            0
+          ],
+          "size": [
+            0.48,
+            0.2,
+            0.12
+          ],
+          "color": "#34764d",
+          "roughness": 0.8
+        }
+      ],
+      "animations": [
+        {
+          "target": "stem",
+          "property": "rotation",
+          "axis": "z",
+          "amplitude": 0.12,
+          "frequency": 1.1
+        }
+      ]
+    },
+    "bubble-column": {
+      "version": 1,
+      "parts": [
+        {
+          "id": "bubble-a",
+          "primitive": "sphere",
+          "position": [
+            0,
+            0.25,
+            0
+          ],
+          "size": [
+            0.16,
+            0.16,
+            0.16
+          ],
+          "color": "#b8e8ed",
+          "roughness": 0.8
+        },
+        {
+          "id": "bubble-b",
+          "primitive": "sphere",
+          "position": [
+            0.18,
+            0.8,
+            0
+          ],
+          "size": [
+            0.11,
+            0.11,
+            0.11
+          ],
+          "color": "#d8f5f5",
+          "roughness": 0.8
+        },
+        {
+          "id": "bubble-c",
+          "primitive": "sphere",
+          "position": [
+            -0.1,
+            1.35,
+            0
+          ],
+          "size": [
+            0.2,
+            0.2,
+            0.2
+          ],
+          "color": "#a8dfe8",
+          "roughness": 0.8
+        }
+      ],
+      "animations": [
+        {
+          "target": "bubble-a",
+          "property": "position",
+          "axis": "y",
+          "amplitude": 0.3,
+          "frequency": 1.2
+        },
+        {
+          "target": "bubble-b",
+          "property": "position",
+          "axis": "y",
+          "amplitude": 0.25,
+          "frequency": 1.5
+        }
+      ]
+    },
+    "sand-ripple": {
+      "version": 1,
+      "parts": [
+        {
+          "id": "base",
+          "primitive": "box",
+          "position": [
+            0,
+            -0.08,
+            0
+          ],
+          "size": [
+            4,
+            0.16,
+            3
+          ],
+          "color": "#c5aa7b",
+          "roughness": 0.8
+        },
+        {
+          "id": "ripple-a",
+          "primitive": "sphere",
+          "position": [
+            -0.9,
+            0.01,
+            0.1
+          ],
+          "size": [
+            1.2,
+            0.05,
+            0.6
+          ],
+          "color": "#d6bc8d",
+          "roughness": 0.8
+        }
+      ],
+      "animations": []
+    },
+    "pigment-cell": {
+      "version": 1,
+      "parts": [
+        {
+          "id": "body",
+          "primitive": "sphere",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "size": [
+            0.7,
+            0.7,
+            0.24
+          ],
+          "color": "#e8a34e",
+          "roughness": 0.8
+        },
+        {
+          "id": "core",
+          "primitive": "sphere",
+          "position": [
+            0,
+            0,
+            0.16
+          ],
+          "size": [
+            0.34,
+            0.34,
+            0.12
+          ],
+          "color": "#a83d31",
+          "roughness": 0.8
+        }
+      ],
+      "animations": [
+        {
+          "target": "core",
+          "property": "scale",
+          "axis": "x",
+          "amplitude": 0.35,
+          "frequency": 2.3
+        },
+        {
+          "target": "core",
+          "property": "scale",
+          "axis": "y",
+          "amplitude": 0.3,
+          "frequency": 2.3
         }
       ]
     }
