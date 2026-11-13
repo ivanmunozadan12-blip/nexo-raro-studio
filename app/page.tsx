@@ -46,7 +46,7 @@ export default async function Home(){
    <div className="hero-foot"><span>BEHIND DEL MUNDO</span><span>CIENCIA · HISTORIA · CURIOSIDADES</span></div>
   </section>
   <section className="public-library" id="videos">
-   <div className="section-head"><div><div className="eyebrow">LA VIDEOTECA</div><h2>Historias para mirar más allá.</h2></div><span className="library-count">{videos.length} VÍDEOS</span></div></section>
+   <div className="section-head"><div><div className="eyebrow">LA VIDEOTECA</div><h2>Historias para mirar más allá.</h2></div><span className="library-count">{videos.length} VÍDEOS</span></div>
    {videos.length?<div className="public-video-grid">{videos.map((video:any)=><article className="public-video-card" key={video.id}>
     <video controls playsInline preload="metadata" src={video.url}/>
     <div className="public-video-info"><div className="eyebrow">BEHIND DEL MUNDO</div><h3>{video.title}</h3>{video.hook&&<p>{video.hook}</p>}<small>{Math.round(video.duration)} segundos · {new Date(video.createdAt).toLocaleDateString('es-ES')}</small></div>
