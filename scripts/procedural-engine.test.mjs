@@ -56,6 +56,32 @@ test('all procedural families create real Three.js meshes, not placeholder spher
   }
 });
 
+test('self-contained blueprints create a valid group with positioned mesh children', () => {
+  const world = new THREE.Group();
+  const model = createProceduralEntity(world, {
+    id: 'blueprint-test', type: 'prop', name: 'Modelo blueprint',
+    position: [1, 2, 3],
+    blueprint: {
+      version: 1,
+      parts: [
+        { id: 'body', primitive: 'box', size: [2, 1, 1], position: [0, 0.5, 0], color: '#cc8844' },
+        { id: 'detail', primitive: 'sphere', parent: 'body', size: [0.3, 0.3, 0.3], position: [0, 0.7, 0.6], color: '#ffffff' }
+      ],
+      animations: []
+    }
+  });
+  assert.ok(model instanceof THREE.Group);
+  assert.equal(model.position.x, 1);
+  assert.equal(model.position.y, 2);
+  assert.equal(model.position.z, 3);
+  assert.equal(model.userData.blueprintNodes.get('body').isMesh, true);
+  assert.equal(model.userData.blueprintNodes.get('detail').isMesh, true);
+  assert.equal(model.userData.blueprintNodes.get('body').position.y, 0.5);
+  let meshCount = 0;
+  model.traverse(node => { if (node.isMesh) meshCount++; });
+  assert.equal(meshCount, 2);
+});
+
 test('scene director creates named entities and animation advances without errors', () => {
   const world = new THREE.Group();
   const entities = directScene(world, {
