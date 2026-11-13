@@ -1,0 +1,80 @@
+name: BEHIND DEL MUNDO · generar vídeo desde prompt
+
+on:
+  workflow_dispatch:
+    inputs:
+      slot:
+        description: Posición del vídeo en el lote diario
+        required: true
+        type: choice
+        options:
+          - how-it-works
+          - inside
+          - curiosities
+      prompt:
+        description: Instrucción creativa para este vídeo
+        required: true
+        type: string
+      publish:
+        description: Publicar automáticamente en las redes conectadas
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: behind-del-mundo-${{ github.event.inputs.slot }}-${{ github.run_id }}
+  cancel-in-progress: false
+
+jobs:
+  produce:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      TZ: Europe/Madrid
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+      GROQ_MODEL: openai/gpt-oss-120b
+      YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+      YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+      YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+      YOUTUBE_PRIVACY: ${{ secrets.YOUTUBE_PRIVACY || 'public' }}
+      TIKTOK_CLIENT_KEY: ${{ secrets.TIKTOK_CLIENT_KEY }}
+      TIKTOK_CLIENT_SECRET: ${{ secrets.TIKTOK_CLIENT_SECRET }}
+      TIKTOK_ACCESS_TOKEN: ${{ secrets.TIKTOK_ACCESS_TOKEN }}
+      TIKTOK_REFRESH_TOKEN: ${{ secrets.TIKTOK_REFRESH_TOKEN }}
+      TIKTOK_PRIVACY: ${{ secrets.TIKTOK_PRIVACY || 'PUBLIC_TO_EVERYONE' }}
+      VIDEO_SLOT: ${{ inputs.slot }}
+      USER_PROMPT: ${{ inputs.prompt }}
+      AUTO_PUBLISH: ${{ inputs.publish }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Instalar Python y FFmpeg
+        run: |
+          python --version
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+          ffmpeg -version | head -n 1
+      - name: Instalar dependencias del motor
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r engine/requirements.txt
+      - name: Validar configuración
+        run: |
+          test -n "$SUPABASE_URL" || (echo "::error::Falta SUPABASE_URL" && exit 1)
+          test -n "$SUPABASE_SERVICE_ROLE_KEY" || (echo "::error::Falta SUPABASE_SERVICE_ROLE_KEY" && exit 1)
+          test -n "$GROQ_API_KEY" || (echo "::error::Falta GROQ_API_KEY" && exit 1)
+          test -n "$USER_PROMPT" || (echo "::error::Falta el prompt" && exit 1)
+      - name: Crear narración, animación y MP4
+        run: python engine/produce.py
+      - name: Guardar MP4 de respaldo
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: behind-del-mundo-${{ env.VIDEO_SLOT }}-${{ github.run_id }}
+          path: renders/**/*.mp4
+          if-no-files-found: ignore
+          retention-days: 14

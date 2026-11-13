@@ -1,0 +1,57 @@
+name: BEHIND DEL MUNDO · pruebas del nuevo motor
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'engine/**'
+      - 'app/**'
+      - 'package.json'
+      - '.github/workflows/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Instalar dependencias del motor
+        run: |
+          python -m pip install -r engine/requirements.txt
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+      - name: Probar sintaxis y escenas
+        run: |
+          python -m py_compile engine/produce.py engine/render_video.py engine/audio_bed.py engine/srt_captions.py engine/publish.py
+          python -m unittest discover -s engine -p 'test_*.py'
+      - name: Renderizar vídeo de referencia completo
+        run: |
+          mkdir -p renders
+          python -m edge_tts --voice es-ES-AlvaroNeural --rate=+5% --text "$(python -c 'import json; print(json.load(open("engine/sample_script.json"))["narration"])')" --write-media /tmp/voice.mp3 --write-subtitles /tmp/voice.srt
+          python engine/srt_captions.py --script engine/sample_script.json --srt /tmp/voice.srt
+          python engine/audio_bed.py --duration 66 --output /tmp/music.wav --script engine/sample_script.json
+          python engine/render_video.py --script engine/sample_script.json --voice /tmp/voice.mp3 --output /tmp/silent.mp4
+          ffmpeg -y -v error -i /tmp/silent.mp4 -i /tmp/voice.mp3 -i /tmp/music.wav -filter_complex "[1:a]volume=1.0[v];[2:a]volume=0.22,afade=t=in:st=0:d=2,afade=t=out:st=60:d=3[m];[v][m]amix=inputs=2:duration=longest:dropout_transition=2[a]" -map 0:v:0 -map "[a]" -c:v copy -c:a aac -b:a 160k -shortest renders/benchmark-microwave.mp4
+          ffprobe -v error -show_entries format=duration:stream=codec_type,width,height -of json renders/benchmark-microwave.mp4
+      - name: Publicar vídeo de referencia como artefacto
+        uses: actions/upload-artifact@v4
+        with:
+          name: behind-del-mundo-python-benchmark
+          path: renders/benchmark-microwave.mp4
+          if-no-files-found: error
+          retention-days: 14
+      - name: Instalar dependencias web
+        run: npm install
+      - name: Typecheck y build web
+        run: |
+          npm run typecheck
+          npm run build

@@ -1,0 +1,117 @@
+{
+  "title": "Cómo funciona un microondas",
+  "hook": "El microondas no calienta la comida desde fuera: utiliza ondas electromagnéticas para agitar ciertas moléculas.",
+  "narration": "Cuando metes comida en el microondas, no hay una resistencia calentándola como en un horno convencional. En su interior trabaja un componente llamado magnetrón, que transforma energía eléctrica en ondas electromagnéticas. Esas ondas rebotan por la cavidad metálica y atraviesan parte del alimento. Su campo eléctrico cambia de dirección miles de millones de veces por segundo. Las moléculas polares, especialmente las de agua, responden a ese campo y se reorientan continuamente. Ese movimiento y las interacciones entre moléculas ayudan a transferir energía al alimento. El plato giratorio y la distribución de las ondas reducen las zonas frías, aunque no las eliminan por completo. Por eso conviene remover la comida y dejarla reposar unos instantes: el calor sigue repartiéndose incluso después de apagar el aparato.",
+  "scenes": [
+    {
+      "headline": "No es un horno convencional",
+      "subtitle": "El calor no empieza en una resistencia",
+      "visual_type": "microwave",
+      "narration_excerpt": "Cuando metes comida en el microondas, no hay una resistencia calentándola como en un horno convencional.",
+      "callout": "El calentamiento se produce dentro del alimento",
+      "labels": [
+        "Cavidad",
+        "Alimento",
+        "Panel"
+      ],
+      "accent": "#62d9cf"
+    },
+    {
+      "headline": "El corazón del aparato",
+      "subtitle": "Un componente convierte electricidad en ondas",
+      "visual_type": "machine",
+      "narration_excerpt": "En su interior trabaja un componente llamado magnetrón, que transforma energía eléctrica en ondas electromagnéticas.",
+      "callout": "El magnetrón genera energía electromagnética",
+      "labels": [
+        "Motor",
+        "Generador",
+        "Salida"
+      ],
+      "accent": "#f3b65e"
+    },
+    {
+      "headline": "Las ondas rebotan",
+      "subtitle": "La cavidad metálica refleja la energía",
+      "visual_type": "object_cutaway",
+      "narration_excerpt": "Esas ondas rebotan por la cavidad metálica y atraviesan parte del alimento.",
+      "callout": "Las paredes metálicas reflejan las microondas",
+      "labels": [
+        "Emisión",
+        "Reflexión",
+        "Comida"
+      ],
+      "accent": "#62d9cf"
+    },
+    {
+      "headline": "Un campo que cambia",
+      "subtitle": "La dirección del campo eléctrico oscila",
+      "visual_type": "molecule",
+      "narration_excerpt": "Su campo eléctrico cambia de dirección miles de millones de veces por segundo.",
+      "callout": "El campo eléctrico cambia de sentido continuamente",
+      "labels": [
+        "Campo",
+        "Dirección",
+        "Frecuencia"
+      ],
+      "accent": "#8fc7ff"
+    },
+    {
+      "headline": "El agua responde",
+      "subtitle": "Las moléculas polares se reorientan",
+      "visual_type": "science",
+      "narration_excerpt": "Las moléculas polares, especialmente las de agua, responden a ese campo y se reorientan continuamente.",
+      "callout": "Las moléculas polares responden al campo",
+      "labels": [
+        "Oxígeno",
+        "Hidrógeno",
+        "Agua"
+      ],
+      "accent": "#f3b65e"
+    },
+    {
+      "headline": "La energía se reparte",
+      "subtitle": "Las interacciones elevan la energía térmica",
+      "visual_type": "process",
+      "narration_excerpt": "Ese movimiento y las interacciones entre moléculas ayudan a transferir energía al alimento.",
+      "callout": "La energía termina convertida en calor",
+      "labels": [
+        "Ondas",
+        "Movimiento",
+        "Calor"
+      ],
+      "accent": "#62d9cf"
+    },
+    {
+      "headline": "Por qué gira el plato",
+      "subtitle": "El movimiento ayuda a reducir puntos fríos",
+      "visual_type": "fact",
+      "narration_excerpt": "El plato giratorio y la distribución de las ondas reducen las zonas frías, aunque no las eliminan por completo.",
+      "callout": "El giro ayuda a repartir el calentamiento",
+      "labels": [
+        "Giro",
+        "Distribución",
+        "Zonas frías"
+      ],
+      "accent": "#8fc7ff",
+      "metric": {
+        "value": "360°",
+        "label": "Plato giratorio",
+        "detail": "Ayuda a repartir la exposición"
+      }
+    },
+    {
+      "headline": "Un último detalle",
+      "subtitle": "El calor continúa distribuyéndose al reposar",
+      "visual_type": "timeline",
+      "narration_excerpt": "Por eso conviene remover la comida y dejarla reposar unos instantes: el calor sigue repartiéndose incluso después de apagar el aparato.",
+      "callout": "Remover y reposar mejora la uniformidad",
+      "labels": [
+        "Calentar",
+        "Remover",
+        "Reposar"
+      ],
+      "accent": "#f3b65e"
+    }
+  ],
+  "captions": []
+}

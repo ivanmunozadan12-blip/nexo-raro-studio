@@ -1,32 +1,53 @@
-# Puesta en marcha de Behind del Mundo
+# Despliegue de BEHIND DEL MUNDO
 
-## Panel
-Despliegue de Vercel: `https://behind-del-mundo-studio-git-main-ivanmunozadan12-8334.vercel.app`
-Acceso al estudio: añade `/studio`.
+## Web
+- Next.js en Vercel.
+- La ruta /studio conserva el acceso privado con Supabase Auth.
+- El panel recibe tres prompts de texto y envía tres trabajos a GitHub Actions.
+- La ruta /api/production/dispatch requiere sesión Supabase y GITHUB_ACTIONS_TOKEN.
 
-1. Abre el estudio y crea una cuenta con correo y contraseña.
-2. Confirma el correo si Supabase solicita verificación.
-3. El primer acceso crea automáticamente la configuración del canal y sus tres series editoriales.
-4. El panel consulta los trabajos, guiones y vídeos del usuario autenticado mediante RLS.
+## Motor de vídeo
+- GitHub Actions ejecuta un trabajo independiente por prompt.
+- Python + Pillow + NumPy dibujan las escenas y sus elementos animados.
+- FFmpeg codifica MP4 vertical H.264 1080×1920.
+- Edge TTS genera narración masculina es-ES.
+- La cama musical y los efectos de cada escena se sintetizan localmente.
+- No hay cron ni selección automática de temas: los prompts los introduce el usuario.
 
-## Activar producción automática
-En GitHub abre Settings → Secrets and variables → Actions y añade estos tres **Repository secrets**:
+## Variables de Vercel
+- NEXT_PUBLIC_SUPABASE_URL
+- NEXT_PUBLIC_SUPABASE_ANON_KEY
+- GITHUB_ACTIONS_TOKEN (permiso Actions: write en el repositorio)\n- NEXT_PUBLIC_SITE_URL (URL HTTPS de la web desplegada)\n- SUPABASE_URL y SUPABASE_SERVICE_ROLE_KEY (solo servidor; nunca prefijo NEXT_PUBLIC)\n- YOUTUBE_CLIENT_ID y YOUTUBE_CLIENT_SECRET (cliente OAuth de Google)\n- TIKTOK_CLIENT_KEY y TIKTOK_CLIENT_SECRET (app de TikTok con Content Posting API)
 
-- `OPENAI_API_KEY`: clave de API de OpenAI Platform. No es la contraseña de ChatGPT.
-- `SUPABASE_URL`: `https://fnivzsazuovldhbkxrqv.supabase.co`
-- `SUPABASE_SERVICE_ROLE_KEY`: clave secreta de Supabase (nunca la clave publishable/anon).
+## Secrets de GitHub Actions
+Generación:
+- SUPABASE_URL
+- SUPABASE_SERVICE_ROLE_KEY
+- GROQ_API_KEY
+- GROQ_MODEL (opcional)
 
-La clave de OpenAI consume saldo de API independiente de ChatGPT. Configura un límite de gasto mensual antes de activar el workflow. El presupuesto de referencia del proyecto es 20 €/mes; el pipeline no debe usarse sin un límite de gasto en el proveedor.
+YouTube:
+- YOUTUBE_CLIENT_ID
+- YOUTUBE_CLIENT_SECRET
+- YOUTUBE_REFRESH_TOKEN
+- YOUTUBE_PRIVACY (opcional, public por defecto)
 
-Después entra en Actions → Behind del Mundo · producción diaria y ejecuta Run workflow para probar un horario. Los tres horarios automáticos están en Europe/Madrid. Los MP4 se guardan en el bucket privado `nexo-videos` y también como artefactos de Actions durante 14 días.
+TikTok:
+- TIKTOK_CLIENT_KEY
+- TIKTOK_CLIENT_SECRET
+- TIKTOK_REFRESH_TOKEN (preferido para rotación segura)
+- TIKTOK_ACCESS_TOKEN (opcional)
+- TIKTOK_PRIVACY (opcional)
 
-## Publicación en redes
-Los vídeos quedan inicialmente en borrador para revisión. La publicación automática requiere registrar aplicaciones oficiales y completar OAuth de YouTube y TikTok; no se simula ni se activa sin credenciales válidas y permisos de las plataformas.
+## Supabase
+- Se mantiene el proyecto actual, autenticación, bucket privado nexo-videos y tablas de producción.
+- La tabla social_connections almacena tokens OAuth de YouTube y TikTok solo en servidor; RLS está activado y no hay políticas para usuarios finales.
+- Migración aplicada: social_connections.
+- No se borran vídeos, guiones ni registros históricos.
 
-## Notas técnicas
-- Render: HyperFrames CLI 0.9.37 + FFmpeg.
-- Voz: Edge TTS, voz es-ES-AlvaroNeural.
-- Guiones: Responses API con búsqueda web.
-- Datos: Supabase Auth, Postgres y Storage privado.
-- Horarios: GitHub Actions schedule con zona horaria IANA.
-- No guardar secretos en el repositorio ni en archivos públicos.
+## Publicación
+- La web solicita publicación automática al enviar los tres prompts.
+- Los MP4 siguen guardándose aunque una red no esté conectada o rechace la publicación.
+- YouTube usa OAuth y la API oficial de subida reanudable.
+- TikTok requiere una app registrada, Content Posting API, scope video.publish y autorización OAuth del propietario.
+- TikTok limita a privado las apps sin auditoría; para publicar al público la app debe superar la auditoría oficial.
