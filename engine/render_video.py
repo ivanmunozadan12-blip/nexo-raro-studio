@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """BEHIND DEL MUNDO — deterministic code-authored explainer renderer."""
 import argparse, json, math, os, random, subprocess, sys
-from PIL import Image, ImageDraw, ImageFont, ImageFilter
+from PIL import Image, ImageDraw, ImageFont, ImageFilter\nimport numpy as np
 
 W, H, FPS = 576, 1024, 30
 S = 2
@@ -29,13 +29,12 @@ def text_fit(d, xy, txt, size, fill, max_width=480, bold=True, anchor=None):
     d.text((int(xy[0]*S),int(xy[1]*S)),str(txt),font=f,fill=fill,anchor=anchor,stroke_width=0)
 
 def gradient():
-    im=Image.new("RGB",(W*S,H*S)); p=im.load()
-    top=(13,48,82); bot=(4,12,31)
-    for y in range(H*S):
-        t=(y/(H*S-1))**.86
-        c=tuple(int(top[k]*(1-t)+bot[k]*t) for k in range(3))
-        for x in range(W*S): p[x,y]=c
-    return im.convert("RGBA")
+    y=(np.linspace(0,1,H*S)**.86)[:,None,None]
+    top=np.array([13,48,82],dtype=np.float32)[None,None,:]
+    bot=np.array([4,12,31],dtype=np.float32)[None,None,:]
+    rows=top*(1-y)+bot*y
+    pixels=np.repeat(rows,W*S,axis=1).astype(np.uint8)
+    return Image.fromarray(pixels,"RGB").convert("RGBA")
 BG=gradient()
 PARTICLES=[(random.randrange(W),random.randrange(H),random.randrange(2,6),random.random()*6.28) for _ in range(32)]
 
