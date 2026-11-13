@@ -363,12 +363,12 @@ await mkdir(work, { recursive: true });
 await writeFile(path.join(work, 'script.json'), JSON.stringify(script, null, 2));
 const voicePath = path.join(work, 'voice.mp3');
 const subtitlesPath = path.join(work, 'narration.srt');
-await generateSpeech(script.narration, voicePath, 'es-ES-AlvaroNeural', '+0%', 'narrador principal', true, '+0Hz', subtitlesPath);
+await generateSpeech(script.narration, voicePath, 'es-ES-AlvaroNeural', '+5%', 'narrador principal', true, '+0Hz', subtitlesPath);
 const voiceDuration = Number(await capture('ffprobe', ['-v','error','-show_entries','format=duration','-of','default=noprint_wrappers=1:nokey=1',voicePath]));
 if (!Number.isFinite(voiceDuration) || voiceDuration < 1) throw new Error('No se pudo medir la duración de la narración.');
 const targetDuration = Math.max(60, Math.ceil(voiceDuration + 1.2));
 if (targetDuration > 72) throw new Error(`La narración dura ${voiceDuration.toFixed(1)} s; excede el máximo de 72 s. Se detiene sin recortar la voz.`);
-console.log(`Narración: ${voiceDuration.toFixed(1)} s a +0%; duración final garantizada de al menos 60 s (montaje ${targetDuration} s).`);
+console.log(`Narración: ${voiceDuration.toFixed(1)} s a +5%; duración final garantizada de al menos 60 s (montaje ${targetDuration} s).`);
 await supabase('production_jobs', { method: 'PATCH', query: `?id=eq.${jobId}`, body: { status: 'rendering' } });
 const escaped = value => String(value || '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const assetsDir = path.join(work, 'assets');
@@ -450,7 +450,7 @@ if (!upload.ok) throw new Error(`Storage upload ${upload.status}: ${(await uploa
 const video = await supabase('videos', { method:'POST', body: {
   user_id:userId, job_id:jobId, script_id:scriptId, storage_path:storagePath,
   duration_seconds:actualDuration, width:1080, height:1920, mime_type:'video/mp4',
-  quality_check:{passed:true, duration_seconds:actualDuration, bytes:stat.size, has_audio:true, visual_assets:imageCount, visual_sources:script.scenes.map((scene,index)=>({scene:index+1,type:scene.scene_type||'object',description:scene.visual,objects:scene.objects||[]})), sources:script.sources.length, word_count:wordCount, voice:'es-ES-AlvaroNeural', voice_rate:'+0%', rendered_by:'HyperFrames + Three.js', visual_style:'procedural-3d-scene-engine-v3'},
+  quality_check:{passed:true, duration_seconds:actualDuration, bytes:stat.size, has_audio:true, visual_assets:imageCount, visual_sources:script.scenes.map((scene,index)=>({scene:index+1,type:scene.scene_type||'object',description:scene.visual,objects:scene.objects||[]})), sources:script.sources.length, word_count:wordCount, voice:'es-ES-AlvaroNeural', voice_rate:'+5%', rendered_by:'HyperFrames + Three.js', visual_style:'procedural-3d-scene-engine-v3'},
 
 }});
 const topicKey = String(script.title || '').toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
