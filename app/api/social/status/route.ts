@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
     const db = createClient(url, anon, { global: { headers: { Authorization: 'Bearer ' + token } } });
     const { data: { user }, error } = await db.auth.getUser(token);
     if (error || !user) return NextResponse.json({ error: 'Sesión caducada.' }, { status: 401 });
-    const response = await fetch(process.env.SUPABASE_URL + '/rest/v1/social_connections?user_id=eq.' + encodeURIComponent(user.id) + '&select=platform,expires_at', { headers: serviceHeaders(), cache: 'no-store' });
+    const response = await fetch((process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL || '') + '/rest/v1/social_connections?user_id=eq.' + encodeURIComponent(user.id) + '&select=platform,expires_at', { headers: serviceHeaders(), cache: 'no-store' });
     if (!response.ok) throw new Error('No se pudo consultar el estado de las conexiones.');
     const rows = await response.json();
     return NextResponse.json({ youtube: rows.some((x: any) => x.platform === 'youtube'), tiktok: rows.some((x: any) => x.platform === 'tiktok') });
