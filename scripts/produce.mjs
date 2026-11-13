@@ -419,7 +419,8 @@ const imageCount = script.scenes.length; // Catorce planos 3D cortos; no depende
 const rawVideo = path.join(work, 'video-silent.mp4');
 await command('npx', ['--yes', 'hyperframes@0.9.37', 'render', '-c', 'index.html', '-o', rawVideo, '--fps', '30', '--quality', 'standard', '--workers', '1'], { cwd: work });
 const manualSuffix = (process.env.MANUAL_SCRIPT_ID || process.env.MANUAL_SCRIPT_FILE) ? '-' + String(scriptId).slice(0, 8) : '';
-const outputSlot = slot.replace(':','') + manualSuffix;\nconst finalPath = path.join(root, 'renders', `behind-del-mundo-${local}-${outputSlot}.mp4`);
+const outputSlot = slot.replace(':','') + manualSuffix;
+const finalPath = path.join(root, 'renders', `behind-del-mundo-${local}-${outputSlot}.mp4`);
 // HyperFrames incorpora la narración como pista de audio del timeline. No volver a muxear
 // con -shortest: eso truncaba el vídeo al terminar la voz (48 s en la prueba anterior).
 await command('ffmpeg', ['-y','-i',rawVideo,'-af','apad','-t',String(targetDuration),'-c:v','libx264','-preset','veryfast','-crf','23','-maxrate','4500k','-bufsize','9000k','-pix_fmt','yuv420p','-c:a','aac','-b:a','128k','-movflags','+faststart',finalPath]);
