@@ -9,8 +9,9 @@
     ],
     "duration_seconds": 2,
     "seed": 114,
-    "render_engine": "BLENDER_WORKBENCH",
-    "resolution_percentage": 100
+    "render_engine": "BLENDER_EEVEE_NEXT",
+    "resolution_percentage": 100,
+    "render_samples": 32
   },
   "shots": [
     {
@@ -67,7 +68,56 @@
           }
         ]
       },
-      "lights": [],
+      "lights": [
+        {
+          "type": "AREA",
+          "position": [
+            4,
+            -5,
+            7
+          ],
+          "target": [
+            0,
+            0,
+            1.5
+          ],
+          "power": 1800,
+          "size": 5,
+          "color": "#ffffff"
+        },
+        {
+          "type": "AREA",
+          "position": [
+            -5,
+            -2,
+            4
+          ],
+          "target": [
+            0,
+            0,
+            1.5
+          ],
+          "power": 1100,
+          "size": 4,
+          "color": "#79c9ed"
+        },
+        {
+          "type": "AREA",
+          "position": [
+            0,
+            5,
+            6
+          ],
+          "target": [
+            0,
+            0,
+            1.5
+          ],
+          "power": 1600,
+          "size": 3,
+          "color": "#ffd19a"
+        }
+      ],
       "entities": [
         {
           "id": "orb",
