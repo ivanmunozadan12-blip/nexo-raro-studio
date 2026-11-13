@@ -4,16 +4,16 @@ import {
 } from "remotion";
 
 const scenes = [
-  { image:"scene-01.jpg", kicker:"MAR EGEO · 1901", title:"UN SECRETO\\nBAJO EL MAR", sub:"Un pecio antiguo escondía algo que nadie esperaba.", align:"left", zoom:1.12, x:-2, y:1, tone:"blue" },
-  { image:"scene-02.jpg", kicker:"UN HALLAZGO IMPOSIBLE", title:"NO ERA UN\\nTESORO NORMAL", sub:"Entre estatuas y ánforas apareció un bloque de bronce corroído.", align:"right", zoom:1.18, x:3, y:-1, tone:"gold" },
-  { image:"scene-03.jpg", kicker:"MÁS DE 2.000 AÑOS", title:"ENGRANAJES\\nDE PRECISIÓN", sub:"Dentro había ruedas dentadas diminutas, encajadas con una precisión extraordinaria.", align:"left", zoom:1.22, x:-3, y:2, tone:"gold" },
-  { image:"scene-04.jpg", kicker:"UNA MÁQUINA ASTRONÓMICA", title:"CALCULABA\\nEL CIELO", sub:"Sus mecanismos representaban ciclos astronómicos y ayudaban a predecir eclipses.", align:"right", zoom:1.16, x:2, y:0, tone:"blue" },
-  { image:"scene-05.jpg", kicker:"RECONSTRUCCIÓN DIGITAL", title:"EL COSMOS\\nEN BRONCE", sub:"Hoy, los investigadores reconstruyen su funcionamiento pieza a pieza.", align:"left", zoom:1.14, x:-2, y:-1, tone:"gold" },
-  { image:"scene-06.jpg", kicker:"EL MECANISMO DE ANTICITERA", title:"UNA IDEA\\nADELANTADA", sub:"Una máquina creada hace dos milenios cambió nuestra historia de la tecnología.", align:"center", zoom:1.2, x:0, y:0, tone:"blue" }
+  { image:"scene-01.jpg", kicker:"MAR EGEO · 1901", title:"UN SECRETO\nBAJO EL MAR", sub:"En 1901, unos buceadores hallaron un pecio frente a Anticitera.", align:"left", zoom:1.12, x:-2, y:1, tone:"blue" },
+  { image:"scene-02.jpg", kicker:"UN HALLAZGO IMPOSIBLE", title:"NO ERA UN\nTESORO NORMAL", sub:"Entre sus restos apareció un fragmento de bronce.", align:"right", zoom:1.18, x:3, y:-1, tone:"gold" },
+  { image:"scene-03.jpg", kicker:"MÁS DE 2.000 AÑOS", title:"ENGRANAJES\nDE PRECISIÓN", sub:"En su interior había engranajes diminutos y precisos.", align:"left", zoom:1.22, x:-3, y:2, tone:"gold" },
+  { image:"scene-04.jpg", kicker:"UNA MÁQUINA ASTRONÓMICA", title:"CALCULABA\nEL CIELO", sub:"Representaba ciclos del cielo y anticipaba eclipses.", align:"right", zoom:1.16, x:2, y:0, tone:"blue" },
+  { image:"scene-05.jpg", kicker:"RECONSTRUCCIÓN DIGITAL", title:"EL COSMOS\nEN BRONCE", sub:"Hoy se reconstruye su funcionamiento pieza a pieza.", align:"left", zoom:1.14, x:-2, y:-1, tone:"gold" },
+  { image:"scene-06.jpg", kicker:"EL MECANISMO DE ANTICITERA", title:"UNA IDEA\nADELANTADA", sub:"Dos mil años después, sigue asombrando al mundo.", align:"center", zoom:1.2, x:0, y:0, tone:"blue" }
 ];
 
 const Grain: React.FC = () => (
-  <AbsoluteFill style={{ opacity:0.13, pointerEvents:"none", mixBlendMode:"soft-light",
+  <AbsoluteFill style={{ opacity:0.09, pointerEvents:"none", mixBlendMode:"soft-light",
     backgroundImage:"url('data:image/svg+xml,%3Csvg viewBox=%270 0 180 180%27 xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cfilter id=%27n%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%270.9%27 numOctaves=%274%27 stitchTiles=%27stitch%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23n)%27 opacity=%270.45%27/%3E%3C/svg%3E')" }}
   />
 );
@@ -44,8 +44,8 @@ const Scene: React.FC<{data:typeof scenes[number];index:number}> = ({data,index}
   return <AbsoluteFill style={{opacity:Math.min(enter,exit),backgroundColor:"#05090e",overflow:"hidden"}}>
     <Img src={staticFile("assets/"+data.image)} style={{width:"100%",height:"100%",objectFit:"cover",
       transform:"scale("+zoom+") translate("+ (data.x+drift/20) +"%, "+data.y+"%)",
-      filter:"brightness(.66) contrast(1.13) saturate(.82)"}} />
-    <AbsoluteFill style={{background:"linear-gradient(180deg,rgba(2,7,12,.12) 0%,rgba(2,7,12,.05) 35%,rgba(2,7,12,.86) 100%)"}}/>
+      filter:"brightness(.84) contrast(1.08) saturate(.92)"}} />
+    <AbsoluteFill style={{background:"linear-gradient(180deg,rgba(2,7,12,.06) 0%,rgba(2,7,12,.02) 35%,rgba(2,7,12,.76) 100%)"}}/>
     <AbsoluteFill style={{background:"linear-gradient(90deg,rgba(3,8,14,.62),transparent 72%)",opacity:data.align==="right"?.35:.75}}/>
     {index===2 || index===3 ? <><Gear size={360} top="10%" left={index===2?"-8%":"60%"} delay={index*40} opacity={.28}/><Gear size={210} top="33%" left={index===2?"63%":"-5%"} delay={90} opacity={.34}/></>:null}
     <div style={{position:"absolute",top:"8%",left:"8%",right:"8%",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
