@@ -1,1 +1,2 @@
 Run Columbus full production after shortening narration to the 60-72 second target.
+CC0_GLTF_AND_AUDIO_LINT_FIX_2026-11-13
