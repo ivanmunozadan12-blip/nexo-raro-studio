@@ -20,7 +20,7 @@ jobs:
       - name: Construir matriz desde el lote solicitado
         id: set-matrix
         run: |
-          MATRIX=$(jq -c '[.script_ids | to_entries[] | {script_id: .value, queue_index: (.key | tostring), slot: (["07:30","14:30","20:30"][.key])}]' .github/dispatch/three-scripts.json)
+          MATRIX=$(jq -c '[.script_ids | to_entries[] | {script_id: .value, queue_index: (.key | tostring)}]' .github/dispatch/three-scripts.json)
           test "$(echo "$MATRIX" | jq 'length')" -gt 0
           echo "matrix=$MATRIX" >> "$GITHUB_OUTPUT"
           echo "Guiones del lote: $(echo "$MATRIX" | jq 'length')"
@@ -42,7 +42,6 @@ jobs:
       SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
       SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
       TZ: Europe/Madrid
-      MANUAL_SLOT: ${{ matrix.slot }}
       MANUAL_SCRIPT_ID: ${{ matrix.script_id }}
       MANUAL_QUEUE_INDEX: ${{ matrix.queue_index }}
     steps:
