@@ -24,8 +24,18 @@ export async function POST(request: NextRequest) {
     if (prompts.some((p) => p.length < 12)) {
       return NextResponse.json({ error: 'Escribe los tres prompts (al menos 12 caracteres cada uno).' }, { status: 400 });
     }
-    if (prompts.some((p) => p.length > 3500)) {
-      return NextResponse.json({ error: 'Cada prompt debe tener como máximo 3.500 caracteres.' }, { status: 400 });
+    if (prompts.some((p) => p.length > 45000)) {
+      return NextResponse.json({ error: 'Cada guion debe tener como máximo 45.000 caracteres.' }, { status: 400 });
+    }
+    for (let i = 0; i < prompts.length; i++) {
+      try {
+        const script = JSON.parse(prompts[i].replace(/^\s*```(?:json)?\s*|\s*```\s*$/gi, '').trim());
+        if (!script || typeof script !== 'object' || !Array.isArray(script.scenes) || script.scenes.length !== 8 || typeof script.narration !== 'string' || !Array.isArray(script.sources)) {
+          throw new Error('El JSON debe incluir narration, sources y exactamente 8 scenes.');
+        }
+      } catch (e) {
+        return NextResponse.json({ error: `El vídeo ${i + 1} no contiene un guion técnico JSON válido. ${e instanceof Error ? e.message : ''}` }, { status: 400 });
+      }
     }
 
     const { data: channel, error: channelError } = await db.from('channel_settings')
@@ -37,7 +47,7 @@ export async function POST(request: NextRequest) {
       const response = await fetch(`https://api.github.com/repos/ivanmunozadan12-blip/nexo-raro-studio/actions/workflows/${workflow}/dispatches`, {
         method: 'POST',
         headers: { Authorization: 'Bearer ' + github, Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28', 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ref: 'prompt-video-studio', inputs: { slot: slots[i], prompt: prompts[i], publish: true } })
+        body: JSON.stringify({ ref: 'main', inputs: { slot: slots[i], prompt: prompts[i], publish: true } })
       });
       if (!response.ok) {
         return NextResponse.json({ error: `No se pudo iniciar el vídeo ${i + 1} (HTTP ${response.status}). ${(await response.text()).slice(0, 350)}`, started: results }, { status: 502 });
