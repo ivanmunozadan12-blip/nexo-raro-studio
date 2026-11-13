@@ -123,15 +123,18 @@ Devuelve SOLO JSON: {{"title":"...","hook":"...","category":"{slot}","narration"
     db("editorial_memory","", "POST",{"user_id":user,"script_id":script_id,"topic":script["title"],"topic_key":slug(script["title"]),"angle":script.get("hook",category),"summary":script["narration"][:1200],"source_urls":script["sources"],"memory_status":"produced"})
     db("scripts","?id=eq."+script_id,"PATCH",{"status":"completed"})
     db("social_posts","", "POST",[{"user_id":user,"video_id":video_row["id"],"platform":p,"caption":script.get("caption",script["title"]),"status":"draft"} for p in ("youtube","tiktok")])
-    publish_env=os.environ.copy(); publish_env["CHANNEL_USER_ID"]=user
-    publish=subprocess.run(["python","engine/publish.py","--file",str(final),"--title",script["title"],"--caption",script.get("caption",script["title"]),"--video-id",video_row["id"]],cwd=ROOT,env=publish_env,text=True,capture_output=True)
     publish_result={}
-    if publish.stdout.strip():
-        try: publish_result=json.loads(publish.stdout.strip().splitlines()[-1])
-        except Exception: print("No se pudo interpretar el resultado de publicación:",publish.stdout[-1200:])
-    print("PUBLICACIÓN:",json.dumps(publish_result,ensure_ascii=False))
+    if os.getenv("AUTO_PUBLISH","false").lower()=="true":
+        publish_env=os.environ.copy(); publish_env["CHANNEL_USER_ID"]=user
+        publish=subprocess.run(["python","engine/publish.py","--file",str(final),"--title",script["title"],"--caption",script.get("caption",script["title"]),"--video-id",video_row["id"]],cwd=ROOT,env=publish_env,text=True,capture_output=True)
+        if publish.stdout.strip():
+            try: publish_result=json.loads(publish.stdout.strip().splitlines()[-1])
+            except Exception: print("No se pudo interpretar el resultado de publicación:",publish.stdout[-1200:])
+        print("PUBLICACIÓN:",json.dumps(publish_result,ensure_ascii=False))
+    else:
+        print("Publicación omitida: AUTO_PUBLISH=false (render de prueba).")
     db("production_jobs","?id=eq."+job["id"],"PATCH",{"status":"ready","completed_at":datetime.datetime.now(datetime.timezone.utc).isoformat(),"error_message":None})
-    print(f"VÍDEO LISTO: {script['title']} · {actual:.1f}s · {storage_path}. Publicación automática ejecutada cuando hay credenciales configuradas.")
+    print(f"VÍDEO LISTO: {script['title']} · {actual:.1f}s · {storage_path}.")
 except Exception as e:
     message=str(e)[:1600]
     if storage_path:
