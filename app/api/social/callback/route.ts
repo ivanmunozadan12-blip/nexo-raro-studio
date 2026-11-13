@@ -28,7 +28,7 @@ export async function GET(request: NextRequest) {
       if (!response.ok || data.error || !data.access_token) throw new Error('TikTok no autorizó la cuenta: ' + JSON.stringify(data).slice(0, 350));
       payload = { user_id: userId, platform, access_token: data.access_token, refresh_token: data.refresh_token || null, expires_at: new Date(Date.now() + Number(data.expires_in || 86400) * 1000).toISOString(), scope: data.scope || '', metadata: { open_id: data.open_id || '', token_type: data.token_type || 'Bearer' } };
     }
-    const response = await fetch(process.env.SUPABASE_URL + '/rest/v1/social_connections?on_conflict=user_id,platform', { method: 'POST', headers: serviceHeaders(), body: JSON.stringify(payload) });
+    const response = await fetch((process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL || '') + '/rest/v1/social_connections?on_conflict=user_id,platform', { method: 'POST', headers: serviceHeaders(), body: JSON.stringify(payload) });
     if (!response.ok) throw new Error('No se pudo guardar la conexión de forma segura.');
     return finish(platform, 'connected');
   } catch (error) {
