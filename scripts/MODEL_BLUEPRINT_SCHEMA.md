@@ -46,7 +46,7 @@ Every production JSON is self-contained: it carries a `models` catalogue and eac
 }
 ```
 
-Supported primitives: `box`, `sphere`, `cylinder`, `cone`, `torus`. A group is a transform node with `group: true`. Parts are declared parent-first; children use `parent` to attach to a group or part. All dimensions, materials, colors, local positions and moving parts belong in the JSON.
+Supported primitives: `box`, `sphere`, `cylinder`, `cone`, `torus`, `capsule`, `lathe`, `tube` and `torusknot`. Use `capsule` for smooth limbs and organic body segments; `lathe` for vessels, urns, columns, bottles and turned objects; `tube` for curved branches, tentacles, cables, veins and rigging; and `torusknot` for detailed rings and ornamental forms. `lathe` requires `points` as `[radius, y]` pairs (at least three). `tube` requires `points` as `[x, y, z]` coordinates (at least two). Their shape is generated as continuous geometry, not a stack of primitive blocks. Geometry resolution can be controlled with `segments`, `radialSegments`, `tubularSegments`, `capSegments`, `radius`, `length`, `p` and `q`. A group is a transform node with `group: true`. Parts are declared parent-first; children use `parent` to attach to a group or part. All dimensions, materials, colors, local positions and moving parts belong in the JSON.
 
 Animation tracks target a part ID and define a transform channel. The engine evaluates the track at render time; no external model, image, asset download or model-generation service is needed.
 
