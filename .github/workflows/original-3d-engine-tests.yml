@@ -1,0 +1,30 @@
+name: Original 3D engine · geometry tests
+
+on:
+  push:
+    branches: [improve-original-3d-engine]
+    paths:
+      - "scripts/procedural-engine.js"
+      - "scripts/procedural-engine.test.mjs"
+      - "scripts/produce.mjs"
+      - "scripts/MODEL_BLUEPRINT_SCHEMA.md"
+      - ".github/workflows/original-3d-engine-tests.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  geometry:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install dependencies
+        run: npm install
+      - name: Run original engine regression suite
+        run: node --test scripts/procedural-engine.test.mjs
+      - name: Validate production worker syntax
+        run: node --check scripts/produce.mjs
