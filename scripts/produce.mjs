@@ -411,7 +411,7 @@ for (const [index, scene] of script.scenes.entries()) {
   const sceneType = String(scene.scene_type || '').toLowerCase();
   const validSceneTypes = new Set(['landscape','architecture','science','ocean','space','history','object','abstract']);
   if (!validSceneTypes.has(sceneType)) throw new Error('La escena ' + (index + 1) + ' tiene un scene_type no admitido: ' + sceneType + '.');
-  if (!scene.visual || String(scene.visual).trim().length < 550 || !scene.setting || String(scene.setting).trim().length < 90 || !scene.action || String(scene.action).trim().length < 130 || !scene.camera || String(scene.camera).trim().length < 80 || !scene.continuity || String(scene.continuity).trim().length < 70 || !Array.isArray(scene.characters) || !Array.isArray(scene.props) || scene.props.length < 4 || scene.props.length > 8 || !Array.isArray(scene.objects) || scene.objects.length < 4 || scene.objects.length > 8 || !scene.overlay || String(scene.overlay).trim().split(/\s+/).length > 4 || !scene.narration_excerpt) throw new Error('La escena ' + (index + 1) + ' no alcanza el estándar cinematográfico: hacen falta lugar, acción desarrollada, cámara, continuidad y objetos concretos.');
+  if (!scene.visual || String(scene.visual).trim().length < 550 || !scene.setting || String(scene.setting).trim().length < 40 || !scene.action || String(scene.action).trim().length < 130 || !scene.camera || String(scene.camera).trim().length < 80 || !scene.continuity || String(scene.continuity).trim().length < 70 || !Array.isArray(scene.characters) || !Array.isArray(scene.props) || scene.props.length < 4 || scene.props.length > 8 || !Array.isArray(scene.objects) || scene.objects.length < 4 || scene.objects.length > 8 || !scene.overlay || String(scene.overlay).trim().split(/\s+/).length > 4 || !scene.narration_excerpt) throw new Error('La escena ' + (index + 1) + ' no alcanza el estándar cinematográfico: hacen falta lugar, acción desarrollada, cámara, continuidad y objetos concretos.');
   const excerptWords = countWords(scene.narration_excerpt);
   if (excerptWords < 8 || !script.narration.includes(scene.narration_excerpt)) throw new Error('El fragmento de narración de la escena ' + (index + 1) + ' debe contener al menos 8 palabras y coincidir literalmente con la voz.');
   for (const character of scene.characters) if (!character.role || !character.appearance || String(character.appearance).length < 25 || !character.action || String(character.action).length < 25) throw new Error('Personaje incompleto en escena ' + (index + 1) + ': cada personaje necesita identidad, aspecto y acción propios.');
@@ -537,7 +537,7 @@ await mkdir(lintDir, { recursive: true });
 await writeFile(path.join(lintDir, 'index.html'), html.replace(sceneEngineTag, ''));
 await copyFile(voicePath, path.join(lintDir, 'voice.mp3'));
 await command('npx', ['--yes', 'hyperframes@0.9.37', 'lint'], { cwd: lintDir });
-const imageCount = script.scenes.length; // Siete escenas 3D renderizadas; ya no dependemos de siete fotos externas.
+const imageCount = script.scenes.length; // Catorce planos 3D cortos; no dependemos de fotos estáticas externas.
 const rawVideo = path.join(work, 'video-silent.mp4');
 await command('npx', ['--yes', 'hyperframes@0.9.37', 'render', '-c', 'index.html', '-o', rawVideo, '--fps', '30', '--quality', 'standard', '--workers', '1'], { cwd: work });
 const finalPath = path.join(root, 'renders', `behind-del-mundo-${local}-${slot.replace(':','')}.mp4`);
