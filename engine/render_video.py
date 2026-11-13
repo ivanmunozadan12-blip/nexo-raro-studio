@@ -336,39 +336,53 @@ def draw_turbine(d,cx,cy,t,accent):
         d.line(((190+k*12)*S,y*S,(385-k*12)*S,y*S),fill=rgba(accent,150),width=2*S)
 
 def draw_visual_elements(d, elements, t, accent):
-    """Render the scene-specific objects described by the prompt planner."""
+    """Renderiza elementos en una composición con colisiones evitadas."""
+    placed=[]
     palette_fallback=rgba(accent,235)
+    # Área reservada: título arriba y subtítulos abajo.
     for item in (elements or [])[:14]:
         if not isinstance(item,dict): continue
-        shape=str(item.get("shape","")).lower()
-        x=48+clamp(float(item.get("x",500))/1000)*480
-        y=290+clamp(float(item.get("y",500))/1000)*520
-        w=max(8,min(330,float(item.get("width",100))*0.48))
-        h=max(8,min(360,float(item.get("height",100))*0.52))
+        shape=str(item.get("shape","circle")).lower()
+        wanted_x=48+clamp(float(item.get("x",500))/1000)*480
+        wanted_y=300+clamp(float(item.get("y",500))/1000)*490
+        w=max(28,min(220,float(item.get("width",100))*0.38))
+        h=max(28,min(190,float(item.get("height",100))*0.38))
+        label=str(item.get("label","")).strip()
+        # Reservamos espacio también para la etiqueta: no puede chocar con el objeto siguiente.
+        box_h=h/2+(24 if label and shape!="text" else 0)
+        candidates=[]
+        for radius in range(0,241,24):
+            for dx,dy in ((0,0),(radius,0),(-radius,0),(0,radius),(0,-radius),
+                          (radius,radius),(-radius,radius),(radius,-radius),(-radius,-radius)):
+                x=max(70,min(506,wanted_x+dx)); y=max(350,min(755,wanted_y+dy))
+                rect=(x-w/2-12,y-h/2-10,x+w/2+12,y+box_h+10)
+                overlap=sum(1 for a,b,c,e in placed if not (rect[2]<a or rect[0]>c or rect[3]<b or rect[1]>e))
+                distance=(x-wanted_x)**2+(y-wanted_y)**2
+                candidates.append((overlap,distance,x,y,rect))
+            if candidates and min(v[0] for v in candidates)==0: break
+        _,_,x,y,rect=min(candidates,key=lambda v:(v[0],v[1]))
+        placed.append(rect)
+        motion=str(item.get("motion","none")).lower()
+        phase=t*2.8+float(item.get("phase",0))
+        if motion=="float": y+=math.sin(phase)*5
+        elif motion=="pulse":
+            scale=1+0.05*math.sin(phase*1.5); w*=scale; h*=scale
+        elif motion=="flow": x+=math.sin(phase)*7
+        x1,y1,x2,y2=x-w/2,y-h/2,x+w/2,y+h/2
         color=item.get("color",accent)
         try: fill=rgba(color,225)
         except Exception: fill=palette_fallback
-        motion=str(item.get("motion","none")).lower()
-        phase=t*2.8+float(item.get("phase",0))
-        if motion=="float": y+=math.sin(phase)*9
-        elif motion=="pulse":
-            scale=1+0.09*math.sin(phase*1.5); w*=scale; h*=scale
-        elif motion=="flow":
-            x+=math.sin(phase)*13
-        elif motion=="rotate":
-            phase+=t*2
-        x1,y1,x2,y2=x-w/2,y-h/2,x+w/2,y+h/2
         sw=max(2,int(float(item.get("stroke",3))*S))
         if shape in ("rect","rounded_rect"):
             if shape=="rounded_rect":
-                d.rounded_rectangle((x1*S,y1*S,x2*S,y2*S),radius=min(w,h)*.12*S,fill=fill,outline=(245,250,255,170),width=sw)
+                d.rounded_rectangle((x1*S,y1*S,x2*S,y2*S),radius=min(w,h)*.12*S,fill=fill,outline=(245,250,255,190),width=sw)
             else:
-                d.rectangle((x1*S,y1*S,x2*S,y2*S),fill=fill,outline=(245,250,255,170),width=sw)
+                d.rectangle((x1*S,y1*S,x2*S,y2*S),fill=fill,outline=(245,250,255,190),width=sw)
         elif shape in ("circle","ellipse"):
-            d.ellipse((x1*S,y1*S,x2*S,y2*S),fill=fill,outline=(245,250,255,185),width=sw)
+            d.ellipse((x1*S,y1*S,x2*S,y2*S),fill=fill,outline=(245,250,255,190),width=sw)
         elif shape in ("line","arrow","wave"):
             if shape=="wave":
-                pts=[(x1+(x2-x1)*k/36,y+math.sin(k*.48+phase)*h*.35) for k in range(37)]
+                pts=[(x1+(x2-x1)*k/36,y+math.sin(k*.48+phase)*h*.25) for k in range(37)]
                 d.line([(int(a*S),int(b*S)) for a,b in pts],fill=fill,width=sw)
             else:
                 d.line((x1*S,y1*S,x2*S,y2*S),fill=fill,width=sw)
@@ -380,7 +394,7 @@ def draw_visual_elements(d, elements, t, accent):
         elif shape=="polygon":
             pts=item.get("points",[])
             if isinstance(pts,list) and len(pts)>=3:
-                mapped=[((48+clamp(float(p[0])/1000)*480)*S,(290+clamp(float(p[1])/1000)*520)*S) for p in pts[:12] if isinstance(p,(list,tuple)) and len(p)>=2]
+                mapped=[((x-w/2+clamp(float(p[0])/1000)*w)*S,(y-h/2+clamp(float(p[1])/1000)*h)*S) for p in pts[:12] if isinstance(p,(list,tuple)) and len(p)>=2]
                 if len(mapped)>=3: d.polygon(mapped,fill=fill,outline=(245,250,255,190))
         elif shape=="gear":
             radius=min(w,h)/2
@@ -393,9 +407,8 @@ def draw_visual_elements(d, elements, t, accent):
             d.arc((x1*S,y1*S,x2*S,y2*S),start=int((phase*50)%360),end=int((phase*50)%360)+245,fill=fill,width=sw)
         elif shape=="text":
             text_fit(d,(x,y),str(item.get("label",""))[:26],max(10,min(25,float(item.get("font_size",16)))),fill,max_width=int(w*S),anchor="mm")
-        label=str(item.get("label","")).strip()
-        if label and shape not in ("text",):
-            text_fit(d,(x,y2+15),label[:22],11,(239,247,255,235),max_width=int(max(75,w+35)*S),anchor="mm",bold=False)
+        if label and shape!="text":
+            text_fit(d,(x,y+h/2+17),label[:22],10,(239,247,255,245),max_width=int(max(90,w+45)*S),anchor="mm",bold=False)
 
 def draw_scene(im, scene, local_t, accent):
     overlay=Image.new("RGBA",im.size,(0,0,0,0)); d=ImageDraw.Draw(overlay,"RGBA")
@@ -404,51 +417,43 @@ def draw_scene(im, scene, local_t, accent):
     draw_title(d,title,subtitle,local_t,accent)
     kind=scene.get("visual_type","illustration")
     cx,cy=288,560
-    if kind=="microwave":
-        draw_microwave(d,cx,cy,1.24,.3+local_t,accent)
-    elif kind in ("machine","engine","turbine","industrial"):
-        draw_machine(d,cx,cy,local_t,accent,scene.get("labels"))
-    elif kind=="aircraft":
-        if scene.get("background")=="sky":
-            draw_aircraft_in_sky(d,cx,cy,local_t,accent)
-        else:
-            draw_aircraft(d,cx,cy,local_t,accent)
-    elif kind=="vehicle":
-        draw_vehicle(d,cx,cy,local_t,accent)
-    elif kind=="phone":
-        draw_phone(d,cx,cy,local_t,accent)
-    elif kind=="turbine":
-        draw_turbine(d,cx,cy,local_t,accent)
-    elif kind=="object_cutaway":
-        draw_cutaway(d,cx,cy,local_t,accent,scene.get("labels"))
-    elif kind in ("interior","building_cutaway","facility"):
-        draw_building(d,cx,cy,local_t,accent)
-    elif kind in ("molecule","science"):
-        panel(d,(48,300,528,795),fill=(7,27,50,160),outline=rgba(accent,120),radius=30)
-        draw_molecule(d,cx,535,.92,local_t*4,accent)
-        text_fit(d,(cx,780),"MODELO EXPLICATIVO",12,(200,225,240),anchor="mm",bold=False)
-    elif kind in ("process","diagram"):
-        draw_process(d,cx,565,local_t,accent,scene.get("labels") or ["Entrada","Proceso","Salida"])
-    elif kind in ("timeline","history"):
-        draw_timeline(d,cx,560,local_t,accent,scene.get("labels",["Origen","Cambio","Hoy"]))
-    elif kind in ("fact","number","stat"):
-        draw_fact(d,cx,565,local_t,accent,scene.get("metric",{}))
-    elif kind in ("map","location"):
-        panel(d,(50,310,526,800),fill=(11,48,62,220),outline=rgba(accent,160))
-        for i in range(12):
-            x=70+i*38
-            d.line((x*S,330*S,(x+12*math.sin(i*1.7))*S,780*S),fill=(105,172,169,45),width=2*S)
-        for i in range(10):
-            y=350+i*43
-            d.line((55*S,y*S,520*S,(y+10*math.sin(i*1.3))*S),fill=(105,172,169,45),width=2*S)
-        for i,label in enumerate(scene.get("labels",["Punto A","Punto B","Punto C"])[:3]):
-            x=135+i*145; y=450+(i%2)*140
-            d.ellipse(((x-11)*S,(y-11)*S,(x+11)*S,(y+11)*S),fill=rgba(accent))
-            text_fit(d,(x,y+28),label,12,(245,250,255),max_width=110,anchor="mm")
-    else:
-        draw_illustration(d,cx,565,local_t,accent,scene.get("labels"))
-    # Scene-specific shapes, positions, labels and motion are generated from the user's prompt.
-    draw_visual_elements(d,scene.get("visual_elements",[]),local_t,accent)
+    elements=scene.get("visual_elements",[])
+    # Si el guion aporta objetos concretos, estos forman la escena completa:
+    # no se superpone además una ilustración genérica independiente.
+    if not elements:
+        if kind=="microwave":
+            draw_microwave(d,cx,cy,1.24,.3+local_t,accent)
+        elif kind in ("machine","engine","turbine","industrial"):
+            draw_machine(d,cx,cy,local_t,accent,scene.get("labels"))
+        elif kind=="aircraft":
+            if scene.get("background")=="sky": draw_aircraft_in_sky(d,cx,cy,local_t,accent)
+            else: draw_aircraft(d,cx,cy,local_t,accent)
+        elif kind=="vehicle": draw_vehicle(d,cx,cy,local_t,accent)
+        elif kind=="phone": draw_phone(d,cx,cy,local_t,accent)
+        elif kind=="turbine": draw_turbine(d,cx,cy,local_t,accent)
+        elif kind=="object_cutaway": draw_cutaway(d,cx,cy,local_t,accent,scene.get("labels"))
+        elif kind in ("interior","building_cutaway","facility"): draw_building(d,cx,cy,local_t,accent)
+        elif kind in ("molecule","science"):
+            panel(d,(48,300,528,795),fill=(7,27,50,160),outline=rgba(accent,120),radius=30)
+            draw_molecule(d,cx,535,.92,local_t*4,accent)
+            text_fit(d,(cx,780),"MODELO EXPLICATIVO",12,(200,225,240),anchor="mm",bold=False)
+        elif kind in ("process","diagram"): draw_process(d,cx,565,local_t,accent,scene.get("labels") or ["Entrada","Proceso","Salida"])
+        elif kind in ("timeline","history"): draw_timeline(d,cx,560,local_t,accent,scene.get("labels",["Origen","Cambio","Hoy"]))
+        elif kind in ("fact","number","stat"): draw_fact(d,cx,565,local_t,accent,scene.get("metric",{}))
+        elif kind in ("map","location"):
+            panel(d,(50,310,526,800),fill=(11,48,62,220),outline=rgba(accent,160))
+            for i in range(12):
+                x=70+i*38
+                d.line((x*S,330*S,(x+12*math.sin(i*1.7))*S,780*S),fill=(105,172,169,45),width=2*S)
+            for i in range(10):
+                y=350+i*43
+                d.line((55*S,y*S,520*S,(y+10*math.sin(i*1.3))*S),fill=(105,172,169,45),width=2*S)
+            for i,label in enumerate(scene.get("labels",["Punto A","Punto B","Punto C"])[:3]):
+                x=135+i*145; y=450+(i%2)*140
+                d.ellipse(((x-11)*S,(y-11)*S,(x+11)*S,(y+11)*S),fill=rgba(accent))
+                text_fit(d,(x,y+28),label,12,(245,250,255),max_width=110,anchor="mm")
+        else: draw_illustration(d,cx,565,local_t,accent,scene.get("labels"))
+    if elements: draw_visual_elements(d,elements,local_t,accent)
     im.alpha_composite(overlay)
 
 def draw_caption(im,cue,t,accent):
