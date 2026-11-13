@@ -312,9 +312,43 @@ function createReptile(g, species, rng) {
   g.userData.rig = { motion: 'crawl' };
 }
 
+
+function createOctopus(spec, rng) {
+  const g = new THREE.Group();
+  const palette = spec.palette || {};
+  const bodyColor = palette.body || spec.color || '#a65e4b';
+  const mantle = ellipsoid(g, [0, 1.72, -0.12], [.62, .72, .7], bodyColor, 4);
+  mantle.rotation.x = -.18;
+  ellipsoid(g, [0, 1.22, .18], [.48, .42, .48], bodyColor, 3);
+  for (const side of [-1, 1]) {
+    ellipsoid(g, [side * .23, 1.48, .55], [.13, .14, .1], '#f0dfc4', 2);
+    ellipsoid(g, [side * .23, 1.48, .635], [.055, .065, .035], '#171514', 2);
+  }
+  const arms = [];
+  for (let i = 0; i < 8; i++) {
+    const angle = (i / 8) * Math.PI * 2;
+    const arm = groupAt(g, [Math.cos(angle) * .22, 1.13, Math.sin(angle) * .22]);
+    const dx = Math.cos(angle), dz = Math.sin(angle);
+    const points = [[0,0,0],[dx*.34,-.12,dz*.34],[dx*.7,-.32,dz*.7],[dx*1.05,-.58,dz*1.05],[dx*1.28,-.82,dz*1.28]];
+    for (let k = 0; k < points.length - 1; k++) {
+      const radius = .105 - k * .014;
+      link(arm, points[k], points[k+1], radius, bodyColor, 9);
+      for (let s = 1; s <= 3; s++) {
+        const t = s / 4;
+        const p = points[k].map((v, axis) => v + (points[k+1][axis] - v) * t);
+        ellipsoid(arm, [p[0], p[1] - radius*.82, p[2]], [radius*.24, radius*.12, radius*.24], '#e7d6c7', 1);
+      }
+    }
+    arms.push({ group: arm, angle, phase: i * .55 });
+  }
+  g.userData.rig = { arms, motion: spec.motion || 'swim' };
+  return g;
+}
+
 function createAnimal(spec, rng) {
   const g = new THREE.Group();
   const species = clean(spec.species || spec.name || spec.description || 'animal');
+  if (/pulpo|octopus/.test(species)) return createOctopus(spec, rng);
   if (/ave|aguila|halcon|buho|pajaro|flamenco|pinguino/.test(species)) createBird(g, species, rng);
   else if (/pez|tiburon|ballena|delfin/.test(species)) createFish(g, species, rng);
   else if (/serpiente|cocodrilo|lagarto|tortuga/.test(species)) createReptile(g, species, rng);
@@ -633,6 +667,7 @@ export function animateEntities(entities, time = 0) {
     if (rig.head) rig.head.rotation.y = working ? .12 * Math.sin(time * 1.7) : .045 * Math.sin(time * 1.1);
     if (rig.body) rig.body.rotation.y = walking ? .12 * Math.sin(time * 3) : .025 * Math.sin(time * 1.2);
     if (rig.wings) rig.wings.forEach(({ group, side }) => { group.rotation.z = side * (.1 + .55 * Math.sin(time * 8)); });
+    if (rig.arms) rig.arms.forEach(({ group, angle, phase }) => { group.rotation.x = .12 * Math.sin(time * 2.2 + phase); group.rotation.z = .16 * Math.sin(time * 1.8 + phase) + .08 * Math.cos(angle); });
     if (rig.tail) rig.tail.rotation.y = .25 * Math.sin(time * 2.5);
     if (rig.fins) rig.fins.forEach((fin, i) => { fin.rotation.y = .18 * Math.sin(time * 3 + i); });
     if (rig.wheels) rig.wheels.forEach(wheel => { wheel.rotation.x = time * 1.2; });
