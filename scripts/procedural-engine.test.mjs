@@ -128,3 +128,27 @@ test('blueprint animation is deterministic, positive-scale safe, and supports ca
   animateEntities([model], 2);
   assert.deepEqual(mantle.material.color.toArray(), firstAtTwo.toArray(), 'the same timeline time must render identically');
 });
+
+test('higher-detail blueprint geometry supports organic curves and lathed forms', () => {
+  const world = new THREE.Group();
+  const model = createProceduralEntity(world, {
+    id: 'detailed-geometry-test', type: 'artifact', name: 'Pieza de geometría avanzada',
+    blueprint: {
+      version: 1,
+      parts: [
+        { id: 'capsule-body', primitive: 'capsule', size: [0.5, 1.2, 0.5], radius: 0.5, length: 1.2, color: '#b36d4c' },
+        { id: 'vessel', primitive: 'lathe', parent: 'root', position: [1.2, 0, 0], size: [1, 1, 1], points: [[0.1,0],[0.35,0.1],[0.48,0.45],[0.3,0.8],[0.12,1]], segments: 32, color: '#b58b52' },
+        { id: 'curved-branch', primitive: 'tube', parent: 'root', position: [-1.2,0,0], size: [1,1,1], points: [[0,0,0],[0.2,0.5,0],[0.55,0.8,0.2],[0.8,1.4,0.3]], radius: 0.08, color: '#47784d' },
+        { id: 'ornament', primitive: 'torusknot', position: [0,2,0], size: [0.6,0.6,0.6], color: '#d0a34f' }
+      ],
+      animations: []
+    }
+  });
+  const geometries = [];
+  model.traverse(node => { if (node.isMesh) geometries.push(node.geometry.type); });
+  assert.ok(geometries.includes('CapsuleGeometry'));
+  assert.ok(geometries.includes('LatheGeometry'));
+  assert.ok(geometries.includes('TubeGeometry'));
+  assert.ok(geometries.includes('TorusKnotGeometry'));
+  assert.equal(model.userData.blueprintNodes.size, 5);
+});
