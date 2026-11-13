@@ -23,11 +23,25 @@ def db_patch(video_id, platform, status, external_id=None, error=None):
     http(API+"/rest/v1/social_posts"+query,"PATCH",payload,HEAD)
 
 def google_token():
-    cid=os.environ["YOUTUBE_CLIENT_ID"]; secret=os.environ["YOUTUBE_CLIENT_SECRET"]; refresh=os.environ["YOUTUBE_REFRESH_TOKEN"]
+    cid=os.environ["YOUTUBE_CLIENT_ID"]; secret=os.environ["YOUTUBE_CLIENT_SECRET"]
+    user=os.getenv("CHANNEL_USER_ID",""); saved=None
+    if API and KEY and user:
+        query="?user_id=eq."+urllib.parse.quote(user)+"&platform=eq.youtube&select=access_token,refresh_token,expires_at&limit=1"
+        _,_,raw=http(API+"/rest/v1/social_connections"+query,"GET",headers=HEAD)
+        rows=json.loads(raw or b"[]"); saved=rows[0] if rows else None
+    access=(saved or {}).get("access_token",""); refresh=(saved or {}).get("refresh_token") or os.getenv("YOUTUBE_REFRESH_TOKEN","")
+    expiry=(saved or {}).get("expires_at")
+    if access and expiry and datetime.datetime.fromisoformat(expiry.replace("Z","+00:00"))>datetime.datetime.now(datetime.timezone.utc)+datetime.timedelta(minutes=5):
+        return access
+    if not refresh: raise RuntimeError("Falta conectar una cuenta de YouTube en el estudio.")
     form=urllib.parse.urlencode({"client_id":cid,"client_secret":secret,"refresh_token":refresh,"grant_type":"refresh_token"}).encode()
     code,_,raw=http("https://oauth2.googleapis.com/token","POST",form,{"Content-Type":"application/x-www-form-urlencoded"})
     data=json.loads(raw or b"{}")
     if code!=200 or not data.get("access_token"): raise RuntimeError("YouTube OAuth: "+str(data)[:500])
+    expires=(datetime.datetime.now(datetime.timezone.utc)+datetime.timedelta(seconds=int(data.get("expires_in",3600)))).isoformat()
+    if API and KEY and user:
+        payload={"user_id":user,"platform":"youtube","access_token":data["access_token"],"refresh_token":data.get("refresh_token",refresh),"expires_at":expires}
+        http(API+"/rest/v1/social_connections?on_conflict=user_id,platform","POST",payload,{**HEAD,"Prefer":"resolution=merge-duplicates,return=minimal"})
     return data["access_token"]
 
 def youtube_upload(path,title,caption):
