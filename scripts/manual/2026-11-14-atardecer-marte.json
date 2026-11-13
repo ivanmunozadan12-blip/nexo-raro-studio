@@ -22,26 +22,54 @@
   "scenes": [
     {
       "scene_type": "space",
-      "visual": "Plano 1. En la Tierra, los atardeceres suelen teñir el cielo de rojo y naranja. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (rocas del cráter, estratos del terreno, campo de rocas, cresta del horizonte). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "visual": "Plano 1. En la Tierra, los atardeceres suelen teñir el cielo de rojo y naranja. La composición muestra el sujeto principal con anatomía, escala y materiales consistentes, y cuatro elementos ambientales construidos como modelos 3D separados: Rocas del cráter, Estratos del terreno, Campo de rocas, Cresta del horizonte. En primer término se aprecian detalles de superficie y partículas; en el plano medio ocurre la acción científica o histórica; al fondo se mantiene un entorno reconocible que aporta profundidad y contexto. La cámara vertical 9:16 realiza un movimiento suave, con un encuadre distinto en cada plano y un acercamiento cuando la narración explica un detalle. La iluminación es direccional y volumétrica, con contraste suficiente para separar todas las siluetas. Cada objeto conserva su posición física y su proporción respecto al protagonista. Reservar el tercio inferior para subtítulos blancos. No añadir texto, rótulos, logotipos ni marcas de agua.",
       "setting": "Superficie de Marte en un cráter con rocas erosionadas, estratos, huellas del rover, polvo suspendido y cresta distante.",
-      "action": "Acción ilustrativa: En la Tierra, los atardeceres suelen teñir el cielo de rojo y naranja. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
-      "camera": "travelling lateral de contexto",
+      "action": "La acción representa con claridad el fragmento narrado: En la Tierra, los atardeceres suelen teñir el cielo de rojo y naranja. El sujeto principal ejecuta un movimiento reconocible con inicio, desarrollo y final; los elementos secundarios responden de forma limitada y coherente con su naturaleza. Las piezas rígidas permanecen apoyadas y las partículas o elementos ligeros se mueven suavemente.",
+      "camera": "travelling lateral de contexto. Desplazamiento controlado con paralaje entre primer plano, sujeto y fondo; mantener el horizonte estable, evitar giros bruscos y terminar en un encuadre que permita enlazar con el plano siguiente.",
       "camera_target": "Por qué los atardeceres de Marte son azules",
-      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos. Conservar el mismo diseño de los modelos, paleta de materiales, escala relativa y dirección de iluminación entre planos; los objetos no deben cambiar de forma, desaparecer ni teletransportarse durante los cortes.",
       "characters": [],
       "props": [
-        "material principal",
-        "partículas ambientales",
-        "elemento de escala",
-        "detalle de superficie"
+        {
+          "name": "Rocas del cráter",
+          "description": "Rocas del cráter modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Estratos del terreno",
+          "description": "Estratos del terreno modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Campo de rocas",
+          "description": "Campo de rocas modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Cresta del horizonte",
+          "description": "Cresta del horizonte modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        }
       ],
       "objects": [
-        "sujeto principal",
-        "entorno reconocible",
-        "elemento secundario",
-        "detalle en profundidad"
+        {
+          "name": "Rocas del cráter",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Estratos del terreno",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Campo de rocas",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Cresta del horizonte",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        }
       ],
-      "overlay": "Cielo marciano",
+      "overlay": "Un cielo azul",
       "narration_excerpt": "En la Tierra, los atardeceres suelen teñir el cielo de rojo y naranja.",
       "entities": [
         {
@@ -206,26 +234,54 @@
     },
     {
       "scene_type": "space",
-      "visual": "Plano 2. Pero en Marte, el Sol puede quedar rodeado por un resplandor azulado. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (columna de polvo, halo azul del crepúsculo, huellas del rover, rocas del cráter). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "visual": "Plano 2. Pero en Marte, el Sol puede quedar rodeado por un resplandor azulado. La composición muestra el sujeto principal con anatomía, escala y materiales consistentes, y cuatro elementos ambientales construidos como modelos 3D separados: Columna de polvo, Halo azul del crepúsculo, Huellas del rover, Rocas del cráter. En primer término se aprecian detalles de superficie y partículas; en el plano medio ocurre la acción científica o histórica; al fondo se mantiene un entorno reconocible que aporta profundidad y contexto. La cámara vertical 9:16 realiza un movimiento suave, con un encuadre distinto en cada plano y un acercamiento cuando la narración explica un detalle. La iluminación es direccional y volumétrica, con contraste suficiente para separar todas las siluetas. Cada objeto conserva su posición física y su proporción respecto al protagonista. Reservar el tercio inferior para subtítulos blancos. No añadir texto, rótulos, logotipos ni marcas de agua.",
       "setting": "Superficie de Marte en un cráter con rocas erosionadas, estratos, huellas del rover, polvo suspendido y cresta distante.",
-      "action": "Acción ilustrativa: Pero en Marte, el Sol puede quedar rodeado por un resplandor azulado. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
-      "camera": "acercamiento macro al detalle",
+      "action": "La acción representa con claridad el fragmento narrado: Pero en Marte, el Sol puede quedar rodeado por un resplandor azulado. El sujeto principal ejecuta un movimiento reconocible con inicio, desarrollo y final; los elementos secundarios responden de forma limitada y coherente con su naturaleza. Las piezas rígidas permanecen apoyadas y las partículas o elementos ligeros se mueven suavemente.",
+      "camera": "acercamiento macro al detalle. Desplazamiento controlado con paralaje entre primer plano, sujeto y fondo; mantener el horizonte estable, evitar giros bruscos y terminar en un encuadre que permita enlazar con el plano siguiente.",
       "camera_target": "Por qué los atardeceres de Marte son azules",
-      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos. Conservar el mismo diseño de los modelos, paleta de materiales, escala relativa y dirección de iluminación entre planos; los objetos no deben cambiar de forma, desaparecer ni teletransportarse durante los cortes.",
       "characters": [],
       "props": [
-        "material principal",
-        "partículas ambientales",
-        "elemento de escala",
-        "detalle de superficie"
+        {
+          "name": "Columna de polvo",
+          "description": "Columna de polvo modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Halo azul del crepúsculo",
+          "description": "Halo azul del crepúsculo modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Huellas del rover",
+          "description": "Huellas del rover modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Rocas del cráter",
+          "description": "Rocas del cráter modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        }
       ],
       "objects": [
-        "sujeto principal",
-        "entorno reconocible",
-        "elemento secundario",
-        "detalle en profundidad"
+        {
+          "name": "Columna de polvo",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Halo azul del crepúsculo",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Huellas del rover",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Rocas del cráter",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        }
       ],
-      "overlay": "Cielo marciano",
+      "overlay": "El Sol marciano",
       "narration_excerpt": "Pero en Marte, el Sol puede quedar rodeado por un resplandor azulado.",
       "entities": [
         {
@@ -390,26 +446,54 @@
     },
     {
       "scene_type": "space",
-      "visual": "Plano 3. No es un filtro de cámara ni un efecto añadido por ordenador. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (estratos del terreno, campo de rocas, cresta del horizonte, columna de polvo). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "visual": "Plano 3. No es un filtro de cámara ni un efecto añadido por ordenador. La composición muestra el sujeto principal con anatomía, escala y materiales consistentes, y cuatro elementos ambientales construidos como modelos 3D separados: Estratos del terreno, Campo de rocas, Cresta del horizonte, Columna de polvo. En primer término se aprecian detalles de superficie y partículas; en el plano medio ocurre la acción científica o histórica; al fondo se mantiene un entorno reconocible que aporta profundidad y contexto. La cámara vertical 9:16 realiza un movimiento suave, con un encuadre distinto en cada plano y un acercamiento cuando la narración explica un detalle. La iluminación es direccional y volumétrica, con contraste suficiente para separar todas las siluetas. Cada objeto conserva su posición física y su proporción respecto al protagonista. Reservar el tercio inferior para subtítulos blancos. No añadir texto, rótulos, logotipos ni marcas de agua.",
       "setting": "Superficie de Marte en un cráter con rocas erosionadas, estratos, huellas del rover, polvo suspendido y cresta distante.",
-      "action": "Acción ilustrativa: No es un filtro de cámara ni un efecto añadido por ordenador. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
-      "camera": "órbita corta alrededor del sujeto",
+      "action": "La acción representa con claridad el fragmento narrado: No es un filtro de cámara ni un efecto añadido por ordenador. El sujeto principal ejecuta un movimiento reconocible con inicio, desarrollo y final; los elementos secundarios responden de forma limitada y coherente con su naturaleza. Las piezas rígidas permanecen apoyadas y las partículas o elementos ligeros se mueven suavemente.",
+      "camera": "órbita corta alrededor del sujeto. Desplazamiento controlado con paralaje entre primer plano, sujeto y fondo; mantener el horizonte estable, evitar giros bruscos y terminar en un encuadre que permita enlazar con el plano siguiente.",
       "camera_target": "Por qué los atardeceres de Marte son azules",
-      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos. Conservar el mismo diseño de los modelos, paleta de materiales, escala relativa y dirección de iluminación entre planos; los objetos no deben cambiar de forma, desaparecer ni teletransportarse durante los cortes.",
       "characters": [],
       "props": [
-        "material principal",
-        "partículas ambientales",
-        "elemento de escala",
-        "detalle de superficie"
+        {
+          "name": "Estratos del terreno",
+          "description": "Estratos del terreno modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Campo de rocas",
+          "description": "Campo de rocas modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Cresta del horizonte",
+          "description": "Cresta del horizonte modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Columna de polvo",
+          "description": "Columna de polvo modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        }
       ],
       "objects": [
-        "sujeto principal",
-        "entorno reconocible",
-        "elemento secundario",
-        "detalle en profundidad"
+        {
+          "name": "Estratos del terreno",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Campo de rocas",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Cresta del horizonte",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Columna de polvo",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        }
       ],
-      "overlay": "Cielo marciano",
+      "overlay": "Polvo en Marte",
       "narration_excerpt": "No es un filtro de cámara ni un efecto añadido por ordenador.",
       "entities": [
         {
@@ -574,26 +658,54 @@
     },
     {
       "scene_type": "space",
-      "visual": "Plano 4. La explicación está en el polvo suspendido dentro de su atmósfera. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (halo azul del crepúsculo, huellas del rover, rocas del cráter, estratos del terreno). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "visual": "Plano 4. La explicación está en el polvo suspendido dentro de su atmósfera. La composición muestra el sujeto principal con anatomía, escala y materiales consistentes, y cuatro elementos ambientales construidos como modelos 3D separados: Halo azul del crepúsculo, Huellas del rover, Rocas del cráter, Estratos del terreno. En primer término se aprecian detalles de superficie y partículas; en el plano medio ocurre la acción científica o histórica; al fondo se mantiene un entorno reconocible que aporta profundidad y contexto. La cámara vertical 9:16 realiza un movimiento suave, con un encuadre distinto en cada plano y un acercamiento cuando la narración explica un detalle. La iluminación es direccional y volumétrica, con contraste suficiente para separar todas las siluetas. Cada objeto conserva su posición física y su proporción respecto al protagonista. Reservar el tercio inferior para subtítulos blancos. No añadir texto, rótulos, logotipos ni marcas de agua.",
       "setting": "Superficie de Marte en un cráter con rocas erosionadas, estratos, huellas del rover, polvo suspendido y cresta distante.",
-      "action": "Acción ilustrativa: La explicación está en el polvo suspendido dentro de su atmósfera. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
-      "camera": "retroceso para revelar el entorno",
+      "action": "La acción representa con claridad el fragmento narrado: La explicación está en el polvo suspendido dentro de su atmósfera. El sujeto principal ejecuta un movimiento reconocible con inicio, desarrollo y final; los elementos secundarios responden de forma limitada y coherente con su naturaleza. Las piezas rígidas permanecen apoyadas y las partículas o elementos ligeros se mueven suavemente.",
+      "camera": "retroceso para revelar el entorno. Desplazamiento controlado con paralaje entre primer plano, sujeto y fondo; mantener el horizonte estable, evitar giros bruscos y terminar en un encuadre que permita enlazar con el plano siguiente.",
       "camera_target": "Por qué los atardeceres de Marte son azules",
-      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos. Conservar el mismo diseño de los modelos, paleta de materiales, escala relativa y dirección de iluminación entre planos; los objetos no deben cambiar de forma, desaparecer ni teletransportarse durante los cortes.",
       "characters": [],
       "props": [
-        "material principal",
-        "partículas ambientales",
-        "elemento de escala",
-        "detalle de superficie"
+        {
+          "name": "Halo azul del crepúsculo",
+          "description": "Halo azul del crepúsculo modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Huellas del rover",
+          "description": "Huellas del rover modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Rocas del cráter",
+          "description": "Rocas del cráter modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Estratos del terreno",
+          "description": "Estratos del terreno modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        }
       ],
       "objects": [
-        "sujeto principal",
-        "entorno reconocible",
-        "elemento secundario",
-        "detalle en profundidad"
+        {
+          "name": "Halo azul del crepúsculo",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Huellas del rover",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Rocas del cráter",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Estratos del terreno",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        }
       ],
-      "overlay": "Cielo marciano",
+      "overlay": "Luz diferente",
       "narration_excerpt": "La explicación está en el polvo suspendido dentro de su atmósfera.",
       "entities": [
         {
@@ -758,26 +870,54 @@
     },
     {
       "scene_type": "space",
-      "visual": "Plano 5. Marte tiene una atmósfera muy tenue, pero contiene partículas finas de polvo. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (campo de rocas, cresta del horizonte, columna de polvo, halo azul del crepúsculo). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "visual": "Plano 5. Marte tiene una atmósfera muy tenue, pero contiene partículas finas de polvo. La composición muestra el sujeto principal con anatomía, escala y materiales consistentes, y cuatro elementos ambientales construidos como modelos 3D separados: Campo de rocas, Cresta del horizonte, Columna de polvo, Halo azul del crepúsculo. En primer término se aprecian detalles de superficie y partículas; en el plano medio ocurre la acción científica o histórica; al fondo se mantiene un entorno reconocible que aporta profundidad y contexto. La cámara vertical 9:16 realiza un movimiento suave, con un encuadre distinto en cada plano y un acercamiento cuando la narración explica un detalle. La iluminación es direccional y volumétrica, con contraste suficiente para separar todas las siluetas. Cada objeto conserva su posición física y su proporción respecto al protagonista. Reservar el tercio inferior para subtítulos blancos. No añadir texto, rótulos, logotipos ni marcas de agua.",
       "setting": "Superficie de Marte en un cráter con rocas erosionadas, estratos, huellas del rover, polvo suspendido y cresta distante.",
-      "action": "Acción ilustrativa: Marte tiene una atmósfera muy tenue, pero contiene partículas finas de polvo. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
-      "camera": "travelling lateral de contexto",
+      "action": "La acción representa con claridad el fragmento narrado: Marte tiene una atmósfera muy tenue, pero contiene partículas finas de polvo. El sujeto principal ejecuta un movimiento reconocible con inicio, desarrollo y final; los elementos secundarios responden de forma limitada y coherente con su naturaleza. Las piezas rígidas permanecen apoyadas y las partículas o elementos ligeros se mueven suavemente.",
+      "camera": "travelling lateral de contexto. Desplazamiento controlado con paralaje entre primer plano, sujeto y fondo; mantener el horizonte estable, evitar giros bruscos y terminar en un encuadre que permita enlazar con el plano siguiente.",
       "camera_target": "Por qué los atardeceres de Marte son azules",
-      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos. Conservar el mismo diseño de los modelos, paleta de materiales, escala relativa y dirección de iluminación entre planos; los objetos no deben cambiar de forma, desaparecer ni teletransportarse durante los cortes.",
       "characters": [],
       "props": [
-        "material principal",
-        "partículas ambientales",
-        "elemento de escala",
-        "detalle de superficie"
+        {
+          "name": "Campo de rocas",
+          "description": "Campo de rocas modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Cresta del horizonte",
+          "description": "Cresta del horizonte modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Columna de polvo",
+          "description": "Columna de polvo modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Halo azul del crepúsculo",
+          "description": "Halo azul del crepúsculo modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        }
       ],
       "objects": [
-        "sujeto principal",
-        "entorno reconocible",
-        "elemento secundario",
-        "detalle en profundidad"
+        {
+          "name": "Campo de rocas",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Cresta del horizonte",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Columna de polvo",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Halo azul del crepúsculo",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        }
       ],
-      "overlay": "Cielo marciano",
+      "overlay": "Un atardecer extraño",
       "narration_excerpt": "Marte tiene una atmósfera muy tenue, pero contiene partículas finas de polvo.",
       "entities": [
         {
@@ -942,26 +1082,54 @@
     },
     {
       "scene_type": "space",
-      "visual": "Plano 6. Cuando la luz atraviesa ese polvo, no se dispersan todos los colores igual. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (huellas del rover, rocas del cráter, estratos del terreno, campo de rocas). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "visual": "Plano 6. Cuando la luz atraviesa ese polvo, no se dispersan todos los colores igual. La composición muestra el sujeto principal con anatomía, escala y materiales consistentes, y cuatro elementos ambientales construidos como modelos 3D separados: Huellas del rover, Rocas del cráter, Estratos del terreno, Campo de rocas. En primer término se aprecian detalles de superficie y partículas; en el plano medio ocurre la acción científica o histórica; al fondo se mantiene un entorno reconocible que aporta profundidad y contexto. La cámara vertical 9:16 realiza un movimiento suave, con un encuadre distinto en cada plano y un acercamiento cuando la narración explica un detalle. La iluminación es direccional y volumétrica, con contraste suficiente para separar todas las siluetas. Cada objeto conserva su posición física y su proporción respecto al protagonista. Reservar el tercio inferior para subtítulos blancos. No añadir texto, rótulos, logotipos ni marcas de agua.",
       "setting": "Superficie de Marte en un cráter con rocas erosionadas, estratos, huellas del rover, polvo suspendido y cresta distante.",
-      "action": "Acción ilustrativa: Cuando la luz atraviesa ese polvo, no se dispersan todos los colores igual. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
-      "camera": "acercamiento macro al detalle",
+      "action": "La acción representa con claridad el fragmento narrado: Cuando la luz atraviesa ese polvo, no se dispersan todos los colores igual. El sujeto principal ejecuta un movimiento reconocible con inicio, desarrollo y final; los elementos secundarios responden de forma limitada y coherente con su naturaleza. Las piezas rígidas permanecen apoyadas y las partículas o elementos ligeros se mueven suavemente.",
+      "camera": "acercamiento macro al detalle. Desplazamiento controlado con paralaje entre primer plano, sujeto y fondo; mantener el horizonte estable, evitar giros bruscos y terminar en un encuadre que permita enlazar con el plano siguiente.",
       "camera_target": "Por qué los atardeceres de Marte son azules",
-      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos. Conservar el mismo diseño de los modelos, paleta de materiales, escala relativa y dirección de iluminación entre planos; los objetos no deben cambiar de forma, desaparecer ni teletransportarse durante los cortes.",
       "characters": [],
       "props": [
-        "material principal",
-        "partículas ambientales",
-        "elemento de escala",
-        "detalle de superficie"
+        {
+          "name": "Huellas del rover",
+          "description": "Huellas del rover modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Rocas del cráter",
+          "description": "Rocas del cráter modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Estratos del terreno",
+          "description": "Estratos del terreno modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Campo de rocas",
+          "description": "Campo de rocas modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        }
       ],
       "objects": [
-        "sujeto principal",
-        "entorno reconocible",
-        "elemento secundario",
-        "detalle en profundidad"
+        {
+          "name": "Huellas del rover",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Rocas del cráter",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Estratos del terreno",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Campo de rocas",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        }
       ],
-      "overlay": "Cielo marciano",
+      "overlay": "Azul junto al Sol",
       "narration_excerpt": "Cuando la luz atraviesa ese polvo, no se dispersan todos los colores igual.",
       "entities": [
         {
@@ -1126,26 +1294,54 @@
     },
     {
       "scene_type": "space",
-      "visual": "Plano 7. Parte de la luz azul se dispersa hacia delante y permanece cerca del Sol. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (cresta del horizonte, columna de polvo, halo azul del crepúsculo, huellas del rover). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "visual": "Plano 7. Parte de la luz azul se dispersa hacia delante y permanece cerca del Sol. La composición muestra el sujeto principal con anatomía, escala y materiales consistentes, y cuatro elementos ambientales construidos como modelos 3D separados: Cresta del horizonte, Columna de polvo, Halo azul del crepúsculo, Huellas del rover. En primer término se aprecian detalles de superficie y partículas; en el plano medio ocurre la acción científica o histórica; al fondo se mantiene un entorno reconocible que aporta profundidad y contexto. La cámara vertical 9:16 realiza un movimiento suave, con un encuadre distinto en cada plano y un acercamiento cuando la narración explica un detalle. La iluminación es direccional y volumétrica, con contraste suficiente para separar todas las siluetas. Cada objeto conserva su posición física y su proporción respecto al protagonista. Reservar el tercio inferior para subtítulos blancos. No añadir texto, rótulos, logotipos ni marcas de agua.",
       "setting": "Superficie de Marte en un cráter con rocas erosionadas, estratos, huellas del rover, polvo suspendido y cresta distante.",
-      "action": "Acción ilustrativa: Parte de la luz azul se dispersa hacia delante y permanece cerca del Sol. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
-      "camera": "órbita corta alrededor del sujeto",
+      "action": "La acción representa con claridad el fragmento narrado: Parte de la luz azul se dispersa hacia delante y permanece cerca del Sol. El sujeto principal ejecuta un movimiento reconocible con inicio, desarrollo y final; los elementos secundarios responden de forma limitada y coherente con su naturaleza. Las piezas rígidas permanecen apoyadas y las partículas o elementos ligeros se mueven suavemente.",
+      "camera": "órbita corta alrededor del sujeto. Desplazamiento controlado con paralaje entre primer plano, sujeto y fondo; mantener el horizonte estable, evitar giros bruscos y terminar en un encuadre que permita enlazar con el plano siguiente.",
       "camera_target": "Por qué los atardeceres de Marte son azules",
-      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos. Conservar el mismo diseño de los modelos, paleta de materiales, escala relativa y dirección de iluminación entre planos; los objetos no deben cambiar de forma, desaparecer ni teletransportarse durante los cortes.",
       "characters": [],
       "props": [
-        "material principal",
-        "partículas ambientales",
-        "elemento de escala",
-        "detalle de superficie"
+        {
+          "name": "Cresta del horizonte",
+          "description": "Cresta del horizonte modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Columna de polvo",
+          "description": "Columna de polvo modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Halo azul del crepúsculo",
+          "description": "Halo azul del crepúsculo modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Huellas del rover",
+          "description": "Huellas del rover modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        }
       ],
       "objects": [
-        "sujeto principal",
-        "entorno reconocible",
-        "elemento secundario",
-        "detalle en profundidad"
+        {
+          "name": "Cresta del horizonte",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Columna de polvo",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Halo azul del crepúsculo",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Huellas del rover",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        }
       ],
-      "overlay": "Cielo marciano",
+      "overlay": "El polvo decide",
       "narration_excerpt": "Parte de la luz azul se dispersa hacia delante y permanece cerca del Sol.",
       "entities": [
         {
@@ -1310,26 +1506,54 @@
     },
     {
       "scene_type": "space",
-      "visual": "Plano 8. Los tonos rojos y amarillos se extienden de otra manera por el cielo. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (rocas del cráter, estratos del terreno, campo de rocas, cresta del horizonte). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "visual": "Plano 8. Los tonos rojos y amarillos se extienden de otra manera por el cielo. La composición muestra el sujeto principal con anatomía, escala y materiales consistentes, y cuatro elementos ambientales construidos como modelos 3D separados: Rocas del cráter, Estratos del terreno, Campo de rocas, Cresta del horizonte. En primer término se aprecian detalles de superficie y partículas; en el plano medio ocurre la acción científica o histórica; al fondo se mantiene un entorno reconocible que aporta profundidad y contexto. La cámara vertical 9:16 realiza un movimiento suave, con un encuadre distinto en cada plano y un acercamiento cuando la narración explica un detalle. La iluminación es direccional y volumétrica, con contraste suficiente para separar todas las siluetas. Cada objeto conserva su posición física y su proporción respecto al protagonista. Reservar el tercio inferior para subtítulos blancos. No añadir texto, rótulos, logotipos ni marcas de agua.",
       "setting": "Superficie de Marte en un cráter con rocas erosionadas, estratos, huellas del rover, polvo suspendido y cresta distante.",
-      "action": "Acción ilustrativa: Los tonos rojos y amarillos se extienden de otra manera por el cielo. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
-      "camera": "retroceso para revelar el entorno",
+      "action": "La acción representa con claridad el fragmento narrado: Los tonos rojos y amarillos se extienden de otra manera por el cielo. El sujeto principal ejecuta un movimiento reconocible con inicio, desarrollo y final; los elementos secundarios responden de forma limitada y coherente con su naturaleza. Las piezas rígidas permanecen apoyadas y las partículas o elementos ligeros se mueven suavemente.",
+      "camera": "retroceso para revelar el entorno. Desplazamiento controlado con paralaje entre primer plano, sujeto y fondo; mantener el horizonte estable, evitar giros bruscos y terminar en un encuadre que permita enlazar con el plano siguiente.",
       "camera_target": "Por qué los atardeceres de Marte son azules",
-      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos. Conservar el mismo diseño de los modelos, paleta de materiales, escala relativa y dirección de iluminación entre planos; los objetos no deben cambiar de forma, desaparecer ni teletransportarse durante los cortes.",
       "characters": [],
       "props": [
-        "material principal",
-        "partículas ambientales",
-        "elemento de escala",
-        "detalle de superficie"
+        {
+          "name": "Rocas del cráter",
+          "description": "Rocas del cráter modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Estratos del terreno",
+          "description": "Estratos del terreno modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Campo de rocas",
+          "description": "Campo de rocas modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Cresta del horizonte",
+          "description": "Cresta del horizonte modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        }
       ],
       "objects": [
-        "sujeto principal",
-        "entorno reconocible",
-        "elemento secundario",
-        "detalle en profundidad"
+        {
+          "name": "Rocas del cráter",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Estratos del terreno",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Campo de rocas",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Cresta del horizonte",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        }
       ],
-      "overlay": "Cielo marciano",
+      "overlay": "Horizonte rojo",
       "narration_excerpt": "Los tonos rojos y amarillos se extienden de otra manera por el cielo.",
       "entities": [
         {
@@ -1494,26 +1718,54 @@
     },
     {
       "scene_type": "space",
-      "visual": "Plano 9. Por eso el horizonte puede verse rojizo mientras la zona junto al Sol parece azul. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (columna de polvo, halo azul del crepúsculo, huellas del rover, rocas del cráter). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "visual": "Plano 9. Por eso el horizonte puede verse rojizo mientras la zona junto al Sol parece azul. La composición muestra el sujeto principal con anatomía, escala y materiales consistentes, y cuatro elementos ambientales construidos como modelos 3D separados: Columna de polvo, Halo azul del crepúsculo, Huellas del rover, Rocas del cráter. En primer término se aprecian detalles de superficie y partículas; en el plano medio ocurre la acción científica o histórica; al fondo se mantiene un entorno reconocible que aporta profundidad y contexto. La cámara vertical 9:16 realiza un movimiento suave, con un encuadre distinto en cada plano y un acercamiento cuando la narración explica un detalle. La iluminación es direccional y volumétrica, con contraste suficiente para separar todas las siluetas. Cada objeto conserva su posición física y su proporción respecto al protagonista. Reservar el tercio inferior para subtítulos blancos. No añadir texto, rótulos, logotipos ni marcas de agua.",
       "setting": "Superficie de Marte en un cráter con rocas erosionadas, estratos, huellas del rover, polvo suspendido y cresta distante.",
-      "action": "Acción ilustrativa: Por eso el horizonte puede verse rojizo mientras la zona junto al Sol parece azul. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
-      "camera": "travelling lateral de contexto",
+      "action": "La acción representa con claridad el fragmento narrado: Por eso el horizonte puede verse rojizo mientras la zona junto al Sol parece azul. El sujeto principal ejecuta un movimiento reconocible con inicio, desarrollo y final; los elementos secundarios responden de forma limitada y coherente con su naturaleza. Las piezas rígidas permanecen apoyadas y las partículas o elementos ligeros se mueven suavemente.",
+      "camera": "travelling lateral de contexto. Desplazamiento controlado con paralaje entre primer plano, sujeto y fondo; mantener el horizonte estable, evitar giros bruscos y terminar en un encuadre que permita enlazar con el plano siguiente.",
       "camera_target": "Por qué los atardeceres de Marte son azules",
-      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos. Conservar el mismo diseño de los modelos, paleta de materiales, escala relativa y dirección de iluminación entre planos; los objetos no deben cambiar de forma, desaparecer ni teletransportarse durante los cortes.",
       "characters": [],
       "props": [
-        "material principal",
-        "partículas ambientales",
-        "elemento de escala",
-        "detalle de superficie"
+        {
+          "name": "Columna de polvo",
+          "description": "Columna de polvo modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Halo azul del crepúsculo",
+          "description": "Halo azul del crepúsculo modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Huellas del rover",
+          "description": "Huellas del rover modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Rocas del cráter",
+          "description": "Rocas del cráter modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        }
       ],
       "objects": [
-        "sujeto principal",
-        "entorno reconocible",
-        "elemento secundario",
-        "detalle en profundidad"
+        {
+          "name": "Columna de polvo",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Halo azul del crepúsculo",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Huellas del rover",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Rocas del cráter",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        }
       ],
-      "overlay": "Cielo marciano",
+      "overlay": "La luz cambia",
       "narration_excerpt": "Por eso el horizonte puede verse rojizo mientras la zona junto al Sol parece azul.",
       "entities": [
         {
@@ -1678,26 +1930,54 @@
     },
     {
       "scene_type": "space",
-      "visual": "Plano 10. Los rovers han fotografiado este fenómeno desde distintos cráteres marcianos. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (estratos del terreno, campo de rocas, cresta del horizonte, columna de polvo). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "visual": "Plano 10. Los rovers han fotografiado este fenómeno desde distintos cráteres marcianos. La composición muestra el sujeto principal con anatomía, escala y materiales consistentes, y cuatro elementos ambientales construidos como modelos 3D separados: Estratos del terreno, Campo de rocas, Cresta del horizonte, Columna de polvo. En primer término se aprecian detalles de superficie y partículas; en el plano medio ocurre la acción científica o histórica; al fondo se mantiene un entorno reconocible que aporta profundidad y contexto. La cámara vertical 9:16 realiza un movimiento suave, con un encuadre distinto en cada plano y un acercamiento cuando la narración explica un detalle. La iluminación es direccional y volumétrica, con contraste suficiente para separar todas las siluetas. Cada objeto conserva su posición física y su proporción respecto al protagonista. Reservar el tercio inferior para subtítulos blancos. No añadir texto, rótulos, logotipos ni marcas de agua.",
       "setting": "Superficie de Marte en un cráter con rocas erosionadas, estratos, huellas del rover, polvo suspendido y cresta distante.",
-      "action": "Acción ilustrativa: Los rovers han fotografiado este fenómeno desde distintos cráteres marcianos. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
-      "camera": "acercamiento macro al detalle",
+      "action": "La acción representa con claridad el fragmento narrado: Los rovers han fotografiado este fenómeno desde distintos cráteres marcianos. El sujeto principal ejecuta un movimiento reconocible con inicio, desarrollo y final; los elementos secundarios responden de forma limitada y coherente con su naturaleza. Las piezas rígidas permanecen apoyadas y las partículas o elementos ligeros se mueven suavemente.",
+      "camera": "acercamiento macro al detalle. Desplazamiento controlado con paralaje entre primer plano, sujeto y fondo; mantener el horizonte estable, evitar giros bruscos y terminar en un encuadre que permita enlazar con el plano siguiente.",
       "camera_target": "Por qué los atardeceres de Marte son azules",
-      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos. Conservar el mismo diseño de los modelos, paleta de materiales, escala relativa y dirección de iluminación entre planos; los objetos no deben cambiar de forma, desaparecer ni teletransportarse durante los cortes.",
       "characters": [],
       "props": [
-        "material principal",
-        "partículas ambientales",
-        "elemento de escala",
-        "detalle de superficie"
+        {
+          "name": "Estratos del terreno",
+          "description": "Estratos del terreno modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Campo de rocas",
+          "description": "Campo de rocas modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Cresta del horizonte",
+          "description": "Cresta del horizonte modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Columna de polvo",
+          "description": "Columna de polvo modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        }
       ],
       "objects": [
-        "sujeto principal",
-        "entorno reconocible",
-        "elemento secundario",
-        "detalle en profundidad"
+        {
+          "name": "Estratos del terreno",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Campo de rocas",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Cresta del horizonte",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Columna de polvo",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        }
       ],
-      "overlay": "Cielo marciano",
+      "overlay": "Rover en Marte",
       "narration_excerpt": "Los rovers han fotografiado este fenómeno desde distintos cráteres marcianos.",
       "entities": [
         {
@@ -1862,26 +2142,54 @@
     },
     {
       "scene_type": "space",
-      "visual": "Plano 11. Las imágenes se calibran para aproximarse a los colores que vería una persona. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (halo azul del crepúsculo, huellas del rover, rocas del cráter, estratos del terreno). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "visual": "Plano 11. Las imágenes se calibran para aproximarse a los colores que vería una persona. La composición muestra el sujeto principal con anatomía, escala y materiales consistentes, y cuatro elementos ambientales construidos como modelos 3D separados: Halo azul del crepúsculo, Huellas del rover, Rocas del cráter, Estratos del terreno. En primer término se aprecian detalles de superficie y partículas; en el plano medio ocurre la acción científica o histórica; al fondo se mantiene un entorno reconocible que aporta profundidad y contexto. La cámara vertical 9:16 realiza un movimiento suave, con un encuadre distinto en cada plano y un acercamiento cuando la narración explica un detalle. La iluminación es direccional y volumétrica, con contraste suficiente para separar todas las siluetas. Cada objeto conserva su posición física y su proporción respecto al protagonista. Reservar el tercio inferior para subtítulos blancos. No añadir texto, rótulos, logotipos ni marcas de agua.",
       "setting": "Superficie de Marte en un cráter con rocas erosionadas, estratos, huellas del rover, polvo suspendido y cresta distante.",
-      "action": "Acción ilustrativa: Las imágenes se calibran para aproximarse a los colores que vería una persona. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
-      "camera": "órbita corta alrededor del sujeto",
+      "action": "La acción representa con claridad el fragmento narrado: Las imágenes se calibran para aproximarse a los colores que vería una persona. El sujeto principal ejecuta un movimiento reconocible con inicio, desarrollo y final; los elementos secundarios responden de forma limitada y coherente con su naturaleza. Las piezas rígidas permanecen apoyadas y las partículas o elementos ligeros se mueven suavemente.",
+      "camera": "órbita corta alrededor del sujeto. Desplazamiento controlado con paralaje entre primer plano, sujeto y fondo; mantener el horizonte estable, evitar giros bruscos y terminar en un encuadre que permita enlazar con el plano siguiente.",
       "camera_target": "Por qué los atardeceres de Marte son azules",
-      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos. Conservar el mismo diseño de los modelos, paleta de materiales, escala relativa y dirección de iluminación entre planos; los objetos no deben cambiar de forma, desaparecer ni teletransportarse durante los cortes.",
       "characters": [],
       "props": [
-        "material principal",
-        "partículas ambientales",
-        "elemento de escala",
-        "detalle de superficie"
+        {
+          "name": "Halo azul del crepúsculo",
+          "description": "Halo azul del crepúsculo modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Huellas del rover",
+          "description": "Huellas del rover modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Rocas del cráter",
+          "description": "Rocas del cráter modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Estratos del terreno",
+          "description": "Estratos del terreno modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        }
       ],
       "objects": [
-        "sujeto principal",
-        "entorno reconocible",
-        "elemento secundario",
-        "detalle en profundidad"
+        {
+          "name": "Halo azul del crepúsculo",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Huellas del rover",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Rocas del cráter",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Estratos del terreno",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        }
       ],
-      "overlay": "Cielo marciano",
+      "overlay": "Un fenómeno real",
       "narration_excerpt": "Las imágenes se calibran para aproximarse a los colores que vería una persona.",
       "entities": [
         {
@@ -2046,26 +2354,54 @@
     },
     {
       "scene_type": "space",
-      "visual": "Plano 12. La cantidad de polvo cambia el resultado y puede apagar o intensificar el azul. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (campo de rocas, cresta del horizonte, columna de polvo, halo azul del crepúsculo). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "visual": "Plano 12. La cantidad de polvo cambia el resultado y puede apagar o intensificar el azul. La composición muestra el sujeto principal con anatomía, escala y materiales consistentes, y cuatro elementos ambientales construidos como modelos 3D separados: Campo de rocas, Cresta del horizonte, Columna de polvo, Halo azul del crepúsculo. En primer término se aprecian detalles de superficie y partículas; en el plano medio ocurre la acción científica o histórica; al fondo se mantiene un entorno reconocible que aporta profundidad y contexto. La cámara vertical 9:16 realiza un movimiento suave, con un encuadre distinto en cada plano y un acercamiento cuando la narración explica un detalle. La iluminación es direccional y volumétrica, con contraste suficiente para separar todas las siluetas. Cada objeto conserva su posición física y su proporción respecto al protagonista. Reservar el tercio inferior para subtítulos blancos. No añadir texto, rótulos, logotipos ni marcas de agua.",
       "setting": "Superficie de Marte en un cráter con rocas erosionadas, estratos, huellas del rover, polvo suspendido y cresta distante.",
-      "action": "Acción ilustrativa: La cantidad de polvo cambia el resultado y puede apagar o intensificar el azul. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
-      "camera": "retroceso para revelar el entorno",
+      "action": "La acción representa con claridad el fragmento narrado: La cantidad de polvo cambia el resultado y puede apagar o intensificar el azul. El sujeto principal ejecuta un movimiento reconocible con inicio, desarrollo y final; los elementos secundarios responden de forma limitada y coherente con su naturaleza. Las piezas rígidas permanecen apoyadas y las partículas o elementos ligeros se mueven suavemente.",
+      "camera": "retroceso para revelar el entorno. Desplazamiento controlado con paralaje entre primer plano, sujeto y fondo; mantener el horizonte estable, evitar giros bruscos y terminar en un encuadre que permita enlazar con el plano siguiente.",
       "camera_target": "Por qué los atardeceres de Marte son azules",
-      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos. Conservar el mismo diseño de los modelos, paleta de materiales, escala relativa y dirección de iluminación entre planos; los objetos no deben cambiar de forma, desaparecer ni teletransportarse durante los cortes.",
       "characters": [],
       "props": [
-        "material principal",
-        "partículas ambientales",
-        "elemento de escala",
-        "detalle de superficie"
+        {
+          "name": "Campo de rocas",
+          "description": "Campo de rocas modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Cresta del horizonte",
+          "description": "Cresta del horizonte modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Columna de polvo",
+          "description": "Columna de polvo modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Halo azul del crepúsculo",
+          "description": "Halo azul del crepúsculo modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        }
       ],
       "objects": [
-        "sujeto principal",
-        "entorno reconocible",
-        "elemento secundario",
-        "detalle en profundidad"
+        {
+          "name": "Campo de rocas",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Cresta del horizonte",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Columna de polvo",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Halo azul del crepúsculo",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        }
       ],
-      "overlay": "Cielo marciano",
+      "overlay": "Atmósfera tenue",
       "narration_excerpt": "La cantidad de polvo cambia el resultado y puede apagar o intensificar el azul.",
       "entities": [
         {
@@ -2230,26 +2566,54 @@
     },
     {
       "scene_type": "space",
-      "visual": "Plano 13. Así que no todos los atardeceres marcianos son idénticos ni igual de intensos. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (huellas del rover, rocas del cráter, estratos del terreno, campo de rocas). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "visual": "Plano 13. Así que no todos los atardeceres marcianos son idénticos ni igual de intensos. La composición muestra el sujeto principal con anatomía, escala y materiales consistentes, y cuatro elementos ambientales construidos como modelos 3D separados: Huellas del rover, Rocas del cráter, Estratos del terreno, Campo de rocas. En primer término se aprecian detalles de superficie y partículas; en el plano medio ocurre la acción científica o histórica; al fondo se mantiene un entorno reconocible que aporta profundidad y contexto. La cámara vertical 9:16 realiza un movimiento suave, con un encuadre distinto en cada plano y un acercamiento cuando la narración explica un detalle. La iluminación es direccional y volumétrica, con contraste suficiente para separar todas las siluetas. Cada objeto conserva su posición física y su proporción respecto al protagonista. Reservar el tercio inferior para subtítulos blancos. No añadir texto, rótulos, logotipos ni marcas de agua.",
       "setting": "Superficie de Marte en un cráter con rocas erosionadas, estratos, huellas del rover, polvo suspendido y cresta distante.",
-      "action": "Acción ilustrativa: Así que no todos los atardeceres marcianos son idénticos ni igual de intensos. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
-      "camera": "travelling lateral de contexto",
+      "action": "La acción representa con claridad el fragmento narrado: Así que no todos los atardeceres marcianos son idénticos ni igual de intensos. El sujeto principal ejecuta un movimiento reconocible con inicio, desarrollo y final; los elementos secundarios responden de forma limitada y coherente con su naturaleza. Las piezas rígidas permanecen apoyadas y las partículas o elementos ligeros se mueven suavemente.",
+      "camera": "travelling lateral de contexto. Desplazamiento controlado con paralaje entre primer plano, sujeto y fondo; mantener el horizonte estable, evitar giros bruscos y terminar en un encuadre que permita enlazar con el plano siguiente.",
       "camera_target": "Por qué los atardeceres de Marte son azules",
-      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos. Conservar el mismo diseño de los modelos, paleta de materiales, escala relativa y dirección de iluminación entre planos; los objetos no deben cambiar de forma, desaparecer ni teletransportarse durante los cortes.",
       "characters": [],
       "props": [
-        "material principal",
-        "partículas ambientales",
-        "elemento de escala",
-        "detalle de superficie"
+        {
+          "name": "Huellas del rover",
+          "description": "Huellas del rover modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Rocas del cráter",
+          "description": "Rocas del cráter modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Estratos del terreno",
+          "description": "Estratos del terreno modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Campo de rocas",
+          "description": "Campo de rocas modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        }
       ],
       "objects": [
-        "sujeto principal",
-        "entorno reconocible",
-        "elemento secundario",
-        "detalle en profundidad"
+        {
+          "name": "Huellas del rover",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Rocas del cráter",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Estratos del terreno",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Campo de rocas",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        }
       ],
-      "overlay": "Cielo marciano",
+      "overlay": "Colores marcianos",
       "narration_excerpt": "Así que no todos los atardeceres marcianos son idénticos ni igual de intensos.",
       "entities": [
         {
@@ -2414,26 +2778,54 @@
     },
     {
       "scene_type": "space",
-      "visual": "Plano 14. En otro planeta, incluso el momento más familiar del día puede parecer alienígena. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (cresta del horizonte, columna de polvo, halo azul del crepúsculo, huellas del rover). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "visual": "Plano 14. En otro planeta, incluso el momento más familiar del día puede parecer alienígena. La composición muestra el sujeto principal con anatomía, escala y materiales consistentes, y cuatro elementos ambientales construidos como modelos 3D separados: Cresta del horizonte, Columna de polvo, Halo azul del crepúsculo, Huellas del rover. En primer término se aprecian detalles de superficie y partículas; en el plano medio ocurre la acción científica o histórica; al fondo se mantiene un entorno reconocible que aporta profundidad y contexto. La cámara vertical 9:16 realiza un movimiento suave, con un encuadre distinto en cada plano y un acercamiento cuando la narración explica un detalle. La iluminación es direccional y volumétrica, con contraste suficiente para separar todas las siluetas. Cada objeto conserva su posición física y su proporción respecto al protagonista. Reservar el tercio inferior para subtítulos blancos. No añadir texto, rótulos, logotipos ni marcas de agua.",
       "setting": "Superficie de Marte en un cráter con rocas erosionadas, estratos, huellas del rover, polvo suspendido y cresta distante.",
-      "action": "Acción ilustrativa: En otro planeta, incluso el momento más familiar del día puede parecer alienígena. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
-      "camera": "acercamiento macro al detalle",
+      "action": "La acción representa con claridad el fragmento narrado: En otro planeta, incluso el momento más familiar del día puede parecer alienígena. El sujeto principal ejecuta un movimiento reconocible con inicio, desarrollo y final; los elementos secundarios responden de forma limitada y coherente con su naturaleza. Las piezas rígidas permanecen apoyadas y las partículas o elementos ligeros se mueven suavemente.",
+      "camera": "acercamiento macro al detalle. Desplazamiento controlado con paralaje entre primer plano, sujeto y fondo; mantener el horizonte estable, evitar giros bruscos y terminar en un encuadre que permita enlazar con el plano siguiente.",
       "camera_target": "Por qué los atardeceres de Marte son azules",
-      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos. Conservar el mismo diseño de los modelos, paleta de materiales, escala relativa y dirección de iluminación entre planos; los objetos no deben cambiar de forma, desaparecer ni teletransportarse durante los cortes.",
       "characters": [],
       "props": [
-        "material principal",
-        "partículas ambientales",
-        "elemento de escala",
-        "detalle de superficie"
+        {
+          "name": "Cresta del horizonte",
+          "description": "Cresta del horizonte modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Columna de polvo",
+          "description": "Columna de polvo modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Halo azul del crepúsculo",
+          "description": "Halo azul del crepúsculo modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Huellas del rover",
+          "description": "Huellas del rover modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        }
       ],
       "objects": [
-        "sujeto principal",
-        "entorno reconocible",
-        "elemento secundario",
-        "detalle en profundidad"
+        {
+          "name": "Cresta del horizonte",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Columna de polvo",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Halo azul del crepúsculo",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Huellas del rover",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        }
       ],
-      "overlay": "Cielo marciano",
+      "overlay": "Otro mundo",
       "narration_excerpt": "En otro planeta, incluso el momento más familiar del día puede parecer alienígena.",
       "entities": [
         {
