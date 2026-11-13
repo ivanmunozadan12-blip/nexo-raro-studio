@@ -7,8 +7,8 @@ const scenes = [
   { image:"scene-01.jpg", kicker:"MAR EGEO · 1901", title:"UN SECRETO\nBAJO EL MAR", sub:"En 1901, unos buceadores hallaron un pecio.", align:"left", zoom:1.12, x:-2, y:1 },
   { image:"scene-02.jpg", kicker:"EL HALLAZGO", title:"EL FRAGMENTO\nDE BRONCE", sub:"Frente a Anticitera apareció un fragmento de bronce.", align:"right", zoom:1.18, x:3, y:-1 },
   { image:"scene-03.jpg", kicker:"MÁS DE 2.000 AÑOS", title:"ENGRANAJES\nDIMINUTOS", sub:"Dentro había engranajes diminutos.", align:"left", zoom:1.22, x:-3, y:2 },
-  { image:"scene-04.jpg", kicker:"UNA CALCULADORA ASTRONÓMICA", title:"SEGUÍA\nEL CIELO", sub:"La máquina seguía los ciclos del cielo.", align:"right", zoom:1.16, x:2, y:0 },
-  { image:"scene-05.jpg", kicker:"CICLOS Y ECLIPSES", title:"ANTICIPABA\nECLIPSES", sub:"También anticipaba eclipses.", align:"left", zoom:1.14, x:-2, y:-1 },
+  { image:"scene-04.jpg", kicker:"UNA CALCULADORA ASTRONÓMICA", title:"SEGUÍA\nEL CIELO", sub:"Seguía los ciclos del cielo.", align:"right", zoom:1.16, x:2, y:0 },
+  { image:"scene-05.jpg", kicker:"CICLOS Y ECLIPSES", title:"ANTICIPABA\nECLIPSES", sub:"Y anticipaba eclipses.", align:"left", zoom:1.14, x:-2, y:-1 },
   { image:"scene-06.jpg", kicker:"EL MECANISMO DE ANTICITERA", title:"UNA IDEA\nADELANTADA", sub:"Dos mil años después, aún asombra.", align:"center", zoom:1.2, x:0, y:0 }
 ];
 
