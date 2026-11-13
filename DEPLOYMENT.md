@@ -41,7 +41,7 @@ TikTok:
 
 ## Supabase
 - Se mantiene el proyecto actual, autenticación, bucket privado nexo-videos y tablas de producción.
-- La tabla social_connections almacena tokens de TikTok solo en servidor; RLS está activado y no hay políticas para usuarios finales.
+- La tabla social_connections almacena tokens OAuth de YouTube y TikTok solo en servidor; RLS está activado y no hay políticas para usuarios finales.
 - Migración aplicada: social_connections.
 - No se borran vídeos, guiones ni registros históricos.
 
