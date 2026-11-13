@@ -38,21 +38,24 @@ jobs:
           sudo apt-get install -y ffmpeg
           ffmpeg -version | head -n 1
           ffprobe -version | head -n 1
-      - name: Activar WebGL 3D por software en Chrome
+      - name: Instalar Chromium headless compatible con WebGL
         shell: bash
         run: |
+          npx --yes puppeteer browsers install chrome-headless-shell
           CHROME_BIN=$(find "$HOME/.cache" -type f -name 'chrome-headless-shell' -perm -u+x 2>/dev/null | head -n 1)
           if [ -z "$CHROME_BIN" ]; then
-            echo "::error::No se encontró chrome-headless-shell de HyperFrames"
-            find "$HOME/.cache" -maxdepth 6 -type f -iname '*chrome*' | head -n 30
+            echo "::error::Puppeteer no ha instalado chrome-headless-shell"
+            find "$HOME/.cache" -type f -iname '*chrome*' | head -n 60
             exit 1
           fi
+          echo "Chrome headless encontrado: $CHROME_BIN"
           cat > "$RUNNER_TEMP/chrome-webgl" <<EOF
           #!/usr/bin/env bash
           exec "$CHROME_BIN" --enable-webgl --ignore-gpu-blocklist --use-gl=angle --use-angle=swiftshader --enable-unsafe-swiftshader "\$@"
           EOF
           chmod +x "$RUNNER_TEMP/chrome-webgl"
           echo "HYPERFRAMES_BROWSER_PATH=$RUNNER_TEMP/chrome-webgl" >> "$GITHUB_ENV"
+          echo "PRODUCER_HEADLESS_SHELL_PATH=$RUNNER_TEMP/chrome-webgl" >> "$GITHUB_ENV"
           echo "CHROME_PATH=$RUNNER_TEMP/chrome-webgl" >> "$GITHUB_ENV"
           "$RUNNER_TEMP/chrome-webgl" --version
       - name: Validar sintaxis del motor y del render de prueba
