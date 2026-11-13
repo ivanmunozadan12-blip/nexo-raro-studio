@@ -46,6 +46,7 @@ jobs:
       TIKTOK_REFRESH_TOKEN: ${{ secrets.TIKTOK_REFRESH_TOKEN }}
       TIKTOK_PRIVACY: ${{ secrets.TIKTOK_PRIVACY || 'PUBLIC_TO_EVERYONE' }}
       VIDEO_SLOT: ${{ inputs.slot }}
+      MANUAL_RUN_ID: ${{ github.run_id }}
       USER_PROMPT: ${{ inputs.prompt }}
       AUTO_PUBLISH: ${{ inputs.publish }}
     steps:
