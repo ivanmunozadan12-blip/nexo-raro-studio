@@ -58,9 +58,12 @@ jobs:
           python-version: "3.12"
       - name: Instalar FFmpeg y dependencias
         run: |
-          sudo apt-get update
-          sudo apt-get install -y ffmpeg
-          npm install
+          if ! command -v ffmpeg >/dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install -y ffmpeg
+          fi
+          ffmpeg -version | head -n 1
+          if [ -f package-lock.json ]; then npm ci; else npm install; fi
           python -m pip install --upgrade pip edge-tts
       - name: Comprobar credenciales
         run: |
