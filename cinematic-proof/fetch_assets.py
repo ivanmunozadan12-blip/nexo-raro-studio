@@ -4,7 +4,7 @@ from pathlib import Path
 OUT = Path("public/assets")
 OUT.mkdir(parents=True, exist_ok=True)
 API = "https://commons.wikimedia.org/w/api.php"
-HEADERS = {"User-Agent": "BehindDelMundoCinematicProof/1.0 (educational video project)"}
+HEADERS = {"User-Agent": "BehindDelMundoCinematicProof/1.0 (https://github.com/ivanmunozadan12-blip/nexo-raro-studio)"}
 QUERIES = [
     ("scene-01.jpg", "Anticythera shipwreck Standard diving dress 1901"),
     ("scene-02.jpg", "Antikythera mechanism museum fragments bronze"),
@@ -15,14 +15,26 @@ QUERIES = [
 ]
 ALLOWED = ("cc by", "cc-by", "public domain", "cc0", "cc zero")
 
+def get_with_retry(url, params=None, timeout=45):
+    for attempt in range(6):
+        response=requests.get(url,params=params,headers=HEADERS,timeout=timeout)
+        if response.status_code != 429 and response.status_code < 500:
+            response.raise_for_status()
+            return response
+        if attempt == 5:
+            response.raise_for_status()
+        wait=int(response.headers.get("Retry-After","0") or 0) or min(60,5*(2**attempt))
+        print("HTTP",response.status_code,"esperando",wait,"s antes de reintentar",url)
+        time.sleep(wait)
+    raise RuntimeError("No se pudo descargar el recurso tras varios intentos")
+
 def search(query):
     params = {
         "action":"query", "format":"json", "generator":"search", "gsrnamespace":6,
         "gsrsearch":query, "gsrlimit":15, "prop":"imageinfo",
         "iiprop":"url|size|extmetadata", "iiurlwidth":1920
     }
-    response = requests.get(API, params=params, headers=HEADERS, timeout=45)
-    response.raise_for_status()
+    response = get_with_retry(API, params=params, timeout=45)
     pages = list(response.json().get("query",{}).get("pages",{}).values())
     candidates=[]
     for page in pages:
@@ -34,7 +46,7 @@ def search(query):
         width=int(info.get("width",0)); height=int(info.get("height",0))
         if width < 1000 or height < 600:
             continue
-        url=info.get("thumburl") or info.get("url")
+        url=info.get("url") or info.get("thumburl")
         if not url or not url.lower().split("?")[0].endswith((".jpg",".jpeg",".png",".webp")):
             continue
         candidates.append({
@@ -64,14 +76,14 @@ for filename, query in QUERIES:
     if not found:
         raise RuntimeError("No se encontró una imagen con licencia reutilizable para "+filename+" ("+query+")")
     selected=found[0]
-    data=requests.get(selected["url"],headers=HEADERS,timeout=90)
-    data.raise_for_status()
+    time.sleep(3)
+    data=get_with_retry(selected["url"],timeout=90)
     if len(data.content)<50000:
         raise RuntimeError("Imagen demasiado pequeña: "+selected["title"])
     path.write_bytes(data.content)
     credits.append({"file":filename,**selected})
     print("Descargada:",filename,"<-",selected["title"],selected["license"],len(data.content),"bytes")
-    time.sleep(1)
+    time.sleep(3)
 # Include existing images in credits when the job is retried.
 existing={x["file"] for x in credits}
 credits_path=Path("public/credits.json")
