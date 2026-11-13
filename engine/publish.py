@@ -131,11 +131,11 @@ def main():
     p=argparse.ArgumentParser()
     p.add_argument("--file",required=True); p.add_argument("--title",required=True); p.add_argument("--caption",default=""); p.add_argument("--video-id",default="")
     a=p.parse_args(); path=pathlib.Path(a.file); results={}
-    if os.getenv("YOUTUBE_CLIENT_ID") and os.getenv("YOUTUBE_CLIENT_SECRET") and os.getenv("YOUTUBE_REFRESH_TOKEN"):
+    if os.getenv("YOUTUBE_CLIENT_ID") and os.getenv("YOUTUBE_CLIENT_SECRET") and (os.getenv("YOUTUBE_REFRESH_TOKEN") or (API and KEY and os.getenv("CHANNEL_USER_ID"))):
         try: results["youtube"]=youtube_upload(path,a.title,a.caption)
         except Exception as e: results["youtube"]={"status":"failed","error":str(e)[:1200]}
     else: results["youtube"]={"status":"manual_action_required","error":"Faltan credenciales OAuth de YouTube."}
-    if os.getenv("TIKTOK_CLIENT_KEY") and os.getenv("TIKTOK_CLIENT_SECRET") and (os.getenv("TIKTOK_REFRESH_TOKEN") or os.getenv("TIKTOK_ACCESS_TOKEN")):
+    if os.getenv("TIKTOK_CLIENT_KEY") and os.getenv("TIKTOK_CLIENT_SECRET") and (os.getenv("TIKTOK_REFRESH_TOKEN") or os.getenv("TIKTOK_ACCESS_TOKEN") or (API and KEY and os.getenv("CHANNEL_USER_ID"))):
         try: results["tiktok"]=tiktok_upload(path,a.title)
         except Exception as e: results["tiktok"]={"status":"failed","error":str(e)[:1200]}
     else: results["tiktok"]={"status":"manual_action_required","error":"Faltan credenciales de Content Posting API."}
