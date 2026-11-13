@@ -65,17 +65,19 @@ def search(query):
     return candidates
 
 credits=[]
+used_titles=set()
 for filename, query in QUERIES:
     path=OUT/filename
     if path.exists() and path.stat().st_size > 50000:
         continue
-    found=search(query)
+    found=[item for item in search(query) if item["title"] not in used_titles]
     if not found:
         # Broader fallback search, still restricted to reusable licenses.
-        found=search("Antikythera mechanism")
+        found=[item for item in search("Antikythera mechanism museum gears") if item["title"] not in used_titles]
     if not found:
         raise RuntimeError("No se encontró una imagen con licencia reutilizable para "+filename+" ("+query+")")
     selected=found[0]
+    used_titles.add(selected["title"])
     time.sleep(3)
     data=get_with_retry(selected["url"],timeout=90)
     if len(data.content)<50000:
