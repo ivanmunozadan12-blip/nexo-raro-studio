@@ -9,24 +9,32 @@ permissions:
   contents: read
 
 jobs:
+  prepare:
+    name: Preparar lote de guiones
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - name: Descargar proyecto
+        uses: actions/checkout@v4
+      - name: Construir matriz desde el lote solicitado
+        id: set-matrix
+        run: |
+          MATRIX=$(jq -c '[.script_ids | to_entries[] | {script_id: .value, queue_index: (.key | tostring), slot: (["07:30","14:30","20:30"][.key])}]' .github/dispatch/three-scripts.json)
+          test "$(echo "$MATRIX" | jq 'length')" -gt 0
+          echo "matrix=$MATRIX" >> "$GITHUB_OUTPUT"
+          echo "Guiones del lote: $(echo "$MATRIX" | jq 'length')"
+
   produce:
     name: Render guion ${{ matrix.queue_index }}
+    needs: prepare
     runs-on: ubuntu-latest
     timeout-minutes: 120
     strategy:
       fail-fast: false
       max-parallel: 3
       matrix:
-        include:
-          - script_id: "2b63b51e-c2fe-44d5-a1f4-57bcca6cef51"
-            queue_index: "0"
-            slot: "07:30"
-          - script_id: "f4c64208-0f86-479a-a779-273123d485f2"
-            queue_index: "1"
-            slot: "14:30"
-          - script_id: "fbdcdc8c-dcf0-4eef-aac1-3611eb07bf4f"
-            queue_index: "2"
-            slot: "20:30"
+        include: ${{ fromJSON(needs.prepare.outputs.matrix) }}
     concurrency:
       group: behind-del-mundo-imported-${{ matrix.script_id }}
       cancel-in-progress: false
