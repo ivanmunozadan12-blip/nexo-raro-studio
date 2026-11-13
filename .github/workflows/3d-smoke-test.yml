@@ -6,6 +6,7 @@ on:
     paths:
       - ".github/workflows/3d-smoke-test.yml"
       - "scripts/scene-engine.js"
+      - "scripts/prepare-3d-assets.mjs"
       - "scripts/columbus-preview.mjs"
       - "scripts/columbus-test-script.json"
 
