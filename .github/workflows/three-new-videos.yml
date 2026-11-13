@@ -1,0 +1,79 @@
+name: Behind del Mundo · nueva producción de tres vídeos
+
+on:
+  push:
+    paths:
+      - ".github/dispatch/three-new-videos.json"
+
+permissions:
+  contents: read
+
+jobs:
+  prepare:
+    name: Preparar tres producciones
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.prepare.outputs.matrix }}
+      date: ${{ steps.prepare.outputs.date }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: prepare
+        name: Leer fecha y horarios
+        run: |
+          MATRIX=$(jq -c '[.slots | to_entries[] | {slot: .value, queue_index: (.key | tostring)}]' .github/dispatch/three-new-videos.json)
+          test "$(echo "$MATRIX" | jq 'length')" -eq 3
+          echo "matrix=$MATRIX" >> "$GITHUB_OUTPUT"
+          echo "date=$(jq -r '.production_date' .github/dispatch/three-new-videos.json)" >> "$GITHUB_OUTPUT"
+          echo "Se producirán tres vídeos: $MATRIX"
+
+  produce:
+    name: Producir vídeo ${{ matrix.queue_index }} · ${{ matrix.slot }}
+    needs: prepare
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        include: ${{ fromJSON(needs.prepare.outputs.matrix) }}
+    concurrency:
+      group: behind-del-mundo-new-batch-${{ matrix.slot }}
+      cancel-in-progress: false
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+      GROQ_MODEL: ${{ vars.GROQ_MODEL || 'openai/gpt-oss-120b' }}
+      TZ: Europe/Madrid
+      MANUAL_DATE: ${{ needs.prepare.outputs.date }}
+      MANUAL_SLOT: ${{ matrix.slot }}
+      MANUAL_QUEUE_INDEX: ${{ matrix.queue_index }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Instalar FFmpeg y dependencias
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+          npm install
+          python -m pip install --upgrade pip edge-tts
+      - name: Comprobar credenciales
+        run: |
+          test -n "$SUPABASE_URL" || (echo "::error::Falta SUPABASE_URL" && exit 1)
+          test -n "$SUPABASE_SERVICE_ROLE_KEY" || (echo "::error::Falta SUPABASE_SERVICE_ROLE_KEY" && exit 1)
+          test -n "$GROQ_API_KEY" || (echo "::error::Falta GROQ_API_KEY" && exit 1)
+      - name: Generar guion, renderizar y guardar MP4
+        run: npm run produce
+      - name: Guardar MP4 como respaldo
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: behind-del-mundo-three-${{ matrix.slot }}-${{ github.run_id }}
+          path: renders/*.mp4
+          if-no-files-found: ignore
+          retention-days: 14
