@@ -614,9 +614,24 @@ function createFromBlueprint(spec) {
         case 'box': geometry = new THREE.BoxGeometry(...size); break;
         case 'cylinder': geometry = new THREE.CylinderGeometry(Number(part.radiusTop ?? 1), Number(part.radiusBottom ?? 1), 1, Number(part.segments ?? 12)); break;
         case 'cone': geometry = new THREE.ConeGeometry(Number(part.radius ?? 1), 1, Number(part.segments ?? 12)); break;
-        case 'torus': geometry = new THREE.TorusGeometry(Number(part.radius ?? .42), Number(part.tube ?? .08), 8, Number(part.segments ?? 20)); break;
+        case 'torus': geometry = new THREE.TorusGeometry(Number(part.radius ?? .42), Number(part.tube ?? .08), Number(part.tubularSegments ?? 12), Number(part.segments ?? 32)); break;
+        case 'capsule': geometry = new THREE.CapsuleGeometry(Number(part.radius ?? .5), Number(part.length ?? 1), Number(part.capSegments ?? 6), Number(part.radialSegments ?? 20)); break;
+        case 'lathe': {
+          const profile = Array.isArray(part.points) ? part.points.map(point => new THREE.Vector2(Number(point[0]), Number(point[1]))) : [];
+          if (profile.length < 3) throw new Error('Lathe blueprint part needs at least 3 [radius,y] points: ' + part.id);
+          geometry = new THREE.LatheGeometry(profile, Number(part.segments ?? 32));
+          break;
+        }
+        case 'tube': {
+          const path = Array.isArray(part.points) ? part.points.map(point => new THREE.Vector3(Number(point[0]), Number(point[1]), Number(point[2]))) : [];
+          if (path.length < 2) throw new Error('Tube blueprint part needs at least 2 [x,y,z] points: ' + part.id);
+          const curve = new THREE.CatmullRomCurve3(path);
+          geometry = new THREE.TubeGeometry(curve, Number(part.tubularSegments ?? 32), Number(part.radius ?? .06), Number(part.radialSegments ?? 8), false);
+          break;
+        }
+        case 'torusknot': geometry = new THREE.TorusKnotGeometry(Number(part.radius ?? .55), Number(part.tube ?? .12), Number(part.tubularSegments ?? 96), Number(part.radialSegments ?? 12), Number(part.p ?? 2), Number(part.q ?? 3)); break;
         case 'sphere':
-        default: geometry = new THREE.SphereGeometry(1, Number(part.widthSegments ?? 16), Number(part.heightSegments ?? 12)); break;
+        default: geometry = new THREE.SphereGeometry(1, Number(part.widthSegments ?? 32), Number(part.heightSegments ?? 24)); break;
       }
       const holder = new THREE.Group();
       addMesh(holder, geometry, color, [0,0,0], size, {roughness:part.roughness ?? defaults.roughness, metalness:part.metalness ?? defaults.metalness, transparent:part.transparent ?? defaults.transparent, opacity:part.opacity ?? defaults.opacity});
