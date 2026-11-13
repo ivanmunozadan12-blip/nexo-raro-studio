@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { directScene, animateEntities } from './procedural-engine.js';
+import { directScene, animateEntities, createProceduralEntity } from './procedural-engine.js';
 
 const MAT = (color, roughness=0.9) => new THREE.MeshStandardMaterial({ color, roughness, flatShading:true });
 const box = (g,x,y,z,sx,sy,sz,color) => { const m=new THREE.Mesh(new THREE.BoxGeometry(sx,sy,sz),MAT(color));m.position.set(x,y,z);g.add(m);return m; };
@@ -129,7 +129,7 @@ function buildScene(renderer,d){
 
 function buildGenericScene(renderer,d){
  const scene=new THREE.Scene(),world=new THREE.Group();scene.add(world);scene.background=new THREE.Color('#9ac9df');scene.fog=new THREE.Fog('#9ac9df',24,65);scene.add(new THREE.HemisphereLight('#fff', '#65766c',2));const sun=new THREE.DirectionalLight('#fff0ce',2);sun.position.set(-8,14,9);scene.add(sun);
- const words=(d.title+' '+d.visual+' '+d.setting+' '+d.action+' '+(d.props||[]).join(' ')).toLowerCase(),water=/mar|oceano|agua|rio|barco|ballena|coral/.test(words)||d.type==='ocean',space=/espacio|planeta|luna|estrella|orbita|galax/.test(words)||d.type==='space',historic=d.type==='history'||/antigu|romano|egipto|medieval|castillo|imperio/.test(words),forest=/bosque|selva|arbol|jungla/.test(words),science=d.type==='science'||/laboratorio|experimento|motor|maquina|ciencia/.test(words);
+ const words=(d.title+' '+d.visual+' '+d.setting+' '+d.action+' '+(d.props||[]).join(' ')+' '+(d.objects||[]).join(' ')+' '+JSON.stringify(d.entities||[])).toLowerCase(),water=/mar|oceano|agua|rio|barco|ballena|coral/.test(words)||d.type==='ocean',space=/espacio|planeta|luna|estrella|orbita|galax/.test(words)||d.type==='space',historic=d.type==='history'||/antigu|romano|egipto|medieval|castillo|imperio/.test(words),forest=/bosque|selva|arbol|jungla/.test(words),science=d.type==='science'||/laboratorio|experimento|motor|maquina|ciencia/.test(words);
  const groundColor=space?'#263b6a':forest?'#557b4c':historic?'#9a8b75':science?'#647b83':'#9b9a83';
  if(water){
    // Escenario costero: tierra firme al fondo y mar en primer plano; nunca cubrir edificios con agua.
@@ -137,7 +137,7 @@ function buildGenericScene(renderer,d){
    const waterMesh=new THREE.Mesh(new THREE.PlaneGeometry(30,25,40,40),MAT('#247f9e'));waterMesh.rotation.x=-Math.PI/2;waterMesh.position.set(0,-.08,3);world.add(waterMesh);
  } else box(world,0,-.5,-3,28,1,30,groundColor);
  if(space){scene.background.set('#17294d');for(let i=0;i<100;i++)sphere(world,(Math.sin(i*9)*.5)*24,Math.cos(i*3)*10,-10,.035,.035,.035,'#fff',0);sphere(world,0,2,-7,3,3,3,'#d69b59',2);}
- if(forest){for(let i=0;i<20;i++){const x=(i%5-2)*4,z=-10+Math.floor(i/5)*4;rod(world,[x,0,z],[x,.9,z],.18,'#745036');sphere(world,x,1.6,z,1,1.2,1,'#4e965b',1);}}
+ if(forest){for(let i=0;i<12;i++){const x=(i%4-1.5)*5.4,z=-12+Math.floor(i/4)*5;createProceduralEntity(world,{id:'background-tree-'+i,type:'tree',name:'Árbol tropical',position:[x,0,z],scale:.9+(i%3)*.18},i);}}
  if(historic){for(let i=0;i<4;i++){box(world,(i-1.5)*5,1.8,-7,3.4,3.6,2.5,'#c5b391');for(let x of [-1,1])box(world,(i-1.5)*5+x,2.2,-5.7,.45,1.4,.1,'#4a5360');}}
  if(science){box(world,0,1,-6,8,2.2,3,'#a5b6b8');for(let i=0;i<4;i++){cyl(world,-3+i*2,.6,-4,.25,.25,1.1,['#4e9ab4','#b77a54','#6b9a71','#a38ac3'][i],10);}}
  const entities=directScene(world,d);
@@ -153,7 +153,7 @@ function buildGenericScene(renderer,d){
   else {camera.position.set(target.x+8-5*ease,4.8+Math.sin(p*Math.PI)*.8,target.z+15-4*ease);}
   camera.lookAt(target);renderer.render(scene,camera);};
 }
-const canvas=document.querySelector('#world-canvas');const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false});renderer.setPixelRatio(1);renderer.setSize(1080,1920,false);renderer.outputColorSpace=THREE.SRGBColorSpace;const nodes=[...document.querySelectorAll('.scene')];const renderers=nodes.map(node=>{const data=JSON.parse(node.dataset.scene);if(data.storyId!=='columbus-1492')return buildGenericScene(renderer,data);return buildScene(renderer,data);});
+const canvas=document.querySelector('#world-canvas');const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false});renderer.setPixelRatio(1);renderer.setSize(1080,1920,false);renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.08;const nodes=[...document.querySelectorAll('.scene')];const renderers=nodes.map(node=>{const data=JSON.parse(node.dataset.scene);if(data.storyId!=='columbus-1492')return buildGenericScene(renderer,data);return buildScene(renderer,data);});
 // Se conserva la flota diferenciada hasta integrar modelos específicos para nao y carabelas.
 window.__renderReady = Promise.resolve();
 const timeline=window.__timelines?.['behind-del-mundo']||window.__timelines?.['columbus-3d-preview']||Object.values(window.__timelines||{})[0];if(timeline){timeline.eventCallback('onUpdate',()=>{const t=timeline.time();renderers.forEach(render=>render(t));});}renderers.forEach(render=>render(0));
