@@ -591,7 +591,7 @@ def draw_enzo(im,t,accent):
     bob=2*math.sin(t*2.2)
     y+=bob
     def ellipse(box,fill,outline=(20,27,31,255),width=2):
-        d.ellipse(tuple(int(v*S) for v in box),fill=fill,outline=outline,width=max(1,int(width*S)))
+        d.ellipse((int((x+box[0]*s)*S),int((y+box[1]*s)*S),int((x+box[2]*s)*S),int((y+box[3]*s)*S)),fill=fill,outline=outline,width=max(1,int(width*S)))
     def poly(points,fill,outline=(20,27,31,255),width=2):
         d.polygon([(int((x+px*s)*S),int((y+py*s)*S)) for px,py in points],fill=fill)
         if outline:
