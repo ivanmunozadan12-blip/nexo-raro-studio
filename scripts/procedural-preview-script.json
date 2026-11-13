@@ -1,0 +1,163 @@
+{
+  "title": "Prueba del motor 3D procedural",
+  "scenes": [
+    {
+      "overlay": "LA SELVA COBRA VIDA",
+      "scene_type": "nature",
+      "visual": "Una selva tropical húmeda, con árboles altos, hojas grandes, raíces expuestas y luz cálida filtrándose entre la vegetación. Un jaguar adulto avanza entre la maleza mientras una exploradora observa desde una roca.",
+      "setting": "Selva tropical densa al amanecer, suelo húmedo cubierto de hojas, árboles altos al fondo y una pequeña zona abierta en primer plano.",
+      "action": "El jaguar camina lentamente hacia la cámara, mueve la cabeza y la cola; la exploradora levanta el brazo para señalarlo sin acercarse.",
+      "camera": "Travelling bajo que avanza entre la vegetación y termina en un plano medio del jaguar.",
+      "continuity": "El mismo jaguar de pelaje dorado con manchas negras permanece en primer plano; la exploradora conserva su chaqueta verde y mochila de cuero.",
+      "entities": [
+        {
+          "id": "jaguar-main",
+          "type": "animal",
+          "name": "Jaguar adulto",
+          "species": "jaguar",
+          "position": [
+            0,
+            0,
+            -2
+          ],
+          "scale": 1.25,
+          "action": "caminar"
+        },
+        {
+          "id": "explorer-main",
+          "type": "human",
+          "name": "Exploradora",
+          "role": "exploradora",
+          "appearance": "Mujer adulta con pelo oscuro recogido, chaqueta verde de exploración y mochila de cuero",
+          "position": [
+            4,
+            0,
+            -4
+          ],
+          "scale": 0.95,
+          "action": "señalar"
+        },
+        {
+          "id": "ceiba-left",
+          "type": "tree",
+          "name": "Ceiba tropical",
+          "position": [
+            -5,
+            0,
+            -7
+          ],
+          "scale": 1.7
+        },
+        {
+          "id": "palm-right",
+          "type": "tree",
+          "name": "Palmera",
+          "position": [
+            6,
+            0,
+            -9
+          ],
+          "scale": 1.45
+        }
+      ]
+    },
+    {
+      "overlay": "UNA FORTALEZA MEDIEVAL",
+      "scene_type": "history",
+      "visual": "Un castillo de piedra domina una colina. Sus torres, almenas, tejados y puente de entrada se recortan contra un cielo de tarde. Una reina observa desde la escalinata mientras un caballo espera junto a la puerta.",
+      "setting": "Colina rocosa frente a una fortaleza medieval de piedra, patio exterior y puerta de madera reforzada.",
+      "action": "La reina baja un escalón y gira hacia el caballo; el animal mueve la cabeza y golpea el suelo con una pata.",
+      "camera": "Plano general ascendente desde el patio hasta las torres, terminando cerca de la reina.",
+      "continuity": "La reina viste un manto granate y corona dorada; el caballo oscuro permanece junto a la puerta del castillo.",
+      "entities": [
+        {
+          "id": "castle-main",
+          "type": "building",
+          "name": "Castillo medieval fortificado",
+          "style": "castillo",
+          "position": [
+            0,
+            0,
+            -8
+          ],
+          "scale": 1.65
+        },
+        {
+          "id": "queen-main",
+          "type": "human",
+          "name": "Reina medieval",
+          "role": "reina",
+          "appearance": "Mujer adulta con vestido granate, manto de terciopelo y corona dorada",
+          "position": [
+            -2,
+            0,
+            -1
+          ],
+          "scale": 1.05,
+          "action": "caminar"
+        },
+        {
+          "id": "horse-main",
+          "type": "animal",
+          "name": "Caballo negro",
+          "species": "caballo",
+          "position": [
+            3,
+            0,
+            -2
+          ],
+          "scale": 1.05,
+          "action": "idle"
+        }
+      ]
+    },
+    {
+      "overlay": "EL VIAJE HACIA EL ESPACIO",
+      "scene_type": "science",
+      "visual": "Un cohete de investigación espera en una plataforma de lanzamiento. Un astronauta con traje blanco revisa el panel de control mientras la Tierra aparece al fondo, suspendida en el espacio.",
+      "setting": "Complejo de lanzamiento futurista que se transforma visualmente en una vista orbital sobre la Tierra.",
+      "action": "El astronauta activa el panel, las luces de la plataforma se encienden y el cohete comienza a elevarse lentamente.",
+      "camera": "La cámara comienza junto al astronauta y asciende siguiendo el cohete hasta mostrar la Tierra.",
+      "continuity": "El astronauta mantiene el mismo traje blanco con visor dorado; el cohete conserva su cuerpo blanco y franjas rojas.",
+      "entities": [
+        {
+          "id": "astronaut-main",
+          "type": "human",
+          "name": "Astronauta",
+          "role": "astronauta",
+          "appearance": "Astronauta con traje espacial blanco, visor dorado y guantes gruesos",
+          "position": [
+            -3,
+            0,
+            -1
+          ],
+          "scale": 1.05,
+          "action": "señalar"
+        },
+        {
+          "id": "rocket-main",
+          "type": "vehicle",
+          "name": "Cohete de lanzamiento",
+          "position": [
+            2,
+            0,
+            -5
+          ],
+          "scale": 1.3,
+          "action": "despegar"
+        },
+        {
+          "id": "earth-main",
+          "type": "celestial",
+          "name": "Planeta Tierra",
+          "position": [
+            5,
+            4,
+            -13
+          ],
+          "scale": 1.8
+        }
+      ]
+    }
+  ]
+}
