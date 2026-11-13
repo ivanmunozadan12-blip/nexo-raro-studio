@@ -121,10 +121,10 @@ test('blueprint animation is deterministic, positive-scale safe, and supports ca
   animateEntities([model], 2);
   const middle = mantle.material.color.clone();
   assert.notDeepEqual(middle.toArray(), initial.toArray());
+  const firstAtTwo = middle.clone();
   const papilla = model.userData.blueprintNodes.get('papilla-0');
   animateEntities([model], Math.PI * 1.5);
   assert.ok(papilla.scale.y >= .045, 'animated geometry must never collapse through a negative scale');
-  const firstAtTwo = mantle.material.color.clone();
   animateEntities([model], 2);
   assert.deepEqual(mantle.material.color.toArray(), firstAtTwo.toArray(), 'the same timeline time must render identically');
 });
