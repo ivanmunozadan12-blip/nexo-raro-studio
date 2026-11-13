@@ -102,7 +102,19 @@
             -2.5
           ],
           "scale": 1,
-          "action": "permanece apoyado como atrezo"
+          "action": "permanece apoyado como atrezo",
+          "type": "prop",
+          "appearance": "Andamio de madera: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#8d633d",
+          "support": "ground",
+          "motion": "permanece apoyado como atrezo"
         },
         {
           "id": "roman-1-2",
@@ -114,7 +126,19 @@
             -3.5
           ],
           "scale": 1,
-          "action": "permanece apoyado como atrezo"
+          "action": "permanece apoyado como atrezo",
+          "type": "artifact",
+          "appearance": "Herramientas de albañil: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#8a5b32",
+          "support": "ground",
+          "motion": "permanece apoyado como atrezo"
         },
         {
           "id": "roman-1-3",
@@ -126,7 +150,19 @@
             -7
           ],
           "scale": 0.8,
-          "action": "permanece apoyado como atrezo"
+          "action": "permanece apoyado como atrezo",
+          "type": "artifact",
+          "appearance": "Ánfora romana: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#a85f3d",
+          "support": "ground",
+          "motion": "permanece apoyado como atrezo"
         },
         {
           "id": "roman-1-4",
@@ -138,7 +174,19 @@
             -8
           ],
           "scale": 1,
-          "action": "permanece apoyado como atrezo"
+          "action": "permanece apoyado como atrezo",
+          "type": "prop",
+          "appearance": "Cubo de agua: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#795638",
+          "support": "ground",
+          "motion": "permanece apoyado como atrezo"
         }
       ],
       "beats": [
@@ -238,7 +286,19 @@
             -2.5
           ],
           "scale": 1,
-          "action": "permanece apoyado como atrezo"
+          "action": "permanece apoyado como atrezo",
+          "type": "artifact",
+          "appearance": "Fragmentos de cal viva: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#f0e9d2",
+          "support": "ground",
+          "motion": "permanece apoyado como atrezo"
         },
         {
           "id": "roman-2-2",
@@ -250,7 +310,19 @@
             -3.5
           ],
           "scale": 1,
-          "action": "el polvo asciende"
+          "action": "el polvo asciende",
+          "type": "prop",
+          "appearance": "Ceniza volcánica: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#77736c",
+          "support": "ground",
+          "motion": "el polvo asciende"
         },
         {
           "id": "roman-2-3",
@@ -262,7 +334,19 @@
             -7
           ],
           "scale": 0.8,
-          "action": "permanece apoyado como atrezo"
+          "action": "permanece apoyado como atrezo",
+          "type": "prop",
+          "appearance": "Cubo de agua: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#795638",
+          "support": "ground",
+          "motion": "permanece apoyado como atrezo"
         },
         {
           "id": "roman-2-4",
@@ -274,7 +358,19 @@
             -8
           ],
           "scale": 1,
-          "action": "la llama oscila"
+          "action": "la llama oscila",
+          "type": "building",
+          "appearance": "Horno de obra: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#8b553d",
+          "support": "ground",
+          "motion": "la llama oscila"
         }
       ],
       "beats": [
@@ -374,7 +470,19 @@
             -2.5
           ],
           "scale": 1,
-          "action": "permanece apoyado como atrezo"
+          "action": "permanece apoyado como atrezo",
+          "type": "artifact",
+          "appearance": "Herramientas de albañil: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#8a5b32",
+          "support": "ground",
+          "motion": "permanece apoyado como atrezo"
         },
         {
           "id": "roman-3-2",
@@ -386,7 +494,19 @@
             -3.5
           ],
           "scale": 1,
-          "action": "permanece apoyado como atrezo"
+          "action": "permanece apoyado como atrezo",
+          "type": "artifact",
+          "appearance": "Ánfora romana: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#a85f3d",
+          "support": "ground",
+          "motion": "permanece apoyado como atrezo"
         },
         {
           "id": "roman-3-3",
@@ -398,7 +518,19 @@
             -7
           ],
           "scale": 0.8,
-          "action": "la llama oscila"
+          "action": "la llama oscila",
+          "type": "building",
+          "appearance": "Horno de obra: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#8b553d",
+          "support": "ground",
+          "motion": "la llama oscila"
         },
         {
           "id": "roman-3-4",
@@ -410,7 +542,19 @@
             -8
           ],
           "scale": 1,
-          "action": "permanece apoyado como atrezo"
+          "action": "permanece apoyado como atrezo",
+          "type": "prop",
+          "appearance": "Andamio de madera: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#8d633d",
+          "support": "ground",
+          "motion": "permanece apoyado como atrezo"
         }
       ],
       "beats": [
@@ -510,7 +654,19 @@
             -2.5
           ],
           "scale": 1,
-          "action": "el polvo asciende"
+          "action": "el polvo asciende",
+          "type": "prop",
+          "appearance": "Ceniza volcánica: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#77736c",
+          "support": "ground",
+          "motion": "el polvo asciende"
         },
         {
           "id": "roman-4-2",
@@ -522,7 +678,19 @@
             -3.5
           ],
           "scale": 1,
-          "action": "permanece apoyado como atrezo"
+          "action": "permanece apoyado como atrezo",
+          "type": "prop",
+          "appearance": "Cubo de agua: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#795638",
+          "support": "ground",
+          "motion": "permanece apoyado como atrezo"
         },
         {
           "id": "roman-4-3",
@@ -534,7 +702,19 @@
             -7
           ],
           "scale": 0.8,
-          "action": "permanece apoyado como atrezo"
+          "action": "permanece apoyado como atrezo",
+          "type": "prop",
+          "appearance": "Andamio de madera: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#8d633d",
+          "support": "ground",
+          "motion": "permanece apoyado como atrezo"
         },
         {
           "id": "roman-4-4",
@@ -546,7 +726,19 @@
             -8
           ],
           "scale": 1,
-          "action": "permanece apoyado como atrezo"
+          "action": "permanece apoyado como atrezo",
+          "type": "artifact",
+          "appearance": "Fragmentos de cal viva: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#f0e9d2",
+          "support": "ground",
+          "motion": "permanece apoyado como atrezo"
         }
       ],
       "beats": [
@@ -646,7 +838,19 @@
             -2.5
           ],
           "scale": 1,
-          "action": "permanece apoyado como atrezo"
+          "action": "permanece apoyado como atrezo",
+          "type": "artifact",
+          "appearance": "Ánfora romana: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#a85f3d",
+          "support": "ground",
+          "motion": "permanece apoyado como atrezo"
         },
         {
           "id": "roman-5-2",
@@ -658,7 +862,19 @@
             -3.5
           ],
           "scale": 1,
-          "action": "la llama oscila"
+          "action": "la llama oscila",
+          "type": "building",
+          "appearance": "Horno de obra: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#8b553d",
+          "support": "ground",
+          "motion": "la llama oscila"
         },
         {
           "id": "roman-5-3",
@@ -670,7 +886,19 @@
             -7
           ],
           "scale": 0.8,
-          "action": "permanece apoyado como atrezo"
+          "action": "permanece apoyado como atrezo",
+          "type": "artifact",
+          "appearance": "Fragmentos de cal viva: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#f0e9d2",
+          "support": "ground",
+          "motion": "permanece apoyado como atrezo"
         },
         {
           "id": "roman-5-4",
@@ -682,7 +910,19 @@
             -8
           ],
           "scale": 1,
-          "action": "permanece apoyado como atrezo"
+          "action": "permanece apoyado como atrezo",
+          "type": "artifact",
+          "appearance": "Herramientas de albañil: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#8a5b32",
+          "support": "ground",
+          "motion": "permanece apoyado como atrezo"
         }
       ],
       "beats": [
@@ -782,7 +1022,19 @@
             -2.5
           ],
           "scale": 1,
-          "action": "permanece apoyado como atrezo"
+          "action": "permanece apoyado como atrezo",
+          "type": "prop",
+          "appearance": "Cubo de agua: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#795638",
+          "support": "ground",
+          "motion": "permanece apoyado como atrezo"
         },
         {
           "id": "roman-6-2",
@@ -794,7 +1046,19 @@
             -3.5
           ],
           "scale": 1,
-          "action": "permanece apoyado como atrezo"
+          "action": "permanece apoyado como atrezo",
+          "type": "prop",
+          "appearance": "Andamio de madera: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#8d633d",
+          "support": "ground",
+          "motion": "permanece apoyado como atrezo"
         },
         {
           "id": "roman-6-3",
@@ -806,7 +1070,19 @@
             -7
           ],
           "scale": 0.8,
-          "action": "permanece apoyado como atrezo"
+          "action": "permanece apoyado como atrezo",
+          "type": "artifact",
+          "appearance": "Herramientas de albañil: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#8a5b32",
+          "support": "ground",
+          "motion": "permanece apoyado como atrezo"
         },
         {
           "id": "roman-6-4",
@@ -818,7 +1094,19 @@
             -8
           ],
           "scale": 1,
-          "action": "el polvo asciende"
+          "action": "el polvo asciende",
+          "type": "prop",
+          "appearance": "Ceniza volcánica: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#77736c",
+          "support": "ground",
+          "motion": "el polvo asciende"
         }
       ],
       "beats": [
@@ -918,7 +1206,19 @@
             -2.5
           ],
           "scale": 1,
-          "action": "la llama oscila"
+          "action": "la llama oscila",
+          "type": "building",
+          "appearance": "Horno de obra: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#8b553d",
+          "support": "ground",
+          "motion": "la llama oscila"
         },
         {
           "id": "roman-7-2",
@@ -930,7 +1230,19 @@
             -3.5
           ],
           "scale": 1,
-          "action": "permanece apoyado como atrezo"
+          "action": "permanece apoyado como atrezo",
+          "type": "artifact",
+          "appearance": "Fragmentos de cal viva: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#f0e9d2",
+          "support": "ground",
+          "motion": "permanece apoyado como atrezo"
         },
         {
           "id": "roman-7-3",
@@ -942,7 +1254,19 @@
             -7
           ],
           "scale": 0.8,
-          "action": "el polvo asciende"
+          "action": "el polvo asciende",
+          "type": "prop",
+          "appearance": "Ceniza volcánica: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#77736c",
+          "support": "ground",
+          "motion": "el polvo asciende"
         },
         {
           "id": "roman-7-4",
@@ -954,7 +1278,19 @@
             -8
           ],
           "scale": 1,
-          "action": "permanece apoyado como atrezo"
+          "action": "permanece apoyado como atrezo",
+          "type": "artifact",
+          "appearance": "Ánfora romana: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#a85f3d",
+          "support": "ground",
+          "motion": "permanece apoyado como atrezo"
         }
       ],
       "beats": [
@@ -1054,7 +1390,19 @@
             -2.5
           ],
           "scale": 1,
-          "action": "permanece apoyado como atrezo"
+          "action": "permanece apoyado como atrezo",
+          "type": "prop",
+          "appearance": "Andamio de madera: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#8d633d",
+          "support": "ground",
+          "motion": "permanece apoyado como atrezo"
         },
         {
           "id": "roman-8-2",
@@ -1066,7 +1414,19 @@
             -3.5
           ],
           "scale": 1,
-          "action": "permanece apoyado como atrezo"
+          "action": "permanece apoyado como atrezo",
+          "type": "artifact",
+          "appearance": "Herramientas de albañil: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#8a5b32",
+          "support": "ground",
+          "motion": "permanece apoyado como atrezo"
         },
         {
           "id": "roman-8-3",
@@ -1078,7 +1438,19 @@
             -7
           ],
           "scale": 0.8,
-          "action": "permanece apoyado como atrezo"
+          "action": "permanece apoyado como atrezo",
+          "type": "artifact",
+          "appearance": "Ánfora romana: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#a85f3d",
+          "support": "ground",
+          "motion": "permanece apoyado como atrezo"
         },
         {
           "id": "roman-8-4",
@@ -1090,7 +1462,19 @@
             -8
           ],
           "scale": 1,
-          "action": "permanece apoyado como atrezo"
+          "action": "permanece apoyado como atrezo",
+          "type": "prop",
+          "appearance": "Cubo de agua: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#795638",
+          "support": "ground",
+          "motion": "permanece apoyado como atrezo"
         }
       ],
       "beats": [
@@ -1190,7 +1574,19 @@
             -2.5
           ],
           "scale": 1,
-          "action": "permanece apoyado como atrezo"
+          "action": "permanece apoyado como atrezo",
+          "type": "artifact",
+          "appearance": "Fragmentos de cal viva: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#f0e9d2",
+          "support": "ground",
+          "motion": "permanece apoyado como atrezo"
         },
         {
           "id": "roman-9-2",
@@ -1202,7 +1598,19 @@
             -3.5
           ],
           "scale": 1,
-          "action": "el polvo asciende"
+          "action": "el polvo asciende",
+          "type": "prop",
+          "appearance": "Ceniza volcánica: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#77736c",
+          "support": "ground",
+          "motion": "el polvo asciende"
         },
         {
           "id": "roman-9-3",
@@ -1214,7 +1622,19 @@
             -7
           ],
           "scale": 0.8,
-          "action": "permanece apoyado como atrezo"
+          "action": "permanece apoyado como atrezo",
+          "type": "prop",
+          "appearance": "Cubo de agua: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#795638",
+          "support": "ground",
+          "motion": "permanece apoyado como atrezo"
         },
         {
           "id": "roman-9-4",
@@ -1226,7 +1646,19 @@
             -8
           ],
           "scale": 1,
-          "action": "la llama oscila"
+          "action": "la llama oscila",
+          "type": "building",
+          "appearance": "Horno de obra: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#8b553d",
+          "support": "ground",
+          "motion": "la llama oscila"
         }
       ],
       "beats": [
@@ -1326,7 +1758,19 @@
             -2.5
           ],
           "scale": 1,
-          "action": "permanece apoyado como atrezo"
+          "action": "permanece apoyado como atrezo",
+          "type": "artifact",
+          "appearance": "Herramientas de albañil: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#8a5b32",
+          "support": "ground",
+          "motion": "permanece apoyado como atrezo"
         },
         {
           "id": "roman-10-2",
@@ -1338,7 +1782,19 @@
             -3.5
           ],
           "scale": 1,
-          "action": "permanece apoyado como atrezo"
+          "action": "permanece apoyado como atrezo",
+          "type": "artifact",
+          "appearance": "Ánfora romana: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#a85f3d",
+          "support": "ground",
+          "motion": "permanece apoyado como atrezo"
         },
         {
           "id": "roman-10-3",
@@ -1350,7 +1806,19 @@
             -7
           ],
           "scale": 0.8,
-          "action": "la llama oscila"
+          "action": "la llama oscila",
+          "type": "building",
+          "appearance": "Horno de obra: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#8b553d",
+          "support": "ground",
+          "motion": "la llama oscila"
         },
         {
           "id": "roman-10-4",
@@ -1362,7 +1830,19 @@
             -8
           ],
           "scale": 1,
-          "action": "permanece apoyado como atrezo"
+          "action": "permanece apoyado como atrezo",
+          "type": "prop",
+          "appearance": "Andamio de madera: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#8d633d",
+          "support": "ground",
+          "motion": "permanece apoyado como atrezo"
         }
       ],
       "beats": [
@@ -1462,7 +1942,19 @@
             -2.5
           ],
           "scale": 1,
-          "action": "el polvo asciende"
+          "action": "el polvo asciende",
+          "type": "prop",
+          "appearance": "Ceniza volcánica: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#77736c",
+          "support": "ground",
+          "motion": "el polvo asciende"
         },
         {
           "id": "roman-11-2",
@@ -1474,7 +1966,19 @@
             -3.5
           ],
           "scale": 1,
-          "action": "permanece apoyado como atrezo"
+          "action": "permanece apoyado como atrezo",
+          "type": "prop",
+          "appearance": "Cubo de agua: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#795638",
+          "support": "ground",
+          "motion": "permanece apoyado como atrezo"
         },
         {
           "id": "roman-11-3",
@@ -1486,7 +1990,19 @@
             -7
           ],
           "scale": 0.8,
-          "action": "permanece apoyado como atrezo"
+          "action": "permanece apoyado como atrezo",
+          "type": "prop",
+          "appearance": "Andamio de madera: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#8d633d",
+          "support": "ground",
+          "motion": "permanece apoyado como atrezo"
         },
         {
           "id": "roman-11-4",
@@ -1498,7 +2014,19 @@
             -8
           ],
           "scale": 1,
-          "action": "permanece apoyado como atrezo"
+          "action": "permanece apoyado como atrezo",
+          "type": "artifact",
+          "appearance": "Fragmentos de cal viva: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#f0e9d2",
+          "support": "ground",
+          "motion": "permanece apoyado como atrezo"
         }
       ],
       "beats": [
@@ -1598,7 +2126,19 @@
             -2.5
           ],
           "scale": 1,
-          "action": "permanece apoyado como atrezo"
+          "action": "permanece apoyado como atrezo",
+          "type": "artifact",
+          "appearance": "Ánfora romana: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#a85f3d",
+          "support": "ground",
+          "motion": "permanece apoyado como atrezo"
         },
         {
           "id": "roman-12-2",
@@ -1610,7 +2150,19 @@
             -3.5
           ],
           "scale": 1,
-          "action": "la llama oscila"
+          "action": "la llama oscila",
+          "type": "building",
+          "appearance": "Horno de obra: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#8b553d",
+          "support": "ground",
+          "motion": "la llama oscila"
         },
         {
           "id": "roman-12-3",
@@ -1622,7 +2174,19 @@
             -7
           ],
           "scale": 0.8,
-          "action": "permanece apoyado como atrezo"
+          "action": "permanece apoyado como atrezo",
+          "type": "artifact",
+          "appearance": "Fragmentos de cal viva: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#f0e9d2",
+          "support": "ground",
+          "motion": "permanece apoyado como atrezo"
         },
         {
           "id": "roman-12-4",
@@ -1634,7 +2198,19 @@
             -8
           ],
           "scale": 1,
-          "action": "permanece apoyado como atrezo"
+          "action": "permanece apoyado como atrezo",
+          "type": "artifact",
+          "appearance": "Herramientas de albañil: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#8a5b32",
+          "support": "ground",
+          "motion": "permanece apoyado como atrezo"
         }
       ],
       "beats": [
@@ -1734,7 +2310,19 @@
             -2.5
           ],
           "scale": 1,
-          "action": "permanece apoyado como atrezo"
+          "action": "permanece apoyado como atrezo",
+          "type": "prop",
+          "appearance": "Cubo de agua: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#795638",
+          "support": "ground",
+          "motion": "permanece apoyado como atrezo"
         },
         {
           "id": "roman-13-2",
@@ -1746,7 +2334,19 @@
             -3.5
           ],
           "scale": 1,
-          "action": "permanece apoyado como atrezo"
+          "action": "permanece apoyado como atrezo",
+          "type": "prop",
+          "appearance": "Andamio de madera: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#8d633d",
+          "support": "ground",
+          "motion": "permanece apoyado como atrezo"
         },
         {
           "id": "roman-13-3",
@@ -1758,7 +2358,19 @@
             -7
           ],
           "scale": 0.8,
-          "action": "permanece apoyado como atrezo"
+          "action": "permanece apoyado como atrezo",
+          "type": "artifact",
+          "appearance": "Herramientas de albañil: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#8a5b32",
+          "support": "ground",
+          "motion": "permanece apoyado como atrezo"
         },
         {
           "id": "roman-13-4",
@@ -1770,7 +2382,19 @@
             -8
           ],
           "scale": 1,
-          "action": "el polvo asciende"
+          "action": "el polvo asciende",
+          "type": "prop",
+          "appearance": "Ceniza volcánica: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#77736c",
+          "support": "ground",
+          "motion": "el polvo asciende"
         }
       ],
       "beats": [
@@ -1870,7 +2494,19 @@
             -2.5
           ],
           "scale": 1,
-          "action": "la llama oscila"
+          "action": "la llama oscila",
+          "type": "building",
+          "appearance": "Horno de obra: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#8b553d",
+          "support": "ground",
+          "motion": "la llama oscila"
         },
         {
           "id": "roman-14-2",
@@ -1882,7 +2518,19 @@
             -3.5
           ],
           "scale": 1,
-          "action": "permanece apoyado como atrezo"
+          "action": "permanece apoyado como atrezo",
+          "type": "artifact",
+          "appearance": "Fragmentos de cal viva: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#f0e9d2",
+          "support": "ground",
+          "motion": "permanece apoyado como atrezo"
         },
         {
           "id": "roman-14-3",
@@ -1894,7 +2542,19 @@
             -7
           ],
           "scale": 0.8,
-          "action": "el polvo asciende"
+          "action": "el polvo asciende",
+          "type": "prop",
+          "appearance": "Ceniza volcánica: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#77736c",
+          "support": "ground",
+          "motion": "el polvo asciende"
         },
         {
           "id": "roman-14-4",
@@ -1906,7 +2566,19 @@
             -8
           ],
           "scale": 1,
-          "action": "permanece apoyado como atrezo"
+          "action": "permanece apoyado como atrezo",
+          "type": "artifact",
+          "appearance": "Ánfora romana: objeto 3D procedural de escala coherente, construido con varias piezas geométricas identificables, superficies y materiales diferenciados, color propio, volumen y silueta reconocibles. Debe permanecer claramente separado de los demás elementos, con iluminación compatible con la escena y sin deformaciones arbitrarias.",
+          "dimensions": [
+            2,
+            1.2,
+            1.5
+          ],
+          "shape": "geometría compuesta por primitivas 3D",
+          "material": "material físico mate con rugosidad natural",
+          "color": "#a85f3d",
+          "support": "ground",
+          "motion": "permanece apoyado como atrezo"
         }
       ],
       "beats": [
