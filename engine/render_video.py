@@ -86,6 +86,48 @@ def draw_microwave(d, cx, cy, scale, t, accent):
                 pts.append((x+25*scale+xx*scale,cy+(-35+row*25)*scale+7*scale*math.sin(xx/13-t*7)))
             d.line([(int(a*S),int(b*S)) for a,b in pts],fill=rgba(accent,230),width=3*S)
 
+def draw_machine(d,cx,cy,t,accent,labels):
+    # Mechanical explainer: linked gears, shafts and an animated drive belt.
+    d.rounded_rectangle((105*S,390*S,471*S,700*S),radius=24*S,fill=(25,62,91),outline=rgba(accent),width=4*S)
+    for i,(x,y,r) in enumerate(((205,500,74),(350,590,54),(365,445,35))):
+        phase=t*2.4*(-1 if i%2 else 1)
+        d.ellipse(((x-r)*S,(y-r)*S,(x+r)*S,(y+r)*S),fill=(10,29,48),outline=(205,224,237),width=4*S)
+        for k in range(12):
+            a=phase+k*math.pi/6
+            x1=x+math.cos(a)*(r-7); y1=y+math.sin(a)*(r-7)
+            x2=x+math.cos(a)*(r+8); y2=y+math.sin(a)*(r+8)
+            d.line((x1*S,y1*S,x2*S,y2*S),fill=rgba(accent),width=5*S)
+        d.ellipse(((x-12)*S,(y-12)*S,(x+12)*S,(y+12)*S),fill=rgba(accent))
+    labels=labels or ["Motor","Engranaje","Eje"]
+    for i,label in enumerate(labels[:3]):
+        x=125+i*150
+        text_fit(d,(x,745),label,13,(238,246,255),max_width=130,anchor="mm",bold=False)
+
+def draw_cutaway(d,cx,cy,t,accent,labels):
+    # Layered cutaway with visible internal components and animated flow.
+    panel(d,(55,330,521,790),fill=(8,27,48,230),outline=rgba(accent,150),radius=26)
+    d.rounded_rectangle((112*S,420*S,464*S,685*S),radius=26*S,fill=(29,82,113),outline=(210,231,244),width=4*S)
+    d.rectangle((130*S,445*S,446*S,660*S),fill=(7,20,39),outline=rgba(accent),width=3*S)
+    for i in range(4):
+        x=160+i*76
+        d.rounded_rectangle((x*S,480*S,(x+42)*S,625*S),radius=9*S,fill=(30+i*12,74+i*15,104+i*12),outline=(180,220,238),width=2*S)
+        yy=520+int(24*math.sin(t*4+i))
+        d.ellipse(((x+10)*S,(yy-10)*S,(x+32)*S,(yy+10)*S),fill=rgba(accent,220))
+    for i,label in enumerate((labels or ["Entrada","Mecanismo","Salida"])[:3]):
+        text_fit(d,(135+i*150,730),label,12,(240,248,255),max_width=135,anchor="mm",bold=False)
+
+def draw_illustration(d,cx,cy,t,accent,labels):
+    # Conceptual vector illustration with a moving central object and orbiting details.
+    phase=t*math.pi*2
+    d.ellipse(((cx-145)*S,(cy-145)*S,(cx+145)*S,(cy+145)*S),outline=rgba(accent,150),width=3*S)
+    d.ellipse(((cx-82)*S,(cy-82)*S,(cx+82)*S,(cy+82)*S),fill=(13,48,78),outline=rgba(accent),width=4*S)
+    text_fit(d,(cx,cy),"¿CÓMO?",26,(255,255,255),max_width=145,anchor="mm")
+    for i,label in enumerate((labels or ["Causa","Proceso","Efecto"])[:3]):
+        a=phase+i*math.pi*2/3
+        x=cx+math.cos(a)*145; y=cy+math.sin(a)*145
+        d.ellipse(((x-35)*S,(y-35)*S,(x+35)*S,(y+35)*S),fill=(19,58,87),outline=rgba(accent),width=3*S)
+        text_fit(d,(x,y),label[:12],10,(245,250,255),max_width=62,anchor="mm",bold=False)
+
 def draw_molecule(d,cx,cy,scale,phase,accent):
     for i in range(9):
         x=cx+math.cos(i*2.4+phase*.4)*105*scale
