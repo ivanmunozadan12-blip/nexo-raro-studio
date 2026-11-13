@@ -2,18 +2,12 @@
 import {useCallback,useEffect,useState} from 'react';
 import {supabase} from '@/lib/supabase-browser';
 
-type Slot={id:string,time:string,label:string,description:string};
-const slots:Slot[]=[
- {id:'how-it-works',time:'07:30',label:'Cómo funciona',description:'Objetos, máquinas y fenómenos cotidianos'},
- {id:'inside',time:'14:30',label:'Por dentro',description:'Lugares, edificios e instalaciones desde dentro'},
- {id:'curiosities',time:'20:30',label:'Curiosidades',description:'Sabías que, preguntas y hechos sorprendentes'}
-];
 const fmt=(v:string)=>new Date(v).toLocaleString('es-ES',{dateStyle:'medium',timeStyle:'short'});
 export default function Studio(){
  const db=supabase();
  const [session,setSession]=useState<any>(null),[email,setEmail]=useState(''),[password,setPassword]=useState(''),[signup,setSignup]=useState(false);
  const [scripts,setScripts]=useState<any[]>([]),[jobs,setJobs]=useState<any[]>([]),[videos,setVideos]=useState<any[]>([]),[memory,setMemory]=useState<any[]>([]);
- const [signed,setSigned]=useState<Record<string,string>>({}),[busy,setBusy]=useState(false),[dispatching,setDispatching]=useState<string|null>(null),[message,setMessage]=useState('');
+ const [signed,setSigned]=useState<Record<string,string>>({}),[busy,setBusy]=useState(false),[dispatching,setDispatching]=useState(false),[message,setMessage]=useState(''),[prompt1,setPrompt1]=useState(''),[prompt2,setPrompt2]=useState(''),[prompt3,setPrompt3]=useState('');
  const load=useCallback(async()=>{
   if(!session)return;
   setBusy(true);
@@ -33,16 +27,16 @@ export default function Studio(){
  useEffect(()=>{if(!session||!jobs.some(j=>['queued','voicing','rendering'].includes(j.status)))return;const timer=window.setInterval(load,20000);return()=>window.clearInterval(timer)},[session,jobs,load]);
  useEffect(()=>{let active=true;(async()=>{const next:Record<string,string>={};for(const v of videos){const {data}=await db.storage.from('nexo-videos').createSignedUrl(v.storage_path,3600);if(data?.signedUrl)next[v.id]=data.signedUrl;}if(active)setSigned(next)})();return()=>{active=false}},[videos]);
  async function auth(e:any){e.preventDefault();const r=signup?await db.auth.signUp({email,password}):await db.auth.signInWithPassword({email,password});setMessage(r.error?.message||(signup?'Revisa tu correo para confirmar la cuenta.':'Sesión iniciada.'))}
- async function generate(slot:string){
-  setDispatching(slot);setMessage('');
+ async function generateAll(){
+  setDispatching(true);setMessage('');
   try{
    const {data:{session:active}}=await db.auth.getSession();
-   const r=await fetch('/api/production/dispatch',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+active?.access_token},body:JSON.stringify({slot})});
-   const result=await r.json();if(!r.ok)throw new Error(result.error||'No se pudo iniciar la generación.');
-   setMessage('Generación solicitada. El tema, el guion, la voz y el vídeo se crearán en el servidor. No se publicará automáticamente.');
+   const r=await fetch('/api/production/dispatch',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+active?.access_token},body:JSON.stringify({prompt1,prompt2,prompt3})});
+   const result=await r.json();if(!r.ok)throw new Error(result.error||'No se pudieron iniciar los vídeos.');
+   setMessage('Los tres vídeos se han enviado al motor. Puedes seguir esta página para consultar su progreso.');
    await load();
-  }catch(e:any){setMessage(e?.message||'Error al iniciar el vídeo.')}
-  finally{setDispatching(null)}
+  }catch(e:any){setMessage(e?.message||'Error al iniciar los vídeos.')}
+  finally{setDispatching(false)}
  }
  async function addExclusion(){
   const topic=window.prompt('¿Qué tema quieres excluir de futuras ideas?');if(!topic?.trim())return;
@@ -59,7 +53,15 @@ export default function Studio(){
   <section className="studio-heading"><div><div className="eyebrow">NUEVA LÍNEA EDITORIAL / EUROPE-MADRID</div><h1>Centro de <em>producción.</em></h1><p>Tres historias distintas al día. Investigación, animación, voz y sonido.</p></div><div className="system-pill"><i/> MOTOR PYTHON / PILLOW / FFMPEG</div></section>
   {message&&<div className="studio-message">{message}<button onClick={()=>setMessage('')}>×</button></div>}
   <div className="metric-grid"><Metric label="Vídeos guardados" value={ready} note="Biblioteca privada"/><Metric label="En producción" value={active} note="Trabajos activos"/><Metric label="Fallidos" value={failed} note="Requieren revisión"/><Metric label="Temas recordados" value={memory.length} note="Memoria editorial"/></div>
-  <section className="studio-card"><div className="card-kicker">CALENDARIO / TRES VÍDEOS DIARIOS</div><h2>Las tres historias del día</h2><div className="schedule-row"><b>07:30</b><div><span>Cómo funciona</span><small>Objetos, mecanismos, tecnología y fenómenos cotidianos</small></div><span className="status">DIARIO</span></div><div className="schedule-row"><b>14:30</b><div><span>Por dentro</span><small>Edificios, lugares, instalaciones y transportes desde dentro</small></div><span className="status">DIARIO</span></div><div className="schedule-row"><b>20:30</b><div><span>Curiosidades</span><small>Sabías que, preguntas sorprendentes y porqués</small></div><span className="status">DIARIO</span></div><p className="muted-copy">Cada franja genera un tema diferente y evita repetir los ya publicados. Puedes iniciar una prueba manualmente; la programación automática se activará cuando validemos los primeros renders.</p><div className="button-row">{slots.map(s=><button key={s.id} className="primary-button" disabled={!!dispatching||busy} onClick={()=>generate(s.id)}>{dispatching===s.id?'Iniciando…':'Probar: '+s.label}</button>)}</div></section>
+  <section className="studio-card prompt-studio">
+   <div className="card-kicker">CREACIÓN / TUS TRES VÍDEOS</div><h2>Prepara los vídeos de hoy</h2>
+   <p className="muted-copy">Pega los tres prompts diarios que te preparo. El motor creará una animación distinta para cada historia, con narración, música, efectos y subtítulos.</p>
+   <label>Vídeo 1 · Cómo funcionan las cosas<textarea rows={3} value={prompt1} onChange={e=>setPrompt1(e.target.value)} placeholder="Ej.: Explica cómo funciona un microondas por dentro, mostrando el magnetrón, las ondas y cómo calientan los alimentos…"/></label>
+   <label>Vídeo 2 · El mundo por dentro<textarea rows={3} value={prompt2} onChange={e=>setPrompt2(e.target.value)} placeholder="Ej.: Recorre el interior de un aeropuerto y explica qué ocurre desde que facturas hasta que el avión despega…"/></label>
+   <label>Vídeo 3 · Curiosidades y porqués<textarea rows={3} value={prompt3} onChange={e=>setPrompt3(e.target.value)} placeholder="Ej.: ¿Por qué los aviones dejan estelas blancas en el cielo? Explícalo visualmente…"/></label>
+   <button className="primary-button" disabled={dispatching||busy||[prompt1,prompt2,prompt3].some(x=>x.trim().length<12)} onClick={generateAll}>{dispatching?'Enviando los tres vídeos…':'GENERAR LOS 3 VÍDEOS'}</button>
+   <p className="muted-copy">Formato vertical · Animación dibujada por código · Voz masculina española · Música y efectos · MP4</p>
+  </section>
   <div className="studio-columns"><section className="studio-card"><div className="card-kicker">IDEAS / HOY</div><h2>Temas generados ({todays.length})</h2>{todays.length?todays.map(s=><article className="data-row" key={s.id}><div><b>{s.title}</b><small>{fmt(s.created_at)} · {(s.source_notes||[]).length} fuentes</small></div><Status value={s.status}/></article>):<Empty text="Todavía no se ha generado ningún tema hoy."/>}</section><section className="studio-card"><div className="card-kicker">ESTADO DEL MOTOR</div><h2>Producción automática</h2><div className="pipeline"><span>Idea + fuentes</span><i>→</i><span>Guion</span><i>→</i><span>Voz</span><i>→</i><span>Animación</span><i>→</i><span>Sonido</span><i>→</i><span>MP4</span></div><p className="muted-copy">Narrador masculino es-ES-AlvaroNeural. Música ambiental y efectos originales generados por código. Publicación automática desactivada: todos los vídeos quedan privados para revisión.</p><button className="ghost-button" onClick={addExclusion}>＋ Excluir un tema</button></section></div>
   <section className="studio-card"><div className="card-kicker">BIBLIOTECA / VÍDEOS MP4</div><h2>Últimos vídeos ({videos.length})</h2><div className="video-grid">{latest.map(v=><article className="video-card" key={v.id}>{signed[v.id]?<video controls playsInline preload="metadata" src={signed[v.id]}/>:<div className="video-placeholder">VÍDEO PRIVADO</div>}<b>{v.storage_path.split('/').pop()}</b><small>{fmt(v.created_at)} · {v.duration_seconds||'—'} s · {v.width}×{v.height}</small>{signed[v.id]&&<a href={signed[v.id]} target="_blank" rel="noreferrer">Abrir MP4 ↗</a>}</article>)}</div>{!videos.length&&<Empty text="Los vídeos terminados aparecerán aquí para reproducirlos y revisarlos."/>}</section>
   <section className="studio-card"><div className="card-kicker">MEMORIA EDITORIAL</div><h2>Temas ya tratados y excluidos</h2>{memory.slice(0,12).map(x=><div className="data-row" key={x.id}><div><b>{x.topic}</b><small>{x.angle||'Sin enfoque registrado'} · {fmt(x.created_at)}</small></div><Status value={x.memory_status}/></div>)}{!memory.length&&<Empty text="La memoria se irá completando con cada vídeo."/>}</section>
