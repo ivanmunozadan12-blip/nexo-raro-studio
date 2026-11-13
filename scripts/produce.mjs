@@ -42,7 +42,6 @@ if (!process.env.MANUAL_SCRIPT_ID && local === currentLocalDate && minutesOfDay(
 if (!process.env.MANUAL_SLOT && nearestSlot.distance > 0) {
   console.warn(`Inicio de GitHub Actions a las ${localTime}; se asigna al horario más cercano ${slot} (desfase ${nearestSlot.distance} min).`);
 }
-if (!process.env.MANUAL_SCRIPT_ID && !process.env.GROQ_API_KEY) throw new Error('Falta GROQ_API_KEY para producción editorial automática.');
 if (!process.env.SUPABASE_URL) throw new Error('Falta la variable SUPABASE_URL');
 if (!process.env.SUPABASE_SERVICE_ROLE_KEY) throw new Error('Falta la variable SUPABASE_SERVICE_ROLE_KEY');
 const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -136,7 +135,7 @@ async function generateSpeech(text, outputPath, voice, rate, label, required = t
   return false;
 }
 
-// Comprueba Edge TTS antes de gastar cuota de Groq o crear registros.
+// Comprueba Edge TTS antes de crear registros.
 // Si el proveedor no entrega audio, la ejecución se detiene aquí.
 const ttsPreflightPath = path.join(root, 'renders', 'tts-preflight.mp3');
 await mkdir(path.dirname(ttsPreflightPath), { recursive: true });
@@ -173,7 +172,7 @@ if (String(process.env.RESET_PRODUCTION || '').toLowerCase() === 'true') {
   await supabase('scripts', { method: 'DELETE', query: '?user_id=eq.' + userId });
   console.log('Reinicio completado: ' + oldVideos.length + ' MP4 eliminados. Se conservan provider_usage, series y channel_settings.');
 }
-const scheduledAt = process.env.MANUAL_SCRIPT_ID ? new Date(Date.now() + Number(process.env.MANUAL_QUEUE_INDEX || 0) * 60000).toISOString() : new Date(new Date(`${local}T${slot}:00`).toLocaleString('en-US', { timeZone: tz })).toISOString();
+const scheduledAt = (process.env.MANUAL_SCRIPT_ID || process.env.MANUAL_SCRIPT_FILE) ? new Date(Date.now() + Number(process.env.MANUAL_QUEUE_INDEX || 0) * 60000).toISOString() : new Date(new Date(`${local}T${slot}:00`).toLocaleString('en-US', { timeZone: tz })).toISOString();
 const existing = await supabase('production_jobs', { query: `?user_id=eq.${userId}&scheduled_for=eq.${encodeURIComponent(scheduledAt)}&select=id,status,attempt_count,started_at,completed_at,script_id&limit=1` });
 const existingJob = existing[0];
 const activeJobStatuses = ['queued', 'voicing', 'rendering'];
@@ -212,75 +211,6 @@ for (let offset = 0; offset < 100000; offset += 1000) {
 }
 const memoryBrief = editorialMemory.slice(0,18).map(item => ({ tema:item.topic, enfoque:String(item.angle||'').slice(0,70) }));
 console.log(`Memoria editorial cargada: ${memoryBrief.length} temas históricos.`);
-const researchPrompt = `Busca en la web un hecho real, poco conocido y visualmente atractivo para un vídeo documental breve en español de España. Fecha: ${local}; horario: ${slot}; serie editorial: ${series?.title || 'curiosidades reales y ciencia sorprendente'}. Evita temas virales quemados. MEMORIA EDITORIAL OBLIGATORIA: no propongas el mismo acontecimiento, descubrimiento, lugar, personaje, experimento ni historia que aparezca en esta memoria, aunque cambies el título o el enfoque. Elige un asunto claramente distinto y explica por qué no se solapa. Historial reciente (40 temas; la comprobación completa se hace contra toda la base): ${JSON.stringify(memoryBrief)}. Si una idea se parece a un tema del historial, descártala y busca otra. Contrasta el hecho con al menos 3 fuentes independientes, preferiblemente fuentes primarias, universidades, organismos oficiales o publicaciones científicas. Devuelve un resumen claro de los hechos verificables, qué partes son inciertas, las URLs exactas y una línea TOPIC: con el tema principal. No inventes referencias.`;
-const groqModel = process.env.GROQ_MODEL || 'openai/gpt-oss-120b';
-// GPT OSS en Groq se utiliza tanto para investigar como para redactar el guion.
-async function groqChat(payload, label) {
-  const endpoint = 'https://api.groq.com/openai/v1/chat/completions';
-  const maxAttempts = 5;
-  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
-    const response = await fetch(endpoint, {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${process.env.GROQ_API_KEY}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    });
-    if (response.ok) return response;
-    const body = await response.text();
-    const dailyTokenLimit = response.status === 429 && /tokens per day|TPD/i.test(body);
-    const retryable = (response.status === 429 || response.status >= 500) && !dailyTokenLimit;
-    if (!retryable || attempt === maxAttempts) {
-      throw new Error(`Groq ${label} ${response.status}${dailyTokenLimit ? ' (cuota diaria agotada; no tiene sentido reintentar este mismo modelo)' : ''}: ${body.slice(0, 1200)}`);
-    }
-    const retryAfterHeader = Number(response.headers.get('retry-after'));
-    const retryAfterBody = body.match(/try again in ([0-9.]+)s/i);
-    const waitSeconds = Number.isFinite(retryAfterHeader) && retryAfterHeader > 0
-      ? retryAfterHeader
-      : retryAfterBody ? Number(retryAfterBody[1]) + 2 : Math.min(15 * attempt, 60);
-    const waitMs = Math.min(Math.max(waitSeconds * 1000, 5000), 90000);
-    console.warn(`Groq ${label}: HTTP ${response.status}; intento ${attempt}/${maxAttempts}. Reintento en ${Math.ceil(waitMs / 1000)} s.`);
-    await new Promise(resolve => setTimeout(resolve, waitMs));
-  }
-  throw new Error(`Groq ${label}: se agotaron los reintentos.`);
-}
-// Groq browser_search no debe compartir la misma llamada con la salida JSON:
-// primero se investiga en texto libre y después se genera JSON en una llamada separada.
-// La API Responses devuelve el texto final de browser_search en output_text.
-async function groqResearch(input) {
-  const endpoint = 'https://api.groq.com/openai/v1/responses';
-  const maxAttempts = 5;
-  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
-    const response = await fetch(endpoint, {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${process.env.GROQ_API_KEY}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: groqModel,
-        input: 'Eres un investigador documental. Usa browser_search para contrastar fuentes reales. Devuelve notas con títulos, URLs exactas y hechos respaldados; no redactes aún el guion.\n\n' + input,
-        tools: [{ type: 'browser_search' }],
-        tool_choice: 'required',
-        reasoning: { effort: 'low' },
-        max_output_tokens: 950,
-      }),
-    });
-    if (response.ok) {
-      const data = await response.json();
-      const outputText = data.output_text || (data.output || [])
-        .filter(item => item.type === 'message')
-        .flatMap(item => item.content || [])
-        .filter(item => item.type === 'output_text')
-        .map(item => item.text || '').join('\n').trim();
-      if (outputText.length >= 200) return outputText;
-      throw new Error(`Groq browser_search terminó sin texto útil (status=${data.status || 'desconocido'}, output_items=${(data.output || []).length}).`);
-    }
-    const body = await response.text();
-    const retryable = response.status === 429 || response.status >= 500;
-    if (!retryable || attempt === maxAttempts) throw new Error(`Groq investigación ${response.status}: ${body.slice(0, 1200)}`);
-    const retryMatch = body.match(/try again in ([0-9.]+)s/i);
-    const waitSeconds = retryMatch ? Number(retryMatch[1]) + 2 : Math.min(15 * attempt, 60);
-    console.warn(`Groq investigación: HTTP ${response.status}; reintento en ${waitSeconds}s.`);
-    await new Promise(resolve => setTimeout(resolve, waitSeconds * 1000));
-  }
-  throw new Error('Groq investigación: se agotaron los reintentos.');
-}
 function countWords(value) {
   return String(value || '').trim().split(/\s+/).filter(Boolean).length;
 }
@@ -292,122 +222,26 @@ if (process.env.MANUAL_SCRIPT_ID) {
   const imported = importedRows[0];
   if (!imported) throw new Error('No se encontró el guion importado o no pertenece a esta cuenta.');
   if (!['queued','in_production','approved'].includes(imported.status)) throw new Error('El guion no está en cola de producción (estado: ' + imported.status + ').');
-  script = {
-    title: imported.title,
-    hook: imported.hook || '',
-    narration: imported.narration || '',
-    scenes: imported.visual_plan || [],
-    sources: imported.source_notes || [],
-    caption: imported.title + ' | Descubre lo que hay detrás. #BehindDelMundo',
-    category: seriesRows.find(x => x.id === imported.series_id)?.slug || 'nadie-te-lo-explica',
-  };
+  script = { title: imported.title, hook: imported.hook || '', narration: imported.narration || '', scenes: imported.visual_plan || [], sources: imported.source_notes || [], caption: imported.title + ' | Descubre lo que hay detrás. #BehindDelMundo', category: seriesRows.find(x => x.id === imported.series_id)?.slug || 'nadie-te-lo-explica' };
   scriptId = imported.id;
   wordCount = countWords(script.narration);
   await supabase('scripts', { method: 'PATCH', query: '?id=eq.' + scriptId, body: { status: 'in_production' } });
-  console.log('Guion externo cargado desde el panel; no se llama a Groq.');
-} else {
-const research = await groqResearch(researchPrompt);
-const categoryGuide = 'La categoría debe ser exactamente uno de estos slugs: nadie-te-lo-explica, detras-de-la-puerta, como-es-posible. La serie asignada para esta entrega es: ' + (series?.slug || 'nadie-te-lo-explica') + ' (' + (series?.title || 'Nadie te lo explica') + '). Mantén el tema dentro de esa línea editorial.';
-const prompt = `A partir EXCLUSIVAMENTE de esta investigación web, escribe un vídeo vertical documental para Behind del Mundo en español natural de España. Fecha ${local}; horario ${slot}. Duración hablada objetivo 65-70 segundos, con 180-195 palabras reales de narración. El relato debe enganchar desde la primera frase, abrir una pregunta o misterio concreto, revelar información en escalada y cerrar con una sorpresa o idea memorable. Convierte incluso los temas técnicos en una historia fácil de imaginar, con tensión, curiosidad y frases orales breves; evita tono enciclopédico, fechas/listas seguidas, relleno y explicaciones planas. Prioriza llegar a la duración mínima sin relleno: desarrolla contexto, progresión del descubrimiento y consecuencias verificables, manteniendo ritmo ágil y dicción clara. Abre con una imagen mental potente y un gancho intrigante en la primera frase. Construye una miniaventura: curiosidad inmediata, descubrimiento progresivo, giro o dato sorprendente a mitad, y cierre memorable. Habla como un narrador joven-adulto cercano, curioso y cinematográfico, nunca como un profesor dando una clase. Usa frases cortas y variadas, preguntas directas, contrastes y pausas naturales. Cuenta los hechos como un documental visual inmersivo. No existe presentador, avatar ni personaje recurrente: los protagonistas son los personajes históricos, animales, objetos, lugares y procesos reales de cada historia. Evita frases genéricas como “no te lo vas a creer”, clickbait engañoso, exageraciones y afirmaciones que no estén respaldadas. No inventes cifras, citas, lugares, testimonios ni fuentes. Distingue claramente hechos de hipótesis. No menciones que eres una IA ni pidas seguir la cuenta dentro de la narración.\n\nDIRECCIÓN EDITORIAL: ${categoryGuide}\n\nINVESTIGACIÓN Y FUENTES:\n${research}\n\nDevuelve SOLO un objeto JSON válido con: title (máx 70 caracteres, concreto y atractivo), hook (máx 12 palabras, primera frase potente), narration (180-195 palabras, locutable y natural, español de España, sin indicaciones de cámara), scenes (exactamente 14 objetos con visual, scene_type, setting, entities, beats, characters, props, action, camera, continuity, objects, overlay y narration_excerpt. entities: array obligatorio de 2-6 modelos 3D concretos por escena; cada entidad debe incluir id estable, type (human, animal, ship, tree, building, vehicle, machine, lab, celestial, furniture, prop o artifact), name, appearance o description (mínimo 100 caracteres), action y motion (movimiento físico explícito), position [x,y,z], scale (escala numérica o [x,y,z]), dimensions [ancho,alto,fondo] en unidades de escena, shape, material, color, rotationY y support (suelo, mesa, cubierta, pared, agua/superficie flotante o entidad padre). Define cada objeto con geometría, proporciones, materiales, colores, orientación y ubicación inequívocos; los objetos pequeños deben tener escala realista respecto a personas y edificios. Repite el mismo id, nombre y apariencia cuando un personaje, animal u objeto vuelva a aparecer; así se reconstruye el mismo modelo procedural en cada escena. No sustituyas modelos concretos por esferas, cajas o nombres genéricos. Nunca coloques edificios, caminos, personas u objetos terrestres dentro del agua ni flotando sin soporte; nunca hagas volar objetos que no tengan capacidad de vuelo; ningún objeto puede atravesar, tapar de forma incoherente o solaparse con otro. Respeta gravedad, escala, suelo, soportes y profundidad. Barcos flotan sobre la superficie del agua, edificios descansan sobre terreno firme, objetos de mesa descansan encima de la mesa y no en el aire. Los objetos que vuelan deben tener alas/propulsión visible y trayectoria coherente. beats: 2-4 acciones temporizadas obligatorias para sujetos animados con at (segundos desde el inicio de la escena), duration, entity_id y action. setting: lugar y época concretos, mínimo 40 palabras. characters: array de personajes con role, appearance (mínimo 35 caracteres) y action (mínimo 25 caracteres); [] si no hay personas. props: 4-8 objetos físicos concretos. action: acción visible específica, mínimo 130 caracteres, con inicio, desarrollo y resultado; evita personajes inmóviles y acciones genéricas. camera: plano, ángulo y movimiento, mínimo 80 caracteres; cada escena debe tener un encuadre distinto y un movimiento de cámara intencionado; indica cómo evoluciona la cámara durante el plano. continuity: mínimo 70 caracteres; identifica qué elementos se conservan, cómo enlaza con la escena siguiente y qué no debe cambiar. Usa nombres e identificadores estables para personajes y objetos recurrentes: repite exactamente los mismos nombres, aspecto, colores, tamaños y orden en escenas consecutivas. Si aparecen tres barcos, deben ser siempre los mismos tres, con nombres fijos, no barcos nuevos. visual: descripción cinematográfica completa, mínimo 550 caracteres, con composición, materiales, iluminación, profundidad, objetos y acciones físicas concretas. Sin presentadores ni avatares. scene_type debe ser landscape, architecture, science, ocean, space, history, object o abstract; objects debe contener 4-8 elementos concretos; overlay máximo 4 palabras; narration_excerpt copia literalmente una porción consecutiva de la narración, adecuada a un plano de unos 4-5 segundos), sources (mínimo 3 fuentes independientes con title y url; usa únicamente URLs HTTPS presentes literalmente en la investigación), caption (descripción breve para redes con 3-5 hashtags pertinentes), category (usa exactamente el slug de la serie asignada). No añadas explicaciones fuera del JSON.`;
-const aiResponse = await groqChat({
-    model: groqModel,
-    messages: [
-      { role: 'system', content: 'Eres el editor jefe de Behind del Mundo. Responde únicamente con un objeto JSON válido, sin Markdown ni texto fuera del JSON. No añadas fuentes ni URLs que no estén en la investigación proporcionada.' },
-      { role: 'user', content: prompt },
-    ],
-    response_format: { type: 'json_object' },
-    reasoning_effort: 'low',
-    temperature: 0.7,
-    max_completion_tokens: 12000,
-    stream: false,
-  }, 'guion');
-const ai = await aiResponse.json();
-const outputText = ai.choices?.[0]?.message?.content?.trim();
-if (!outputText) {
-  const reason = ai.choices?.[0]?.finish_reason || 'sin respuesta';
-  throw new Error(`Groq no devolvió texto de guion (motivo: ${reason}).`);
-}
-script = null;
-try {
-  const cleaned = outputText.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '').trim();
-  const firstBrace = cleaned.indexOf('{');
-  const lastBrace = cleaned.lastIndexOf('}');
-  if (firstBrace < 0 || lastBrace <= firstBrace) throw new Error('No se encontró objeto JSON.');
-  script = JSON.parse(cleaned.slice(firstBrace, lastBrace + 1));
-} catch {
-  throw new Error('Groq no devolvió JSON válido; se detiene antes de guardar datos incompletos.');
-}
-
-// Control editorial reforzado: si Groq devuelve menos planos o una narración
-// corta, se solicita una reparación estructural antes de guardar nada.
-function countWords(value) {
-  return String(value || '').trim().split(/\s+/).filter(Boolean).length;
-}
-wordCount = countWords(script.narration);
-if (!Array.isArray(script.scenes) || script.scenes.length !== 14 || wordCount < 180 || wordCount > 195) {
-  console.warn(`Respuesta inicial incompleta (${wordCount} palabras, ${Array.isArray(script.scenes) ? script.scenes.length : 0} planos). Se solicita una reparación completa antes de guardar.`);
-  const repairResponse = await groqChat({
-    model: groqModel,
-    messages: [
-      { role: 'system', content: 'Eres el editor jefe de Behind del Mundo. Devuelve exclusivamente un JSON válido. Cumple exactamente todos los requisitos; no reduzcas el número de escenas ni la extensión de la narración.' },
-      { role: 'user', content: `Repara este guion sin cambiar el tema ni inventar hechos. La respuesta anterior no cumplió los mínimos. Devuelve el objeto completo con title, hook, narration, scenes, sources, caption y category. narration debe tener EXACTAMENTE entre 180 y 195 palabras naturales en español de España. scenes debe contener EXACTAMENTE 14 escenas distintas y consecutivas, pensadas para planos de 4-5 segundos. Cada escena debe incluir visual de al menos 550 caracteres, scene_type, setting de al menos 40 caracteres, entities (2-6 modelos 3D completos), beats (2-4 acciones temporizadas para los sujetos animados), characters, props (4-8), action de al menos 130 caracteres, camera de al menos 80 caracteres con movimiento, continuity de al menos 70 caracteres, objects (4-8), overlay de máximo 4 palabras y narration_excerpt literal. Cada entidad debe tener id estable, type, name, appearance o description de 100 caracteres, action, motion, position [x,y,z], scale numérica o vector positivo, dimensions [ancho,alto,fondo] positivas, shape, material, color y support. Evita solapamientos, objetos flotantes, edificios en agua y movimientos físicamente imposibles. Mantén fuentes verificables HTTPS ya presentes en el JSON; mínimo 3 dominios independientes. Si la narración original es demasiado corta, amplíala con contexto y explicación ya respaldados por las fuentes, sin relleno. No omitas ni resumas escenas. JSON anterior a reparar:\n${JSON.stringify(script)}` },
-    ],
-    response_format: { type: 'json_object' },
-    reasoning_effort: 'low',
-    temperature: 0.3,
-    max_completion_tokens: 12000,
-    stream: false,
-  }, 'reparación estructural');
-  const repairedAI = await repairResponse.json();
-  const repairedText = repairedAI.choices?.[0]?.message?.content?.trim();
-  if (!repairedText) throw new Error('Groq no devolvió una reparación estructural del guion.');
-  const repairedClean = repairedText.replace(/^\`\`\`(?:json)?\s*/i, '').replace(/\s*\`\`\`$/, '').trim();
-  const repairedStart = repairedClean.indexOf('{'), repairedEnd = repairedClean.lastIndexOf('}');
-  if (repairedStart < 0 || repairedEnd <= repairedStart) throw new Error('Groq no devolvió JSON válido en la reparación estructural.');
-  script = JSON.parse(repairedClean.slice(repairedStart, repairedEnd + 1));
+  console.log('Guion aprobado cargado desde el panel; producción sin modelos generativos externos.');
+} else if (process.env.MANUAL_SCRIPT_FILE) {
+  const scriptPath = path.resolve(root, process.env.MANUAL_SCRIPT_FILE);
+  if (!scriptPath.startsWith(root + path.sep)) throw new Error('MANUAL_SCRIPT_FILE debe apuntar a un JSON dentro del repositorio.');
+  script = JSON.parse(await readFile(scriptPath, 'utf8'));
+  if (!script || typeof script !== 'object' || Array.isArray(script)) throw new Error('El JSON editorial debe contener un objeto.');
   wordCount = countWords(script.narration);
-}
-if (wordCount < 180 || wordCount > 195) throw new Error(`El guion tiene ${wordCount} palabras después de la reparación; se exige 180-195.`);
-if (!Array.isArray(script.scenes) || script.scenes.length !== 14) throw new Error(`El guion tiene ${Array.isArray(script.scenes) ? script.scenes.length : 0} planos después de la reparación; se exigen exactamente 14.`);
-console.log(`Guion validado: ${wordCount} palabras y 14 planos cortos.`);
-function topicTokens(value) {
-  const stop = new Set('para como donde cuando desde hasta sobre entre hacia este esta estos estas unos unas una uno por con sin del las los que cual quien cómo qué muy más menos pero porque también entonces'.split(' '));
-  return [...new Set(String(value || '').toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu,'').match(/[a-z0-9]{3,}/g) || [])].filter(x => !stop.has(x));
-}
-function overlap(a, b) {
-  const A = new Set(topicTokens(a)), B = new Set(topicTokens(b));
-  if (!A.size || !B.size) return 0;
-  const shared = [...A].filter(x => B.has(x)).length;
-  return shared / Math.min(A.size, B.size);
-}
-const candidateCore = [script.title, script.hook].join(' ');
-const candidateNarration = script.narration || '';
-const candidateUrls = new Set((script.sources || []).map(x => String(x.url || '').replace(/\/$/, '').toLowerCase()));
-const collision = editorialMemory.find(item => {
-  const oldCore = [item.topic, item.angle].join(' ');
-  const titleScore = overlap(candidateCore, oldCore);
-  const storyScore = overlap(candidateNarration, item.summary || '');
-  const oldUrls = (item.source_urls || []).map(x => String(x.url || x || '').replace(/\/$/, '').toLowerCase());
-  const sharedSources = oldUrls.filter(url => url && candidateUrls.has(url)).length;
-  return titleScore >= 0.45 || (storyScore >= 0.24 && titleScore >= 0.18) || sharedSources >= 2;
-});
-if (collision) throw new Error(`MEMORIA EDITORIAL: producción bloqueada para evitar repetir "${script.title}". Se parece al tema histórico "${collision.topic}". No se ha guardado ni renderizado el vídeo.`);
-if (!Array.isArray(script.scenes) || script.scenes.length !== 14) throw new Error('El guion debe incluir exactamente 14 escenas cortas.');
-if (!Array.isArray(script.sources) || script.sources.length < 3) throw new Error('El guion debe incluir al menos 3 fuentes verificables.');
-for (const source of script.sources) {
-  if (!source.url || !/^https:\/\//i.test(source.url)) throw new Error('Una fuente del guion no contiene una URL HTTPS válida.');
-}
-const [seriesMatch] = seriesRows.filter(x => x.slug === script.category);
-const scriptRow = await supabase('scripts', { method: 'POST', body: {
-  user_id: userId, series_id: seriesMatch?.id || series?.id || null,
-  title: script.title, hook: script.hook || '', narration: script.narration,
-  visual_plan: script.scenes, source_notes: script.sources,
-  target_seconds: 60, status: 'in_production',
-}});
-scriptId = scriptRow[0].id;
+  const [seriesMatch] = seriesRows.filter(x => x.slug === script.category);
+  const scriptRow = await supabase('scripts', { method: 'POST', body: { user_id: userId, series_id: seriesMatch?.id || series?.id || null, title: script.title, hook: script.hook || '', narration: script.narration, visual_plan: script.scenes, source_notes: script.sources, target_seconds: 60, status: 'in_production' }});
+  scriptId = scriptRow[0].id;
+  console.log('Guion JSON editorial cargado desde el repositorio; sin generación automática.');
+} else {
+  throw new Error('No hay guion editorial aprobado. Indica MANUAL_SCRIPT_ID o MANUAL_SCRIPT_FILE; la producción nunca redacta guiones por su cuenta.');
 }
 
-// Validación común para guiones externos y automáticos antes de generar voz o vídeo.
+// Validación común para guiones editoriales aprobados antes de generar voz o vídeo.
 wordCount = countWords(script.narration);
 // Los fragmentos visuales los propone el modelo, pero pueden quedar obsoletos
 // si el texto se edita después (por ejemplo, al ajustar la duración). No
