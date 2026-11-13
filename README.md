@@ -1,44 +1,70 @@
-# BEHIND DEL MUNDO — Studio
+# BEHIND DEL MUNDO — Prompt Video Studio
 
-Centro de control del canal BEHIND DEL MUNDO. La web Next.js conserva autenticación, biblioteca privada y memoria editorial; la producción se ejecuta en GitHub Actions.
+Private web studio for creating three short-form videos from three plain-language prompts.
 
-## Nueva línea editorial
-1. **Cómo funciona** — objetos, mecanismos, tecnología y fenómenos cotidianos.
-2. **Por dentro** — edificios, transportes, instalaciones e infraestructuras.
-3. **Curiosidades** — preguntas sorprendentes, porqués y hechos poco conocidos.
+## Daily workflow
 
-## Producción diaria
-Tres espacios editoriales: 07:30, 14:30 y 20:30 (Europe/Madrid). Cada ejecución genera un tema distinto, redacta una narración, prepara ocho escenas visuales, crea voz masculina es-ES, dibuja animación mediante Python/Pillow/NumPy y monta música/efectos con FFmpeg.
+1. Paste the three prompts prepared for the day into the web studio.
+2. Press **Generar los 3 vídeos**.
+3. GitHub Actions starts three independent renders.
+4. Each prompt is expanded into an 8-scene narrated storyboard, rendered as original code-drawn animation, mixed with Spanish narration, music and scene-synchronized sound effects, and encoded as vertical MP4.
+5. The finished MP4 is stored in the private Supabase bucket and automatically sent to YouTube/TikTok when the corresponding OAuth credentials are configured.
 
-La salida es vertical 1080×1920, 60–72 segundos, con subtítulos temporizados, voz y música ambiental original. Los MP4 se guardan en el bucket privado `nexo-videos` de Supabase y quedan como borradores. **No se publica automáticamente.**
+No daily topic scheduler or automatic prompt generation is used. The user supplies the prompts. No character/presenter is inserted.
 
-## Variables de GitHub Actions
-- `SUPABASE_URL`
-- `SUPABASE_SERVICE_ROLE_KEY`
-- `GROQ_API_KEY`
-- Opcional: `GROQ_MODEL` (por defecto `openai/gpt-oss-120b`)
+## Video style and technical output
 
-## Variables de Vercel
-- `NEXT_PUBLIC_SUPABASE_URL`
-- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-- `GITHUB_ACTIONS_TOKEN` (permiso para ejecutar workflows)
+- Original Python animation engine based on the supplied Claude example: Pillow, NumPy and FFmpeg.
+- 8 narrative scenes per video, with scene-specific visual primitives (shapes, gears, waves, arrows, labels, cutaways, animated motion), not a fixed slideshow.
+- 60–72 seconds, vertical 1080×1920, H.264 MP4.
+- Spanish (Spain) male narration using Edge TTS voice es-ES-AlvaroNeural.
+- Timed captions, original generated ambient music and per-scene procedural sound accents.
+- The LLM must follow the user's prompt as the main creative brief. The three text fields are editorial slots only, not topic selectors.
 
-## Ejecutar localmente
-```bash
-python -m pip install -r engine/requirements.txt
-sudo apt-get install ffmpeg
-VIDEO_SLOT=how-it-works python engine/produce.py
-```
+## Required GitHub Actions secrets
 
-Slots válidos: `how-it-works`, `inside`, `curiosities`.
+Generation:
+- SUPABASE_URL
+- SUPABASE_SERVICE_ROLE_KEY
+- GROQ_API_KEY
+- Optional GROQ_MODEL (default openai/gpt-oss-120b)
 
-## Pruebas
-```bash
-python -m py_compile engine/produce.py engine/render_video.py engine/audio_bed.py
-python -m unittest discover -s engine -p 'test_*.py'
-npm install
-npm run typecheck
-npm run build
-```
+Web dispatch (Vercel):
+- NEXT_PUBLIC_SUPABASE_URL
+- NEXT_PUBLIC_SUPABASE_ANON_KEY
+- GITHUB_ACTIONS_TOKEN with permission to dispatch repository workflows
 
-La generación programada está configurada en `.github/workflows/daily-video.yml`. Antes de activar el flujo en producción, revisar un MP4 completo de cada familia visual. Los vídeos nunca se publican automáticamente.
+YouTube automatic publishing:
+- YOUTUBE_CLIENT_ID
+- YOUTUBE_CLIENT_SECRET
+- YOUTUBE_REFRESH_TOKEN
+- Optional YOUTUBE_PRIVACY (default public)
+
+TikTok automatic publishing:
+- TIKTOK_CLIENT_KEY
+- TIKTOK_CLIENT_SECRET
+- TIKTOK_ACCESS_TOKEN and/or TIKTOK_REFRESH_TOKEN
+- Optional TIKTOK_PRIVACY (default PUBLIC_TO_EVERYONE)
+
+TikTok tokens are refreshed and stored in the private social_connections table. Apply supabase/migrations/20261113180000_social_connections.sql before enabling token persistence. The TikTok app must have the Content Posting API and approved video.publish scope. TikTok restricts unaudited clients to private posts; public publishing requires TikTok's app audit. The account owner must complete the official OAuth authorization.
+
+## Social publishing behaviour
+
+- YouTube uses the official YouTube Data API resumable upload.
+- TikTok uses the official Content Posting API Direct Post flow, including creator-info query, AI-generated-content disclosure and upload status.
+- If credentials are missing, the MP4 is still saved privately and social rows remain drafts.
+- Platform errors are reported separately and do not discard a successfully rendered MP4.
+
+## Local checks
+
+    python -m pip install -r engine/requirements.txt
+    sudo apt-get install ffmpeg
+    python -m py_compile engine/produce.py engine/render_video.py engine/audio_bed.py engine/publish.py
+    python -m unittest discover -s engine -p 'test_*.py'
+    npm install
+    npm run typecheck
+    npm run build
+
+## Manual workflow
+
+The web dashboard dispatches .github/workflows/daily-video.yml with one prompt per job. It intentionally has no cron schedule. For local production, set VIDEO_SLOT, USER_PROMPT, and the Supabase/Groq environment variables before running engine/produce.py.
