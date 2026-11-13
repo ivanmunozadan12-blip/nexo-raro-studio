@@ -7,7 +7,6 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const now = new Date();
 const local = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Madrid', year: 'numeric', month: '2-digit', day: '2-digit' }).format(now);
 const runStamp = now.toISOString().replace(/[-:.TZ]/g, '').slice(0, 14) + '-' + String(process.env.GITHUB_RUN_ID || process.env.MANUAL_QUEUE_INDEX || 'manual');
-const slot = runStamp;
 if (!process.env.SUPABASE_URL) throw new Error('Falta la variable SUPABASE_URL');
 if (!process.env.SUPABASE_SERVICE_ROLE_KEY) throw new Error('Falta la variable SUPABASE_SERVICE_ROLE_KEY');
 const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
