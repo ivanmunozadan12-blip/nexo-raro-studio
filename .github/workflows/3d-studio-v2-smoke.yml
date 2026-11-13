@@ -37,7 +37,16 @@ jobs:
         run: |
           test -s renders/studio-v2-demo.mp4
           ffprobe -v error -show_entries stream=width,height,codec_name -show_entries format=duration -of json renders/studio-v2-demo.mp4
-          ffmpeg -v error -i renders/studio-v2-demo.mp4 -vf "blackdetect=d=0.5:pix_th=0.98" -an -f null -
+          ffmpeg -v error -i renders/studio-v2-demo.mp4 -vf "signalstats,metadata=print:file=/tmp/bdm-frame-stats.txt" -an -f null -
+          python3 - <<'PY'
+          import re, sys
+          values = [float(x) for x in re.findall(r"lavfi.signalstats.YAVG=([0-9.]+)", open("/tmp/bdm-frame-stats.txt").read())]
+          if not values:
+              raise SystemExit("QA failed: no decoded frame luminance values")
+          print("Frame average luma:", min(values), "to", max(values))
+          if min(values) < 8 or max(values) < 18:
+              raise SystemExit("QA failed: video is black or too dark to be usable")
+          PY
       - uses: actions/upload-artifact@v4
         with:
           name: bdm-3d-studio-v2-smoke
