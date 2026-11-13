@@ -17,7 +17,7 @@
 ## Variables de Vercel
 - NEXT_PUBLIC_SUPABASE_URL
 - NEXT_PUBLIC_SUPABASE_ANON_KEY
-- GITHUB_ACTIONS_TOKEN (permiso Actions: write en el repositorio)\n- NEXT_PUBLIC_SITE_URL (URL HTTPS de la web desplegada)\n- YOUTUBE_CLIENT_ID y YOUTUBE_CLIENT_SECRET (cliente OAuth de Google)\n- TIKTOK_CLIENT_KEY y TIKTOK_CLIENT_SECRET (app de TikTok con Content Posting API)
+- GITHUB_ACTIONS_TOKEN (permiso Actions: write en el repositorio)\n- NEXT_PUBLIC_SITE_URL (URL HTTPS de la web desplegada)\n- SUPABASE_URL y SUPABASE_SERVICE_ROLE_KEY (solo servidor; nunca prefijo NEXT_PUBLIC)\n- YOUTUBE_CLIENT_ID y YOUTUBE_CLIENT_SECRET (cliente OAuth de Google)\n- TIKTOK_CLIENT_KEY y TIKTOK_CLIENT_SECRET (app de TikTok con Content Posting API)
 
 ## Secrets de GitHub Actions
 Generación:
