@@ -17,6 +17,14 @@ Cada vídeo debe sentirse como una mini-historia visual, no como una clase leíd
 - No incluir indicaciones para el narrador entre paréntesis. El motor usa una voz masculina es-ES-AlvaroNeural.
 - La narración completa vive solo en el audio. Nunca debe imprimirse completa en el vídeo.
 
+## Dirección como un vídeo completo, no como una plantilla
+
+Antes de escribir el JSON, imaginar el vídeo entero como una secuencia de planos y decidir qué debe ver el espectador en cada instante. El tema es el hilo conductor, no una obligación de mantener el mismo objeto en pantalla. El foco puede pasar del animal a una célula, de la célula a una molécula, de un paisaje a un instrumento o de una máquina a lo que produce. Cada cambio debe ayudar a entender la frase narrada y sentirse como un corte deliberado.
+
+No asignar automáticamente un tipo visual a cada número de escena ni repetir la misma composición con otros colores. Elegir para cada plano el sujeto, escala, lugar, fondo, tipo de ilustración, acción y cámara que mejor expliquen ese momento. Combinar planos de contexto, primeros planos, cortes internos, mapas, procesos, comparaciones, escalas microscópicas y consecuencias cuando tengan sentido. Si la escena habla de un animal, mostrarlo; si habla de sus células, cambiar a una representación celular; si habla del hábitat, mostrar el hábitat. Los elementos del JSON deben describir esa composición concreta, no rellenar una plantilla.
+
+La pregunta de control es: “Si alguien viera solo esta escena, ¿vería exactamente aquello de lo que estoy hablando ahora?”. Si la respuesta es no, rediseñar el plano.
+
 ## Ocho escenas con ocho funciones
 
 Cada guion debe tener exactamente ocho escenas. No basta con cambiar el título o el color: cada escena debe avanzar la historia y mostrar algo distinto.
