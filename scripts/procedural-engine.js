@@ -90,8 +90,10 @@ function createHuman(spec, rng) {
   const royal = /rey|reina|monarca|noble|principe|princesa/.test(appearance + ' ' + clean(spec.role));
   const sailor = /marinero|navegante|tripulante|pescador/.test(appearance + ' ' + clean(spec.role));
   const explorer = /explorador|colon|capitan|descubridor/.test(appearance + ' ' + clean(spec.role));
+  const astronaut = /astronauta|astronaut/.test(appearance + ' ' + clean(spec.role));
+  const scientist = /cientifico|investigador|doctor/.test(appearance + ' ' + clean(spec.role));
   const skin = spec.skinColor || pick(rng, COLORS.skin);
-  const outfit = spec.clothingColor || (royal ? '#6f2941' : sailor ? '#3d5870' : pick(rng, COLORS.cloth));
+  const outfit = spec.clothingColor || (astronaut ? '#e8ecee' : scientist ? '#e7ece8' : royal ? '#6f2941' : sailor ? '#3d5870' : pick(rng, COLORS.cloth));
   const hair = spec.hairColor || pick(rng, ['#30251f', '#49352a', '#9b7046', '#24201e']);
   const height = Number(spec.height) || 1;
   const torso = groupAt(g, [0, 0, 0], [height, height, height]);
@@ -109,7 +111,17 @@ function createHuman(spec, rng) {
   const body = cylinder(torso, [0, 1.15, 0], .24, .32, .72, outfit, 14);
   ellipsoid(torso, [0, 1.52, 0], [.32, .17, .23], outfit, 2);
   cylinder(torso, [0, 1.51, 0], .13, .15, .12, royal ? COLORS.gold : '#d2c3a2', 12);
-  block(torso, [0, .84, .015], [.54, .1, .35], royal ? '#a47b37' : '#59402e');
+  block(torso, [0, .84, .015], [.54, .1, .35], astronaut ? '#aab5bb' : royal ? '#a47b37' : '#59402e');
+  if (astronaut) {
+    block(torso, [0, 1.18, -.29], [.52, .72, .25], '#aeb9bf');
+    block(torso, [0, 1.23, .245], [.32, .24, .045], '#344653');
+    for (let i = 0; i < 3; i++) ellipsoid(torso, [((i - 1) * .09), 1.23, .275], [.035, .035, .018], ['#c74b3f','#d4b34f','#5b9a9d'][i], 1);
+    for (const side of [-1,1]) cylinder(torso, [side * .29, 1.45, 0], .12, .12, .13, '#aeb9bf', 12).rotation.z = Math.PI / 2;
+  } else if (scientist) {
+    block(torso, [-.16, .93, .205], [.16, .22, .045], '#f7f7f2');
+    block(torso, [.16, .93, .205], [.16, .22, .045], '#f7f7f2');
+    for (let y of [1.08, 1.28]) ellipsoid(torso, [0, y, .245], [.025,.025,.02], '#687d8b', 1);
+  }
   if (royal) {
     const cape = addMesh(torso, new THREE.ConeGeometry(.43, .92, 4, 1, true), '#702c42', [0, 1.08, -.2]);
     cape.rotation.x = Math.PI;
@@ -121,7 +133,15 @@ function createHuman(spec, rng) {
   ellipsoid(torso, [-.085, 1.98, .194], [.025, .032, .018], '#28221f', 1);
   ellipsoid(torso, [.085, 1.98, .194], [.025, .032, .018], '#28221f', 1);
   ellipsoid(torso, [0, 1.89, .21], [.035, .055, .04], skin, 1);
-  ellipsoid(torso, [0, 2.17, -.015], [.25, .13, .23], hair, 2);
+  if (!astronaut) ellipsoid(torso, [0, 2.17, -.015], [.25, .13, .23], hair, 2);
+  if (astronaut) {
+    const helmet = new THREE.Mesh(new THREE.SphereGeometry(.34, 20, 16), new THREE.MeshStandardMaterial({ color:'#9db4c0', metalness:.55, roughness:.2, transparent:true, opacity:.28 }));
+    helmet.position.set(0, 2.0, 0);torso.add(helmet);
+    const visor = ellipsoid(torso, [0, 1.99, .245], [.235, .19, .055], '#b99a56', 3);
+    visor.material.metalness = .55;visor.material.roughness = .22;
+    const rim = new THREE.Mesh(new THREE.TorusGeometry(.29, .035, 8, 24), material('#8b989d', .32, .6));
+    rim.position.set(0, 2.0, .02);torso.add(rim);
+  }
   if (explorer || sailor) {
     cylinder(torso, [0, 2.2, 0], .28, .28, .055, '#c4a46a', 12);
     ellipsoid(torso, [0, 2.27, 0], [.29, .055, .26], '#5b4733', 1);
