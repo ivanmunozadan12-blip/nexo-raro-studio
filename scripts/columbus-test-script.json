@@ -2,12 +2,12 @@
   "story_id": "columbus-1492",
   "title": "El viaje de Colón que cambió dos mundos",
   "hook": "Tres barcos cruzaron el Atlántico hacia lo desconocido",
-  "narration": "En 1492, Cristóbal Colón propone llegar a Asia navegando hacia el oeste. Tras años buscando apoyo, presenta su proyecto a los Reyes Católicos.\n\nEl 17 de abril, en Santa Fe, se firman las Capitulaciones: la Corona acepta financiar el viaje y concede a Colón títulos y recompensas si tiene éxito.\n\nEn Palos, marineros cargan agua, víveres, herramientas y velas. La expedición reúne tres naves: la nao Santa María y las carabelas Pinta y Niña.\n\nEl 3 de agosto, parten de Huelva. Tras una escala en Canarias, ponen rumbo al oeste. Delante se extiende el Atlántico, y nadie sabe cuánto durará la travesía.\n\nPasan las semanas. El viento tensa las velas, la madera cruje y los vigías escrutan el horizonte. La incertidumbre crece, pero los barcos siguen avanzando.\n\nEn octubre aparecen señales de tierra. Durante la noche del 11 al 12, Rodrigo de Triana avista una isla.\n\nAl amanecer del 12 de octubre de 1492, desembarcan en Guanahaní, en las actuales Bahamas. Aquellas tierras ya estaban habitadas: no era un mundo nuevo para sus pueblos. Pero para Europa, comenzaba un cambio histórico irreversible.",
+  "narration": "En 1492, Cristóbal Colón propone llegar a Asia navegando hacia el oeste. Tras buscar apoyo durante años, presenta su plan a los Reyes Católicos. En abril, en Santa Fe, la Corona acepta financiar la expedición. Colón obtiene títulos y recompensas si el viaje tiene éxito. En Palos preparan agua, alimentos y herramientas. La expedición reúne tres naves: la nao Santa María y las carabelas Pinta y Niña. El 3 de agosto parten de Huelva. Tras una escala en Canarias, las tres naves ponen rumbo al oeste, hacia el Atlántico abierto. Las semanas pasan. El viento hincha las velas, cruje la madera y los vigías buscan tierra. La incertidumbre crece, pero la flota continúa. En la noche del 11 al 12 de octubre, Rodrigo de Triana distingue una costa en la oscuridad y anuncia que hay tierra a la vista. Al amanecer del 12 de octubre de 1492 desembarcan en Guanahaní, en las actuales Bahamas. La isla ya estaba habitada por pueblos lucayos. Para Europa, aquel encuentro inició un cambio histórico irreversible.",
   "scenes": [
     {
       "scene_type": "history",
       "overlay": "UNA IDEA IMPOSIBLE",
-      "narration_excerpt": "En 1492, Cristóbal Colón propone llegar a Asia navegando hacia el oeste. Tras años buscando apoyo, presenta su proyecto a los Reyes Católicos.",
+      "narration_excerpt": "En 1492, Cristóbal Colón propone llegar a Asia navegando hacia el oeste. Tras buscar apoyo durante años, presenta su plan a los Reyes Católicos.",
       "setting": "Santa Fe, Granada, primavera de 1492. Interior de una sala de audiencia de la corte castellana, recreada como estancia palaciega de piedra y madera con arcos góticos, vidrieras, estandartes de Castilla y León, tapices, bancos y un gran ventanal. No es una afirmación de que la reunión sucediera exactamente en esta sala: es una reconstrucción visual del entorno cortesano y del proyecto presentado a los monarcas.",
       "characters": [
         {
@@ -54,7 +54,7 @@
     {
       "scene_type": "history",
       "overlay": "TRES NAVES, UN DESTINO",
-      "narration_excerpt": "El 17 de abril, en Santa Fe, se firman las Capitulaciones: la Corona acepta financiar el viaje y concede a Colón títulos y recompensas si tiene éxito.",
+      "narration_excerpt": "En abril, en Santa Fe, la Corona acepta financiar la expedición. Colón obtiene títulos y recompensas si el viaje tiene éxito.",
       "setting": "Santa Fe, Granada, 17 de abril de 1492. La corte formaliza las Capitulaciones de Santa Fe, acuerdo entre la Corona y Colón para organizar el viaje. La escena muestra una mesa de escribanía y documentos sellados; los textos escritos serán decorativos y no intentarán reproducir cláusulas ilegibles o inventadas.",
       "characters": [
         {
@@ -100,7 +100,7 @@
     {
       "scene_type": "ocean",
       "overlay": "EL PUERTO DE PALOS",
-      "narration_excerpt": "En Palos, marineros cargan agua, víveres, herramientas y velas. La expedición reúne tres naves: la nao Santa María y las carabelas Pinta y Niña.",
+      "narration_excerpt": "En Palos preparan agua, alimentos y herramientas. La expedición reúne tres naves: la nao Santa María y las carabelas Pinta y Niña.",
       "setting": "Puerto de Palos de la Frontera, Huelva, verano de 1492. Un puerto atlántico de finales del siglo XV, con muelle de madera, casas encaladas, almacenes, grúas sencillas, toneles, redes y embarcaciones. La nao Santa María es mayor y más alta que las dos carabelas Pinta y Niña; las tres naves deben tener siluetas distintas y mantenerse reconocibles.",
       "characters": [
         {
@@ -143,7 +143,7 @@
     {
       "scene_type": "ocean",
       "overlay": "RUMBO AL ATLÁNTICO",
-      "narration_excerpt": "El 3 de agosto, parten de Huelva. Tras una escala en Canarias, ponen rumbo al oeste. Delante se extiende el Atlántico, y nadie sabe cuánto durará la travesía.",
+      "narration_excerpt": "El 3 de agosto parten de Huelva. Tras una escala en Canarias, las tres naves ponen rumbo al oeste, hacia el Atlántico abierto.",
       "setting": "Salida del puerto de Palos, 3 de agosto de 1492, y posterior ruta hacia Canarias y el Atlántico. La costa de Huelva queda atrás mientras las tres naves avanzan con viento favorable. La secuencia debe mostrar una salida progresiva desde el puerto y una transición espacial clara hasta mar abierto.",
       "characters": [
         {
@@ -180,7 +180,7 @@
     {
       "scene_type": "ocean",
       "overlay": "SEMANAS DE OCÉANO",
-      "narration_excerpt": "Pasan las semanas. El viento tensa las velas, la madera cruje y los vigías escrutan el horizonte. La incertidumbre crece, pero los barcos siguen avanzando.",
+      "narration_excerpt": "Las semanas pasan. El viento hincha las velas, cruje la madera y los vigías buscan tierra. La incertidumbre crece, pero la flota continúa.",
       "setting": "Atlántico abierto durante septiembre y comienzos de octubre de 1492. No hay tierra visible: solo mar hasta el horizonte, cielo cambiante y tres barcos de madera expuestos al viento. La escena representa el paso del tiempo y el desgaste de una travesía larga, sin inventar una tormenta concreta.",
       "characters": [
         {
@@ -217,7 +217,7 @@
     {
       "scene_type": "ocean",
       "overlay": "¡TIERRA A LA VISTA!",
-      "narration_excerpt": "En octubre aparecen señales de tierra. Durante la noche del 11 al 12, Rodrigo de Triana avista una isla.",
+      "narration_excerpt": "En la noche del 11 al 12 de octubre, Rodrigo de Triana distingue una costa en la oscuridad y anuncia que hay tierra a la vista.",
       "setting": "Atlántico occidental, noche del 11 al 12 de octubre de 1492. La flota navega cerca de las islas del Caribe. El horizonte nocturno está oscuro, pero una línea de costa comienza a distinguirse bajo la primera claridad. La escena se centra en el vigía y la reacción de la tripulación.",
       "characters": [
         {
@@ -258,7 +258,7 @@
     {
       "scene_type": "landscape",
       "overlay": "GUANAHANÍ, 1492",
-      "narration_excerpt": "Al amanecer del 12 de octubre de 1492, desembarcan en Guanahaní, en las actuales Bahamas. Aquellas tierras ya estaban habitadas: no era un mundo nuevo para sus pueblos. Pero para Europa, comenzaba un cambio histórico irreversible.",
+      "narration_excerpt": "Al amanecer del 12 de octubre de 1492 desembarcan en Guanahaní, en las actuales Bahamas. La isla ya estaba habitada por pueblos lucayos. Para Europa, aquel encuentro inició un cambio histórico irreversible.",
       "setting": "Guanahaní, una isla de las actuales Bahamas, mañana del 12 de octubre de 1492. La costa presenta arena blanca, agua turquesa poco profunda, vegetación tropical y un asentamiento lucayo en el interior. La ubicación exacta moderna de Guanahaní es objeto de debate, por lo que no se identificará con una isla actual concreta.",
       "characters": [
         {
