@@ -422,7 +422,7 @@ for (const [sceneIndex, scene] of script.scenes.entries()) {
 }
 const sourceHosts = new Set();
 for (const source of script.sources) {
-  if (!source.title || !source.url || !/^https:\/\//i.test(source.url)) throw new Error('Una fuente no contiene título y URL HTTPS válidos.');
+  if (!(source.title || source.name) || !source.url || !/^https:\/\//i.test(source.url)) throw new Error('Una fuente no contiene nombre/título y URL HTTPS válidos.');
   try { sourceHosts.add(new URL(source.url).hostname.replace(/^www\./i, '').toLowerCase()); } catch { throw new Error('URL de fuente inválida: ' + source.url); }
 }
 if (sourceHosts.size < 3) throw new Error('La historia necesita al menos 3 dominios de fuentes independientes; recibidos: ' + sourceHosts.size + '.');
