@@ -48,8 +48,6 @@ export default function Studio(){
   finally{setDispatching(false)}
  }
  if(!session)return <main className="auth-shell"><a className="brand" href="/"><span className="brand-mark brand-mark-world"><img src="/brand-mark.svg" alt=""/></span><span>BEHIND <b>DEL MUNDO</b><small>STUDIO / ACCESO</small></span></a><section className="auth-card"><div className="eyebrow">CENTRO DE PRODUCCIÓN</div><h1>{signup?'Crea tu acceso.':'Vuelve al estudio.'}</h1><p>Accede al panel privado de Behind del Mundo.</p><form onSubmit={auth}><label>Correo electrónico<input type="email" required value={email} onChange={e=>setEmail(e.target.value)}/></label><label>Contraseña<input type="password" required minLength={8} value={password} onChange={e=>setPassword(e.target.value)}/></label><button>{signup?'Crear cuenta':'Entrar'}</button></form><button className="link-button" onClick={()=>setSignup(!signup)}>{signup?'Ya tengo cuenta · Entrar':'Crear una cuenta'}</button>{message&&<p className="notice">{message}</p>}</section></main>;
- const today=new Date().toLocaleDateString('en-CA',{timeZone:'Europe/Madrid'});
- const todays=scripts.filter(s=>new Date(s.created_at).toLocaleDateString('en-CA',{timeZone:'Europe/Madrid'})===today);
  const ready=videos.length,failed=jobs.filter(j=>j.status==='failed').length,active=jobs.filter(j=>['queued','voicing','rendering','publishing'].includes(j.status)).length;
  const latest=videos.slice(0,6);
  return <main className="studio-shell">
