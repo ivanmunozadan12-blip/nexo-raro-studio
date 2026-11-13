@@ -184,7 +184,8 @@
                     "primitive",
                     "curve",
                     "asset",
-                    "text"
+                    "text",
+                    "mesh"
                   ]
                 },
                 "primitive": {
@@ -223,7 +224,8 @@
                   "type": "array"
                 },
                 "details": {
-                  "type": "object"
+                  "type": "object",
+                  "description": "Primitive-specific data; mesh uses vertices/faces; curve uses points and bevel settings."
                 }
               },
               "additionalProperties": true
