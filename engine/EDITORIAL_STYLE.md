@@ -67,7 +67,7 @@ Cada escena debe incluir:
 - `labels`: etiquetas cortas si el tipo visual las usa.
 - `metric`: objeto value/label/detail solo si hay un dato que merezca una visualización.
 
-Las descripciones de elementos no son adornos: explican qué representa cada forma y por qué está ahí. Evitar elementos vagos como “círculo decorativo” o “línea azul”. Usar “motor eléctrico”, “flujo de aire”, “pared metálica”, “molécula de agua”, etc.
+Las descripciones de elementos no son adornos: explican qué representa cada forma y por qué está ahí. Evitar elementos vagos como “círculo decorativo” o “línea azul”. Usar “motor eléctrico”, “flujo de aire”, “pared metálica”, “molécula de agua”, etc. Si el objeto es reconocible (animal, móvil, satélite, edificio, planeta), debe aparecer como tal en el plano principal; no se puede representar únicamente con círculos y líneas.
 
 ## Subtítulos
 
