@@ -120,14 +120,14 @@ def main():
     if os.getenv("YOUTUBE_CLIENT_ID") and os.getenv("YOUTUBE_CLIENT_SECRET") and os.getenv("YOUTUBE_REFRESH_TOKEN"):
         try: results["youtube"]=youtube_upload(path,a.title,a.caption)
         except Exception as e: results["youtube"]={"status":"failed","error":str(e)[:1200]}
-    else: results["youtube"]={"status":"not_configured","error":"Faltan credenciales OAuth de YouTube."}
+    else: results["youtube"]={"status":"manual_action_required","error":"Faltan credenciales OAuth de YouTube."}
     if os.getenv("TIKTOK_CLIENT_KEY") and os.getenv("TIKTOK_CLIENT_SECRET") and (os.getenv("TIKTOK_REFRESH_TOKEN") or os.getenv("TIKTOK_ACCESS_TOKEN")):
         try: results["tiktok"]=tiktok_upload(path,a.title)
         except Exception as e: results["tiktok"]={"status":"failed","error":str(e)[:1200]}
-    else: results["tiktok"]={"status":"not_configured","error":"Faltan credenciales de Content Posting API."}
+    else: results["tiktok"]={"status":"manual_action_required","error":"Faltan credenciales de Content Posting API."}
     if a.video_id:
         for platform,result in results.items():
-            if result["status"] in ("published","publishing","failed"):
+            if result["status"] in ("published","publishing","failed","manual_action_required"):
                 try: db_patch(a.video_id,platform,result["status"],result.get("external_id"),result.get("error"))
                 except Exception as e: print("No se pudo actualizar el estado social:",str(e))
     print(json.dumps(results,ensure_ascii=False))
