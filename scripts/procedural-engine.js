@@ -162,7 +162,7 @@ function createHuman(spec, rng) {
     ellipsoid(arm, [side * .2, -.65, .13], [.075, .09, .075], skin, 1);
     arms.push({ group: arm, side });
   }
-  g.userData.rig = { legs, arms, body: torso, baseY: 0, motion: spec.motion || spec.action || 'idle' };
+  g.userData.rig = { legs, arms, body: torso, humanArms: true, baseY: 0, motion: spec.motion || spec.action || 'idle' };
   return g;
 }
 
@@ -341,7 +341,7 @@ function createOctopus(spec, rng) {
     }
     arms.push({ group: arm, angle, phase: i * .55 });
   }
-  g.userData.rig = { arms, motion: spec.motion || 'swim' };
+  g.userData.rig = { arms, octopus: true, motion: spec.motion || 'swim' };
   return g;
 }
 
@@ -706,7 +706,7 @@ export function animateEntities(entities, time = 0) {
     const beat = (entity.userData.beats || []).filter(item => time >= Number(item.at || 0) && time < Number(item.at || 0) + Number(item.duration || 999)).sort((a, b) => Number(a.at || 0) - Number(b.at || 0)).at(-1);
     const action = clean(beat?.action || entity.userData.entity?.action || rig.motion || 'idle');
     const base = entity.userData.basePosition || entity.position;
-    entity.position.y = base.y + .035 * Math.sin(time * 1.6 + entities.indexOf(entity));
+    entity.position.y = base.y;\n    const entityType = entity.userData.entity?.type;\n    if (entityType === 'animal' && /nadar|swim|volar|fly|flotar|ascender/.test(action)) entity.position.y = base.y + .12 * Math.sin(time * 1.7 + entities.indexOf(entity));
 
     for (const track of entity.userData.blueprintAnimations || []) {
       const node = entity.userData.blueprintNodes.get(track.target);
@@ -721,11 +721,11 @@ export function animateEntities(entities, time = 0) {
     const walking = /caminar|andar|correr|walk|run|marchar|avanzar|acercarse|alejarse|perseguir/.test(action);
     const working = /examinar|observar|mirar|manipular|construir|reparar|levantar|girar|abrir|cerrar|escribir|medir|tocar|sujetar|golpear|lanzar|recoger|senalar|señalar|hablar|gesticular|indicar/.test(action);
     if (rig.legs) rig.legs.forEach((leg, i) => { leg.rotation.x = walking ? Math.sin(time * 6 + i * Math.PI) * .38 : 0; });
-    if (rig.arms) rig.arms.forEach(({ group, side }) => { group.rotation.z = working ? side * (.22 + .18 * Math.sin(time * 3 + side)) : side * .035 * Math.sin(time * 1.8); group.rotation.x = working ? .12 * Math.sin(time * 2.6 + side) : 0; });
+    if (rig.humanArms) rig.arms.forEach(({ group, side }) => { group.rotation.z = working ? side * (.22 + .18 * Math.sin(time * 3 + side)) : side * .035 * Math.sin(time * 1.8); group.rotation.x = working ? .12 * Math.sin(time * 2.6 + side) : 0; });
     if (rig.head) rig.head.rotation.y = working ? .12 * Math.sin(time * 1.7) : .045 * Math.sin(time * 1.1);
     if (rig.body) rig.body.rotation.y = walking ? .12 * Math.sin(time * 3) : .025 * Math.sin(time * 1.2);
     if (rig.wings) rig.wings.forEach(({ group, side }) => { group.rotation.z = side * (.1 + .55 * Math.sin(time * 8)); });
-    if (rig.arms) rig.arms.forEach(({ group, angle, phase }) => { group.rotation.x = .12 * Math.sin(time * 2.2 + phase); group.rotation.z = .16 * Math.sin(time * 1.8 + phase) + .08 * Math.cos(angle); });
+    if (rig.octopus) rig.arms.forEach(({ group, angle, phase }) => { const active = /replegar|extender|despegar|acechar|nadar|mover/.test(action); const amount = active ? .28 : .16; group.rotation.x = amount * Math.sin(time * 2.2 + phase); group.rotation.z = amount * Math.sin(time * 1.8 + phase) + .08 * Math.cos(angle); });
     if (rig.tail) rig.tail.rotation.y = .25 * Math.sin(time * 2.5);
     if (rig.fins) rig.fins.forEach((fin, i) => { fin.rotation.y = .18 * Math.sin(time * 3 + i); });
     if (rig.wheels) rig.wheels.forEach(wheel => { wheel.rotation.x = time * 1.2; });
