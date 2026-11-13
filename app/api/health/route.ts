@@ -14,7 +14,7 @@ export async function GET() {
     aiProvider: 'groq',
     renderer: 'python-pillow-numpy-ffmpeg',
     voice: 'edge-tts-es-ES-AlvaroNeural',
-    publishingCredentials: 'configured-in-github-actions',
+    publishing: 'optional-github-actions-oauth',
     dispatch: github ? 'configured' : 'missing'
   });
 }
