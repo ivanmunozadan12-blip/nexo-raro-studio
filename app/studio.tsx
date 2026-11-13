@@ -69,7 +69,6 @@ export default function Studio(){
   <footer className="studio-footer">BEHIND DEL MUNDO © 2026 · DESCUBRE LO QUE HAY DETRÁS <span>Panel privado · {session.user.email}</span></footer>
  </main>;
 }
-function fmt(v:string){return new Date(v).toLocaleString('es-ES',{dateStyle:'medium',timeStyle:'short'})}
 function Metric({label,value,note}:{label:string,value:any,note:string}){return <article className="metric-card"><small>{label}</small><strong>{value}</strong><span>{note}</span></article>}
 function Status({value}:{value:string}){return <span className={'status status-'+String(value).toLowerCase().replace(/[^a-z0-9]+/g,'-')}>{value}</span>}
 function Empty({text}:{text:string}){return <div className="empty-state">{text}</div>}
