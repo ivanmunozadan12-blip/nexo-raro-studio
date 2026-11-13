@@ -335,6 +335,80 @@ def draw_turbine(d,cx,cy,t,accent):
         y=735+k*12
         d.line(((190+k*12)*S,y*S,(385-k*12)*S,y*S),fill=rgba(accent,150),width=2*S)
 
+def draw_octopus(d,cx,cy,t,accent):
+    # Silueta reconocible: manto, ojos y ocho brazos ondulantes con ventosas.
+    d.ellipse(((cx-82)*S,(cy-155)*S,(cx+82)*S,(cy+15)*S),fill=(210,105,119),outline=(255,207,198),width=4*S)
+    d.ellipse(((cx-48)*S,(cy-95)*S,(cx-17)*S,(cy-52)*S),fill=(255,255,245))
+    d.ellipse(((cx+17)*S,(cy-95)*S,(cx+48)*S,(cy-52)*S),fill=(255,255,245))
+    for ex in (cx-33,cx+33):
+        d.ellipse(((ex-9)*S,(cy-83)*S,(ex+9)*S,(cy-59)*S),fill=(14,28,42))
+    for arm in range(8):
+        a=math.pi*2*arm/8-math.pi/2
+        pts=[]
+        for k in range(30):
+            u=k/29
+            bend=math.sin(u*math.pi*2+t*2+arm)*22*u
+            x=cx+math.cos(a)*(48+190*u)+math.cos(a+math.pi/2)*bend
+            y=cy-5+math.sin(a)*(38+165*u)+math.sin(a+math.pi/2)*bend
+            pts.append((int(x*S),int(y*S)))
+        d.line(pts,fill=(222,128,139),width=13*S,joint="curve")
+        for k in range(3,27,4):
+            x,y=pts[k]
+            d.ellipse((x-4*S,y-4*S,x+4*S,y+4*S),fill=(255,215,196))
+def draw_flamingo(d,cx,cy,t,accent):
+    # Ave completa con cuello en S, pico negro y patas largas.
+    d.ellipse(((cx-105)*S,(cy-40)*S,(cx+80)*S,(cy+82)*S),fill=(244,133,157),outline=(255,218,222),width=3*S)
+    d.ellipse(((cx+18)*S,(cy-145)*S,(cx+94)*S,(cy-70)*S),fill=(245,145,166),outline=(255,225,229),width=3*S)
+    neck=[(cx+50,cy-65),(cx+22,cy-108),(cx+38,cy-155),(cx+75,cy-160)]
+    d.line([(x*S,y*S) for x,y in neck],fill=(245,145,166),width=24*S,joint="curve")
+    d.polygon([((cx+83)*S,(cy-112)*S),((cx+132)*S,(cy-101)*S),((cx+91)*S,(cy-88)*S)],fill=(28,35,43))
+    d.ellipse(((cx+65)*S,(cy-126)*S,(cx+73)*S,(cy-118)*S),fill=(15,25,35))
+    for x,phase in ((cx-28,0),(cx+28,1)):
+        d.line((x*S,(cy+65)*S,(x+math.sin(t*2+phase)*7)*S, (cy+250)*S),fill=(242,151,170),width=7*S)
+        d.line(((x+math.sin(t*2+phase)*7)*S,(cy+250)*S,(x+28)*S,(cy+255)*S),fill=(242,151,170),width=6*S)
+def draw_satellite(d,cx,cy,t,accent):
+    # Satélite de navegación con paneles solares y antena.
+    d.rectangle(((cx-42)*S,(cy-48)*S,(cx+42)*S,(cy+48)*S),fill=(190,205,215),outline=(255,255,255),width=4*S)
+    for side in (-1,1):
+        x1=cx+side*48
+        d.rectangle(((x1-side*105)*S,(cy-62)*S,(x1+side*105)*S,(cy+62)*S),fill=(31,83,132),outline=(125,201,238),width=3*S)
+        for k in range(1,5):
+            xx=x1-side*105+side*k*42
+            d.line((xx*S,(cy-60)*S,xx*S,(cy+60)*S),fill=(150,210,240),width=2*S)
+    d.line((cx*S,(cy-48)*S,cx*S,(cy-125)*S),fill=(230,238,243),width=4*S)
+    d.ellipse(((cx-18)*S,(cy-145)*S,(cx+18)*S,(cy-109)*S),fill=rgba(accent))
+    for k in range(3):
+        r=72+k*24+int(5*math.sin(t*4+k))
+        d.arc(((cx-r)*S,(cy-r)*S,(cx+r)*S,(cy+r)*S),205,335,fill=rgba(accent,190-k*35),width=3*S)
+def draw_mars(d,cx,cy,t,accent):
+    # Planeta rojo, horizonte y resplandor azul del atardecer marciano.
+    d.ellipse((70*S,340*S,506*S,776*S),fill=(157,66,48),outline=(241,150,112),width=5*S)
+    for i in range(9):
+        x=110+i*43
+        y=450+int(95*math.sin(i*1.3))
+        d.arc(((x-40)*S,(y-20)*S,(x+60)*S,(y+45)*S),190,345,fill=(91,43,40,180),width=5*S)
+    d.rectangle((0,710*S,W*S,860*S),fill=(83,43,42,255))
+    for i in range(6):
+        x=i*120-30
+        d.polygon([(x*S,740*S),((x+65)*S,(690+i%2*22)*S),((x+145)*S,740*S)],fill=(112,57,48))
+    glow=Image.new("RGBA",d.im.size,(0,0,0,0)); gd=ImageDraw.Draw(glow,"RGBA")
+    for r in range(8,0,-1):
+        gd.ellipse(((cx-r*27)*S,(690-r*9)*S,(cx+r*27)*S,(690+r*9)*S),fill=(68,160,231,9))
+    d.bitmap((0,0),glow)
+def draw_roman_concrete(d,cx,cy,t,accent):
+    # Arco romano y sección de opus caementicium con fragmentos minerales visibles.
+    d.rectangle((95*S,600*S,481*S,790*S),fill=(145,119,91),outline=(224,202,163),width=4*S)
+    d.pieslice((145*S,350*S,431*S,700*S),180,360,fill=(170,143,108),outline=(237,214,172),width=5*S)
+    d.rectangle((145*S,525*S,431*S,700*S),fill=(17,35,48))
+    d.rectangle((145*S,525*S,431*S,790*S),fill=(160,132,98),outline=(235,211,169),width=4*S)
+    for i in range(18):
+        x=170+(i*47)%245; y=555+(i*37)%205
+        r=7+(i%4)*3
+        d.polygon([((x+math.cos(k*math.pi/3)*r)*S,(y+math.sin(k*math.pi/3)*r)*S) for k in range(6)],fill=((93+i*3)%180, (86+i*2)%160, (69+i)%130))
+    for i in range(4):
+        x=170+i*85
+        d.line((x*S,540*S,x*S,780*S),fill=(224,202,163,100),width=2*S)
+
 def draw_visual_elements(d, elements, t, accent):
     """Renderiza elementos en una composición con colisiones evitadas."""
     placed=[]
@@ -427,41 +501,43 @@ def draw_scene(im, scene, local_t, accent):
     kind=scene.get("visual_type","illustration")
     cx,cy=288,560
     elements=scene.get("visual_elements",[])
-    # Si el guion aporta objetos concretos, estos forman la escena completa:
-    # no se superpone además una ilustración genérica independiente.
-    if not elements:
-        if kind=="microwave":
-            draw_microwave(d,cx,cy,1.24,.3+local_t,accent)
-        elif kind in ("machine","engine","turbine","industrial"):
-            draw_machine(d,cx,cy,local_t,accent,scene.get("labels"))
-        elif kind=="aircraft":
-            if scene.get("background")=="sky": draw_aircraft_in_sky(d,cx,cy,local_t,accent)
-            else: draw_aircraft(d,cx,cy,local_t,accent)
-        elif kind=="vehicle": draw_vehicle(d,cx,cy,local_t,accent)
-        elif kind=="phone": draw_phone(d,cx,cy,local_t,accent)
-        elif kind=="turbine": draw_turbine(d,cx,cy,local_t,accent)
-        elif kind=="object_cutaway": draw_cutaway(d,cx,cy,local_t,accent,scene.get("labels"))
-        elif kind in ("interior","building_cutaway","facility"): draw_building(d,cx,cy,local_t,accent)
-        elif kind in ("molecule","science"):
-            panel(d,(48,300,528,795),fill=(7,27,50,160),outline=rgba(accent,120),radius=30)
-            draw_molecule(d,cx,535,.92,local_t*4,accent)
-            text_fit(d,(cx,780),"MODELO EXPLICATIVO",12,(200,225,240),anchor="mm",bold=False)
-        elif kind in ("process","diagram"): draw_process(d,cx,565,local_t,accent,scene.get("labels") or ["Entrada","Proceso","Salida"])
-        elif kind in ("timeline","history"): draw_timeline(d,cx,560,local_t,accent,scene.get("labels",["Origen","Cambio","Hoy"]))
-        elif kind in ("fact","number","stat"): draw_fact(d,cx,565,local_t,accent,scene.get("metric",{}))
-        elif kind in ("map","location"):
-            panel(d,(50,310,526,800),fill=(11,48,62,220),outline=rgba(accent,160))
-            for i in range(12):
-                x=70+i*38
-                d.line((x*S,330*S,(x+12*math.sin(i*1.7))*S,780*S),fill=(105,172,169,45),width=2*S)
-            for i in range(10):
-                y=350+i*43
-                d.line((55*S,y*S,520*S,(y+10*math.sin(i*1.3))*S),fill=(105,172,169,45),width=2*S)
-            for i,label in enumerate(scene.get("labels",["Punto A","Punto B","Punto C"])[:3]):
-                x=135+i*145; y=450+(i%2)*140
-                d.ellipse(((x-11)*S,(y-11)*S,(x+11)*S,(y+11)*S),fill=rgba(accent))
-                text_fit(d,(x,y+28),label,12,(245,250,255),max_width=110,anchor="mm")
-        else: draw_illustration(d,cx,565,local_t,accent,scene.get("labels"))
+    # Primero se dibuja el sujeto reconocible o mecanismo propio del tema.
+    # Los elementos del JSON se superponen después como detalles, nunca lo sustituyen.
+    if kind=="microwave": draw_microwave(d,cx,cy,1.24,.3+local_t,accent)
+    elif kind in ("machine","engine","industrial"): draw_machine(d,cx,cy,local_t,accent,scene.get("labels"))
+    elif kind=="aircraft":
+        if scene.get("background")=="sky": draw_aircraft_in_sky(d,cx,cy,local_t,accent)
+        else: draw_aircraft(d,cx,cy,local_t,accent)
+    elif kind=="vehicle": draw_vehicle(d,cx,cy,local_t,accent)
+    elif kind in ("phone","gps"): draw_phone(d,cx,cy,local_t,accent)
+    elif kind=="satellite": draw_satellite(d,cx,cy,local_t,accent)
+    elif kind=="flamingo": draw_flamingo(d,cx,cy,local_t,accent)
+    elif kind=="octopus": draw_octopus(d,cx,cy,local_t,accent)
+    elif kind=="mars": draw_mars(d,cx,cy,local_t,accent)
+    elif kind in ("roman_concrete","pompeii"): draw_roman_concrete(d,cx,cy,local_t,accent)
+    elif kind=="turbine": draw_turbine(d,cx,cy,local_t,accent)
+    elif kind=="object_cutaway": draw_cutaway(d,cx,cy,local_t,accent,scene.get("labels"))
+    elif kind in ("interior","building_cutaway","facility"): draw_building(d,cx,cy,local_t,accent)
+    elif kind in ("molecule","science"):
+        panel(d,(48,300,528,795),fill=(7,27,50,160),outline=rgba(accent,120),radius=30)
+        draw_molecule(d,cx,535,.92,local_t*4,accent)
+        text_fit(d,(cx,780),"MODELO EXPLICATIVO",12,(200,225,240),anchor="mm",bold=False)
+    elif kind in ("process","diagram"): draw_process(d,cx,565,local_t,accent,scene.get("labels") or ["Entrada","Proceso","Salida"])
+    elif kind in ("timeline","history"): draw_timeline(d,cx,560,local_t,accent,scene.get("labels",["Origen","Cambio","Hoy"]))
+    elif kind in ("fact","number","stat"): draw_fact(d,cx,565,local_t,accent,scene.get("metric",{}))
+    elif kind in ("map","location"):
+        panel(d,(50,310,526,800),fill=(11,48,62,220),outline=rgba(accent,160))
+        for i in range(12):
+            x=70+i*38
+            d.line((x*S,330*S,(x+12*math.sin(i*1.7))*S,780*S),fill=(105,172,169,45),width=2*S)
+        for i in range(10):
+            y=350+i*43
+            d.line((55*S,y*S,520*S,(y+10*math.sin(i*1.3))*S),fill=(105,172,169,45),width=2*S)
+        for i,label in enumerate(scene.get("labels",["Punto A","Punto B","Punto C"])[:3]):
+            x=135+i*145; y=450+(i%2)*140
+            d.ellipse(((x-11)*S,(y-11)*S,(x+11)*S,(y+11)*S),fill=rgba(accent))
+            text_fit(d,(x,y+28),label,12,(245,250,255),max_width=110,anchor="mm")
+    elif kind in ("illustration","abstract"): draw_illustration(d,cx,565,local_t,accent,scene.get("labels"))
     if elements: draw_visual_elements(d,elements,local_t,accent)
     im.alpha_composite(overlay)
 
