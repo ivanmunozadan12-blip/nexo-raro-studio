@@ -591,11 +591,13 @@ function createFromBlueprint(spec) {
   if (!blueprint || !Array.isArray(blueprint.parts) || !blueprint.parts.length) return null;
   const root = new THREE.Group();
   const nodes = new Map([['root', root]]);
+  root.userData.paletteMaterials = [];
   for (const part of blueprint.parts) {
     const parent = nodes.get(part.parent || 'root') || root;
     const position = Array.isArray(part.position) ? part.position : [0,0,0];
     const size = Array.isArray(part.size) ? part.size : [1,1,1];
-    const color = part.color || spec.color || '#9b978e';
+    const isOctopusBody = /^(mantle|head-base|arm-\\d+-segment)/.test(String(part.id || ''));
+    const color = spec.colorOverrides?.[part.id] || (isOctopusBody && spec.palette?.body ? spec.palette.body : null) || part.color || spec.color || '#9b978e';
     const surface = clean(spec.material || '');
     const defaults = /metal|alumin|acero|reflect|iridoforo/.test(surface)
       ? { roughness: .28, metalness: .62 }
@@ -618,6 +620,7 @@ function createFromBlueprint(spec) {
       }
       const holder = new THREE.Group();
       addMesh(holder, geometry, color, [0,0,0], size, {roughness:part.roughness ?? defaults.roughness, metalness:part.metalness ?? defaults.metalness, transparent:part.transparent ?? defaults.transparent, opacity:part.opacity ?? defaults.opacity});
+      if (isOctopusBody) root.userData.paletteMaterials.push(holder.children[0]);
       return holder;
     })();
     if (part.group) node.position.set(...position);
@@ -634,6 +637,7 @@ function createFromBlueprint(spec) {
       nodes.set(part.id, node);
     }
   }
+  root.userData.colorAnimation = spec.colorAnimation || null;
   root.userData.blueprintNodes = nodes;
   root.userData.blueprintAnimations = (Array.isArray(blueprint.animations) ? blueprint.animations : []).map(track => {
     const node = nodes.get(track.target);
@@ -737,6 +741,13 @@ export function animateEntities(entities, time = 0) {
     const entityType = entity.userData.entity?.type;
     if (entityType === 'animal' && /nadar|swim|volar|fly|flotar|ascender/.test(action)) entity.position.y = base.y + .12 * Math.sin(time * 1.7 + entities.indexOf(entity));
 
+    const colorAnimation = entity.userData.colorAnimation;
+    if (colorAnimation && Array.isArray(entity.userData.paletteMaterials)) {
+      const colorStart = Number(colorAnimation.at || 0), colorDuration = Math.max(.001, Number(colorAnimation.duration || 1));
+      const colorProgress = Math.max(0, Math.min(1, (time - colorStart) / colorDuration));
+      const animatedColor = new THREE.Color(colorAnimation.from || '#a65e4b').lerp(new THREE.Color(colorAnimation.to || '#777d7d'), colorProgress);
+      entity.userData.paletteMaterials.forEach(mesh => mesh.material.color.copy(animatedColor));
+    }
     const actionBoost = /abrir|expand|extender|replegar|despegar|contraer|elevar|emerger|revelar/.test(action) ? 1.55 : 1;
     for (const track of entity.userData.blueprintAnimations || []) {
       const node = entity.userData.blueprintNodes.get(track.target);
