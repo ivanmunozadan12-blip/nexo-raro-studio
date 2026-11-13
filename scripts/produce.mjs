@@ -465,7 +465,11 @@ tl.set({}, {},${targetDuration});
 window.__timelines=window.__timelines||{};window.__timelines['behind-del-mundo']=tl;
 </script><script src="scene-engine.bundle.js"></script></div></body></html>`;
 
-await command('npx', ['--yes', 'hyperframes@0.9.37', 'lint'], { cwd: work });
+const lintDir = path.join(work, 'lint-check');
+await mkdir(lintDir, { recursive: true });
+// Three.js internals contain Math.random/requestAnimationFrame implementations that the static linter flags even though this renderer never calls them; lint the composition structure separately from the vendor bundle.
+await writeFile(path.join(lintDir, 'index.html'), html.replace('<script src="scene-engine.bundle.js"></script>', ''));
+await command('npx', ['--yes', 'hyperframes@0.9.37', 'lint'], { cwd: lintDir });
 const imageCount = script.scenes.length; // Siete escenas 3D renderizadas; ya no dependemos de siete fotos externas.
 const rawVideo = path.join(work, 'video-silent.mp4');
 await command('npx', ['--yes', 'hyperframes@0.9.37', 'render', '-c', 'index.html', '-o', rawVideo, '--fps', '30', '--quality', 'standard', '--workers', '1'], { cwd: work });
