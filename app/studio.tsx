@@ -24,6 +24,7 @@ export default function Studio(){
   setBusy(false);
  },[session]);
  useEffect(()=>{db.auth.getSession().then(({data}:any)=>setSession(data.session));const {data}=db.auth.onAuthStateChange((_e:any,s:any)=>setSession(s));return()=>data.subscription.unsubscribe()},[]);
+ useEffect(()=>{const params=new URLSearchParams(window.location.search);const result=params.get('result');const platform=params.get('social');if(result){setMessage(result==='connected'?'Cuenta '+(platform==='youtube'?'YouTube':'TikTok')+' conectada correctamente.':result==='cancelled'?'Se canceló la conexión social.':'No se pudo completar la conexión social. Revisa las credenciales OAuth.');window.history.replaceState({},'',window.location.pathname)}},[]);
  useEffect(()=>{load()},[load]);
  useEffect(()=>{if(!session||(!jobs.some(j=>['queued','voicing','rendering','publishing'].includes(j.status))&&!posts.some(p=>p.status==='publishing')))return;const timer=window.setInterval(load,20000);return()=>window.clearInterval(timer)},[session,jobs,posts,load]);
  useEffect(()=>{let active=true;(async()=>{const next:Record<string,string>={};for(const v of videos){const {data}=await db.storage.from('nexo-videos').createSignedUrl(v.storage_path,3600);if(data?.signedUrl)next[v.id]=data.signedUrl;}if(active)setSigned(next)})();return()=>{active=false}},[videos]);
