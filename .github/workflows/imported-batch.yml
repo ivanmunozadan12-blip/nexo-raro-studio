@@ -1,0 +1,67 @@
+name: Behind del Mundo · lote de guiones importados
+
+on:
+  push:
+    paths:
+      - ".github/dispatch/three-scripts.json"
+
+permissions:
+  contents: read
+
+jobs:
+  produce:
+    name: Render guion ${{ matrix.queue_index }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix:
+        include:
+          - script_id: "2b63b51e-c2fe-44d5-a1f4-57bcca6cef51"
+            queue_index: "0"
+          - script_id: "f4c64208-0f86-479a-a779-273123d485f2"
+            queue_index: "1"
+          - script_id: "fbdcdc8c-dcf0-4eef-aac1-3611eb07bf4f"
+            queue_index: "2"
+    concurrency:
+      group: behind-del-mundo-imported-${{ matrix.script_id }}
+      cancel-in-progress: false
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      TZ: Europe/Madrid
+      MANUAL_SLOT: "20:30"
+      MANUAL_SCRIPT_ID: ${{ matrix.script_id }}
+      MANUAL_QUEUE_INDEX: ${{ matrix.queue_index }}
+    steps:
+      - name: Descargar proyecto
+        uses: actions/checkout@v4
+      - name: Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Instalar FFmpeg y dependencias
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+          npm install
+          python -m pip install --upgrade pip edge-tts
+      - name: Comprobar configuración
+        run: |
+          test -n "$SUPABASE_URL" || (echo "::error::Falta SUPABASE_URL en GitHub Actions secrets" && exit 1)
+          test -n "$SUPABASE_SERVICE_ROLE_KEY" || (echo "::error::Falta SUPABASE_SERVICE_ROLE_KEY en GitHub Actions secrets" && exit 1)
+      - name: Generar y renderizar vídeo
+        run: npm run produce
+      - name: Guardar MP4 como artefacto de respaldo
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: behind-del-mundo-importado-${{ matrix.queue_index }}-${{ github.run_id }}
+          path: renders/*.mp4
+          if-no-files-found: ignore
+          retention-days: 14
