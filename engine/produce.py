@@ -49,7 +49,7 @@ user=settings[0]["user_id"]
 memory=db("editorial_memory","?user_id=eq."+user+"&select=topic,angle,summary,memory_status&order=created_at.desc&limit=80")
 excluded=[{"tema":x["topic"],"enfoque":x.get("angle") or ""} for x in memory if x["memory_status"] in ("produced","rejected")]
 series=db("series","?user_id=eq."+user+"&is_active=eq.true&select=id,slug,title")
-series_row=next((x for x in series if x["slug"]==slot),series[0] if series else None)
+series_slug={"how-it-works":"nadie-te-lo-explica","inside":"detras-de-la-puerta","curiosities":"como-es-posible"}[slot]\nseries_row=next((x for x in series if x["slug"]==series_slug),series[0] if series else None)
 # Local slot is the idempotency key; the offset is resolved by Python's timezone database.
 local_slot=datetime.datetime.combine(now.date(),datetime.time.fromisoformat(clock),tzinfo=ZoneInfo("Europe/Madrid"))
 scheduled=local_slot.isoformat()
