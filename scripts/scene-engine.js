@@ -49,7 +49,7 @@ function hall(g){
  for(let x of [-5,5]){cyl(g,x,.55,-1,.22,.25,1.1,'#74563c');cyl(g,x,1.18,-1,.45,.45,.12,'#a88a62');}
 }
 function ship(g,x,z,index=0){
- const root=new THREE.Group();root.position.set(x,0,z);g.add(root);
+ const root=new THREE.Group();root.position.set(x,0,z);root.userData.baseX=x;root.userData.baseZ=z;g.add(root);
  const wood=MAT('#68442d'),dark=MAT('#493426'),sail=MAT(index===1?'#eee5cd':'#dfd2b4'),rope=MAT('#a88a5e');
  // tapered hull mesh, bow at +z, stern at -z
  const verts=[],inds=[];const sections=[[-2.9,.12,.08],[-2.2,.65,.02],[-1,.82,-.08],[1,.78,-.1],[2.2,.57,.05],[2.9,.08,.32]];
@@ -117,10 +117,10 @@ function buildScene(canvas,d){
  const camera=new THREE.PerspectiveCamera(42,1080/1920,.1,120);const duration=Math.max(1,Number(d.duration)||8);
  return t=>{const local=Math.max(0,t-Number(d.start||0));const p=Math.min(1,local/duration),ease=p*p*(3-2*p);if(idx===0){camera.position.set(8-5*ease,5.2+Math.sin(p*Math.PI)*.6,14-7*ease);camera.lookAt(0,2,-3);}
  else if(idx===1){camera.position.set(-12+20*ease,7.5,12-5*ease);camera.lookAt(0,1,-4);}
- else if(idx===2){camera.position.set(0,8,16-5*ease);camera.lookAt(0,1,-4);ships.forEach((s,i)=>{s.position.z-=local*.22;s.position.x+=(i-1)*local*.035;});}
- else if(idx===3){camera.position.set(9*Math.sin(p*1.3),7,16-3*ease);camera.lookAt(0,1,-4);ships.forEach((s,i)=>{s.position.z+=Math.sin(local*.65+i)*.08;s.rotation.z=Math.sin(local*.7+i)*.035;});}
- else if(idx===4){camera.position.set(10-8*ease,6,15-6*ease);camera.lookAt(0,1,-8);ships.forEach((s,i)=>{s.position.z+=local*.13;s.rotation.y=.08*Math.sin(local+i);});}
- else if(idx===5){camera.position.set(8-9*ease,5,13-4*ease);camera.lookAt(0,1,-3);ships.forEach(s=>{s.position.z+=local*.1;});}
+ else if(idx===2){camera.position.set(0,8,16-5*ease);camera.lookAt(0,1,-4);ships.forEach((s,i)=>{s.position.z=s.userData.baseZ-local*.22;s.position.x=s.userData.baseX+(i-1)*local*.035;});}
+ else if(idx===3){camera.position.set(9*Math.sin(p*1.3),7,16-3*ease);camera.lookAt(0,1,-4);ships.forEach((s,i)=>{s.position.z=s.userData.baseZ+Math.sin(local*.65+i)*.08;s.rotation.z=Math.sin(local*.7+i)*.035;});}
+ else if(idx===4){camera.position.set(10-8*ease,6,15-6*ease);camera.lookAt(0,1,-8);ships.forEach((s,i)=>{s.position.z=s.userData.baseZ+local*.13;s.rotation.y=.08*Math.sin(local+i);});}
+ else if(idx===5){camera.position.set(8-9*ease,5,13-4*ease);camera.lookAt(0,1,-3);ships.forEach(s=>{s.position.z=s.userData.baseZ+local*.1;});}
  else {camera.position.set(-12+14*ease,8,17-5*ease);camera.lookAt(0,1,-7);}
  people.forEach((p,i)=>{p.rotation.y=.08*Math.sin(local*1.2+i);p.position.y=.025*Math.sin(local*2+i);});
  animateWater(local);renderer.render(scene,camera);};
