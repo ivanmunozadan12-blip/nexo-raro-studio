@@ -173,7 +173,7 @@ try:
     storage_path=f"{user}/{today}/{today.replace('-','')}-{slot}-{manual_run_id or 'daily'}.mp4"
     data=final.read_bytes()
     request(API+"/storage/v1/object/nexo-videos/"+"/".join(urllib.parse.quote(x,safe="") for x in storage_path.split("/")),"POST",data,{"Content-Type":"video/mp4","x-upsert":"true"})
-    video_row=db("videos","", "POST",{"user_id":user,"job_id":job["id"],"script_id":script_id,"storage_path":storage_path,"duration_seconds":actual,"width":1080,"height":1920,"mime_type":"video/mp4","quality_check":{"passed":True,"has_audio":True,"voice":"es-ES-AlvaroNeural","background_audio":True,"renderer":"Python Pillow + NumPy + FFmpeg","scene_count":8,"source_count":len(script["sources"]),"word_count":words}})[0]
+    video_row=db("videos","", "POST",{"user_id":user,"job_id":job["id"],"script_id":script_id,"storage_path":storage_path,"duration_seconds":actual,"width":1080,"height":1920,"mime_type":"video/mp4","quality_check":{"passed":True,"has_audio":True,"voice":"es-ES-AlvaroNeural","background_audio":True,"renderer":"Python Pillow + NumPy + FFmpeg","scene_count":8,"source_count":len(script["sources"]),"word_count":words,"renderer":"behind-del-mundo-cinematic-v2-enzo","explorer":"Enzo"}})[0]
     db("editorial_memory","", "POST",{"user_id":user,"script_id":script_id,"topic":script["title"],"topic_key":slug(script["title"]),"angle":script.get("hook",category),"summary":script["narration"][:1200],"source_urls":script["sources"],"memory_status":"produced"})
     db("scripts","?id=eq."+script_id,"PATCH",{"status":"completed"})
     db("social_posts","", "POST",[{"user_id":user,"video_id":video_row["id"],"platform":p,"caption":script.get("caption",script["title"]),"status":"draft"} for p in ("youtube","tiktok")])
