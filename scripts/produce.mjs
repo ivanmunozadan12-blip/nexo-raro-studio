@@ -105,13 +105,15 @@ async function capture(bin, args, opts = {}) {
 // edge-tts puede responder temporalmente con NoAudioReceived aunque la petición
 // sea válida. Cada intento empieza con un archivo limpio y valida el MP3 real
 // (tamaño y duración) antes de darlo por bueno.
-async function generateSpeech(text, outputPath, voice, rate, label, required = true, pitch = '+0Hz') {
+async function generateSpeech(text, outputPath, voice, rate, label, required = true, pitch = '+0Hz', subtitlePath = null) {
   const maxAttempts = 4;
   const delays = [4000, 10000, 20000];
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
     await rm(outputPath, { force: true });
     try {
-      await command('python', ['-m', 'edge_tts', '--voice', voice, `--rate=${rate}`, `--pitch=${pitch}`, '--text', text, '--write-media', outputPath]);
+      const ttsArgs = ['-m', 'edge_tts', '--voice', voice, `--rate=${rate}`, `--pitch=${pitch}`, '--text', text, '--write-media', outputPath];
+      if (subtitlePath) ttsArgs.push('--write-subtitles', subtitlePath);
+      await command('python', ttsArgs);
       const info = await (await import('node:fs/promises')).stat(outputPath);
       if (info.size < 1500) throw new Error(`edge-tts generó un archivo demasiado pequeño (${info.size} bytes).`);
       const duration = Number(await capture('ffprobe', ['-v','error','-show_entries','format=duration','-of','default=noprint_wrappers=1:nokey=1',outputPath]));
@@ -123,7 +125,7 @@ async function generateSpeech(text, outputPath, voice, rate, label, required = t
       if (attempt === maxAttempts) {
         const message = `No se pudo generar audio para ${label} tras ${maxAttempts} intentos: ${error.message}`;
         if (required) throw new Error(message);
-        console.warn(message + ' Se mantiene la reacción visual de Enzo sin voz.');
+        console.warn(message + ' Se continúa sin pista de voz secundaria.');
         return false;
       }
       const delay = delays[attempt - 1];
@@ -420,39 +422,8 @@ const work = path.join(root, 'renders', `${local}-${slot.replace(':', '')}`);
 await mkdir(work, { recursive: true });
 await writeFile(path.join(work, 'script.json'), JSON.stringify(script, null, 2));
 const voicePath = path.join(work, 'voice.mp3');
-await generateSpeech(script.narration, voicePath, 'es-ES-AlvaroNeural', '+0%', 'narrador principal', true);
-// Normaliza las intervenciones de Enzo para que un borrador válido no se descarte
-// solo porque el modelo haya dejado demasiadas escenas sin reacción.
-for (const scene of script.scenes) {
-  const line = String(scene.enzo_line || '').trim();
-  if (line.split(/\s+/).filter(Boolean).length > 5) scene.enzo_line = '';
-}
-let enzoLines = script.scenes
-  .map((scene, index) => ({ text: String(scene.enzo_line || '').trim(), index }))
-  .filter(line => line.text);
-if (enzoLines.length > 3) {
-  for (const extra of enzoLines.slice(3)) script.scenes[extra.index].enzo_line = '';
-  enzoLines = enzoLines.slice(0, 3);
-}
-if (enzoLines.length < 2) {
-  const fallbackReactions = ['¡Vaya descubrimiento!', '¡Qué pasada!'];
-  for (let i = 0; i < script.scenes.length && enzoLines.length < 2; i++) {
-    if (!String(script.scenes[i].enzo_line || '').trim()) {
-      script.scenes[i].enzo_line = fallbackReactions[enzoLines.length];
-      enzoLines.push({ text: script.scenes[i].enzo_line, index: i });
-    }
-  }
-  console.warn('Se completaron automáticamente las reacciones breves de Enzo que faltaban.');
-}
-if (enzoLines.length < 2 || enzoLines.length > 3 || enzoLines.some(line => line.text.split(/\s+/).filter(Boolean).length > 5)) {
-  throw new Error('No se pudieron normalizar las 2-3 intervenciones breves de Enzo.');
-}
-const enzoAudioFiles = [];
-for (const line of enzoLines) {
-  const enzoAudioPath = path.join(work, `enzo-${line.index + 1}.mp3`);
-  const generated = await generateSpeech(line.text, enzoAudioPath, 'es-ES-AlvaroNeural', '+14%', `Enzo escena ${line.index + 1}`, false, '+10Hz');
-  if (generated) enzoAudioFiles.push({ path: enzoAudioPath, index: line.index });
-}
+const subtitlesPath = path.join(work, 'narration.srt');
+await generateSpeech(script.narration, voicePath, 'es-ES-AlvaroNeural', '+0%', 'narrador principal', true, '+0Hz', subtitlesPath);
 const voiceDuration = Number(await capture('ffprobe', ['-v','error','-show_entries','format=duration','-of','default=noprint_wrappers=1:nokey=1',voicePath]));
 if (!Number.isFinite(voiceDuration) || voiceDuration < 1) throw new Error('No se pudo medir la duración de la narración.');
 const targetDuration = Math.max(60, Math.ceil(voiceDuration + 1.2));
@@ -462,35 +433,22 @@ await supabase('production_jobs', { method: 'PATCH', query: `?id=eq.${jobId}`, b
 const escaped = value => String(value || '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const assetsDir = path.join(work, 'assets');
 await mkdir(assetsDir, { recursive: true });
-// El personaje oficial se incorpora desde este archivo versionado; no se
-// sustituye por un diseño generado o improvisado.
-let enzoCharacterAvailable = false;
-try {
-  const enzoCharacter = await readFile(path.join(root, 'public', 'enzo', 'enzo-master.webp'));
-  if (enzoCharacter.length > 5000) {
-    await writeFile(path.join(assetsDir, 'enzo-master.webp'), enzoCharacter);
-    enzoCharacterAvailable = true;
-    console.log('Modelo visual oficial de Enzo cargado.');
-  }
-} catch {
-  throw new Error('Falta el modelo visual maestro de Enzo en public/enzo/enzo-master.webp. Se cancela el render para no publicar un vídeo sin el personaje oficial.');
-}
 const sceneSeconds = targetDuration / 7;
 const clips = script.scenes.map((scene, i) => {
   const start = (i * sceneSeconds).toFixed(3), duration = sceneSeconds.toFixed(3);
-  const words = String(scene.narration_excerpt || '').trim().split(/\s+/).filter(Boolean);
-  const wordDelay = words.length ? (sceneSeconds / words.length).toFixed(3) : '0';
-  const captionMarkup = words.map((word,index)=>'<span class="caption-word" style="--word:'+index+'">'+escaped(word)+'</span>').join(' ');
-  const enzoLine = String(scene.enzo_line || '').trim();
-  const enzoCharacterMarkup = enzoCharacterAvailable && enzoLine ? '<img class="enzo-character pose-'+(i%3)+'" src="./assets/enzo-master.webp" alt="Enzo, explorador de Behind del Mundo">' : '';
-  const enzoMarkup = enzoLine ? '<div class="enzo-reaction">'+escaped(enzoLine)+'</div>' : '';
   const sceneData = escaped(JSON.stringify({title:script.title,visual:scene.visual||'',type:scene.scene_type||'object',objects:Array.isArray(scene.objects)?scene.objects.slice(0,4):[],index:i}));
-  return '<section id="scene-'+(i+1)+'" class="clip scene motion-'+(i%4)+'" data-start="'+start+'" data-duration="'+duration+'" data-track-index="0"><canvas class="world-canvas" data-scene="'+sceneData+'"></canvas><div class="brand-mark">BEHIND <i>DEL MUNDO</i></div><div class="scene-copy"><h1>'+escaped(scene.overlay)+'</h1></div><div class="caption" style="--word-delay:'+wordDelay+'s">'+captionMarkup+'</div>'+enzoCharacterMarkup+enzoMarkup+'</section>';
+  return '<section id="scene-'+(i+1)+'" class="clip scene motion-'+(i%4)+'" data-start="'+start+'" data-duration="'+duration+'" data-track-index="0"><canvas class="world-canvas" data-scene="'+sceneData+'"></canvas><div class="brand-mark">BEHIND <i>DEL MUNDO</i></div><div class="scene-copy"><h1>'+escaped(scene.overlay)+'</h1></div></section>';
 }).join('');
+const parseSrtTime = value => { const m=String(value).match(/(\\d+):(\\d{2}):(\\d{2}),(\\d{3})/); return m ? Number(m[1])*3600+Number(m[2])*60+Number(m[3])+Number(m[4])/1000 : 0; };
+const srtText = await readFile(subtitlesPath,'utf8');
+const srtBlocks = srtText.trim().split(/\\r?\\n\\s*\\r?\\n/);
+const wordCues = srtBlocks.map(block=>{const lines=block.split(/\\r?\\n/);const ix=lines.findIndex(line=>line.includes('-->'));if(ix<0)return null;const [from,to]=lines[ix].split('-->').map(x=>x.trim());return {start:parseSrtTime(from),end:parseSrtTime(to),text:lines.slice(ix+1).join(' ').trim()};}).filter(Boolean);
+const subtitleCues = [];
+for(let i=0;i<wordCues.length;i+=4){const group=wordCues.slice(i,i+4);subtitleCues.push({start:group[0].start,end:group[group.length-1].end,text:group.map(x=>x.text).join(' ')});}
 const html = '<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=1080,initial-scale=1"><style>'+
-'*{box-sizing:border-box}html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#8ed0f0;font-family:Arial,sans-serif}.scene{position:absolute;inset:0;width:1080px;height:1920px;overflow:hidden;background:linear-gradient(#82c9ef 0%,#c5e9f5 62%,#9bd38b 100%);isolation:isolate}.world-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0}.brand-mark{position:absolute;z-index:4;top:82px;left:70px;font:900 25px Arial;letter-spacing:5px;color:white;text-shadow:0 3px 12px #16334f}.brand-mark i{font-style:normal;color:#ffcf54}.scene-copy{position:absolute;z-index:4;left:70px;right:70px;top:270px;animation:enter .6s ease both}.scene h1{font-size:76px;line-height:1.02;font-weight:950;color:white;-webkit-text-stroke:2px #172b42;text-shadow:0 5px 0 #172b42,0 9px 24px #102a43}.caption{position:absolute;z-index:5;left:70px;right:70px;bottom:205px;display:flex;flex-wrap:wrap;gap:8px 13px;font-size:43px;font-weight:950;-webkit-text-stroke:1.2px #111d2d;text-shadow:0 3px #111d2d}.caption span{color:white;animation:word .25s ease both;animation-delay:calc(var(--word)*var(--word-delay,.17s))}.caption span:nth-child(3n+2){color:#ffe16b}.enzo-character{position:absolute;z-index:3;right:35px;bottom:275px;width:270px;height:430px;object-fit:contain;filter:drop-shadow(0 14px 20px #17314a55);animation:enter .6s ease both}.enzo-reaction{position:absolute;z-index:5;right:365px;bottom:560px;padding:17px 25px;border:3px solid #18334c;border-radius:28px;background:#fff4d9;color:#18334c;font-size:34px;font-weight:950}@keyframes enter{from{opacity:0;transform:translateY(35px)}to{opacity:1;transform:none}}@keyframes word{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:none}}'+
-'</style></head><body><div id="root" data-composition-id="behind-del-mundo" data-start="0" data-width="1080" data-height="1920"><audio id="narration-audio" src="voice.mp3" data-start="0" data-duration="'+targetDuration+'" data-track-index="0" data-volume="1"></audio>'+clips+'<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script><script type="module">'+
-"import * as THREE from 'https://esm.sh/three@0.160.0';const M=c=>new THREE.MeshStandardMaterial({color:c,flatShading:true});const H=n=>{const x=Math.sin(n*127.1+311.7)*43758.5453;return x-Math.floor(x)};function cube(g,x,y,z,a,b,c,col){const o=new THREE.Mesh(new THREE.BoxGeometry(a,b,c),M(col));o.position.set(x,y,z);g.add(o);return o}function ico(g,x,y,z,r,col){const o=new THREE.Mesh(new THREE.IcosahedronGeometry(r,0),M(col));o.position.set(x,y,z);g.add(o)}function sceneFor(canvas,d){ const r=new THREE.WebGLRenderer({canvas,antialias:true});r.setPixelRatio(1);r.setSize(1080,1920,false);r.outputColorSpace=THREE.SRGBColorSpace; const s=new THREE.Scene();s.background=new THREE.Color('#8ed0f0');s.fog=new THREE.Fog('#b7e0ed',20,48); s.add(new THREE.HemisphereLight('#fff','#799d86',2));const l=new THREE.DirectionalLight('#fff0ce',2.4);l.position.set(-8,14,9);s.add(l); const g=new THREE.Group();s.add(g);const words=(d.title+' '+d.visual+' '+(d.objects||[]).join(' ')).toLowerCase(); const water=d.type==='ocean'||/mar|oceano|agua|rio|barco|ballena|coral|submarin/.test(words); const space=d.type==='space'||/espacio|planeta|luna|estrella|orbita|galax|astronaut/.test(words); const arch=d.type==='architecture'||/edificio|constru|torre|puente|templo|ciudad|estructura|castillo/.test(words); const nature=d.type==='landscape'||/volcan|monta|bosque|arbol|selva|desierto|cueva|glaciar|cascada/.test(words); const science=d.type==='science'||/experimento|maquina|motor|energia|electric|laboratorio|fisica|robot/.test(words); const history=d.type==='history'||/antigu|romano|egipto|medieval|imperio|arqueolog|civilizacion/.test(words); cube(g,0,-.55,-3,26,.8,26,water?'#247eaa':space?'#29366f':'#8bcf79'); if(water){cube(g,0,-.04,-3,25,.16,25,'#269dc7');for(let i=0;i<32;i++)cube(g,(H(i)-.5)*20,.08,(H(i+9)-.5)*20,.4+H(i+4),.025,.08,'#b2f1ef');} if(space){s.background.set('#29366f');s.fog.color.set('#29366f');ico(g,-2,3,-5,2.1,'#e8a65d');for(let i=0;i<55;i++)ico(g,(H(i+2)-.5)*22,H(i+40)*12,-8-H(i+50)*10,.04+H(i)*.08,'#fff');} if(nature){for(let i=0;i<15;i++){const x=(H(i)-.5)*17,z=(H(i+10)-.5)*14;cube(g,x,.55,z,.22,1.1,.22,'#805b3b');for(let j=0;j<3;j++){const o=new THREE.Mesh(new THREE.ConeGeometry(.85-j*.13,1.25,5),M(j%2?'#4caa70':'#75bd70'));o.position.set(x,1.3+j*.55,z);g.add(o);}}if(/volcan/.test(words)){const cone=new THREE.Mesh(new THREE.ConeGeometry(4,6,7),M('#8d6555'));cone.position.set(0,2,-5);g.add(cone);ico(g,0,5,-5,1.1,'#f18b43');}} if(arch||history){for(let y=0;y<4;y++){cube(g,0,y*.8+.3,-4,3,.16,2.5,'#e9e3d7');for(const x of [-1.3,1.3])cube(g,x,y*.8+.65,-4,.18,.8,.18,'#173b60');}for(let i=0;i<5;i++)cube(g,(i-2)*2.5,.7,1,1.2,1.4,1,['#f1c98e','#e8a6a0','#9cc8dc'][i%3]);if(/piram|egipto/.test(words)){for(let i=0;i<3;i++){const p=new THREE.Mesh(new THREE.ConeGeometry(2.7-i*.45,3.8-i*.5,4),M('#d6ad72'));p.rotation.y=Math.PI/4;p.position.set((i-1)*5,1.7,-7);g.add(p);}}} if(science){for(let i=0;i<4;i++){cube(g,(i-1.5)*2,.6,-3,.55,1.3,.55,['#ff9e57','#51c7bf','#a68de0','#f0cf62'][i]);ico(g,(i-1.5)*2,1.5,-3,.4,['#ffbd62','#63e0d0','#c1a4ff','#ffe07a'][i]);}} if(!water&&!space&&!arch&&!nature&&!science&&!history){for(let i=0;i<8;i++)cube(g,(i-3.5)*1.65,.5,-3,1,1,1,['#f5b85d','#5bc8bd','#ef8e9d','#8b9fe8'][i%4]);} (d.objects||[]).slice(0,4).forEach((label,i)=>{const x=(i-1.5)*2.7,color=['#f5b85d','#5bc8bd','#ef8e9d','#8b9fe8'][i%4],name=String(label).toLowerCase();const mesh=/rueda|engranaje|disco|moneda/.test(name)?new THREE.Mesh(new THREE.TorusGeometry(.72,.22,6,12),M(color)):/esfera|planeta|bola|globo/.test(name)?new THREE.Mesh(new THREE.IcosahedronGeometry(.8,1),M(color)):new THREE.Mesh(new THREE.BoxGeometry(1.15,1.4,1.05),M(color));mesh.position.set(x,.85,2);mesh.rotation.y=i*.6;g.add(mesh);}); for(let i=0;i<5;i++)for(let j=0;j<3;j++)ico(g,(i-2)*4,6+j*.3,-8,.45,'#fff'); const cam=new THREE.PerspectiveCamera(43,1080/1920,.1,100);return q=>{const phase=(q%8)/8;cam.position.x=7*Math.sin(q*.22+d.index*.7)+(phase-.5)*2.2;cam.position.y=5.2+Math.sin(q*.38)*.8;cam.position.z=15-2.2*Math.sin(q*.19);cam.lookAt(Math.sin(q*.24),1,-3);g.rotation.y=Math.sin(q*.16+d.index)*.07;g.children.forEach((o,i)=>{if(i>2&&i<18){o.rotation.y=i*.035+Math.sin(q*1.2+i)*.12;}});r.render(s,cam);};}const sceneRenderers=Array.from(document.querySelectorAll('.world-canvas')).map(c=>{try{return sceneFor(c,JSON.parse(c.dataset.scene))}catch(e){console.error(e);return ()=>{};}});const tl=gsap.timeline({paused:true});document.querySelectorAll('.scene').forEach(e=>{tl.fromTo(e,{opacity:0},{opacity:1,duration:.25},Number(e.dataset.start));tl.to(e,{opacity:0,duration:.2},Number(e.dataset.start)+Number(e.dataset.duration)-.2)});tl.set({}, {},"+targetDuration+");tl.eventCallback('onUpdate',()=>{const q=tl.time();sceneRenderers.forEach(render=>render(q));});sceneRenderers.forEach(render=>render(0));window.__timelines=window.__timelines||{};window.__timelines['behind-del-mundo']=tl;"+
+'*{box-sizing:border-box}html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#8ed0f0;font-family:Arial,sans-serif}.scene{position:absolute;inset:0;width:1080px;height:1920px;overflow:hidden;background:linear-gradient(#82c9ef 0%,#c5e9f5 62%,#9bd38b 100%);isolation:isolate}.world-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0}.brand-mark{position:absolute;z-index:4;top:82px;left:70px;font:900 25px Arial;letter-spacing:5px;color:white;text-shadow:0 3px 12px #16334f}.brand-mark i{font-style:normal;color:#ffcf54}.scene-copy{position:absolute;z-index:4;left:70px;right:70px;top:270px;animation:enter .6s ease both}.scene h1{font-size:76px;line-height:1.02;font-weight:950;color:white;-webkit-text-stroke:2px #172b42;text-shadow:0 5px 0 #172b42,0 9px 24px #102a43}.timed-caption{position:absolute;z-index:8;left:70px;right:70px;bottom:190px;min-height:120px;text-align:center;font-size:48px;line-height:1.12;font-weight:950;color:#fff;-webkit-text-stroke:1.5px #101b2a;text-shadow:0 4px 0 #101b2a,0 7px 18px #101b2a;letter-spacing:.2px;pointer-events:none}@keyframes enter{from{opacity:0;transform:translateY(35px)}to{opacity:1;transform:none}}@keyframes word{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:none}}'+
+'</style></head><body><div id="root" data-composition-id="behind-del-mundo" data-start="0" data-width="1080" data-height="1920"><div id="timed-caption" class="timed-caption"></div><audio id="narration-audio" src="voice.mp3" data-start="0" data-duration="'+targetDuration+'" data-track-index="0" data-volume="1"></audio>'+clips+'<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script><script type="module">'+
+"import * as THREE from 'https://esm.sh/three@0.160.0';const M=c=>new THREE.MeshStandardMaterial({color:c,flatShading:true});const H=n=>{const x=Math.sin(n*127.1+311.7)*43758.5453;return x-Math.floor(x)};function cube(g,x,y,z,a,b,c,col){const o=new THREE.Mesh(new THREE.BoxGeometry(a,b,c),M(col));o.position.set(x,y,z);g.add(o);return o}function ico(g,x,y,z,r,col){const o=new THREE.Mesh(new THREE.IcosahedronGeometry(r,0),M(col));o.position.set(x,y,z);g.add(o)}function sceneFor(canvas,d){ const r=new THREE.WebGLRenderer({canvas,antialias:true});r.setPixelRatio(1);r.setSize(1080,1920,false);r.outputColorSpace=THREE.SRGBColorSpace; const s=new THREE.Scene();s.background=new THREE.Color('#8ed0f0');s.fog=new THREE.Fog('#b7e0ed',20,48); s.add(new THREE.HemisphereLight('#fff','#799d86',2));const l=new THREE.DirectionalLight('#fff0ce',2.4);l.position.set(-8,14,9);s.add(l); const g=new THREE.Group();s.add(g);const words=(d.title+' '+d.visual+' '+(d.objects||[]).join(' ')).toLowerCase(); const water=d.type==='ocean'||/mar|oceano|agua|rio|barco|ballena|coral|submarin/.test(words); const space=d.type==='space'||/espacio|planeta|luna|estrella|orbita|galax|astronaut/.test(words); const arch=d.type==='architecture'||/edificio|constru|torre|puente|templo|ciudad|estructura|castillo/.test(words); const nature=d.type==='landscape'||/volcan|monta|bosque|arbol|selva|desierto|cueva|glaciar|cascada/.test(words); const science=d.type==='science'||/experimento|maquina|motor|energia|electric|laboratorio|fisica|robot/.test(words); const history=d.type==='history'||/antigu|romano|egipto|medieval|imperio|arqueolog|civilizacion/.test(words); cube(g,0,-.55,-3,26,.8,26,water?'#247eaa':space?'#29366f':'#8bcf79'); if(water){cube(g,0,-.04,-3,25,.16,25,'#269dc7');for(let i=0;i<32;i++)cube(g,(H(i)-.5)*20,.08,(H(i+9)-.5)*20,.4+H(i+4),.025,.08,'#b2f1ef');} if(space){s.background.set('#29366f');s.fog.color.set('#29366f');ico(g,-2,3,-5,2.1,'#e8a65d');for(let i=0;i<55;i++)ico(g,(H(i+2)-.5)*22,H(i+40)*12,-8-H(i+50)*10,.04+H(i)*.08,'#fff');} if(nature){for(let i=0;i<15;i++){const x=(H(i)-.5)*17,z=(H(i+10)-.5)*14;cube(g,x,.55,z,.22,1.1,.22,'#805b3b');for(let j=0;j<3;j++){const o=new THREE.Mesh(new THREE.ConeGeometry(.85-j*.13,1.25,5),M(j%2?'#4caa70':'#75bd70'));o.position.set(x,1.3+j*.55,z);g.add(o);}}if(/volcan/.test(words)){const cone=new THREE.Mesh(new THREE.ConeGeometry(4,6,7),M('#8d6555'));cone.position.set(0,2,-5);g.add(cone);ico(g,0,5,-5,1.1,'#f18b43');}} if(arch||history){for(let y=0;y<4;y++){cube(g,0,y*.8+.3,-4,3,.16,2.5,'#e9e3d7');for(const x of [-1.3,1.3])cube(g,x,y*.8+.65,-4,.18,.8,.18,'#173b60');}for(let i=0;i<5;i++)cube(g,(i-2)*2.5,.7,1,1.2,1.4,1,['#f1c98e','#e8a6a0','#9cc8dc'][i%3]);if(/piram|egipto/.test(words)){for(let i=0;i<3;i++){const p=new THREE.Mesh(new THREE.ConeGeometry(2.7-i*.45,3.8-i*.5,4),M('#d6ad72'));p.rotation.y=Math.PI/4;p.position.set((i-1)*5,1.7,-7);g.add(p);}}} if(science){for(let i=0;i<4;i++){cube(g,(i-1.5)*2,.6,-3,.55,1.3,.55,['#ff9e57','#51c7bf','#a68de0','#f0cf62'][i]);ico(g,(i-1.5)*2,1.5,-3,.4,['#ffbd62','#63e0d0','#c1a4ff','#ffe07a'][i]);}} if(!water&&!space&&!arch&&!nature&&!science&&!history){for(let i=0;i<8;i++)cube(g,(i-3.5)*1.65,.5,-3,1,1,1,['#f5b85d','#5bc8bd','#ef8e9d','#8b9fe8'][i%4]);} (d.objects||[]).slice(0,4).forEach((label,i)=>{const x=(i-1.5)*2.7,color=['#f5b85d','#5bc8bd','#ef8e9d','#8b9fe8'][i%4],name=String(label).toLowerCase();const mesh=/rueda|engranaje|disco|moneda/.test(name)?new THREE.Mesh(new THREE.TorusGeometry(.72,.22,6,12),M(color)):/esfera|planeta|bola|globo/.test(name)?new THREE.Mesh(new THREE.IcosahedronGeometry(.8,1),M(color)):new THREE.Mesh(new THREE.BoxGeometry(1.15,1.4,1.05),M(color));mesh.position.set(x,.85,2);mesh.rotation.y=i*.6;g.add(mesh);}); for(let i=0;i<5;i++)for(let j=0;j<3;j++)ico(g,(i-2)*4,6+j*.3,-8,.45,'#fff'); const cam=new THREE.PerspectiveCamera(43,1080/1920,.1,100);return q=>{const phase=(q%8)/8;cam.position.x=7*Math.sin(q*.22+d.index*.7)+(phase-.5)*2.2;cam.position.y=5.2+Math.sin(q*.38)*.8;cam.position.z=15-2.2*Math.sin(q*.19);cam.lookAt(Math.sin(q*.24),1,-3);g.rotation.y=Math.sin(q*.16+d.index)*.07;g.children.forEach((o,i)=>{if(i>2&&i<18){o.rotation.y=i*.035+Math.sin(q*1.2+i)*.12;}});r.render(s,cam);};}const sceneRenderers=Array.from(document.querySelectorAll('.world-canvas')).map(c=>{try{return sceneFor(c,JSON.parse(c.dataset.scene))}catch(e){console.error(e);return ()=>{};}});const tl=gsap.timeline({paused:true});const subtitleCues='+JSON.stringify(subtitleCues)+';const caption=document.getElementById('timed-caption');subtitleCues.forEach(cue=>{tl.call(()=>{caption.textContent=cue.text;},null,cue.start);tl.call(()=>{caption.textContent='';},null,cue.end);});document.querySelectorAll('.scene').forEach(e=>{tl.fromTo(e,{opacity:0},{opacity:1,duration:.25},Number(e.dataset.start));tl.to(e,{opacity:0,duration:.2},Number(e.dataset.start)+Number(e.dataset.duration)-.2)});tl.set({}, {},"+targetDuration+");tl.eventCallback('onUpdate',()=>{const q=tl.time();sceneRenderers.forEach(render=>render(q));});sceneRenderers.forEach(render=>render(0));window.__timelines=window.__timelines||{};window.__timelines['behind-del-mundo']=tl;"+
 '</script></div></body></html>';
 await writeFile(path.join(work, 'index.html'), html);
 await command('npx', ['--yes', 'hyperframes@0.9.37', 'lint'], { cwd: work });
@@ -500,18 +458,7 @@ await command('npx', ['--yes', 'hyperframes@0.9.37', 'render', '-c', 'index.html
 const finalPath = path.join(root, 'renders', `behind-del-mundo-${local}-${slot.replace(':','')}.mp4`);
 // HyperFrames incorpora la narración como pista de audio del timeline. No volver a muxear
 // con -shortest: eso truncaba el vídeo al terminar la voz (48 s en la prueba anterior).
-if (enzoAudioFiles.length) {
-  const audioInputs = enzoAudioFiles.flatMap(item => ['-i', item.path]);
-  const filters = enzoAudioFiles.map((item, index) => {
-    const delayMs = Math.round((item.index * sceneSeconds + sceneSeconds * 0.48) * 1000);
-    return `[${index + 1}:a]adelay=${delayMs}|${delayMs},volume=1.0[enzo${index}]`;
-  });
-  const mixInputs = ['[0:a]', ...enzoAudioFiles.map((_, index) => `[enzo${index}]`)].join('');
-  filters.push(`${mixInputs}amix=inputs=${enzoAudioFiles.length + 1}:duration=first:dropout_transition=0[aout]`);
-  await command('ffmpeg', ['-y','-i',rawVideo,...audioInputs,'-filter_complex',filters.join(';'),'-map','0:v:0','-map','[aout]','-t',String(targetDuration),'-c:v','libx264','-preset','veryfast','-crf','23','-maxrate','4500k','-bufsize','9000k','-pix_fmt','yuv420p','-c:a','aac','-b:a','128k','-movflags','+faststart',finalPath]);
-} else {
-  await command('ffmpeg', ['-y','-i',rawVideo,'-af','apad','-t',String(targetDuration),'-c:v','libx264','-preset','veryfast','-crf','23','-maxrate','4500k','-bufsize','9000k','-pix_fmt','yuv420p','-c:a','aac','-b:a','128k','-movflags','+faststart',finalPath]);
-}
+await command('ffmpeg', ['-y','-i',rawVideo,'-af','apad','-t',String(targetDuration),'-c:v','libx264','-preset','veryfast','-crf','23','-maxrate','4500k','-bufsize','9000k','-pix_fmt','yuv420p','-c:a','aac','-b:a','128k','-movflags','+faststart',finalPath]);
 const stat = await (await import('node:fs/promises')).stat(finalPath);
 if (stat.size < 500000) throw new Error('El MP4 generado parece incompleto.');
 const maxStorageBytes = 45 * 1024 * 1024;
