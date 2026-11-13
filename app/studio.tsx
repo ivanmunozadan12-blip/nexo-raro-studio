@@ -6,20 +6,20 @@ const fmt=(v:string)=>new Date(v).toLocaleString('es-ES',{dateStyle:'medium',tim
 export default function Studio(){
  const db=supabase();
  const [session,setSession]=useState<any>(null),[email,setEmail]=useState(''),[password,setPassword]=useState(''),[signup,setSignup]=useState(false);
- const [scripts,setScripts]=useState<any[]>([]),[jobs,setJobs]=useState<any[]>([]),[videos,setVideos]=useState<any[]>([]),[memory,setMemory]=useState<any[]>([]);
+ const [scripts,setScripts]=useState<any[]>([]),[jobs,setJobs]=useState<any[]>([]),[videos,setVideos]=useState<any[]>([]),[memory,setMemory]=useState<any[]>([]),[posts,setPosts]=useState<any[]>([]);
  const [signed,setSigned]=useState<Record<string,string>>({}),[busy,setBusy]=useState(false),[dispatching,setDispatching]=useState(false),[message,setMessage]=useState(''),[prompt1,setPrompt1]=useState(''),[prompt2,setPrompt2]=useState(''),[prompt3,setPrompt3]=useState('');
  const load=useCallback(async()=>{
   if(!session)return;
   setBusy(true);
-  const [s,j,v,m]=await Promise.all([
+  const [s,j,v,m,p]=await Promise.all([
    db.from('scripts').select('id,title,hook,narration,status,created_at,source_notes').order('created_at',{ascending:false}).limit(18),
    db.from('production_jobs').select('id,status,error_message,started_at,completed_at,scheduled_for,script_id').order('created_at',{ascending:false}).limit(18),
    db.from('videos').select('id,storage_path,duration_seconds,width,height,quality_check,created_at').order('created_at',{ascending:false}).limit(12),
    db.from('editorial_memory').select('id,topic,angle,memory_status,created_at').order('created_at',{ascending:false}).limit(40)
   ]);
-  const error=s.error||j.error||v.error||m.error;
+  const error=s.error||j.error||v.error||m.error||p.error;
   if(error)setMessage('No se han podido cargar todos los datos: '+error.message);
-  setScripts(s.data||[]);setJobs(j.data||[]);setVideos(v.data||[]);setMemory(m.data||[]);
+  setScripts(s.data||[]);setJobs(j.data||[]);setVideos(v.data||[]);setMemory(m.data||[]);setPosts(p.data||[]);
   setBusy(false);
  },[session]);
  useEffect(()=>{db.auth.getSession().then(({data}:any)=>setSession(data.session));const {data}=db.auth.onAuthStateChange((_e:any,s:any)=>setSession(s));return()=>data.subscription.unsubscribe()},[]);
@@ -63,7 +63,7 @@ export default function Studio(){
    <p className="muted-copy">Formato vertical · Animación dibujada por código · Voz masculina española · Música y efectos · MP4</p>
   </section>
   <div className="studio-columns"><section className="studio-card"><div className="card-kicker">IDEAS / HOY</div><h2>Temas generados ({todays.length})</h2>{todays.length?todays.map(s=><article className="data-row" key={s.id}><div><b>{s.title}</b><small>{fmt(s.created_at)} · {(s.source_notes||[]).length} fuentes</small></div><Status value={s.status}/></article>):<Empty text="Todavía no se ha generado ningún tema hoy."/>}</section><section className="studio-card"><div className="card-kicker">ESTADO DEL MOTOR</div><h2>Producción automática</h2><div className="pipeline"><span>Idea + fuentes</span><i>→</i><span>Guion</span><i>→</i><span>Voz</span><i>→</i><span>Animación</span><i>→</i><span>Sonido</span><i>→</i><span>MP4</span></div><p className="muted-copy">Narrador masculino es-ES-AlvaroNeural. Música ambiental y efectos originales generados por código. Publicación automática desactivada: todos los vídeos quedan privados para revisión.</p><button className="ghost-button" onClick={addExclusion}>＋ Excluir un tema</button></section></div>
-  <section className="studio-card"><div className="card-kicker">BIBLIOTECA / VÍDEOS MP4</div><h2>Últimos vídeos ({videos.length})</h2><div className="video-grid">{latest.map(v=><article className="video-card" key={v.id}>{signed[v.id]?<video controls playsInline preload="metadata" src={signed[v.id]}/>:<div className="video-placeholder">VÍDEO PRIVADO</div>}<b>{v.storage_path.split('/').pop()}</b><small>{fmt(v.created_at)} · {v.duration_seconds||'—'} s · {v.width}×{v.height}</small>{signed[v.id]&&<a href={signed[v.id]} target="_blank" rel="noreferrer">Abrir MP4 ↗</a>}</article>)}</div>{!videos.length&&<Empty text="Los vídeos terminados aparecerán aquí para reproducirlos y revisarlos."/>}</section>
+  <section className="studio-card"><div className="card-kicker">BIBLIOTECA / VÍDEOS MP4</div><h2>Últimos vídeos ({videos.length})</h2><div className="video-grid">{latest.map(v=><article className="video-card" key={v.id}>{signed[v.id]?<video controls playsInline preload="metadata" src={signed[v.id]}/>:<div className="video-placeholder">VÍDEO PRIVADO</div>}<b>{v.storage_path.split('/').pop()}</b><small>{fmt(v.created_at)} · {v.duration_seconds||'—'} s · {v.width}×{v.height}</small>{signed[v.id]&&<a href={signed[v.id]} target="_blank" rel="noreferrer">Abrir MP4 ↗</a>}<div className="social-status-list">{posts.filter(p=>p.video_id===v.id).map(p=><div className="social-status" key={p.id}><span>{p.platform==='youtube'?'YouTube':'TikTok'}</span><Status value={p.status}/>{p.error_message&&<small>{p.error_message}</small>}</div>)}</div></article>)}</div>{!videos.length&&<Empty text="Los vídeos terminados aparecerán aquí para reproducirlos y revisarlos."/>}</section>
   <section className="studio-card"><div className="card-kicker">MEMORIA EDITORIAL</div><h2>Temas ya tratados y excluidos</h2>{memory.slice(0,12).map(x=><div className="data-row" key={x.id}><div><b>{x.topic}</b><small>{x.angle||'Sin enfoque registrado'} · {fmt(x.created_at)}</small></div><Status value={x.memory_status}/></div>)}{!memory.length&&<Empty text="La memoria se irá completando con cada vídeo."/>}</section>
   <footer className="studio-footer">BEHIND DEL MUNDO © 2026 · DESCUBRE LO QUE HAY DETRÁS <span>Panel privado · {session.user.email}</span></footer>
  </main>;
