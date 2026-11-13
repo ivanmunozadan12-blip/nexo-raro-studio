@@ -162,7 +162,7 @@ function createHuman(spec, rng) {
     ellipsoid(arm, [side * .2, -.65, .13], [.075, .09, .075], skin, 1);
     arms.push({ group: arm, side });
   }
-  g.userData.rig = { legs, arms, baseY: 0, motion: spec.motion || spec.action || 'idle' };
+  g.userData.rig = { legs, arms, body: torso, baseY: 0, motion: spec.motion || spec.action || 'idle' };
   return g;
 }
 
