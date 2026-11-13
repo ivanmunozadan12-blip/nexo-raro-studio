@@ -6,7 +6,7 @@ const fmt=(v:string)=>new Date(v).toLocaleString('es-ES',{dateStyle:'medium',tim
 export default function Studio(){
  const db=supabase();
  const [session,setSession]=useState<any>(null),[email,setEmail]=useState(''),[password,setPassword]=useState(''),[signup,setSignup]=useState(false);
- const [scripts,setScripts]=useState<any[]>([]),[jobs,setJobs]=useState<any[]>([]),[videos,setVideos]=useState<any[]>([]),[memory,setMemory]=useState<any[]>([]),[posts,setPosts]=useState<any[]>([]);
+ const [scripts,setScripts]=useState<any[]>([]),[jobs,setJobs]=useState<any[]>([]),[videos,setVideos]=useState<any[]>([]),[memory,setMemory]=useState<any[]>([]),[posts,setPosts]=useState<any[]>([]),[social,setSocial]=useState({youtube:false,tiktok:false});
  const [signed,setSigned]=useState<Record<string,string>>({}),[busy,setBusy]=useState(false),[dispatching,setDispatching]=useState(false),[message,setMessage]=useState(''),[prompt1,setPrompt1]=useState(''),[prompt2,setPrompt2]=useState(''),[prompt3,setPrompt3]=useState('');
  const load=useCallback(async()=>{
   if(!session)return;
@@ -20,7 +20,7 @@ export default function Studio(){
   ]);
   const error=s.error||j.error||v.error||m.error||p.error;
   if(error)setMessage('No se han podido cargar todos los datos: '+error.message);
-  setScripts(s.data||[]);setJobs(j.data||[]);setVideos(v.data||[]);setMemory(m.data||[]);setPosts(p.data||[]);
+  setScripts(s.data||[]);setJobs(j.data||[]);setVideos(v.data||[]);setMemory(m.data||[]);setPosts(p.data||[]);\n  const socialResponse=await fetch('/api/social/status',{headers:{Authorization:'Bearer '+session.access_token},cache:'no-store'});if(socialResponse.ok)setSocial(await socialResponse.json());
   setBusy(false);
  },[session]);
  useEffect(()=>{db.auth.getSession().then(({data}:any)=>setSession(data.session));const {data}=db.auth.onAuthStateChange((_e:any,s:any)=>setSession(s));return()=>data.subscription.unsubscribe()},[]);
@@ -28,6 +28,13 @@ export default function Studio(){
  useEffect(()=>{if(!session||(!jobs.some(j=>['queued','voicing','rendering','publishing'].includes(j.status))&&!posts.some(p=>p.status==='publishing')))return;const timer=window.setInterval(load,20000);return()=>window.clearInterval(timer)},[session,jobs,posts,load]);
  useEffect(()=>{let active=true;(async()=>{const next:Record<string,string>={};for(const v of videos){const {data}=await db.storage.from('nexo-videos').createSignedUrl(v.storage_path,3600);if(data?.signedUrl)next[v.id]=data.signedUrl;}if(active)setSigned(next)})();return()=>{active=false}},[videos]);
  async function auth(e:any){e.preventDefault();const r=signup?await db.auth.signUp({email,password}):await db.auth.signInWithPassword({email,password});setMessage(r.error?.message||(signup?'Revisa tu correo para confirmar la cuenta.':'Sesión iniciada.'))}
+ async function connectSocial(platform:'youtube'|'tiktok'){
+  try{
+   const r=await fetch('/api/social/connect/'+platform,{method:'POST',headers:{Authorization:'Bearer '+session.access_token}});
+   const data=await r.json();if(!r.ok)throw new Error(data.error||'No se pudo iniciar la conexión.');
+   window.location.href=data.url;
+  }catch(e:any){setMessage(e?.message||'Error conectando la cuenta.')}
+ }
  async function generateAll(){
   setDispatching(true);setMessage('');
   try{
@@ -54,6 +61,15 @@ export default function Studio(){
   <section className="studio-heading"><div><div className="eyebrow">TUS TRES IDEAS / UN SOLO ENVÍO</div><h1>Centro de <em>producción.</em></h1><p>Pega tus tres prompts y deja que el motor construya los vídeos completos.</p></div><div className="system-pill"><i/> MOTOR PYTHON / PILLOW / FFMPEG</div></section>
   {message&&<div className="studio-message">{message}<button onClick={()=>setMessage('')}>×</button></div>}
   <div className="metric-grid"><Metric label="Vídeos guardados" value={ready} note="Biblioteca privada"/><Metric label="En producción" value={active} note="Trabajos activos"/><Metric label="Fallidos" value={failed} note="Requieren revisión"/><Metric label="Temas recordados" value={memory.length} note="Memoria editorial"/></div>
+  <section className="studio-card social-connect-card">
+   <div className="card-kicker">PUBLICACIÓN / CUENTAS CONECTADAS</div><h2>Conecta tus canales</h2>
+   <p className="muted-copy">Autoriza una vez cada cuenta. Después, los vídeos se enviarán automáticamente al terminar.</p>
+   <div className="social-connect-actions">
+    <div><span>YouTube</span><b className={social.youtube?'connected':'not-connected'}>{social.youtube?'Conectado':'Sin conectar'}</b><button className="ghost-button" onClick={()=>connectSocial('youtube')}>{social.youtube?'Volver a conectar':'Conectar YouTube'}</button></div>
+    <div><span>TikTok</span><b className={social.tiktok?'connected':'not-connected'}>{social.tiktok?'Conectado':'Sin conectar'}</b><button className="ghost-button" onClick={()=>connectSocial('tiktok')}>{social.tiktok?'Volver a conectar':'Conectar TikTok'}</button></div>
+   </div>
+   <small className="muted-copy">TikTok puede limitar las publicaciones a privadas hasta que su aplicación supere la auditoría oficial.</small>
+  </section>
   <section className="studio-card prompt-studio">
    <div className="card-kicker">CREACIÓN / TUS TRES VÍDEOS</div><h2>Prepara los vídeos de hoy</h2>
    <p className="muted-copy">Pega los tres prompts diarios que te preparo. El motor creará una animación distinta para cada historia, con narración, música, efectos y subtítulos.</p>
