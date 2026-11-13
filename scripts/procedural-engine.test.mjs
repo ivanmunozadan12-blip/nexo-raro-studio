@@ -1,0 +1,64 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import * as THREE from 'three';
+import { seededRandom, inferEntityType, createProceduralEntity, directScene, animateEntities } from './procedural-engine.js';
+
+test('the seeded generator is repeatable', () => {
+  const a = seededRandom('same-entity');
+  const b = seededRandom('same-entity');
+  assert.deepEqual([a(), a(), a(), a()], [b(), b(), b(), b()]);
+});
+
+test('semantic names resolve to distinct model families', () => {
+  assert.equal(inferEntityType('jaguar adulto'), 'animal');
+  assert.equal(inferEntityType('carabela de madera'), 'ship');
+  assert.equal(inferEntityType('castillo medieval'), 'building');
+  assert.equal(inferEntityType('astronauta'), 'human');
+  assert.equal(inferEntityType('microscopio'), 'lab');
+  assert.equal(inferEntityType('reloj antiguo'), 'prop');
+});
+
+test('all procedural families create real Three.js meshes, not placeholder spheres', () => {
+  const samples = [
+    { type: 'human', name: 'explorador', appearance: 'hombre con barba y ropa de cuero' },
+    { type: 'animal', name: 'jaguar' },
+    { type: 'animal', name: 'aguila' },
+    { type: 'animal', name: 'tiburon' },
+    { type: 'animal', name: 'cocodrilo' },
+    { type: 'ship', name: 'carabela' },
+    { type: 'tree', name: 'roble' },
+    { type: 'building', name: 'castillo medieval' },
+    { type: 'vehicle', name: 'automovil' },
+    { type: 'machine', name: 'motor industrial' },
+    { type: 'lab', name: 'laboratorio cientifico' },
+    { type: 'celestial', name: 'planeta tierra' },
+    { type: 'furniture', name: 'trono real' },
+    { type: 'prop', name: 'espada medieval' },
+    { type: 'artifact', name: 'reliquia misteriosa' },
+  ];
+  for (const sample of samples) {
+    const world = new THREE.Group();
+    const model = createProceduralEntity(world, sample, 0);
+    assert.ok(model instanceof THREE.Group, sample.name + ' should be a group');
+    assert.ok(model.children.length >= 2, sample.name + ' should contain multiple model parts');
+    assert.equal(world.children[0], model);
+    assert.ok(model.userData.entity.id);
+    assert.ok(model.userData.entity.type);
+  }
+});
+
+test('scene director creates named entities and animation advances without errors', () => {
+  const world = new THREE.Group();
+  const entities = directScene(world, {
+    entities: [
+      { id: 'ship-a', type: 'ship', name: 'Santa Maria', position: [-4, 0, -3], action: 'navegar' },
+      { id: 'jaguar-a', type: 'animal', name: 'Jaguar', position: [3, 0, -2], action: 'caminar' },
+    ],
+    characters: [{ id: 'captain', role: 'capitan', appearance: 'barba roja y abrigo oscuro' }],
+  });
+  assert.equal(entities.length, 3);
+  assert.equal(world.children.length, 3);
+  assert.deepEqual(entities.map(x => x.userData.entity.id), ['ship-a', 'jaguar-a', 'captain']);
+  animateEntities(entities, 0.5);
+  assert.ok(entities.every(x => Number.isFinite(x.position.y)));
+});
