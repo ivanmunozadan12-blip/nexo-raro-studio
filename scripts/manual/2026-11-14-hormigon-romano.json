@@ -1,0 +1,1228 @@
+{
+  "title": "El hormigón romano que podía cerrar sus propias grietas",
+  "hook": "Los romanos pudieron esconder un mecanismo de reparación en sus muros.",
+  "category": "detras-de-la-puerta",
+  "story_id": "bdm-2026-11-14-2",
+  "target_seconds": 68,
+  "narration": "Hay edificios romanos que siguen en pie después de casi dos mil años. Durante mucho tiempo, su hormigón fue un misterio para los investigadores. La receta mezclaba cal, ceniza volcánica y fragmentos de roca. Pero algunos muros conservan pequeñas piezas blancas que escondían una pista. Un estudio de 2023 analizó esos fragmentos y encontró señales de cal viva. La hipótesis es que los romanos mezclaban los ingredientes mientras la cal reaccionaba. Ese proceso, conocido como mezcla en caliente, generaba inclusiones minerales dentro del mortero. Y esas inclusiones podrían ayudar a cerrar pequeñas grietas con el paso del tiempo. Cuando entra agua, parte del calcio puede disolverse y desplazarse por el material. Después puede volver a precipitar y rellenar poros o fisuras muy pequeñas. El equipo también fabricó mezclas modernas inspiradas en aquella técnica antigua. En sus pruebas, algunas grietas inducidas de hasta medio milímetro llegaron a sellarse. Eso no significa que cualquier muro romano se repare solo ni que conozcamos toda la receta. Pero revela que una pista diminuta puede explicar parte de una durabilidad extraordinaria.",
+  "sources": [
+    {
+      "title": "PubMed — Hot mixing and ancient Roman concrete",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/36608117/"
+    },
+    {
+      "title": "Nature Reviews Materials — Self-healing Roman concrete",
+      "url": "https://www.nature.com/articles/s41578-023-00539-z"
+    },
+    {
+      "title": "ASCE — Roman concrete offers lessons in longevity",
+      "url": "https://www.asce.org/publications-and-news/civil-engineering-source/civil-engineering-magazine/article/2023/03/roman-concrete-offers-lessons-in-longevity/"
+    }
+  ],
+  "scenes": [
+    {
+      "scene_type": "history",
+      "visual": "Plano 1. Hay edificios romanos que siguen en pie después de casi dos mil años. La cámara muestra cómo los materiales se mezclan, reaccionan y dejan una huella visible en el mortero. En primer plano aparecen Albañil romano y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
+      "setting": "Obra romana en construcción y laboratorio arqueológico moderno, con muestras de mortero y herramientas visibles.",
+      "action": "Hay edificios romanos que siguen en pie después de casi dos mil años. La cámara muestra cómo los materiales se mezclan, reaccionan y dejan una huella visible en el mortero. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
+      "camera": "Travelling rasante que revela lentamente el sujeto principal y termina en un detalle reconocible. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "camera_target": "El hormigón romano que podía cerrar sus propias grietas",
+      "continuity": "Obra romana en construcción y laboratorio arqueológico moderno, con muestras de mortero y herramientas visibles. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "characters": [],
+      "props": [
+        "material principal",
+        "partículas ambientales",
+        "elemento de escala",
+        "detalle de superficie"
+      ],
+      "objects": [
+        "sujeto principal",
+        "entorno reconocible",
+        "elemento secundario",
+        "detalle en profundidad"
+      ],
+      "overlay": "Pista romana",
+      "narration_excerpt": "Hay edificios romanos que siguen en pie después de casi dos mil años.",
+      "entities": [
+        {
+          "id": "roman-worker",
+          "name": "Albañil romano",
+          "type": "human",
+          "appearance": "Trabajador romano adulto con túnica de lino color ocre, cinturón de cuero, sandalias, cabello oscuro corto y manos cubiertas de polvo; postura de trabajo realista y herramientas sencillas.",
+          "shape": "figura humana de pie",
+          "material": "tela de lino y cuero",
+          "color": "#a87943",
+          "dimensions": [
+            0.75,
+            1.9,
+            0.75
+          ],
+          "scale": 0.82,
+          "action": "El albañil mezcla, transporta y aplica el mortero con movimientos deliberados.",
+          "motion": "camina y trabaja con las manos",
+          "position": [
+            -3,
+            0,
+            -4
+          ],
+          "support": "ground"
+        },
+        {
+          "id": "roman-wall",
+          "name": "Muro de hormigón romano",
+          "type": "building",
+          "appearance": "Muro de opus caementicium con núcleo de mortero gris cálido, áridos volcánicos irregulares y pequeñas inclusiones blancas de cal visibles en el corte; superficie antigua erosionada.",
+          "shape": "muro rectangular de fábrica antigua",
+          "material": "mortero mineral, cal y árido volcánico",
+          "color": "#9b8972",
+          "dimensions": [
+            2.2,
+            2.6,
+            0.9
+          ],
+          "scale": 1,
+          "action": "El muro recibe el mortero y deja visibles sus capas minerales.",
+          "motion": "permanece fijo mientras la cámara recorre su superficie",
+          "position": [
+            3,
+            0,
+            -5
+          ],
+          "support": "ground"
+        }
+      ],
+      "beats": [
+        {
+          "entity_id": "roman-worker",
+          "action": "El albañil mezcla, transporta y aplica el mortero con movimientos deliberados.",
+          "at": 0.2,
+          "duration": 2.5
+        },
+        {
+          "entity_id": "roman-wall",
+          "action": "El muro recibe el mortero y deja visibles sus capas minerales.",
+          "at": 2,
+          "duration": 2.5
+        }
+      ]
+    },
+    {
+      "scene_type": "history",
+      "visual": "Plano 2. Durante mucho tiempo, su hormigón fue un misterio para los investigadores. La cámara muestra cómo los materiales se mezclan, reaccionan y dejan una huella visible en el mortero. En primer plano aparecen Albañil romano y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
+      "setting": "Obra romana en construcción y laboratorio arqueológico moderno, con muestras de mortero y herramientas visibles.",
+      "action": "Durante mucho tiempo, su hormigón fue un misterio para los investigadores. La cámara muestra cómo los materiales se mezclan, reaccionan y dejan una huella visible en el mortero. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
+      "camera": "Dolly-in con arco corto alrededor del sujeto mientras cambia su aspecto. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "camera_target": "El hormigón romano que podía cerrar sus propias grietas",
+      "continuity": "Obra romana en construcción y laboratorio arqueológico moderno, con muestras de mortero y herramientas visibles. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "characters": [],
+      "props": [
+        "material principal",
+        "partículas ambientales",
+        "elemento de escala",
+        "detalle de superficie"
+      ],
+      "objects": [
+        "sujeto principal",
+        "entorno reconocible",
+        "elemento secundario",
+        "detalle en profundidad"
+      ],
+      "overlay": "Pista romana",
+      "narration_excerpt": "Durante mucho tiempo, su hormigón fue un misterio para los investigadores.",
+      "entities": [
+        {
+          "id": "roman-worker",
+          "name": "Albañil romano",
+          "type": "human",
+          "appearance": "Trabajador romano adulto con túnica de lino color ocre, cinturón de cuero, sandalias, cabello oscuro corto y manos cubiertas de polvo; postura de trabajo realista y herramientas sencillas.",
+          "shape": "figura humana de pie",
+          "material": "tela de lino y cuero",
+          "color": "#a87943",
+          "dimensions": [
+            0.75,
+            1.9,
+            0.75
+          ],
+          "scale": 0.82,
+          "action": "El albañil mezcla, transporta y aplica el mortero con movimientos deliberados.",
+          "motion": "camina y trabaja con las manos",
+          "position": [
+            -3,
+            0,
+            -4.6
+          ],
+          "support": "ground"
+        },
+        {
+          "id": "roman-wall",
+          "name": "Muro de hormigón romano",
+          "type": "building",
+          "appearance": "Muro de opus caementicium con núcleo de mortero gris cálido, áridos volcánicos irregulares y pequeñas inclusiones blancas de cal visibles en el corte; superficie antigua erosionada.",
+          "shape": "muro rectangular de fábrica antigua",
+          "material": "mortero mineral, cal y árido volcánico",
+          "color": "#9b8972",
+          "dimensions": [
+            2.2,
+            2.6,
+            0.9
+          ],
+          "scale": 1,
+          "action": "El muro recibe el mortero y deja visibles sus capas minerales.",
+          "motion": "permanece fijo mientras la cámara recorre su superficie",
+          "position": [
+            3,
+            0,
+            -5.6
+          ],
+          "support": "ground"
+        }
+      ],
+      "beats": [
+        {
+          "entity_id": "roman-worker",
+          "action": "El albañil mezcla, transporta y aplica el mortero con movimientos deliberados.",
+          "at": 0.2,
+          "duration": 2.5
+        },
+        {
+          "entity_id": "roman-wall",
+          "action": "El muro recibe el mortero y deja visibles sus capas minerales.",
+          "at": 2,
+          "duration": 2.5
+        }
+      ]
+    },
+    {
+      "scene_type": "history",
+      "visual": "Plano 3. La receta mezclaba cal, ceniza volcánica y fragmentos de roca. La cámara muestra cómo los materiales se mezclan, reaccionan y dejan una huella visible en el mortero. En primer plano aparecen Albañil romano y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
+      "setting": "Obra romana en construcción y laboratorio arqueológico moderno, con muestras de mortero y herramientas visibles.",
+      "action": "La receta mezclaba cal, ceniza volcánica y fragmentos de roca. La cámara muestra cómo los materiales se mezclan, reaccionan y dejan una huella visible en el mortero. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
+      "camera": "Macro travelling sobre la superficie, pasando de una zona general a un detalle microscópico. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "camera_target": "El hormigón romano que podía cerrar sus propias grietas",
+      "continuity": "Obra romana en construcción y laboratorio arqueológico moderno, con muestras de mortero y herramientas visibles. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "characters": [],
+      "props": [
+        "material principal",
+        "partículas ambientales",
+        "elemento de escala",
+        "detalle de superficie"
+      ],
+      "objects": [
+        "sujeto principal",
+        "entorno reconocible",
+        "elemento secundario",
+        "detalle en profundidad"
+      ],
+      "overlay": "Pista romana",
+      "narration_excerpt": "La receta mezclaba cal, ceniza volcánica y fragmentos de roca.",
+      "entities": [
+        {
+          "id": "roman-worker",
+          "name": "Albañil romano",
+          "type": "human",
+          "appearance": "Trabajador romano adulto con túnica de lino color ocre, cinturón de cuero, sandalias, cabello oscuro corto y manos cubiertas de polvo; postura de trabajo realista y herramientas sencillas.",
+          "shape": "figura humana de pie",
+          "material": "tela de lino y cuero",
+          "color": "#a87943",
+          "dimensions": [
+            0.75,
+            1.9,
+            0.75
+          ],
+          "scale": 0.82,
+          "action": "El albañil mezcla, transporta y aplica el mortero con movimientos deliberados.",
+          "motion": "camina y trabaja con las manos",
+          "position": [
+            -3,
+            0,
+            -5.2
+          ],
+          "support": "ground"
+        },
+        {
+          "id": "roman-wall",
+          "name": "Muro de hormigón romano",
+          "type": "building",
+          "appearance": "Muro de opus caementicium con núcleo de mortero gris cálido, áridos volcánicos irregulares y pequeñas inclusiones blancas de cal visibles en el corte; superficie antigua erosionada.",
+          "shape": "muro rectangular de fábrica antigua",
+          "material": "mortero mineral, cal y árido volcánico",
+          "color": "#9b8972",
+          "dimensions": [
+            2.2,
+            2.6,
+            0.9
+          ],
+          "scale": 1,
+          "action": "El muro recibe el mortero y deja visibles sus capas minerales.",
+          "motion": "permanece fijo mientras la cámara recorre su superficie",
+          "position": [
+            3,
+            0,
+            -6.2
+          ],
+          "support": "ground"
+        }
+      ],
+      "beats": [
+        {
+          "entity_id": "roman-worker",
+          "action": "El albañil mezcla, transporta y aplica el mortero con movimientos deliberados.",
+          "at": 0.2,
+          "duration": 2.5
+        },
+        {
+          "entity_id": "roman-wall",
+          "action": "El muro recibe el mortero y deja visibles sus capas minerales.",
+          "at": 2,
+          "duration": 2.5
+        }
+      ]
+    },
+    {
+      "scene_type": "history",
+      "visual": "Plano 4. Pero algunos muros conservan pequeñas piezas blancas que escondían una pista. La cámara muestra cómo los materiales se mezclan, reaccionan y dejan una huella visible en el mortero. En primer plano aparecen Albañil romano y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
+      "setting": "Obra romana en construcción y laboratorio arqueológico moderno, con muestras de mortero y herramientas visibles.",
+      "action": "Pero algunos muros conservan pequeñas piezas blancas que escondían una pista. La cámara muestra cómo los materiales se mezclan, reaccionan y dejan una huella visible en el mortero. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
+      "camera": "Zoom controlado hacia el mecanismo central y órbita corta para mostrar su volumen. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "camera_target": "El hormigón romano que podía cerrar sus propias grietas",
+      "continuity": "Obra romana en construcción y laboratorio arqueológico moderno, con muestras de mortero y herramientas visibles. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "characters": [],
+      "props": [
+        "material principal",
+        "partículas ambientales",
+        "elemento de escala",
+        "detalle de superficie"
+      ],
+      "objects": [
+        "sujeto principal",
+        "entorno reconocible",
+        "elemento secundario",
+        "detalle en profundidad"
+      ],
+      "overlay": "Pista romana",
+      "narration_excerpt": "Pero algunos muros conservan pequeñas piezas blancas que escondían una pista.",
+      "entities": [
+        {
+          "id": "roman-worker",
+          "name": "Albañil romano",
+          "type": "human",
+          "appearance": "Trabajador romano adulto con túnica de lino color ocre, cinturón de cuero, sandalias, cabello oscuro corto y manos cubiertas de polvo; postura de trabajo realista y herramientas sencillas.",
+          "shape": "figura humana de pie",
+          "material": "tela de lino y cuero",
+          "color": "#a87943",
+          "dimensions": [
+            0.75,
+            1.9,
+            0.75
+          ],
+          "scale": 0.82,
+          "action": "El albañil mezcla, transporta y aplica el mortero con movimientos deliberados.",
+          "motion": "camina y trabaja con las manos",
+          "position": [
+            -3,
+            0,
+            -4
+          ],
+          "support": "ground"
+        },
+        {
+          "id": "roman-wall",
+          "name": "Muro de hormigón romano",
+          "type": "building",
+          "appearance": "Muro de opus caementicium con núcleo de mortero gris cálido, áridos volcánicos irregulares y pequeñas inclusiones blancas de cal visibles en el corte; superficie antigua erosionada.",
+          "shape": "muro rectangular de fábrica antigua",
+          "material": "mortero mineral, cal y árido volcánico",
+          "color": "#9b8972",
+          "dimensions": [
+            2.2,
+            2.6,
+            0.9
+          ],
+          "scale": 1,
+          "action": "El muro recibe el mortero y deja visibles sus capas minerales.",
+          "motion": "permanece fijo mientras la cámara recorre su superficie",
+          "position": [
+            3,
+            0,
+            -5
+          ],
+          "support": "ground"
+        }
+      ],
+      "beats": [
+        {
+          "entity_id": "roman-worker",
+          "action": "El albañil mezcla, transporta y aplica el mortero con movimientos deliberados.",
+          "at": 0.2,
+          "duration": 2.5
+        },
+        {
+          "entity_id": "roman-wall",
+          "action": "El muro recibe el mortero y deja visibles sus capas minerales.",
+          "at": 2,
+          "duration": 2.5
+        }
+      ]
+    },
+    {
+      "scene_type": "history",
+      "visual": "Plano 5. Un estudio de 2023 analizó esos fragmentos y encontró señales de cal viva. La cámara muestra cómo los materiales se mezclan, reaccionan y dejan una huella visible en el mortero. En primer plano aparecen Albañil romano y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
+      "setting": "Obra romana en construcción y laboratorio arqueológico moderno, con muestras de mortero y herramientas visibles.",
+      "action": "Un estudio de 2023 analizó esos fragmentos y encontró señales de cal viva. La cámara muestra cómo los materiales se mezclan, reaccionan y dejan una huella visible en el mortero. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
+      "camera": "Push-in durante la acción principal y pausa breve en el instante más legible. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "camera_target": "El hormigón romano que podía cerrar sus propias grietas",
+      "continuity": "Obra romana en construcción y laboratorio arqueológico moderno, con muestras de mortero y herramientas visibles. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "characters": [],
+      "props": [
+        "material principal",
+        "partículas ambientales",
+        "elemento de escala",
+        "detalle de superficie"
+      ],
+      "objects": [
+        "sujeto principal",
+        "entorno reconocible",
+        "elemento secundario",
+        "detalle en profundidad"
+      ],
+      "overlay": "Pista romana",
+      "narration_excerpt": "Un estudio de 2023 analizó esos fragmentos y encontró señales de cal viva.",
+      "entities": [
+        {
+          "id": "roman-worker",
+          "name": "Albañil romano",
+          "type": "human",
+          "appearance": "Trabajador romano adulto con túnica de lino color ocre, cinturón de cuero, sandalias, cabello oscuro corto y manos cubiertas de polvo; postura de trabajo realista y herramientas sencillas.",
+          "shape": "figura humana de pie",
+          "material": "tela de lino y cuero",
+          "color": "#a87943",
+          "dimensions": [
+            0.75,
+            1.9,
+            0.75
+          ],
+          "scale": 0.82,
+          "action": "El albañil mezcla, transporta y aplica el mortero con movimientos deliberados.",
+          "motion": "camina y trabaja con las manos",
+          "position": [
+            -3,
+            0,
+            -4.6
+          ],
+          "support": "ground"
+        },
+        {
+          "id": "roman-wall",
+          "name": "Muro de hormigón romano",
+          "type": "building",
+          "appearance": "Muro de opus caementicium con núcleo de mortero gris cálido, áridos volcánicos irregulares y pequeñas inclusiones blancas de cal visibles en el corte; superficie antigua erosionada.",
+          "shape": "muro rectangular de fábrica antigua",
+          "material": "mortero mineral, cal y árido volcánico",
+          "color": "#9b8972",
+          "dimensions": [
+            2.2,
+            2.6,
+            0.9
+          ],
+          "scale": 1,
+          "action": "El muro recibe el mortero y deja visibles sus capas minerales.",
+          "motion": "permanece fijo mientras la cámara recorre su superficie",
+          "position": [
+            3,
+            0,
+            -5.6
+          ],
+          "support": "ground"
+        }
+      ],
+      "beats": [
+        {
+          "entity_id": "roman-worker",
+          "action": "El albañil mezcla, transporta y aplica el mortero con movimientos deliberados.",
+          "at": 0.2,
+          "duration": 2.5
+        },
+        {
+          "entity_id": "roman-wall",
+          "action": "El muro recibe el mortero y deja visibles sus capas minerales.",
+          "at": 2,
+          "duration": 2.5
+        }
+      ]
+    },
+    {
+      "scene_type": "history",
+      "visual": "Plano 6. La hipótesis es que los romanos mezclaban los ingredientes mientras la cal reaccionaba. La cámara muestra cómo los materiales se mezclan, reaccionan y dejan una huella visible en el mortero. En primer plano aparecen Albañil romano y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
+      "setting": "Obra romana en construcción y laboratorio arqueológico moderno, con muestras de mortero y herramientas visibles.",
+      "action": "La hipótesis es que los romanos mezclaban los ingredientes mientras la cal reaccionaba. La cámara muestra cómo los materiales se mezclan, reaccionan y dejan una huella visible en el mortero. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
+      "camera": "Desplazamiento lateral siguiendo los reflejos y cambio de foco entre capas. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "camera_target": "El hormigón romano que podía cerrar sus propias grietas",
+      "continuity": "Obra romana en construcción y laboratorio arqueológico moderno, con muestras de mortero y herramientas visibles. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "characters": [],
+      "props": [
+        "material principal",
+        "partículas ambientales",
+        "elemento de escala",
+        "detalle de superficie"
+      ],
+      "objects": [
+        "sujeto principal",
+        "entorno reconocible",
+        "elemento secundario",
+        "detalle en profundidad"
+      ],
+      "overlay": "Pista romana",
+      "narration_excerpt": "La hipótesis es que los romanos mezclaban los ingredientes mientras la cal reaccionaba.",
+      "entities": [
+        {
+          "id": "roman-worker",
+          "name": "Albañil romano",
+          "type": "human",
+          "appearance": "Trabajador romano adulto con túnica de lino color ocre, cinturón de cuero, sandalias, cabello oscuro corto y manos cubiertas de polvo; postura de trabajo realista y herramientas sencillas.",
+          "shape": "figura humana de pie",
+          "material": "tela de lino y cuero",
+          "color": "#a87943",
+          "dimensions": [
+            0.75,
+            1.9,
+            0.75
+          ],
+          "scale": 0.82,
+          "action": "El albañil mezcla, transporta y aplica el mortero con movimientos deliberados.",
+          "motion": "camina y trabaja con las manos",
+          "position": [
+            -3,
+            0,
+            -5.2
+          ],
+          "support": "ground"
+        },
+        {
+          "id": "roman-wall",
+          "name": "Muro de hormigón romano",
+          "type": "building",
+          "appearance": "Muro de opus caementicium con núcleo de mortero gris cálido, áridos volcánicos irregulares y pequeñas inclusiones blancas de cal visibles en el corte; superficie antigua erosionada.",
+          "shape": "muro rectangular de fábrica antigua",
+          "material": "mortero mineral, cal y árido volcánico",
+          "color": "#9b8972",
+          "dimensions": [
+            2.2,
+            2.6,
+            0.9
+          ],
+          "scale": 1,
+          "action": "El muro recibe el mortero y deja visibles sus capas minerales.",
+          "motion": "permanece fijo mientras la cámara recorre su superficie",
+          "position": [
+            3,
+            0,
+            -6.2
+          ],
+          "support": "ground"
+        }
+      ],
+      "beats": [
+        {
+          "entity_id": "roman-worker",
+          "action": "El albañil mezcla, transporta y aplica el mortero con movimientos deliberados.",
+          "at": 0.2,
+          "duration": 2.5
+        },
+        {
+          "entity_id": "roman-wall",
+          "action": "El muro recibe el mortero y deja visibles sus capas minerales.",
+          "at": 2,
+          "duration": 2.5
+        }
+      ]
+    },
+    {
+      "scene_type": "history",
+      "visual": "Plano 7. Ese proceso, conocido como mezcla en caliente, generaba inclusiones minerales dentro del mortero. La cámara muestra cómo los materiales se mezclan, reaccionan y dejan una huella visible en el mortero. En primer plano aparecen Albañil romano y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
+      "setting": "Obra romana en construcción y laboratorio arqueológico moderno, con muestras de mortero y herramientas visibles.",
+      "action": "Ese proceso, conocido como mezcla en caliente, generaba inclusiones minerales dentro del mortero. La cámara muestra cómo los materiales se mezclan, reaccionan y dejan una huella visible en el mortero. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
+      "camera": "Retroceso de cámara para revelar el sujeto completo y su entorno. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "camera_target": "El hormigón romano que podía cerrar sus propias grietas",
+      "continuity": "Obra romana en construcción y laboratorio arqueológico moderno, con muestras de mortero y herramientas visibles. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "characters": [],
+      "props": [
+        "material principal",
+        "partículas ambientales",
+        "elemento de escala",
+        "detalle de superficie"
+      ],
+      "objects": [
+        "sujeto principal",
+        "entorno reconocible",
+        "elemento secundario",
+        "detalle en profundidad"
+      ],
+      "overlay": "Pista romana",
+      "narration_excerpt": "Ese proceso, conocido como mezcla en caliente, generaba inclusiones minerales dentro del mortero.",
+      "entities": [
+        {
+          "id": "roman-worker",
+          "name": "Albañil romano",
+          "type": "human",
+          "appearance": "Trabajador romano adulto con túnica de lino color ocre, cinturón de cuero, sandalias, cabello oscuro corto y manos cubiertas de polvo; postura de trabajo realista y herramientas sencillas.",
+          "shape": "figura humana de pie",
+          "material": "tela de lino y cuero",
+          "color": "#a87943",
+          "dimensions": [
+            0.75,
+            1.9,
+            0.75
+          ],
+          "scale": 0.82,
+          "action": "El albañil mezcla, transporta y aplica el mortero con movimientos deliberados.",
+          "motion": "camina y trabaja con las manos",
+          "position": [
+            -3,
+            0,
+            -4
+          ],
+          "support": "ground"
+        },
+        {
+          "id": "roman-wall",
+          "name": "Muro de hormigón romano",
+          "type": "building",
+          "appearance": "Muro de opus caementicium con núcleo de mortero gris cálido, áridos volcánicos irregulares y pequeñas inclusiones blancas de cal visibles en el corte; superficie antigua erosionada.",
+          "shape": "muro rectangular de fábrica antigua",
+          "material": "mortero mineral, cal y árido volcánico",
+          "color": "#9b8972",
+          "dimensions": [
+            2.2,
+            2.6,
+            0.9
+          ],
+          "scale": 1,
+          "action": "El muro recibe el mortero y deja visibles sus capas minerales.",
+          "motion": "permanece fijo mientras la cámara recorre su superficie",
+          "position": [
+            3,
+            0,
+            -5
+          ],
+          "support": "ground"
+        }
+      ],
+      "beats": [
+        {
+          "entity_id": "roman-worker",
+          "action": "El albañil mezcla, transporta y aplica el mortero con movimientos deliberados.",
+          "at": 0.2,
+          "duration": 2.5
+        },
+        {
+          "entity_id": "roman-wall",
+          "action": "El muro recibe el mortero y deja visibles sus capas minerales.",
+          "at": 2,
+          "duration": 2.5
+        }
+      ]
+    },
+    {
+      "scene_type": "history",
+      "visual": "Plano 8. Y esas inclusiones podrían ayudar a cerrar pequeñas grietas con el paso del tiempo. La cámara muestra cómo los materiales se mezclan, reaccionan y dejan una huella visible en el mortero. En primer plano aparecen Albañil romano y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
+      "setting": "Obra romana en construcción y laboratorio arqueológico moderno, con muestras de mortero y herramientas visibles.",
+      "action": "Y esas inclusiones podrían ayudar a cerrar pequeñas grietas con el paso del tiempo. La cámara muestra cómo los materiales se mezclan, reaccionan y dejan una huella visible en el mortero. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
+      "camera": "Macro ascendente que recorre los detalles desde la base hasta el punto más alto. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "camera_target": "El hormigón romano que podía cerrar sus propias grietas",
+      "continuity": "Obra romana en construcción y laboratorio arqueológico moderno, con muestras de mortero y herramientas visibles. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "characters": [],
+      "props": [
+        "material principal",
+        "partículas ambientales",
+        "elemento de escala",
+        "detalle de superficie"
+      ],
+      "objects": [
+        "sujeto principal",
+        "entorno reconocible",
+        "elemento secundario",
+        "detalle en profundidad"
+      ],
+      "overlay": "Pista romana",
+      "narration_excerpt": "Y esas inclusiones podrían ayudar a cerrar pequeñas grietas con el paso del tiempo.",
+      "entities": [
+        {
+          "id": "roman-worker",
+          "name": "Albañil romano",
+          "type": "human",
+          "appearance": "Trabajador romano adulto con túnica de lino color ocre, cinturón de cuero, sandalias, cabello oscuro corto y manos cubiertas de polvo; postura de trabajo realista y herramientas sencillas.",
+          "shape": "figura humana de pie",
+          "material": "tela de lino y cuero",
+          "color": "#a87943",
+          "dimensions": [
+            0.75,
+            1.9,
+            0.75
+          ],
+          "scale": 0.82,
+          "action": "El albañil mezcla, transporta y aplica el mortero con movimientos deliberados.",
+          "motion": "camina y trabaja con las manos",
+          "position": [
+            -3,
+            0,
+            -4.6
+          ],
+          "support": "ground"
+        },
+        {
+          "id": "roman-wall",
+          "name": "Muro de hormigón romano",
+          "type": "building",
+          "appearance": "Muro de opus caementicium con núcleo de mortero gris cálido, áridos volcánicos irregulares y pequeñas inclusiones blancas de cal visibles en el corte; superficie antigua erosionada.",
+          "shape": "muro rectangular de fábrica antigua",
+          "material": "mortero mineral, cal y árido volcánico",
+          "color": "#9b8972",
+          "dimensions": [
+            2.2,
+            2.6,
+            0.9
+          ],
+          "scale": 1,
+          "action": "El muro recibe el mortero y deja visibles sus capas minerales.",
+          "motion": "permanece fijo mientras la cámara recorre su superficie",
+          "position": [
+            3,
+            0,
+            -5.6
+          ],
+          "support": "ground"
+        }
+      ],
+      "beats": [
+        {
+          "entity_id": "roman-worker",
+          "action": "El albañil mezcla, transporta y aplica el mortero con movimientos deliberados.",
+          "at": 0.2,
+          "duration": 2.5
+        },
+        {
+          "entity_id": "roman-wall",
+          "action": "El muro recibe el mortero y deja visibles sus capas minerales.",
+          "at": 2,
+          "duration": 2.5
+        }
+      ]
+    },
+    {
+      "scene_type": "history",
+      "visual": "Plano 9. Cuando entra agua, parte del calcio puede disolverse y desplazarse por el material. La cámara muestra cómo los materiales se mezclan, reaccionan y dejan una huella visible en el mortero. En primer plano aparecen Albañil romano y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
+      "setting": "Obra romana en construcción y laboratorio arqueológico moderno, con muestras de mortero y herramientas visibles.",
+      "action": "Cuando entra agua, parte del calcio puede disolverse y desplazarse por el material. La cámara muestra cómo los materiales se mezclan, reaccionan y dejan una huella visible en el mortero. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
+      "camera": "Órbita corta alrededor del sujeto mientras la transformación avanza de forma visible. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "camera_target": "El hormigón romano que podía cerrar sus propias grietas",
+      "continuity": "Obra romana en construcción y laboratorio arqueológico moderno, con muestras de mortero y herramientas visibles. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "characters": [],
+      "props": [
+        "material principal",
+        "partículas ambientales",
+        "elemento de escala",
+        "detalle de superficie"
+      ],
+      "objects": [
+        "sujeto principal",
+        "entorno reconocible",
+        "elemento secundario",
+        "detalle en profundidad"
+      ],
+      "overlay": "Pista romana",
+      "narration_excerpt": "Cuando entra agua, parte del calcio puede disolverse y desplazarse por el material.",
+      "entities": [
+        {
+          "id": "roman-worker",
+          "name": "Albañil romano",
+          "type": "human",
+          "appearance": "Trabajador romano adulto con túnica de lino color ocre, cinturón de cuero, sandalias, cabello oscuro corto y manos cubiertas de polvo; postura de trabajo realista y herramientas sencillas.",
+          "shape": "figura humana de pie",
+          "material": "tela de lino y cuero",
+          "color": "#a87943",
+          "dimensions": [
+            0.75,
+            1.9,
+            0.75
+          ],
+          "scale": 0.82,
+          "action": "El albañil mezcla, transporta y aplica el mortero con movimientos deliberados.",
+          "motion": "camina y trabaja con las manos",
+          "position": [
+            -3,
+            0,
+            -5.2
+          ],
+          "support": "ground"
+        },
+        {
+          "id": "roman-wall",
+          "name": "Muro de hormigón romano",
+          "type": "building",
+          "appearance": "Muro de opus caementicium con núcleo de mortero gris cálido, áridos volcánicos irregulares y pequeñas inclusiones blancas de cal visibles en el corte; superficie antigua erosionada.",
+          "shape": "muro rectangular de fábrica antigua",
+          "material": "mortero mineral, cal y árido volcánico",
+          "color": "#9b8972",
+          "dimensions": [
+            2.2,
+            2.6,
+            0.9
+          ],
+          "scale": 1,
+          "action": "El muro recibe el mortero y deja visibles sus capas minerales.",
+          "motion": "permanece fijo mientras la cámara recorre su superficie",
+          "position": [
+            3,
+            0,
+            -6.2
+          ],
+          "support": "ground"
+        }
+      ],
+      "beats": [
+        {
+          "entity_id": "roman-worker",
+          "action": "El albañil mezcla, transporta y aplica el mortero con movimientos deliberados.",
+          "at": 0.2,
+          "duration": 2.5
+        },
+        {
+          "entity_id": "roman-wall",
+          "action": "El muro recibe el mortero y deja visibles sus capas minerales.",
+          "at": 2,
+          "duration": 2.5
+        }
+      ]
+    },
+    {
+      "scene_type": "history",
+      "visual": "Plano 10. Después puede volver a precipitar y rellenar poros o fisuras muy pequeñas. La cámara muestra cómo los materiales se mezclan, reaccionan y dejan una huella visible en el mortero. En primer plano aparecen Albañil romano y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
+      "setting": "Obra romana en construcción y laboratorio arqueológico moderno, con muestras de mortero y herramientas visibles.",
+      "action": "Después puede volver a precipitar y rellenar poros o fisuras muy pequeñas. La cámara muestra cómo los materiales se mezclan, reaccionan y dejan una huella visible en el mortero. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
+      "camera": "Travelling diagonal que cruza el entorno y revela poco a poco el elemento principal. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "camera_target": "El hormigón romano que podía cerrar sus propias grietas",
+      "continuity": "Obra romana en construcción y laboratorio arqueológico moderno, con muestras de mortero y herramientas visibles. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "characters": [],
+      "props": [
+        "material principal",
+        "partículas ambientales",
+        "elemento de escala",
+        "detalle de superficie"
+      ],
+      "objects": [
+        "sujeto principal",
+        "entorno reconocible",
+        "elemento secundario",
+        "detalle en profundidad"
+      ],
+      "overlay": "Pista romana",
+      "narration_excerpt": "Después puede volver a precipitar y rellenar poros o fisuras muy pequeñas.",
+      "entities": [
+        {
+          "id": "roman-worker",
+          "name": "Albañil romano",
+          "type": "human",
+          "appearance": "Trabajador romano adulto con túnica de lino color ocre, cinturón de cuero, sandalias, cabello oscuro corto y manos cubiertas de polvo; postura de trabajo realista y herramientas sencillas.",
+          "shape": "figura humana de pie",
+          "material": "tela de lino y cuero",
+          "color": "#a87943",
+          "dimensions": [
+            0.75,
+            1.9,
+            0.75
+          ],
+          "scale": 0.82,
+          "action": "El albañil mezcla, transporta y aplica el mortero con movimientos deliberados.",
+          "motion": "camina y trabaja con las manos",
+          "position": [
+            -3,
+            0,
+            -4
+          ],
+          "support": "ground"
+        },
+        {
+          "id": "roman-wall",
+          "name": "Muro de hormigón romano",
+          "type": "building",
+          "appearance": "Muro de opus caementicium con núcleo de mortero gris cálido, áridos volcánicos irregulares y pequeñas inclusiones blancas de cal visibles en el corte; superficie antigua erosionada.",
+          "shape": "muro rectangular de fábrica antigua",
+          "material": "mortero mineral, cal y árido volcánico",
+          "color": "#9b8972",
+          "dimensions": [
+            2.2,
+            2.6,
+            0.9
+          ],
+          "scale": 1,
+          "action": "El muro recibe el mortero y deja visibles sus capas minerales.",
+          "motion": "permanece fijo mientras la cámara recorre su superficie",
+          "position": [
+            3,
+            0,
+            -5
+          ],
+          "support": "ground"
+        }
+      ],
+      "beats": [
+        {
+          "entity_id": "roman-worker",
+          "action": "El albañil mezcla, transporta y aplica el mortero con movimientos deliberados.",
+          "at": 0.2,
+          "duration": 2.5
+        },
+        {
+          "entity_id": "roman-wall",
+          "action": "El muro recibe el mortero y deja visibles sus capas minerales.",
+          "at": 2,
+          "duration": 2.5
+        }
+      ]
+    },
+    {
+      "scene_type": "history",
+      "visual": "Plano 11. El equipo también fabricó mezclas modernas inspiradas en aquella técnica antigua. La cámara muestra cómo los materiales se mezclan, reaccionan y dejan una huella visible en el mortero. En primer plano aparecen Albañil romano y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
+      "setting": "Obra romana en construcción y laboratorio arqueológico moderno, con muestras de mortero y herramientas visibles.",
+      "action": "El equipo también fabricó mezclas modernas inspiradas en aquella técnica antigua. La cámara muestra cómo los materiales se mezclan, reaccionan y dejan una huella visible en el mortero. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
+      "camera": "Plano medio con seguimiento lateral del movimiento principal y de sus consecuencias. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "camera_target": "El hormigón romano que podía cerrar sus propias grietas",
+      "continuity": "Obra romana en construcción y laboratorio arqueológico moderno, con muestras de mortero y herramientas visibles. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "characters": [],
+      "props": [
+        "material principal",
+        "partículas ambientales",
+        "elemento de escala",
+        "detalle de superficie"
+      ],
+      "objects": [
+        "sujeto principal",
+        "entorno reconocible",
+        "elemento secundario",
+        "detalle en profundidad"
+      ],
+      "overlay": "Pista romana",
+      "narration_excerpt": "El equipo también fabricó mezclas modernas inspiradas en aquella técnica antigua.",
+      "entities": [
+        {
+          "id": "roman-worker",
+          "name": "Albañil romano",
+          "type": "human",
+          "appearance": "Trabajador romano adulto con túnica de lino color ocre, cinturón de cuero, sandalias, cabello oscuro corto y manos cubiertas de polvo; postura de trabajo realista y herramientas sencillas.",
+          "shape": "figura humana de pie",
+          "material": "tela de lino y cuero",
+          "color": "#a87943",
+          "dimensions": [
+            0.75,
+            1.9,
+            0.75
+          ],
+          "scale": 0.82,
+          "action": "El albañil mezcla, transporta y aplica el mortero con movimientos deliberados.",
+          "motion": "camina y trabaja con las manos",
+          "position": [
+            -3,
+            0,
+            -4.6
+          ],
+          "support": "ground"
+        },
+        {
+          "id": "roman-wall",
+          "name": "Muro de hormigón romano",
+          "type": "building",
+          "appearance": "Muro de opus caementicium con núcleo de mortero gris cálido, áridos volcánicos irregulares y pequeñas inclusiones blancas de cal visibles en el corte; superficie antigua erosionada.",
+          "shape": "muro rectangular de fábrica antigua",
+          "material": "mortero mineral, cal y árido volcánico",
+          "color": "#9b8972",
+          "dimensions": [
+            2.2,
+            2.6,
+            0.9
+          ],
+          "scale": 1,
+          "action": "El muro recibe el mortero y deja visibles sus capas minerales.",
+          "motion": "permanece fijo mientras la cámara recorre su superficie",
+          "position": [
+            3,
+            0,
+            -5.6
+          ],
+          "support": "ground"
+        }
+      ],
+      "beats": [
+        {
+          "entity_id": "roman-worker",
+          "action": "El albañil mezcla, transporta y aplica el mortero con movimientos deliberados.",
+          "at": 0.2,
+          "duration": 2.5
+        },
+        {
+          "entity_id": "roman-wall",
+          "action": "El muro recibe el mortero y deja visibles sus capas minerales.",
+          "at": 2,
+          "duration": 2.5
+        }
+      ]
+    },
+    {
+      "scene_type": "history",
+      "visual": "Plano 12. En sus pruebas, algunas grietas inducidas de hasta medio milímetro llegaron a sellarse. La cámara muestra cómo los materiales se mezclan, reaccionan y dejan una huella visible en el mortero. En primer plano aparecen Albañil romano y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
+      "setting": "Obra romana en construcción y laboratorio arqueológico moderno, con muestras de mortero y herramientas visibles.",
+      "action": "En sus pruebas, algunas grietas inducidas de hasta medio milímetro llegaron a sellarse. La cámara muestra cómo los materiales se mezclan, reaccionan y dejan una huella visible en el mortero. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
+      "camera": "Dolly circular muy lento que demuestra la relación entre el sujeto y su entorno. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "camera_target": "El hormigón romano que podía cerrar sus propias grietas",
+      "continuity": "Obra romana en construcción y laboratorio arqueológico moderno, con muestras de mortero y herramientas visibles. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "characters": [],
+      "props": [
+        "material principal",
+        "partículas ambientales",
+        "elemento de escala",
+        "detalle de superficie"
+      ],
+      "objects": [
+        "sujeto principal",
+        "entorno reconocible",
+        "elemento secundario",
+        "detalle en profundidad"
+      ],
+      "overlay": "Pista romana",
+      "narration_excerpt": "En sus pruebas, algunas grietas inducidas de hasta medio milímetro llegaron a sellarse.",
+      "entities": [
+        {
+          "id": "roman-worker",
+          "name": "Albañil romano",
+          "type": "human",
+          "appearance": "Trabajador romano adulto con túnica de lino color ocre, cinturón de cuero, sandalias, cabello oscuro corto y manos cubiertas de polvo; postura de trabajo realista y herramientas sencillas.",
+          "shape": "figura humana de pie",
+          "material": "tela de lino y cuero",
+          "color": "#a87943",
+          "dimensions": [
+            0.75,
+            1.9,
+            0.75
+          ],
+          "scale": 0.82,
+          "action": "El albañil mezcla, transporta y aplica el mortero con movimientos deliberados.",
+          "motion": "camina y trabaja con las manos",
+          "position": [
+            -3,
+            0,
+            -5.2
+          ],
+          "support": "ground"
+        },
+        {
+          "id": "roman-wall",
+          "name": "Muro de hormigón romano",
+          "type": "building",
+          "appearance": "Muro de opus caementicium con núcleo de mortero gris cálido, áridos volcánicos irregulares y pequeñas inclusiones blancas de cal visibles en el corte; superficie antigua erosionada.",
+          "shape": "muro rectangular de fábrica antigua",
+          "material": "mortero mineral, cal y árido volcánico",
+          "color": "#9b8972",
+          "dimensions": [
+            2.2,
+            2.6,
+            0.9
+          ],
+          "scale": 1,
+          "action": "El muro recibe el mortero y deja visibles sus capas minerales.",
+          "motion": "permanece fijo mientras la cámara recorre su superficie",
+          "position": [
+            3,
+            0,
+            -6.2
+          ],
+          "support": "ground"
+        }
+      ],
+      "beats": [
+        {
+          "entity_id": "roman-worker",
+          "action": "El albañil mezcla, transporta y aplica el mortero con movimientos deliberados.",
+          "at": 0.2,
+          "duration": 2.5
+        },
+        {
+          "entity_id": "roman-wall",
+          "action": "El muro recibe el mortero y deja visibles sus capas minerales.",
+          "at": 2,
+          "duration": 2.5
+        }
+      ]
+    },
+    {
+      "scene_type": "history",
+      "visual": "Plano 13. Eso no significa que cualquier muro romano se repare solo ni que conozcamos toda la receta. La cámara muestra cómo los materiales se mezclan, reaccionan y dejan una huella visible en el mortero. En primer plano aparecen Albañil romano y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
+      "setting": "Obra romana en construcción y laboratorio arqueológico moderno, con muestras de mortero y herramientas visibles.",
+      "action": "Eso no significa que cualquier muro romano se repare solo ni que conozcamos toda la receta. La cámara muestra cómo los materiales se mezclan, reaccionan y dejan una huella visible en el mortero. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
+      "camera": "Desplazamiento de foco desde el fondo hacia el detalle que explica el fenómeno. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "camera_target": "El hormigón romano que podía cerrar sus propias grietas",
+      "continuity": "Obra romana en construcción y laboratorio arqueológico moderno, con muestras de mortero y herramientas visibles. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "characters": [],
+      "props": [
+        "material principal",
+        "partículas ambientales",
+        "elemento de escala",
+        "detalle de superficie"
+      ],
+      "objects": [
+        "sujeto principal",
+        "entorno reconocible",
+        "elemento secundario",
+        "detalle en profundidad"
+      ],
+      "overlay": "Pista romana",
+      "narration_excerpt": "Eso no significa que cualquier muro romano se repare solo ni que conozcamos toda la receta.",
+      "entities": [
+        {
+          "id": "roman-worker",
+          "name": "Albañil romano",
+          "type": "human",
+          "appearance": "Trabajador romano adulto con túnica de lino color ocre, cinturón de cuero, sandalias, cabello oscuro corto y manos cubiertas de polvo; postura de trabajo realista y herramientas sencillas.",
+          "shape": "figura humana de pie",
+          "material": "tela de lino y cuero",
+          "color": "#a87943",
+          "dimensions": [
+            0.75,
+            1.9,
+            0.75
+          ],
+          "scale": 0.82,
+          "action": "El albañil mezcla, transporta y aplica el mortero con movimientos deliberados.",
+          "motion": "camina y trabaja con las manos",
+          "position": [
+            -3,
+            0,
+            -4
+          ],
+          "support": "ground"
+        },
+        {
+          "id": "roman-wall",
+          "name": "Muro de hormigón romano",
+          "type": "building",
+          "appearance": "Muro de opus caementicium con núcleo de mortero gris cálido, áridos volcánicos irregulares y pequeñas inclusiones blancas de cal visibles en el corte; superficie antigua erosionada.",
+          "shape": "muro rectangular de fábrica antigua",
+          "material": "mortero mineral, cal y árido volcánico",
+          "color": "#9b8972",
+          "dimensions": [
+            2.2,
+            2.6,
+            0.9
+          ],
+          "scale": 1,
+          "action": "El muro recibe el mortero y deja visibles sus capas minerales.",
+          "motion": "permanece fijo mientras la cámara recorre su superficie",
+          "position": [
+            3,
+            0,
+            -5
+          ],
+          "support": "ground"
+        }
+      ],
+      "beats": [
+        {
+          "entity_id": "roman-worker",
+          "action": "El albañil mezcla, transporta y aplica el mortero con movimientos deliberados.",
+          "at": 0.2,
+          "duration": 2.5
+        },
+        {
+          "entity_id": "roman-wall",
+          "action": "El muro recibe el mortero y deja visibles sus capas minerales.",
+          "at": 2,
+          "duration": 2.5
+        }
+      ]
+    },
+    {
+      "scene_type": "history",
+      "visual": "Plano 14. Pero revela que una pista diminuta puede explicar parte de una durabilidad extraordinaria. La cámara muestra cómo los materiales se mezclan, reaccionan y dejan una huella visible en el mortero. En primer plano aparecen Albañil romano y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
+      "setting": "Obra romana en construcción y laboratorio arqueológico moderno, con muestras de mortero y herramientas visibles.",
+      "action": "Pero revela que una pista diminuta puede explicar parte de una durabilidad extraordinaria. La cámara muestra cómo los materiales se mezclan, reaccionan y dejan una huella visible en el mortero. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
+      "camera": "Seguimiento cercano que termina con una salida de cámara hacia un plano más amplio. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "camera_target": "El hormigón romano que podía cerrar sus propias grietas",
+      "continuity": "Obra romana en construcción y laboratorio arqueológico moderno, con muestras de mortero y herramientas visibles. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "characters": [],
+      "props": [
+        "material principal",
+        "partículas ambientales",
+        "elemento de escala",
+        "detalle de superficie"
+      ],
+      "objects": [
+        "sujeto principal",
+        "entorno reconocible",
+        "elemento secundario",
+        "detalle en profundidad"
+      ],
+      "overlay": "Pista romana",
+      "narration_excerpt": "Pero revela que una pista diminuta puede explicar parte de una durabilidad extraordinaria.",
+      "entities": [
+        {
+          "id": "roman-worker",
+          "name": "Albañil romano",
+          "type": "human",
+          "appearance": "Trabajador romano adulto con túnica de lino color ocre, cinturón de cuero, sandalias, cabello oscuro corto y manos cubiertas de polvo; postura de trabajo realista y herramientas sencillas.",
+          "shape": "figura humana de pie",
+          "material": "tela de lino y cuero",
+          "color": "#a87943",
+          "dimensions": [
+            0.75,
+            1.9,
+            0.75
+          ],
+          "scale": 0.82,
+          "action": "El albañil mezcla, transporta y aplica el mortero con movimientos deliberados.",
+          "motion": "camina y trabaja con las manos",
+          "position": [
+            -3,
+            0,
+            -4.6
+          ],
+          "support": "ground"
+        },
+        {
+          "id": "roman-wall",
+          "name": "Muro de hormigón romano",
+          "type": "building",
+          "appearance": "Muro de opus caementicium con núcleo de mortero gris cálido, áridos volcánicos irregulares y pequeñas inclusiones blancas de cal visibles en el corte; superficie antigua erosionada.",
+          "shape": "muro rectangular de fábrica antigua",
+          "material": "mortero mineral, cal y árido volcánico",
+          "color": "#9b8972",
+          "dimensions": [
+            2.2,
+            2.6,
+            0.9
+          ],
+          "scale": 1,
+          "action": "El muro recibe el mortero y deja visibles sus capas minerales.",
+          "motion": "permanece fijo mientras la cámara recorre su superficie",
+          "position": [
+            3,
+            0,
+            -5.6
+          ],
+          "support": "ground"
+        }
+      ],
+      "beats": [
+        {
+          "entity_id": "roman-worker",
+          "action": "El albañil mezcla, transporta y aplica el mortero con movimientos deliberados.",
+          "at": 0.2,
+          "duration": 2.5
+        },
+        {
+          "entity_id": "roman-wall",
+          "action": "El muro recibe el mortero y deja visibles sus capas minerales.",
+          "at": 2,
+          "duration": 2.5
+        }
+      ]
+    }
+  ]
+}
