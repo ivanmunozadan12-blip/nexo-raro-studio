@@ -46,7 +46,10 @@ series_slug={"how-it-works":"nadie-te-lo-explica","inside":"detras-de-la-puerta"
 series_row=next((x for x in series if x["slug"]==series_slug),series[0] if series else None)
 # Local slot is the idempotency key; the offset is resolved by Python's timezone database.
 local_slot=datetime.datetime.combine(now.date(),datetime.time.fromisoformat(clock),tzinfo=ZoneInfo("Europe/Madrid"))
-scheduled=local_slot.isoformat()
+# Manual tests must not collide with the already-produced daily slot.
+# The run ID makes each explicit test an independent production job.
+manual_run_id=re.sub(r"[^0-9A-Za-z-]","",os.getenv("MANUAL_RUN_ID","").strip())
+scheduled=now.isoformat() if manual_run_id else local_slot.isoformat()
 existing=db("production_jobs","?user_id=eq."+user+"&scheduled_for=eq."+urllib.parse.quote(scheduled,safe="")+"&select=id,status,script_id&limit=1")
 if existing and existing[0]["status"]=="ready":
     print("Este espacio diario ya tiene un vídeo terminado. No se duplica."); sys.exit(0)
@@ -57,8 +60,9 @@ if existing:
 else:
     job=db("production_jobs","", "POST",{"user_id":user,"scheduled_for":scheduled,"status":"voicing","attempt_count":1,"started_at":now.isoformat()})[0]
 script_id=None; storage_path=None
-work=ROOT/"renders"/(today+"-"+slot)
+work=ROOT/"renders"/(today+"-"+slot+"-"+(manual_run_id or "daily")+"-work")
 work.mkdir(parents=True,exist_ok=True)
+(ROOT/"renders").mkdir(parents=True,exist_ok=True)
 try:
     # El guion técnico completo lo prepara el equipo editorial fuera del motor.
     # Aceptamos JSON puro o JSON dentro de un bloque Markdown.
@@ -126,7 +130,10 @@ try:
     if not captions: raise ValueError("No se recibieron subtítulos temporizados.")
     script["captions"]=captions
     script_json=work/"script.json"; script_json.write_text(json.dumps(script,ensure_ascii=False),encoding="utf-8")
-    music=work/"music.wav"; silent=work/"silent.mp4"; final=work/"behind-del-mundo.mp4"
+    music=work/"music.wav"; silent=work/"silent.mp4"
+    # Keep the finished MP4 outside the temporary folder: finally cleans work,
+    # while GitHub Actions must still be able to upload the render artifact.
+    final=ROOT/"renders"/(today+"-"+slot+"-"+(manual_run_id or "daily")+".mp4")
     duration=max(60,int(voice_duration+1.999))
     run(["python","engine/audio_bed.py","--duration",str(duration),"--output",str(music),"--script",str(script_json)])
     db("production_jobs","?id=eq."+job["id"],"PATCH",{"status":"rendering"})
@@ -135,7 +142,7 @@ try:
     probe=json.loads(subprocess.check_output(["ffprobe","-v","error","-show_entries","format=duration:stream=codec_type,width,height","-of","json",str(final)],text=True))
     actual=float(probe["format"]["duration"]); video=next((x for x in probe["streams"] if x["codec_type"]=="video"),{})
     if video.get("width")!=1080 or video.get("height")!=1920 or not any(x["codec_type"]=="audio" for x in probe["streams"]) or not 60<=actual<=72: raise ValueError("El control de calidad del MP4 no se ha superado.")
-    storage_path=f"{user}/{today}/{today.replace('-','')}-{slot}.mp4"
+    storage_path=f"{user}/{today}/{today.replace('-','')}-{slot}-{manual_run_id or 'daily'}.mp4"
     data=final.read_bytes()
     request(API+"/storage/v1/object/nexo-videos/"+"/".join(urllib.parse.quote(x,safe="") for x in storage_path.split("/")),"POST",data,{"Content-Type":"video/mp4","x-upsert":"true"})
     video_row=db("videos","", "POST",{"user_id":user,"job_id":job["id"],"script_id":script_id,"storage_path":storage_path,"duration_seconds":actual,"width":1080,"height":1920,"mime_type":"video/mp4","quality_check":{"passed":True,"has_audio":True,"voice":"es-ES-AlvaroNeural","background_audio":True,"renderer":"Python Pillow + NumPy + FFmpeg","scene_count":8,"source_count":len(script["sources"]),"word_count":words}})[0]
