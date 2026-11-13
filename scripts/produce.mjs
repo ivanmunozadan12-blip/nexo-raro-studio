@@ -36,7 +36,7 @@ if (!slot || !slots.includes(slot)) {
 }
 // Evita que un clic accidental en un horario ya pasado se convierta
 // en una producción retroactiva del mismo día.
-if (!process.env.MANUAL_SCRIPT_ID && local === currentLocalDate && minutesOfDay(slot) < minutesOfDay(localTime) - 90) {
+if (!process.env.MANUAL_SCRIPT_ID && !process.env.MANUAL_SCRIPT_FILE && local === currentLocalDate && minutesOfDay(slot) < minutesOfDay(localTime) - 90) {
   throw new Error(`El horario ${slot} ya pasó hoy (hora local ${localTime}). Para producir ese horario otro día, indica MANUAL_DATE con una fecha futura.`);
 }
 if (!process.env.MANUAL_SLOT && nearestSlot.distance > 0) {
@@ -246,7 +246,7 @@ wordCount = countWords(script.narration);
 // Los fragmentos visuales los propone el modelo, pero pueden quedar obsoletos
 // si el texto se edita después (por ejemplo, al ajustar la duración). No
 // debemos abortar una producción válida por una cita desincronizada: repartimos
-// la narración real en siete bloques contiguos y los persistimos con el guion.
+// la narración real en catorce bloques contiguos y los persistimos con el guion.
 {
   const narrationTokens = String(script.narration || '').trim().split(/\s+/).filter(Boolean);
   script.narration = narrationTokens.join(' ');
