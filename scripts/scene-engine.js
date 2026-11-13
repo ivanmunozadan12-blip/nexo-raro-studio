@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { directScene, animateEntities } from './procedural-engine.js';
 
 const MAT = (color, roughness=0.9) => new THREE.MeshStandardMaterial({ color, roughness, flatShading:true });
 const box = (g,x,y,z,sx,sy,sz,color) => { const m=new THREE.Mesh(new THREE.BoxGeometry(sx,sy,sz),MAT(color));m.position.set(x,y,z);g.add(m);return m; };
@@ -139,10 +140,18 @@ function buildGenericScene(renderer,d){
  if(forest){for(let i=0;i<20;i++){const x=(i%5-2)*4,z=-10+Math.floor(i/5)*4;rod(world,[x,0,z],[x,.9,z],.18,'#745036');sphere(world,x,1.6,z,1,1.2,1,'#4e965b',1);}}
  if(historic){for(let i=0;i<4;i++){box(world,(i-1.5)*5,1.8,-7,3.4,3.6,2.5,'#c5b391');for(let x of [-1,1])box(world,(i-1.5)*5+x,2.2,-5.7,.45,1.4,.1,'#4a5360');}}
  if(science){box(world,0,1,-6,8,2.2,3,'#a5b6b8');for(let i=0;i<4;i++){cyl(world,-3+i*2,.6,-4,.25,.25,1.1,['#4e9ab4','#b77a54','#6b9a71','#a38ac3'][i],10);}}
- (d.characters||[]).slice(0,6).forEach((c,i)=>person(world,(i-2.5)*1.8,1,String(c.role||'crew').toLowerCase().includes('rey')?'king':'crew',.9));
- (d.props||[]).slice(0,8).forEach((p,i)=>{const n=String(p).toLowerCase(),x=(i-3.5)*2.1;if(/barco|carabela|navio/.test(n))ship(world,x,water?1:-4,i%3);else if(/arbol|palmera/.test(n)){rod(world,[x,0,-3],[x,2,-3],.14,'#765033');sphere(world,x,2.6,-3,.9,1,.9,'#4c985b',1);}else if(/edificio|casa|templo|castillo/.test(n))box(world,x,1.5,water?-10:-5,1.8,3,1.8,'#c7b18e');else if(/persona|soldado|marinero/.test(n))person(world,x,0,'crew',.9);else sphere(world,x,.8,-2,.65,.8,.65,['#c89b64','#5b9fb0','#a85e54','#7c9c65'][i%4],1);});
- const camera=new THREE.PerspectiveCamera(42,1080/1920,.1,120);const duration=Math.max(1,Number(d.duration)||8);
- return t=>{const sceneStart=Number(d.start||0);if(t<sceneStart||t>=sceneStart+duration)return;const p=Math.min(1,Math.max(0,(t-sceneStart)/duration));camera.position.set(8-5*p,5+Math.sin(p*Math.PI),15-4*p);camera.lookAt(0,1,-4);renderer.render(scene,camera);};
+ const entities=directScene(world,d);
+ const camera=new THREE.PerspectiveCamera(48,1080/1920,.1,160);const duration=Math.max(1,Number(d.duration)||8);
+ const cameraPlan=String(d.camera||'').toLowerCase();
+ return t=>{const sceneStart=Number(d.start||0);if(t<sceneStart||t>=sceneStart+duration)return;const local=Math.max(0,t-sceneStart),p=Math.min(1,local/duration),ease=p*p*(3-2*p);
+  animateEntities(entities,local);
+  const focus=entities.find(e=>['human','animal'].includes(e.userData.entity?.type))||entities[0];
+  const target=focus?focus.position.clone():new THREE.Vector3(0,1,-4);target.y+=focus?.userData.entity?.type==='human'?1.15:.8;
+  if(/cenital|aereo|desde arriba|vista superior/.test(cameraPlan)){camera.position.set(target.x+1,18,target.z+8);}
+  else if(/orbita|rode|gira alrededor|circular/.test(cameraPlan)){const angle=ease*Math.PI*.8;camera.position.set(target.x+Math.cos(angle)*11,4.2,target.z+Math.sin(angle)*11);}
+  else if(/primer plano|detalle|acercamiento|zoom/.test(cameraPlan)){camera.position.set(target.x+3.5-1.5*ease,target.y+1.2,target.z+7-2.5*ease);}
+  else {camera.position.set(target.x+8-5*ease,4.8+Math.sin(p*Math.PI)*.8,target.z+15-4*ease);}
+  camera.lookAt(target);renderer.render(scene,camera);};
 }
 const canvas=document.querySelector('#world-canvas');const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false});renderer.setPixelRatio(1);renderer.setSize(1080,1920,false);renderer.outputColorSpace=THREE.SRGBColorSpace;const nodes=[...document.querySelectorAll('.scene')];const renderers=nodes.map(node=>{const data=JSON.parse(node.dataset.scene);if(data.storyId!=='columbus-1492')return buildGenericScene(renderer,data);return buildScene(renderer,data);});
 // Se conserva la flota diferenciada hasta integrar modelos específicos para nao y carabelas.
