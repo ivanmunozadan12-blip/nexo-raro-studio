@@ -1,0 +1,1228 @@
+{
+  "title": "El animal que convierte su piel en un disfraz",
+  "hook": "Una roca del fondo marino puede estar mirándote.",
+  "category": "nadie-te-lo-explica",
+  "story_id": "bdm-2026-11-14-1",
+  "target_seconds": 68,
+  "narration": "Imagina que una roca del fondo marino abre un ojo y desaparece delante de ti. No es magia: algunos pulpos transforman su piel en un disfraz casi instantáneo. Bajo la superficie esconden miles de células diminutas llamadas cromatóforos, llenas de pigmento. Cada una funciona como una pequeña bolsa elástica que puede expandirse o contraerse. Cuando los músculos tiran de ella, el pigmento ocupa más espacio y cambia el tono. Otras células reflejan la luz y añaden destellos que parecen cambiar con el entorno. Pero el color es solo una parte de este truco extraordinario. El pulpo también modifica la textura de su piel mediante pequeñas protuberancias musculares. Puede pasar de una superficie lisa a otra llena de bultos y picos. Así imita rocas, algas o corales mientras se esconde o acecha a una presa. Algunas especies incluso combinan el camuflaje con movimientos que recuerdan a otros animales. Lo sorprendente es que todo sucede sin cambiar de lugar ni abandonar el fondo. No se vuelve invisible: engaña a los ojos mezclando color, forma y textura. Y cuando el disfraz no basta, todavía puede escapar por una abertura diminuta.",
+  "sources": [
+    {
+      "title": "Smithsonian Ocean — How Octopuses and Squids Change Color",
+      "url": "https://ocean.si.edu/ocean-life/invertebrates/how-octopuses-and-squids-change-color"
+    },
+    {
+      "title": "PubMed — Comparative morphology of changeable skin papillae",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/24741712/"
+    },
+    {
+      "title": "Current Biology — Neural control of cephalopod camouflage",
+      "url": "https://doi.org/10.1016/j.cub.2023.08.095"
+    }
+  ],
+  "scenes": [
+    {
+      "scene_type": "ocean",
+      "visual": "Plano 1. Imagina que una roca del fondo marino abre un ojo y desaparece delante de ti. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. En primer plano aparecen Pulpo común y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
+      "setting": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda.",
+      "action": "Imagina que una roca del fondo marino abre un ojo y desaparece delante de ti. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
+      "camera": "Travelling rasante que revela lentamente el sujeto principal y termina en un detalle reconocible. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "camera_target": "El animal que convierte su piel en un disfraz",
+      "continuity": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "characters": [],
+      "props": [
+        "material principal",
+        "partículas ambientales",
+        "elemento de escala",
+        "detalle de superficie"
+      ],
+      "objects": [
+        "sujeto principal",
+        "entorno reconocible",
+        "elemento secundario",
+        "detalle en profundidad"
+      ],
+      "overlay": "Camuflaje total",
+      "narration_excerpt": "Imagina que una roca del fondo marino abre un ojo y desaparece delante de ti.",
+      "entities": [
+        {
+          "id": "octopus-main",
+          "name": "Pulpo común",
+          "type": "animal",
+          "appearance": "Pulpo común de cuerpo ovalado y manto redondeado, ocho brazos largos y flexibles con ventosas visibles, piel húmeda marrón rojiza con variaciones cromáticas naturales; anatomía marina reconocible y proporciones realistas.",
+          "shape": "manto ovalado y ocho brazos curvos",
+          "material": "piel marina húmeda",
+          "color": "#a65e4b",
+          "dimensions": [
+            2.2,
+            1.5,
+            2.2
+          ],
+          "scale": 1.05,
+          "action": "El pulpo abre y recoge sus brazos mientras ondula sobre el fondo.",
+          "motion": "balancea los brazos y avanza lentamente",
+          "position": [
+            -2.2,
+            0,
+            -4
+          ],
+          "support": "ground"
+        },
+        {
+          "id": "fish-school",
+          "name": "Banco de peces pequeños",
+          "type": "animal",
+          "appearance": "Grupo compacto de peces pequeños plateados, cuerpos fusiformes, ojos oscuros, aletas translúcidas y escamas reflectantes; nadan coordinados en una misma dirección y mantienen escala secundaria respecto al pulpo.",
+          "shape": "peces fusiformes en grupo",
+          "material": "escamas reflectantes",
+          "color": "#b8c9c9",
+          "dimensions": [
+            1.3,
+            0.8,
+            1.1
+          ],
+          "scale": 0.65,
+          "action": "El banco gira y nada en formación por detrás del pulpo.",
+          "motion": "nada y gira coordinadamente",
+          "position": [
+            2.6,
+            0.4,
+            -6
+          ],
+          "support": "ground"
+        }
+      ],
+      "beats": [
+        {
+          "entity_id": "octopus-main",
+          "action": "El pulpo abre y recoge sus brazos mientras ondula sobre el fondo.",
+          "at": 0.2,
+          "duration": 2.5
+        },
+        {
+          "entity_id": "fish-school",
+          "action": "El banco gira y nada en formación por detrás del pulpo.",
+          "at": 2,
+          "duration": 2.5
+        }
+      ]
+    },
+    {
+      "scene_type": "ocean",
+      "visual": "Plano 2. No es magia: algunos pulpos transforman su piel en un disfraz casi instantáneo. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. En primer plano aparecen Pulpo común y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
+      "setting": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda.",
+      "action": "No es magia: algunos pulpos transforman su piel en un disfraz casi instantáneo. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
+      "camera": "Dolly-in con arco corto alrededor del sujeto mientras cambia su aspecto. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "camera_target": "El animal que convierte su piel en un disfraz",
+      "continuity": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "characters": [],
+      "props": [
+        "material principal",
+        "partículas ambientales",
+        "elemento de escala",
+        "detalle de superficie"
+      ],
+      "objects": [
+        "sujeto principal",
+        "entorno reconocible",
+        "elemento secundario",
+        "detalle en profundidad"
+      ],
+      "overlay": "Camuflaje total",
+      "narration_excerpt": "No es magia: algunos pulpos transforman su piel en un disfraz casi instantáneo.",
+      "entities": [
+        {
+          "id": "octopus-main",
+          "name": "Pulpo común",
+          "type": "animal",
+          "appearance": "Pulpo común de cuerpo ovalado y manto redondeado, ocho brazos largos y flexibles con ventosas visibles, piel húmeda marrón rojiza con variaciones cromáticas naturales; anatomía marina reconocible y proporciones realistas.",
+          "shape": "manto ovalado y ocho brazos curvos",
+          "material": "piel marina húmeda",
+          "color": "#a65e4b",
+          "dimensions": [
+            2.2,
+            1.5,
+            2.2
+          ],
+          "scale": 1.05,
+          "action": "El pulpo abre y recoge sus brazos mientras ondula sobre el fondo.",
+          "motion": "balancea los brazos y avanza lentamente",
+          "position": [
+            -2.2,
+            0,
+            -4.6
+          ],
+          "support": "ground"
+        },
+        {
+          "id": "fish-school",
+          "name": "Banco de peces pequeños",
+          "type": "animal",
+          "appearance": "Grupo compacto de peces pequeños plateados, cuerpos fusiformes, ojos oscuros, aletas translúcidas y escamas reflectantes; nadan coordinados en una misma dirección y mantienen escala secundaria respecto al pulpo.",
+          "shape": "peces fusiformes en grupo",
+          "material": "escamas reflectantes",
+          "color": "#b8c9c9",
+          "dimensions": [
+            1.3,
+            0.8,
+            1.1
+          ],
+          "scale": 0.65,
+          "action": "El banco gira y nada en formación por detrás del pulpo.",
+          "motion": "nada y gira coordinadamente",
+          "position": [
+            2.6,
+            0.4,
+            -6.6
+          ],
+          "support": "ground"
+        }
+      ],
+      "beats": [
+        {
+          "entity_id": "octopus-main",
+          "action": "El pulpo abre y recoge sus brazos mientras ondula sobre el fondo.",
+          "at": 0.2,
+          "duration": 2.5
+        },
+        {
+          "entity_id": "fish-school",
+          "action": "El banco gira y nada en formación por detrás del pulpo.",
+          "at": 2,
+          "duration": 2.5
+        }
+      ]
+    },
+    {
+      "scene_type": "ocean",
+      "visual": "Plano 3. Bajo la superficie esconden miles de células diminutas llamadas cromatóforos, llenas de pigmento. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. En primer plano aparecen Pulpo común y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
+      "setting": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda.",
+      "action": "Bajo la superficie esconden miles de células diminutas llamadas cromatóforos, llenas de pigmento. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
+      "camera": "Macro travelling sobre la superficie, pasando de una zona general a un detalle microscópico. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "camera_target": "El animal que convierte su piel en un disfraz",
+      "continuity": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "characters": [],
+      "props": [
+        "material principal",
+        "partículas ambientales",
+        "elemento de escala",
+        "detalle de superficie"
+      ],
+      "objects": [
+        "sujeto principal",
+        "entorno reconocible",
+        "elemento secundario",
+        "detalle en profundidad"
+      ],
+      "overlay": "Camuflaje total",
+      "narration_excerpt": "Bajo la superficie esconden miles de células diminutas llamadas cromatóforos, llenas de pigmento.",
+      "entities": [
+        {
+          "id": "octopus-main",
+          "name": "Pulpo común",
+          "type": "animal",
+          "appearance": "Pulpo común de cuerpo ovalado y manto redondeado, ocho brazos largos y flexibles con ventosas visibles, piel húmeda marrón rojiza con variaciones cromáticas naturales; anatomía marina reconocible y proporciones realistas.",
+          "shape": "manto ovalado y ocho brazos curvos",
+          "material": "piel marina húmeda",
+          "color": "#a65e4b",
+          "dimensions": [
+            2.2,
+            1.5,
+            2.2
+          ],
+          "scale": 1.05,
+          "action": "El pulpo abre y recoge sus brazos mientras ondula sobre el fondo.",
+          "motion": "balancea los brazos y avanza lentamente",
+          "position": [
+            -2.2,
+            0,
+            -5.2
+          ],
+          "support": "ground"
+        },
+        {
+          "id": "fish-school",
+          "name": "Banco de peces pequeños",
+          "type": "animal",
+          "appearance": "Grupo compacto de peces pequeños plateados, cuerpos fusiformes, ojos oscuros, aletas translúcidas y escamas reflectantes; nadan coordinados en una misma dirección y mantienen escala secundaria respecto al pulpo.",
+          "shape": "peces fusiformes en grupo",
+          "material": "escamas reflectantes",
+          "color": "#b8c9c9",
+          "dimensions": [
+            1.3,
+            0.8,
+            1.1
+          ],
+          "scale": 0.65,
+          "action": "El banco gira y nada en formación por detrás del pulpo.",
+          "motion": "nada y gira coordinadamente",
+          "position": [
+            2.6,
+            0.4,
+            -7.2
+          ],
+          "support": "ground"
+        }
+      ],
+      "beats": [
+        {
+          "entity_id": "octopus-main",
+          "action": "El pulpo abre y recoge sus brazos mientras ondula sobre el fondo.",
+          "at": 0.2,
+          "duration": 2.5
+        },
+        {
+          "entity_id": "fish-school",
+          "action": "El banco gira y nada en formación por detrás del pulpo.",
+          "at": 2,
+          "duration": 2.5
+        }
+      ]
+    },
+    {
+      "scene_type": "ocean",
+      "visual": "Plano 4. Cada una funciona como una pequeña bolsa elástica que puede expandirse o contraerse. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. En primer plano aparecen Pulpo común y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
+      "setting": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda.",
+      "action": "Cada una funciona como una pequeña bolsa elástica que puede expandirse o contraerse. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
+      "camera": "Zoom controlado hacia el mecanismo central y órbita corta para mostrar su volumen. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "camera_target": "El animal que convierte su piel en un disfraz",
+      "continuity": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "characters": [],
+      "props": [
+        "material principal",
+        "partículas ambientales",
+        "elemento de escala",
+        "detalle de superficie"
+      ],
+      "objects": [
+        "sujeto principal",
+        "entorno reconocible",
+        "elemento secundario",
+        "detalle en profundidad"
+      ],
+      "overlay": "Camuflaje total",
+      "narration_excerpt": "Cada una funciona como una pequeña bolsa elástica que puede expandirse o contraerse.",
+      "entities": [
+        {
+          "id": "octopus-main",
+          "name": "Pulpo común",
+          "type": "animal",
+          "appearance": "Pulpo común de cuerpo ovalado y manto redondeado, ocho brazos largos y flexibles con ventosas visibles, piel húmeda marrón rojiza con variaciones cromáticas naturales; anatomía marina reconocible y proporciones realistas.",
+          "shape": "manto ovalado y ocho brazos curvos",
+          "material": "piel marina húmeda",
+          "color": "#a65e4b",
+          "dimensions": [
+            2.2,
+            1.5,
+            2.2
+          ],
+          "scale": 1.05,
+          "action": "El pulpo abre y recoge sus brazos mientras ondula sobre el fondo.",
+          "motion": "balancea los brazos y avanza lentamente",
+          "position": [
+            -2.2,
+            0,
+            -4
+          ],
+          "support": "ground"
+        },
+        {
+          "id": "fish-school",
+          "name": "Banco de peces pequeños",
+          "type": "animal",
+          "appearance": "Grupo compacto de peces pequeños plateados, cuerpos fusiformes, ojos oscuros, aletas translúcidas y escamas reflectantes; nadan coordinados en una misma dirección y mantienen escala secundaria respecto al pulpo.",
+          "shape": "peces fusiformes en grupo",
+          "material": "escamas reflectantes",
+          "color": "#b8c9c9",
+          "dimensions": [
+            1.3,
+            0.8,
+            1.1
+          ],
+          "scale": 0.65,
+          "action": "El banco gira y nada en formación por detrás del pulpo.",
+          "motion": "nada y gira coordinadamente",
+          "position": [
+            2.6,
+            0.4,
+            -6
+          ],
+          "support": "ground"
+        }
+      ],
+      "beats": [
+        {
+          "entity_id": "octopus-main",
+          "action": "El pulpo abre y recoge sus brazos mientras ondula sobre el fondo.",
+          "at": 0.2,
+          "duration": 2.5
+        },
+        {
+          "entity_id": "fish-school",
+          "action": "El banco gira y nada en formación por detrás del pulpo.",
+          "at": 2,
+          "duration": 2.5
+        }
+      ]
+    },
+    {
+      "scene_type": "ocean",
+      "visual": "Plano 5. Cuando los músculos tiran de ella, el pigmento ocupa más espacio y cambia el tono. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. En primer plano aparecen Pulpo común y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
+      "setting": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda.",
+      "action": "Cuando los músculos tiran de ella, el pigmento ocupa más espacio y cambia el tono. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
+      "camera": "Push-in durante la acción principal y pausa breve en el instante más legible. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "camera_target": "El animal que convierte su piel en un disfraz",
+      "continuity": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "characters": [],
+      "props": [
+        "material principal",
+        "partículas ambientales",
+        "elemento de escala",
+        "detalle de superficie"
+      ],
+      "objects": [
+        "sujeto principal",
+        "entorno reconocible",
+        "elemento secundario",
+        "detalle en profundidad"
+      ],
+      "overlay": "Camuflaje total",
+      "narration_excerpt": "Cuando los músculos tiran de ella, el pigmento ocupa más espacio y cambia el tono.",
+      "entities": [
+        {
+          "id": "octopus-main",
+          "name": "Pulpo común",
+          "type": "animal",
+          "appearance": "Pulpo común de cuerpo ovalado y manto redondeado, ocho brazos largos y flexibles con ventosas visibles, piel húmeda marrón rojiza con variaciones cromáticas naturales; anatomía marina reconocible y proporciones realistas.",
+          "shape": "manto ovalado y ocho brazos curvos",
+          "material": "piel marina húmeda",
+          "color": "#a65e4b",
+          "dimensions": [
+            2.2,
+            1.5,
+            2.2
+          ],
+          "scale": 1.05,
+          "action": "El pulpo abre y recoge sus brazos mientras ondula sobre el fondo.",
+          "motion": "balancea los brazos y avanza lentamente",
+          "position": [
+            -2.2,
+            0,
+            -4.6
+          ],
+          "support": "ground"
+        },
+        {
+          "id": "fish-school",
+          "name": "Banco de peces pequeños",
+          "type": "animal",
+          "appearance": "Grupo compacto de peces pequeños plateados, cuerpos fusiformes, ojos oscuros, aletas translúcidas y escamas reflectantes; nadan coordinados en una misma dirección y mantienen escala secundaria respecto al pulpo.",
+          "shape": "peces fusiformes en grupo",
+          "material": "escamas reflectantes",
+          "color": "#b8c9c9",
+          "dimensions": [
+            1.3,
+            0.8,
+            1.1
+          ],
+          "scale": 0.65,
+          "action": "El banco gira y nada en formación por detrás del pulpo.",
+          "motion": "nada y gira coordinadamente",
+          "position": [
+            2.6,
+            0.4,
+            -6.6
+          ],
+          "support": "ground"
+        }
+      ],
+      "beats": [
+        {
+          "entity_id": "octopus-main",
+          "action": "El pulpo abre y recoge sus brazos mientras ondula sobre el fondo.",
+          "at": 0.2,
+          "duration": 2.5
+        },
+        {
+          "entity_id": "fish-school",
+          "action": "El banco gira y nada en formación por detrás del pulpo.",
+          "at": 2,
+          "duration": 2.5
+        }
+      ]
+    },
+    {
+      "scene_type": "ocean",
+      "visual": "Plano 6. Otras células reflejan la luz y añaden destellos que parecen cambiar con el entorno. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. En primer plano aparecen Pulpo común y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
+      "setting": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda.",
+      "action": "Otras células reflejan la luz y añaden destellos que parecen cambiar con el entorno. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
+      "camera": "Desplazamiento lateral siguiendo los reflejos y cambio de foco entre capas. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "camera_target": "El animal que convierte su piel en un disfraz",
+      "continuity": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "characters": [],
+      "props": [
+        "material principal",
+        "partículas ambientales",
+        "elemento de escala",
+        "detalle de superficie"
+      ],
+      "objects": [
+        "sujeto principal",
+        "entorno reconocible",
+        "elemento secundario",
+        "detalle en profundidad"
+      ],
+      "overlay": "Camuflaje total",
+      "narration_excerpt": "Otras células reflejan la luz y añaden destellos que parecen cambiar con el entorno.",
+      "entities": [
+        {
+          "id": "octopus-main",
+          "name": "Pulpo común",
+          "type": "animal",
+          "appearance": "Pulpo común de cuerpo ovalado y manto redondeado, ocho brazos largos y flexibles con ventosas visibles, piel húmeda marrón rojiza con variaciones cromáticas naturales; anatomía marina reconocible y proporciones realistas.",
+          "shape": "manto ovalado y ocho brazos curvos",
+          "material": "piel marina húmeda",
+          "color": "#a65e4b",
+          "dimensions": [
+            2.2,
+            1.5,
+            2.2
+          ],
+          "scale": 1.05,
+          "action": "El pulpo abre y recoge sus brazos mientras ondula sobre el fondo.",
+          "motion": "balancea los brazos y avanza lentamente",
+          "position": [
+            -2.2,
+            0,
+            -5.2
+          ],
+          "support": "ground"
+        },
+        {
+          "id": "fish-school",
+          "name": "Banco de peces pequeños",
+          "type": "animal",
+          "appearance": "Grupo compacto de peces pequeños plateados, cuerpos fusiformes, ojos oscuros, aletas translúcidas y escamas reflectantes; nadan coordinados en una misma dirección y mantienen escala secundaria respecto al pulpo.",
+          "shape": "peces fusiformes en grupo",
+          "material": "escamas reflectantes",
+          "color": "#b8c9c9",
+          "dimensions": [
+            1.3,
+            0.8,
+            1.1
+          ],
+          "scale": 0.65,
+          "action": "El banco gira y nada en formación por detrás del pulpo.",
+          "motion": "nada y gira coordinadamente",
+          "position": [
+            2.6,
+            0.4,
+            -7.2
+          ],
+          "support": "ground"
+        }
+      ],
+      "beats": [
+        {
+          "entity_id": "octopus-main",
+          "action": "El pulpo abre y recoge sus brazos mientras ondula sobre el fondo.",
+          "at": 0.2,
+          "duration": 2.5
+        },
+        {
+          "entity_id": "fish-school",
+          "action": "El banco gira y nada en formación por detrás del pulpo.",
+          "at": 2,
+          "duration": 2.5
+        }
+      ]
+    },
+    {
+      "scene_type": "ocean",
+      "visual": "Plano 7. Pero el color es solo una parte de este truco extraordinario. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. En primer plano aparecen Pulpo común y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
+      "setting": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda.",
+      "action": "Pero el color es solo una parte de este truco extraordinario. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
+      "camera": "Retroceso de cámara para revelar el sujeto completo y su entorno. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "camera_target": "El animal que convierte su piel en un disfraz",
+      "continuity": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "characters": [],
+      "props": [
+        "material principal",
+        "partículas ambientales",
+        "elemento de escala",
+        "detalle de superficie"
+      ],
+      "objects": [
+        "sujeto principal",
+        "entorno reconocible",
+        "elemento secundario",
+        "detalle en profundidad"
+      ],
+      "overlay": "Camuflaje total",
+      "narration_excerpt": "Pero el color es solo una parte de este truco extraordinario.",
+      "entities": [
+        {
+          "id": "octopus-main",
+          "name": "Pulpo común",
+          "type": "animal",
+          "appearance": "Pulpo común de cuerpo ovalado y manto redondeado, ocho brazos largos y flexibles con ventosas visibles, piel húmeda marrón rojiza con variaciones cromáticas naturales; anatomía marina reconocible y proporciones realistas.",
+          "shape": "manto ovalado y ocho brazos curvos",
+          "material": "piel marina húmeda",
+          "color": "#a65e4b",
+          "dimensions": [
+            2.2,
+            1.5,
+            2.2
+          ],
+          "scale": 1.05,
+          "action": "El pulpo abre y recoge sus brazos mientras ondula sobre el fondo.",
+          "motion": "balancea los brazos y avanza lentamente",
+          "position": [
+            -2.2,
+            0,
+            -4
+          ],
+          "support": "ground"
+        },
+        {
+          "id": "fish-school",
+          "name": "Banco de peces pequeños",
+          "type": "animal",
+          "appearance": "Grupo compacto de peces pequeños plateados, cuerpos fusiformes, ojos oscuros, aletas translúcidas y escamas reflectantes; nadan coordinados en una misma dirección y mantienen escala secundaria respecto al pulpo.",
+          "shape": "peces fusiformes en grupo",
+          "material": "escamas reflectantes",
+          "color": "#b8c9c9",
+          "dimensions": [
+            1.3,
+            0.8,
+            1.1
+          ],
+          "scale": 0.65,
+          "action": "El banco gira y nada en formación por detrás del pulpo.",
+          "motion": "nada y gira coordinadamente",
+          "position": [
+            2.6,
+            0.4,
+            -6
+          ],
+          "support": "ground"
+        }
+      ],
+      "beats": [
+        {
+          "entity_id": "octopus-main",
+          "action": "El pulpo abre y recoge sus brazos mientras ondula sobre el fondo.",
+          "at": 0.2,
+          "duration": 2.5
+        },
+        {
+          "entity_id": "fish-school",
+          "action": "El banco gira y nada en formación por detrás del pulpo.",
+          "at": 2,
+          "duration": 2.5
+        }
+      ]
+    },
+    {
+      "scene_type": "ocean",
+      "visual": "Plano 8. El pulpo también modifica la textura de su piel mediante pequeñas protuberancias musculares. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. En primer plano aparecen Pulpo común y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
+      "setting": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda.",
+      "action": "El pulpo también modifica la textura de su piel mediante pequeñas protuberancias musculares. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
+      "camera": "Macro ascendente que recorre los detalles desde la base hasta el punto más alto. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "camera_target": "El animal que convierte su piel en un disfraz",
+      "continuity": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "characters": [],
+      "props": [
+        "material principal",
+        "partículas ambientales",
+        "elemento de escala",
+        "detalle de superficie"
+      ],
+      "objects": [
+        "sujeto principal",
+        "entorno reconocible",
+        "elemento secundario",
+        "detalle en profundidad"
+      ],
+      "overlay": "Camuflaje total",
+      "narration_excerpt": "El pulpo también modifica la textura de su piel mediante pequeñas protuberancias musculares.",
+      "entities": [
+        {
+          "id": "octopus-main",
+          "name": "Pulpo común",
+          "type": "animal",
+          "appearance": "Pulpo común de cuerpo ovalado y manto redondeado, ocho brazos largos y flexibles con ventosas visibles, piel húmeda marrón rojiza con variaciones cromáticas naturales; anatomía marina reconocible y proporciones realistas.",
+          "shape": "manto ovalado y ocho brazos curvos",
+          "material": "piel marina húmeda",
+          "color": "#a65e4b",
+          "dimensions": [
+            2.2,
+            1.5,
+            2.2
+          ],
+          "scale": 1.05,
+          "action": "El pulpo abre y recoge sus brazos mientras ondula sobre el fondo.",
+          "motion": "balancea los brazos y avanza lentamente",
+          "position": [
+            -2.2,
+            0,
+            -4.6
+          ],
+          "support": "ground"
+        },
+        {
+          "id": "fish-school",
+          "name": "Banco de peces pequeños",
+          "type": "animal",
+          "appearance": "Grupo compacto de peces pequeños plateados, cuerpos fusiformes, ojos oscuros, aletas translúcidas y escamas reflectantes; nadan coordinados en una misma dirección y mantienen escala secundaria respecto al pulpo.",
+          "shape": "peces fusiformes en grupo",
+          "material": "escamas reflectantes",
+          "color": "#b8c9c9",
+          "dimensions": [
+            1.3,
+            0.8,
+            1.1
+          ],
+          "scale": 0.65,
+          "action": "El banco gira y nada en formación por detrás del pulpo.",
+          "motion": "nada y gira coordinadamente",
+          "position": [
+            2.6,
+            0.4,
+            -6.6
+          ],
+          "support": "ground"
+        }
+      ],
+      "beats": [
+        {
+          "entity_id": "octopus-main",
+          "action": "El pulpo abre y recoge sus brazos mientras ondula sobre el fondo.",
+          "at": 0.2,
+          "duration": 2.5
+        },
+        {
+          "entity_id": "fish-school",
+          "action": "El banco gira y nada en formación por detrás del pulpo.",
+          "at": 2,
+          "duration": 2.5
+        }
+      ]
+    },
+    {
+      "scene_type": "ocean",
+      "visual": "Plano 9. Puede pasar de una superficie lisa a otra llena de bultos y picos. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. En primer plano aparecen Pulpo común y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
+      "setting": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda.",
+      "action": "Puede pasar de una superficie lisa a otra llena de bultos y picos. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
+      "camera": "Órbita corta alrededor del sujeto mientras la transformación avanza de forma visible. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "camera_target": "El animal que convierte su piel en un disfraz",
+      "continuity": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "characters": [],
+      "props": [
+        "material principal",
+        "partículas ambientales",
+        "elemento de escala",
+        "detalle de superficie"
+      ],
+      "objects": [
+        "sujeto principal",
+        "entorno reconocible",
+        "elemento secundario",
+        "detalle en profundidad"
+      ],
+      "overlay": "Camuflaje total",
+      "narration_excerpt": "Puede pasar de una superficie lisa a otra llena de bultos y picos.",
+      "entities": [
+        {
+          "id": "octopus-main",
+          "name": "Pulpo común",
+          "type": "animal",
+          "appearance": "Pulpo común de cuerpo ovalado y manto redondeado, ocho brazos largos y flexibles con ventosas visibles, piel húmeda marrón rojiza con variaciones cromáticas naturales; anatomía marina reconocible y proporciones realistas.",
+          "shape": "manto ovalado y ocho brazos curvos",
+          "material": "piel marina húmeda",
+          "color": "#a65e4b",
+          "dimensions": [
+            2.2,
+            1.5,
+            2.2
+          ],
+          "scale": 1.05,
+          "action": "El pulpo abre y recoge sus brazos mientras ondula sobre el fondo.",
+          "motion": "balancea los brazos y avanza lentamente",
+          "position": [
+            -2.2,
+            0,
+            -5.2
+          ],
+          "support": "ground"
+        },
+        {
+          "id": "fish-school",
+          "name": "Banco de peces pequeños",
+          "type": "animal",
+          "appearance": "Grupo compacto de peces pequeños plateados, cuerpos fusiformes, ojos oscuros, aletas translúcidas y escamas reflectantes; nadan coordinados en una misma dirección y mantienen escala secundaria respecto al pulpo.",
+          "shape": "peces fusiformes en grupo",
+          "material": "escamas reflectantes",
+          "color": "#b8c9c9",
+          "dimensions": [
+            1.3,
+            0.8,
+            1.1
+          ],
+          "scale": 0.65,
+          "action": "El banco gira y nada en formación por detrás del pulpo.",
+          "motion": "nada y gira coordinadamente",
+          "position": [
+            2.6,
+            0.4,
+            -7.2
+          ],
+          "support": "ground"
+        }
+      ],
+      "beats": [
+        {
+          "entity_id": "octopus-main",
+          "action": "El pulpo abre y recoge sus brazos mientras ondula sobre el fondo.",
+          "at": 0.2,
+          "duration": 2.5
+        },
+        {
+          "entity_id": "fish-school",
+          "action": "El banco gira y nada en formación por detrás del pulpo.",
+          "at": 2,
+          "duration": 2.5
+        }
+      ]
+    },
+    {
+      "scene_type": "ocean",
+      "visual": "Plano 10. Así imita rocas, algas o corales mientras se esconde o acecha a una presa. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. En primer plano aparecen Pulpo común y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
+      "setting": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda.",
+      "action": "Así imita rocas, algas o corales mientras se esconde o acecha a una presa. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
+      "camera": "Travelling diagonal que cruza el entorno y revela poco a poco el elemento principal. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "camera_target": "El animal que convierte su piel en un disfraz",
+      "continuity": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "characters": [],
+      "props": [
+        "material principal",
+        "partículas ambientales",
+        "elemento de escala",
+        "detalle de superficie"
+      ],
+      "objects": [
+        "sujeto principal",
+        "entorno reconocible",
+        "elemento secundario",
+        "detalle en profundidad"
+      ],
+      "overlay": "Camuflaje total",
+      "narration_excerpt": "Así imita rocas, algas o corales mientras se esconde o acecha a una presa.",
+      "entities": [
+        {
+          "id": "octopus-main",
+          "name": "Pulpo común",
+          "type": "animal",
+          "appearance": "Pulpo común de cuerpo ovalado y manto redondeado, ocho brazos largos y flexibles con ventosas visibles, piel húmeda marrón rojiza con variaciones cromáticas naturales; anatomía marina reconocible y proporciones realistas.",
+          "shape": "manto ovalado y ocho brazos curvos",
+          "material": "piel marina húmeda",
+          "color": "#a65e4b",
+          "dimensions": [
+            2.2,
+            1.5,
+            2.2
+          ],
+          "scale": 1.05,
+          "action": "El pulpo abre y recoge sus brazos mientras ondula sobre el fondo.",
+          "motion": "balancea los brazos y avanza lentamente",
+          "position": [
+            -2.2,
+            0,
+            -4
+          ],
+          "support": "ground"
+        },
+        {
+          "id": "fish-school",
+          "name": "Banco de peces pequeños",
+          "type": "animal",
+          "appearance": "Grupo compacto de peces pequeños plateados, cuerpos fusiformes, ojos oscuros, aletas translúcidas y escamas reflectantes; nadan coordinados en una misma dirección y mantienen escala secundaria respecto al pulpo.",
+          "shape": "peces fusiformes en grupo",
+          "material": "escamas reflectantes",
+          "color": "#b8c9c9",
+          "dimensions": [
+            1.3,
+            0.8,
+            1.1
+          ],
+          "scale": 0.65,
+          "action": "El banco gira y nada en formación por detrás del pulpo.",
+          "motion": "nada y gira coordinadamente",
+          "position": [
+            2.6,
+            0.4,
+            -6
+          ],
+          "support": "ground"
+        }
+      ],
+      "beats": [
+        {
+          "entity_id": "octopus-main",
+          "action": "El pulpo abre y recoge sus brazos mientras ondula sobre el fondo.",
+          "at": 0.2,
+          "duration": 2.5
+        },
+        {
+          "entity_id": "fish-school",
+          "action": "El banco gira y nada en formación por detrás del pulpo.",
+          "at": 2,
+          "duration": 2.5
+        }
+      ]
+    },
+    {
+      "scene_type": "ocean",
+      "visual": "Plano 11. Algunas especies incluso combinan el camuflaje con movimientos que recuerdan a otros animales. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. En primer plano aparecen Pulpo común y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
+      "setting": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda.",
+      "action": "Algunas especies incluso combinan el camuflaje con movimientos que recuerdan a otros animales. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
+      "camera": "Plano medio con seguimiento lateral del movimiento principal y de sus consecuencias. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "camera_target": "El animal que convierte su piel en un disfraz",
+      "continuity": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "characters": [],
+      "props": [
+        "material principal",
+        "partículas ambientales",
+        "elemento de escala",
+        "detalle de superficie"
+      ],
+      "objects": [
+        "sujeto principal",
+        "entorno reconocible",
+        "elemento secundario",
+        "detalle en profundidad"
+      ],
+      "overlay": "Camuflaje total",
+      "narration_excerpt": "Algunas especies incluso combinan el camuflaje con movimientos que recuerdan a otros animales.",
+      "entities": [
+        {
+          "id": "octopus-main",
+          "name": "Pulpo común",
+          "type": "animal",
+          "appearance": "Pulpo común de cuerpo ovalado y manto redondeado, ocho brazos largos y flexibles con ventosas visibles, piel húmeda marrón rojiza con variaciones cromáticas naturales; anatomía marina reconocible y proporciones realistas.",
+          "shape": "manto ovalado y ocho brazos curvos",
+          "material": "piel marina húmeda",
+          "color": "#a65e4b",
+          "dimensions": [
+            2.2,
+            1.5,
+            2.2
+          ],
+          "scale": 1.05,
+          "action": "El pulpo abre y recoge sus brazos mientras ondula sobre el fondo.",
+          "motion": "balancea los brazos y avanza lentamente",
+          "position": [
+            -2.2,
+            0,
+            -4.6
+          ],
+          "support": "ground"
+        },
+        {
+          "id": "fish-school",
+          "name": "Banco de peces pequeños",
+          "type": "animal",
+          "appearance": "Grupo compacto de peces pequeños plateados, cuerpos fusiformes, ojos oscuros, aletas translúcidas y escamas reflectantes; nadan coordinados en una misma dirección y mantienen escala secundaria respecto al pulpo.",
+          "shape": "peces fusiformes en grupo",
+          "material": "escamas reflectantes",
+          "color": "#b8c9c9",
+          "dimensions": [
+            1.3,
+            0.8,
+            1.1
+          ],
+          "scale": 0.65,
+          "action": "El banco gira y nada en formación por detrás del pulpo.",
+          "motion": "nada y gira coordinadamente",
+          "position": [
+            2.6,
+            0.4,
+            -6.6
+          ],
+          "support": "ground"
+        }
+      ],
+      "beats": [
+        {
+          "entity_id": "octopus-main",
+          "action": "El pulpo abre y recoge sus brazos mientras ondula sobre el fondo.",
+          "at": 0.2,
+          "duration": 2.5
+        },
+        {
+          "entity_id": "fish-school",
+          "action": "El banco gira y nada en formación por detrás del pulpo.",
+          "at": 2,
+          "duration": 2.5
+        }
+      ]
+    },
+    {
+      "scene_type": "ocean",
+      "visual": "Plano 12. Lo sorprendente es que todo sucede sin cambiar de lugar ni abandonar el fondo. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. En primer plano aparecen Pulpo común y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
+      "setting": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda.",
+      "action": "Lo sorprendente es que todo sucede sin cambiar de lugar ni abandonar el fondo. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
+      "camera": "Dolly circular muy lento que demuestra la relación entre el sujeto y su entorno. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "camera_target": "El animal que convierte su piel en un disfraz",
+      "continuity": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "characters": [],
+      "props": [
+        "material principal",
+        "partículas ambientales",
+        "elemento de escala",
+        "detalle de superficie"
+      ],
+      "objects": [
+        "sujeto principal",
+        "entorno reconocible",
+        "elemento secundario",
+        "detalle en profundidad"
+      ],
+      "overlay": "Camuflaje total",
+      "narration_excerpt": "Lo sorprendente es que todo sucede sin cambiar de lugar ni abandonar el fondo.",
+      "entities": [
+        {
+          "id": "octopus-main",
+          "name": "Pulpo común",
+          "type": "animal",
+          "appearance": "Pulpo común de cuerpo ovalado y manto redondeado, ocho brazos largos y flexibles con ventosas visibles, piel húmeda marrón rojiza con variaciones cromáticas naturales; anatomía marina reconocible y proporciones realistas.",
+          "shape": "manto ovalado y ocho brazos curvos",
+          "material": "piel marina húmeda",
+          "color": "#a65e4b",
+          "dimensions": [
+            2.2,
+            1.5,
+            2.2
+          ],
+          "scale": 1.05,
+          "action": "El pulpo abre y recoge sus brazos mientras ondula sobre el fondo.",
+          "motion": "balancea los brazos y avanza lentamente",
+          "position": [
+            -2.2,
+            0,
+            -5.2
+          ],
+          "support": "ground"
+        },
+        {
+          "id": "fish-school",
+          "name": "Banco de peces pequeños",
+          "type": "animal",
+          "appearance": "Grupo compacto de peces pequeños plateados, cuerpos fusiformes, ojos oscuros, aletas translúcidas y escamas reflectantes; nadan coordinados en una misma dirección y mantienen escala secundaria respecto al pulpo.",
+          "shape": "peces fusiformes en grupo",
+          "material": "escamas reflectantes",
+          "color": "#b8c9c9",
+          "dimensions": [
+            1.3,
+            0.8,
+            1.1
+          ],
+          "scale": 0.65,
+          "action": "El banco gira y nada en formación por detrás del pulpo.",
+          "motion": "nada y gira coordinadamente",
+          "position": [
+            2.6,
+            0.4,
+            -7.2
+          ],
+          "support": "ground"
+        }
+      ],
+      "beats": [
+        {
+          "entity_id": "octopus-main",
+          "action": "El pulpo abre y recoge sus brazos mientras ondula sobre el fondo.",
+          "at": 0.2,
+          "duration": 2.5
+        },
+        {
+          "entity_id": "fish-school",
+          "action": "El banco gira y nada en formación por detrás del pulpo.",
+          "at": 2,
+          "duration": 2.5
+        }
+      ]
+    },
+    {
+      "scene_type": "ocean",
+      "visual": "Plano 13. No se vuelve invisible: engaña a los ojos mezclando color, forma y textura. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. En primer plano aparecen Pulpo común y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
+      "setting": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda.",
+      "action": "No se vuelve invisible: engaña a los ojos mezclando color, forma y textura. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
+      "camera": "Desplazamiento de foco desde el fondo hacia el detalle que explica el fenómeno. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "camera_target": "El animal que convierte su piel en un disfraz",
+      "continuity": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "characters": [],
+      "props": [
+        "material principal",
+        "partículas ambientales",
+        "elemento de escala",
+        "detalle de superficie"
+      ],
+      "objects": [
+        "sujeto principal",
+        "entorno reconocible",
+        "elemento secundario",
+        "detalle en profundidad"
+      ],
+      "overlay": "Camuflaje total",
+      "narration_excerpt": "No se vuelve invisible: engaña a los ojos mezclando color, forma y textura.",
+      "entities": [
+        {
+          "id": "octopus-main",
+          "name": "Pulpo común",
+          "type": "animal",
+          "appearance": "Pulpo común de cuerpo ovalado y manto redondeado, ocho brazos largos y flexibles con ventosas visibles, piel húmeda marrón rojiza con variaciones cromáticas naturales; anatomía marina reconocible y proporciones realistas.",
+          "shape": "manto ovalado y ocho brazos curvos",
+          "material": "piel marina húmeda",
+          "color": "#a65e4b",
+          "dimensions": [
+            2.2,
+            1.5,
+            2.2
+          ],
+          "scale": 1.05,
+          "action": "El pulpo abre y recoge sus brazos mientras ondula sobre el fondo.",
+          "motion": "balancea los brazos y avanza lentamente",
+          "position": [
+            -2.2,
+            0,
+            -4
+          ],
+          "support": "ground"
+        },
+        {
+          "id": "fish-school",
+          "name": "Banco de peces pequeños",
+          "type": "animal",
+          "appearance": "Grupo compacto de peces pequeños plateados, cuerpos fusiformes, ojos oscuros, aletas translúcidas y escamas reflectantes; nadan coordinados en una misma dirección y mantienen escala secundaria respecto al pulpo.",
+          "shape": "peces fusiformes en grupo",
+          "material": "escamas reflectantes",
+          "color": "#b8c9c9",
+          "dimensions": [
+            1.3,
+            0.8,
+            1.1
+          ],
+          "scale": 0.65,
+          "action": "El banco gira y nada en formación por detrás del pulpo.",
+          "motion": "nada y gira coordinadamente",
+          "position": [
+            2.6,
+            0.4,
+            -6
+          ],
+          "support": "ground"
+        }
+      ],
+      "beats": [
+        {
+          "entity_id": "octopus-main",
+          "action": "El pulpo abre y recoge sus brazos mientras ondula sobre el fondo.",
+          "at": 0.2,
+          "duration": 2.5
+        },
+        {
+          "entity_id": "fish-school",
+          "action": "El banco gira y nada en formación por detrás del pulpo.",
+          "at": 2,
+          "duration": 2.5
+        }
+      ]
+    },
+    {
+      "scene_type": "ocean",
+      "visual": "Plano 14. Y cuando el disfraz no basta, todavía puede escapar por una abertura diminuta. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. En primer plano aparecen Pulpo común y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
+      "setting": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda.",
+      "action": "Y cuando el disfraz no basta, todavía puede escapar por una abertura diminuta. El pulpo transforma su apariencia ante el arrecife y el agua mantiene un movimiento natural. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
+      "camera": "Seguimiento cercano que termina con una salida de cámara hacia un plano más amplio. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "camera_target": "El animal que convierte su piel en un disfraz",
+      "continuity": "Arrecife submarino tropical con roca, arena, coral ramificado, algas y agua azul profunda. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "characters": [],
+      "props": [
+        "material principal",
+        "partículas ambientales",
+        "elemento de escala",
+        "detalle de superficie"
+      ],
+      "objects": [
+        "sujeto principal",
+        "entorno reconocible",
+        "elemento secundario",
+        "detalle en profundidad"
+      ],
+      "overlay": "Camuflaje total",
+      "narration_excerpt": "Y cuando el disfraz no basta, todavía puede escapar por una abertura diminuta.",
+      "entities": [
+        {
+          "id": "octopus-main",
+          "name": "Pulpo común",
+          "type": "animal",
+          "appearance": "Pulpo común de cuerpo ovalado y manto redondeado, ocho brazos largos y flexibles con ventosas visibles, piel húmeda marrón rojiza con variaciones cromáticas naturales; anatomía marina reconocible y proporciones realistas.",
+          "shape": "manto ovalado y ocho brazos curvos",
+          "material": "piel marina húmeda",
+          "color": "#a65e4b",
+          "dimensions": [
+            2.2,
+            1.5,
+            2.2
+          ],
+          "scale": 1.05,
+          "action": "El pulpo abre y recoge sus brazos mientras ondula sobre el fondo.",
+          "motion": "balancea los brazos y avanza lentamente",
+          "position": [
+            -2.2,
+            0,
+            -4.6
+          ],
+          "support": "ground"
+        },
+        {
+          "id": "fish-school",
+          "name": "Banco de peces pequeños",
+          "type": "animal",
+          "appearance": "Grupo compacto de peces pequeños plateados, cuerpos fusiformes, ojos oscuros, aletas translúcidas y escamas reflectantes; nadan coordinados en una misma dirección y mantienen escala secundaria respecto al pulpo.",
+          "shape": "peces fusiformes en grupo",
+          "material": "escamas reflectantes",
+          "color": "#b8c9c9",
+          "dimensions": [
+            1.3,
+            0.8,
+            1.1
+          ],
+          "scale": 0.65,
+          "action": "El banco gira y nada en formación por detrás del pulpo.",
+          "motion": "nada y gira coordinadamente",
+          "position": [
+            2.6,
+            0.4,
+            -6.6
+          ],
+          "support": "ground"
+        }
+      ],
+      "beats": [
+        {
+          "entity_id": "octopus-main",
+          "action": "El pulpo abre y recoge sus brazos mientras ondula sobre el fondo.",
+          "at": 0.2,
+          "duration": 2.5
+        },
+        {
+          "entity_id": "fish-school",
+          "action": "El banco gira y nada en formación por detrás del pulpo.",
+          "at": 2,
+          "duration": 2.5
+        }
+      ]
+    }
+  ]
+}
