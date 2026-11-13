@@ -141,4 +141,4 @@ function buildGenericScene(canvas,d){
  return t=>{const sceneStart=Number(d.start||0);if(t<sceneStart-.15||t>sceneStart+duration+.15)return;const p=Math.min(1,Math.max(0,(t-sceneStart)/duration));camera.position.set(8-5*p,5+Math.sin(p*Math.PI),15-4*p);camera.lookAt(0,1,-4);renderer.render(scene,camera);};
 }
 const nodes=[...document.querySelectorAll('.world-canvas')];const renderers=nodes.map(node=>{const data=JSON.parse(node.dataset.scene);if(data.storyId!=='columbus-1492')return buildGenericScene(node,data);return buildScene(node,data);});
-const timeline=window.__timelines?.['behind-del-mundo'];if(timeline){timeline.eventCallback('onUpdate',()=>{const t=timeline.time();renderers.forEach(render=>render(t));});renderers.forEach(render=>render(0));}
+const timeline=window.__timelines?.['behind-del-mundo']||window.__timelines?.['columbus-3d-preview']||Object.values(window.__timelines||{})[0];if(timeline){timeline.eventCallback('onUpdate',()=>{const t=timeline.time();renderers.forEach(render=>render(t));});}renderers.forEach(render=>render(0));
