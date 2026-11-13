@@ -162,14 +162,26 @@ window.__renderReady = new Promise((resolve,reject)=>{window.__resolveSceneReady
 try {
  const canvas=document.querySelector('#world-canvas');
  if(!canvas) throw new Error('No se encontró el canvas compartido del motor 3D.');
- const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false});
+ // HyperFrames captura el canvas después del repintado del navegador. Sin
+ // preserveDrawingBuffer, WebGL puede descartar el framebuffer antes de la captura,
+ // dejando el fondo HTML y los rótulos pero ninguna geometría 3D en el MP4.
+ const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false,preserveDrawingBuffer:true,powerPreference:'high-performance'});
  renderer.setPixelRatio(1);renderer.setSize(1080,1920,false);renderer.outputColorSpace=THREE.SRGBColorSpace;
  renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.08;
  const nodes=[...document.querySelectorAll('.scene')];
- const renderers=nodes.map(node=>{const data=JSON.parse(node.dataset.scene);if(data.storyId!=='columbus-1492')return buildGenericScene(renderer,data);return buildScene(renderer,data);});
+ const renderers=nodes.map((node,index)=>{
+   const data=JSON.parse(node.dataset.scene);
+   const entityCount=Array.isArray(data.entities)?data.entities.length:0;
+   if(entityCount<2) throw new Error('La escena '+(index+1)+' no contiene suficientes entidades 3D: '+entityCount);
+   const render=data.storyId==='columbus-1492'?buildScene(renderer,data):buildGenericScene(renderer,data);
+   console.info('[BDM-3D] escena preparada',index+1,'entidades',entityCount,'inicio',data.start,'duración',data.duration);
+   return render;
+ });
  const timeline=window.__timelines?.['behind-del-mundo']||window.__timelines?.['columbus-3d-preview']||Object.values(window.__timelines||{})[0];
- if(timeline) timeline.eventCallback('onUpdate',()=>{const t=timeline.time();renderers.forEach(render=>render(t));});
- renderers.forEach(render=>render(0));
+ const renderAt=time=>{renderers.forEach(render=>render(time));};
+ window.__renderSceneAt=renderAt;
+ if(timeline) timeline.eventCallback('onUpdate',()=>renderAt(timeline.time()));
+ renderAt(0);
  window.__playerReady=Promise.resolve();
  window.__resolveSceneReady();
 } catch(error) {
