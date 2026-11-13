@@ -61,7 +61,7 @@ jobs:
           python -m pip install --disable-pip-version-check edge-tts
           for attempt in 1 2 3 4; do
             rm -f out/narration.mp3
-            edge-tts --voice es-ES-AlvaroNeural --rate="+8%" --pitch="-2Hz" --text "En mil novecientos uno, unos buceadores hallaron un pecio. Frente a Anticitera apareció un fragmento de bronce. Dentro había engranajes diminutos. La máquina seguía los ciclos del cielo. También anticipaba eclipses. Dos mil años después, aún asombra." --write-media out/narration.mp3 && test -s out/narration.mp3 && break
+            edge-tts --voice es-ES-AlvaroNeural --rate="+8%" --pitch="-2Hz" --text "En 1901, unos buceadores hallaron un pecio. Frente a Anticitera apareció un fragmento de bronce. Dentro había engranajes diminutos. Seguía los ciclos del cielo y anticipaba eclipses. Dos mil años después, aún asombra." --write-media out/narration.mp3 && test -s out/narration.mp3 && break
             echo "Fallo de voz; reintentando..."
             sleep $((attempt * 5))
           done
