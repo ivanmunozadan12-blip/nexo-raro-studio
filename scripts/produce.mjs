@@ -1,4 +1,4 @@
-import { mkdir, writeFile, readFile, rm } from 'node:fs/promises';
+import { mkdir, writeFile, readFile, rm, copyFile } from 'node:fs/promises';
 import { spawn } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -433,6 +433,7 @@ await supabase('production_jobs', { method: 'PATCH', query: `?id=eq.${jobId}`, b
 const escaped = value => String(value || '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const assetsDir = path.join(work, 'assets');
 await mkdir(assetsDir, { recursive: true });
+await command('node', ['scripts/prepare-3d-assets.mjs', work], { cwd: root });
 const sceneWordCounts = script.scenes.map(scene => String(scene.narration_excerpt || '').trim().split(/\s+/).filter(Boolean).length);
 const totalSceneWords = sceneWordCounts.reduce((sum, count) => sum + count, 0) || 1;
 let elapsedSceneSeconds = 0;
@@ -471,6 +472,7 @@ const lintDir = path.join(work, 'lint-check');
 await mkdir(lintDir, { recursive: true });
 // Three.js internals contain Math.random/requestAnimationFrame implementations that the static linter flags even though this renderer never calls them; lint the composition structure separately from the vendor bundle.
 await writeFile(path.join(lintDir, 'index.html'), html.replace(sceneEngineTag, ''));
+await copyFile(voicePath, path.join(lintDir, 'voice.mp3'));
 await command('npx', ['--yes', 'hyperframes@0.9.37', 'lint'], { cwd: lintDir });
 const imageCount = script.scenes.length; // Siete escenas 3D renderizadas; ya no dependemos de siete fotos externas.
 const rawVideo = path.join(work, 'video-silent.mp4');
