@@ -222,7 +222,8 @@ if (process.env.MANUAL_SCRIPT_ID) {
   const imported = importedRows[0];
   if (!imported) throw new Error('No se encontró el guion importado o no pertenece a esta cuenta.');
   if (!['queued','in_production','approved'].includes(imported.status)) throw new Error('El guion no está en cola de producción (estado: ' + imported.status + ').');
-  const storedPlan = imported.visual_plan || [];\n  script = { title: imported.title, hook: imported.hook || '', narration: imported.narration || '', scenes: Array.isArray(storedPlan) ? storedPlan : (storedPlan.scenes || []), models: Array.isArray(storedPlan) ? {} : (storedPlan.models || {}), sources: imported.source_notes || [], caption: imported.title + ' | Descubre lo que hay detrás. #BehindDelMundo', category: seriesRows.find(x => x.id === imported.series_id)?.slug || 'nadie-te-lo-explica' };
+  const storedPlan = imported.visual_plan || [];
+  script = { title: imported.title, hook: imported.hook || '', narration: imported.narration || '', scenes: Array.isArray(storedPlan) ? storedPlan : (storedPlan.scenes || []), models: Array.isArray(storedPlan) ? {} : (storedPlan.models || {}), sources: imported.source_notes || [], caption: imported.title + ' | Descubre lo que hay detrás. #BehindDelMundo', category: seriesRows.find(x => x.id === imported.series_id)?.slug || 'nadie-te-lo-explica' };
   scriptId = imported.id;
   wordCount = countWords(script.narration);
   await supabase('scripts', { method: 'PATCH', query: '?id=eq.' + scriptId, body: { status: 'in_production' } });
