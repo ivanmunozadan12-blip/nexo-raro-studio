@@ -318,7 +318,7 @@ const aiResponse = await groqChat({
     response_format: { type: 'json_object' },
     reasoning_effort: 'low',
     temperature: 0.7,
-    max_completion_tokens: 4500,
+    max_completion_tokens: 12000,
     stream: false,
   }, 'guion');
 const ai = await aiResponse.json();
@@ -338,17 +338,38 @@ try {
   throw new Error('Groq no devolvió JSON válido; se detiene antes de guardar datos incompletos.');
 }
 
-// Una sola llamada de redacción: evitamos gastar una segunda cuota de Groq
-// corrigiendo longitud. El prompt pide 180-195 palabras y validamos un margen
-// seguro; la duración final se comprueba sobre el MP4 real.
+// Control editorial reforzado: si Groq devuelve menos planos o una narración
+// corta, se solicita una reparación estructural antes de guardar nada.
 function countWords(value) {
   return String(value || '').trim().split(/\s+/).filter(Boolean).length;
 }
 wordCount = countWords(script.narration);
-if (wordCount < 145 || wordCount > 205) {
-  throw new Error(`El guion tiene ${wordCount} palabras; fuera del margen técnico 145-205. Se detiene antes de generar voces o guardar un vídeo incompleto.`);
+if (!Array.isArray(script.scenes) || script.scenes.length !== 14 || wordCount < 180 || wordCount > 195) {
+  console.warn(`Respuesta inicial incompleta (${wordCount} palabras, ${Array.isArray(script.scenes) ? script.scenes.length : 0} planos). Se solicita una reparación completa antes de guardar.`);
+  const repairResponse = await groqChat({
+    model: groqModel,
+    messages: [
+      { role: 'system', content: 'Eres el editor jefe de Behind del Mundo. Devuelve exclusivamente un JSON válido. Cumple exactamente todos los requisitos; no reduzcas el número de escenas ni la extensión de la narración.' },
+      { role: 'user', content: `Repara este guion sin cambiar el tema ni inventar hechos. La respuesta anterior no cumplió los mínimos. Devuelve el objeto completo con title, hook, narration, scenes, sources, caption y category. narration debe tener EXACTAMENTE entre 180 y 195 palabras naturales en español de España. scenes debe contener EXACTAMENTE 14 escenas distintas y consecutivas, pensadas para planos de 4-5 segundos. Cada escena debe incluir visual de al menos 550 caracteres, scene_type, setting de al menos 40 caracteres, entities (2-6 modelos 3D completos), beats (2-4 acciones temporizadas para los sujetos animados), characters, props (4-8), action de al menos 130 caracteres, camera de al menos 80 caracteres con movimiento, continuity de al menos 70 caracteres, objects (4-8), overlay de máximo 4 palabras y narration_excerpt literal. Cada entidad debe tener id estable, type, name, appearance o description de 100 caracteres, action, motion, position [x,y,z], scale numérica o vector positivo, dimensions [ancho,alto,fondo] positivas, shape, material, color y support. Evita solapamientos, objetos flotantes, edificios en agua y movimientos físicamente imposibles. Mantén fuentes verificables HTTPS ya presentes en el JSON; mínimo 3 dominios independientes. Si la narración original es demasiado corta, amplíala con contexto y explicación ya respaldados por las fuentes, sin relleno. No omitas ni resumas escenas. JSON anterior a reparar:\n${JSON.stringify(script)}` },
+    ],
+    response_format: { type: 'json_object' },
+    reasoning_effort: 'low',
+    temperature: 0.3,
+    max_completion_tokens: 12000,
+    stream: false,
+  }, 'reparación estructural');
+  const repairedAI = await repairResponse.json();
+  const repairedText = repairedAI.choices?.[0]?.message?.content?.trim();
+  if (!repairedText) throw new Error('Groq no devolvió una reparación estructural del guion.');
+  const repairedClean = repairedText.replace(/^\`\`\`(?:json)?\s*/i, '').replace(/\s*\`\`\`$/, '').trim();
+  const repairedStart = repairedClean.indexOf('{'), repairedEnd = repairedClean.lastIndexOf('}');
+  if (repairedStart < 0 || repairedEnd <= repairedStart) throw new Error('Groq no devolvió JSON válido en la reparación estructural.');
+  script = JSON.parse(repairedClean.slice(repairedStart, repairedEnd + 1));
+  wordCount = countWords(script.narration);
 }
-console.log(`Guion aceptado en una sola llamada: ${wordCount} palabras.`);
+if (wordCount < 180 || wordCount > 195) throw new Error(`El guion tiene ${wordCount} palabras después de la reparación; se exige 180-195.`);
+if (!Array.isArray(script.scenes) || script.scenes.length !== 14) throw new Error(`El guion tiene ${Array.isArray(script.scenes) ? script.scenes.length : 0} planos después de la reparación; se exigen exactamente 14.`);
+console.log(`Guion validado: ${wordCount} palabras y 14 planos cortos.`);
 function topicTokens(value) {
   const stop = new Set('para como donde cuando desde hasta sobre entre hacia este esta estos estas unos unas una uno por con sin del las los que cual quien cómo qué muy más menos pero porque también entonces'.split(' '));
   return [...new Set(String(value || '').toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu,'').match(/[a-z0-9]{3,}/g) || [])].filter(x => !stop.has(x));
