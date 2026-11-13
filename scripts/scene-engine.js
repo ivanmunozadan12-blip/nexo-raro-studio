@@ -26,7 +26,7 @@ function person(g,x,z,kind='crew',scale=1){
  else if(sailor){sphere(p,0,1.91,0,.24,.09,.23,'#4b392d',1);cyl(p,0,1.96,0,.25,.25,.045,'#d1b37d',8);}
  else {sphere(p,0,1.91,0,.24,.12,.22,kind==='queen'?'#3d2836':'#4a342b',1);if(royal){cyl(p,0,2.04,0,.22,.26,.12,'#d5ad47',8);for(let k=0;k<5;k++)sphere(p,Math.sin(k*1.256)*.2,2.13,Math.cos(k*1.256)*.2,.045,.13,.045,'#f0d16b',1);}}
  // arms with sleeves, forearms and hands
- p.userData.arms=[];for(const side of [-1,1]){const arm=new THREE.Group();arm.position.set(side*.25,1.27,0);rod(arm,[0,0,0],[side*.17,-.31,.05],.105,royal?'#b58b45':cloth.color);rod(arm,[side*.17,-.31,.05],[side*.23,-.52,.15],.075,cloth.color);sphere(arm,side*.23,-.57,.17,.075,.08,.07,'#d6a27e',1);p.add(arm);p.userData.arms.push({arm,side});if(kind==='columbus'&&side===1)arm.rotation.z=-.32;}
+ p.userData.arms=[];for(const side of [-1,1]){const arm=new THREE.Group();arm.position.set(side*.25,1.27,0);rod(arm,[0,0,0],[side*.17,-.31,.05],.105,royal?'#b58b45':cloth.color);rod(arm,[side*.17,-.31,.05],[side*.23,-.52,.15],.075,cloth.color);sphere(arm,side*.23,-.57,.17,.075,.08,.07,'#d6a27e',1);p.add(arm);p.userData.arms.push({arm,side});if(kind==='columbus'&&side===1)arm.rotation.z=-.32;arm.userData.baseRotation=arm.rotation.z;}
  if(kind==='columbus'){rod(p,[.48,.76,.17],[.58,.58,.22],.025,'#8a795d');}
  return p;
 }
@@ -122,7 +122,7 @@ function buildScene(canvas,d){
  else if(idx===4){camera.position.set(10-8*ease,6,15-6*ease);camera.lookAt(0,1,-8);ships.forEach((s,i)=>{s.position.z=s.userData.baseZ+local*.13;s.rotation.y=.08*Math.sin(local+i);});}
  else if(idx===5){camera.position.set(8-9*ease,5,13-4*ease);camera.lookAt(0,1,-3);ships.forEach(s=>{s.position.z=s.userData.baseZ+local*.1;});}
  else {camera.position.set(-12+14*ease,8,17-5*ease);camera.lookAt(0,1,-7);}
- people.forEach((p,i)=>{p.rotation.y=.08*Math.sin(local*1.2+i);p.position.y=.025*Math.sin(local*2+i);(p.userData.arms||[]).forEach(({arm,side})=>{arm.rotation.z+=(side*.045*Math.sin(local*1.8+i+side));});});ships.forEach((s,i)=>{(s.userData.sails||[]).forEach((sail,j)=>{sail.rotation.y=.045*Math.sin(local*1.4+i+j);});if(s.userData.flag)s.userData.flag.rotation.y=Math.PI/2+.12*Math.sin(local*2+i);});
+ people.forEach((p,i)=>{p.rotation.y=.08*Math.sin(local*1.2+i);p.position.y=.025*Math.sin(local*2+i);(p.userData.arms||[]).forEach(({arm,side})=>{arm.rotation.z=arm.userData.baseRotation+side*.045*Math.sin(local*1.8+i+side);});});ships.forEach((s,i)=>{(s.userData.sails||[]).forEach((sail,j)=>{sail.rotation.y=.045*Math.sin(local*1.4+i+j);});if(s.userData.flag)s.userData.flag.rotation.y=Math.PI/2+.12*Math.sin(local*2+i);});
  animateWater(local);renderer.render(scene,camera);};
 }
 
