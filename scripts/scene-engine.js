@@ -158,6 +158,8 @@ function buildGenericScene(renderer,d){
   else {camera.position.set(target.x+Math.cos(orbitAngle)*distance,target.y+height+Math.sin(local*1.2)*.16,target.z+Math.sin(orbitAngle)*distance);}
   camera.lookAt(target);renderer.render(scene,camera);};
 }
+window.addEventListener('error',event=>console.error('[BDM-PAGE-ERROR]',event.error?.stack||event.message));
+window.addEventListener('unhandledrejection',event=>console.error('[BDM-UNHANDLED]',event.reason?.stack||event.reason));
 window.__renderReady = new Promise((resolve,reject)=>{window.__resolveSceneReady=resolve;window.__rejectSceneReady=reject;});
 try {
  const canvas=document.querySelector('#world-canvas');
@@ -181,7 +183,14 @@ try {
  const renderAt=time=>{renderers.forEach(render=>render(time));};
  window.__renderSceneAt=renderAt;
  if(!timeline) throw new Error('No se encontró la línea de tiempo GSAP; no se puede garantizar el movimiento de las escenas.');
- timeline.eventCallback('onUpdate',()=>renderAt(timeline.time()));
+ // No reemplazar eventCallback('onUpdate'): HyperFrames puede instalar su propio callback
+ // al controlar el playhead. Un tween auxiliar garantiza que Three.js se redibuje en cada
+ // frame capturado, incluso cuando el renderizador usa captura por screenshots.
+ const drawState={frame:0};
+ timeline.to(drawState,{frame:1,duration:Math.max(.01,timeline.duration()),ease:'none',onUpdate:()=>{
+   try { renderAt(timeline.time()); }
+   catch(error) { window.__renderError=String(error?.stack||error); console.error('[BDM-RENDER-ERROR]',window.__renderError); throw error; }
+ }},0);
  // QC real del motor: fuerza el render de cada plano y exige geometría dibujada.
  // Así el trabajo no puede quedar verde si solo se exportan los rótulos HTML.
  const sceneDiagnostics=[];
