@@ -89,7 +89,7 @@ Devuelve SOLO JSON: {{"title":"...","hook":"...","category":"{slot}","narration"
     run(["python","-m","edge_tts","--voice","es-ES-AlvaroNeural","--rate=+5%","--text",script["narration"],"--write-media",str(voice),"--write-subtitles",str(srt)])
     if voice.stat().st_size<1500: raise ValueError("La pista de voz está vacía.")
     voice_duration=float(subprocess.check_output(["ffprobe","-v","error","-show_entries","format=duration","-of","default=noprint_wrappers=1:nokey=1",str(voice)],text=True))
-    if not 40<=voice_duration<=72: raise ValueError(f"Duración de voz no válida: {voice_duration:.1f}s.")
+    if not 40<=voice_duration<=71: raise ValueError(f"Duración de voz no válida: {voice_duration:.1f}s.")
     def secs(v):
         m=re.match(r"(\d+):(\d{2}):(\d{2}),(\d{3})",v)
         return int(m[1])*3600+int(m[2])*60+int(m[3])+int(m[4])/1000 if m else 0
@@ -103,7 +103,7 @@ Devuelve SOLO JSON: {{"title":"...","hook":"...","category":"{slot}","narration"
     script["captions"]=captions
     script_json=work/"script.json"; script_json.write_text(json.dumps(script,ensure_ascii=False),encoding="utf-8")
     music=work/"music.wav"; silent=work/"silent.mp4"; final=work/"behind-del-mundo.mp4"
-    duration=int(voice_duration+1.999)
+    duration=max(60,int(voice_duration+1.999))
     run(["python","engine/audio_bed.py","--duration",str(duration),"--output",str(music)])
     db("production_jobs","?id=eq."+job["id"],"PATCH",{"status":"rendering"})
     run(["python","engine/render_video.py","--script",str(script_json),"--voice",str(voice),"--output",str(silent)])
