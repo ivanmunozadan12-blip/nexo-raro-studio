@@ -28,7 +28,7 @@ today=now.strftime("%Y-%m-%d")
 slot=os.getenv("VIDEO_SLOT","how-it-works")
 user_prompt=os.getenv("USER_PROMPT","").strip()
 if len(user_prompt)<12: raise SystemExit("Falta un prompt creativo válido (mínimo 12 caracteres).")
-if len(user_prompt)>3500: raise SystemExit("El prompt supera los 3.500 caracteres.")
+if len(user_prompt)>45000: raise SystemExit("El guion técnico supera los 45.000 caracteres.")
 slots={
  "how-it-works":("07:30","Cómo funciona","Explica cómo funciona un objeto, mecanismo, tecnología o fenómeno que usamos o vemos a diario."),
  "inside":("14:30","Por dentro","Entra visualmente en el interior de un lugar, instalación, edificio, transporte o infraestructura y explica su funcionamiento."),
