@@ -348,7 +348,10 @@ def draw_visual_elements(d, elements, t, accent):
         w=max(28,min(220,float(item.get("width",100))*0.38))
         h=max(28,min(190,float(item.get("height",100))*0.38))
         label=str(item.get("label","")).strip()
-        # Reservamos espacio también para la etiqueta: no puede chocar con el objeto siguiente.
+        role=str(item.get("role","detail")).lower()
+        # El sujeto principal es la base de la composición: los mecanismos y detalles
+        # deben poder colocarse DENTRO de él, no ser expulsados fuera de su silueta.
+        # Solo evitamos colisiones entre elementos secundarios del mismo plano.
         box_h=h/2+(24 if label and shape!="text" else 0)
         candidates=[]
         for radius in range(0,241,24):
@@ -356,12 +359,18 @@ def draw_visual_elements(d, elements, t, accent):
                           (radius,radius),(-radius,radius),(radius,-radius),(-radius,-radius)):
                 x=max(70,min(506,wanted_x+dx)); y=max(350,min(755,wanted_y+dy))
                 rect=(x-w/2-12,y-h/2-10,x+w/2+12,y+box_h+10)
-                overlap=sum(1 for a,b,c,e in placed if not (rect[2]<a or rect[0]>c or rect[3]<b or rect[1]>e))
+                overlap=0
+                for other_rect,other_role in placed:
+                    if role!="main_subject" and other_role=="main_subject":
+                        continue
+                    a,b,c,e=other_rect
+                    if not (rect[2]<a or rect[0]>c or rect[3]<b or rect[1]>e):
+                        overlap+=1
                 distance=(x-wanted_x)**2+(y-wanted_y)**2
                 candidates.append((overlap,distance,x,y,rect))
             if candidates and min(v[0] for v in candidates)==0: break
         _,_,x,y,rect=min(candidates,key=lambda v:(v[0],v[1]))
-        placed.append(rect)
+        placed.append((rect,role))
         motion=str(item.get("motion","none")).lower()
         phase=t*2.8+float(item.get("phase",0))
         if motion=="float": y+=math.sin(phase)*5
