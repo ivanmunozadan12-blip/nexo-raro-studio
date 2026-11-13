@@ -37,7 +37,7 @@ jobs:
       matrix:
         include: ${{ fromJSON(needs.prepare.outputs.matrix) }}
     concurrency:
-      group: behind-del-mundo-new-batch-${{ matrix.slot }}
+      group: behind-del-mundo-new-batch-${{ github.run_id }}-${{ matrix.slot }}
       cancel-in-progress: false
     env:
       SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
