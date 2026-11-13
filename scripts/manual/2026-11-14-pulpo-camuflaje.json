@@ -231,7 +231,7 @@
           "placement": "posición 5 de la composición según la acción narrada"
         }
       ],
-      "overlay": "El disfraz cambia en segundos",
+      "overlay": "El disfraz cambia",
       "narration_excerpt": "No es magia: algunos pulpos transforman su piel en un disfraz casi instantáneo.",
       "entities": [
         {
@@ -369,7 +369,7 @@
           "placement": "posición 4 de la composición según la acción narrada"
         }
       ],
-      "overlay": "Miles de células de pigmento",
+      "overlay": "Millones de células",
       "narration_excerpt": "Bajo la superficie esconden miles de células diminutas llamadas cromatóforos, llenas de pigmento.",
       "entities": [
         {
@@ -491,7 +491,7 @@
           "placement": "posición 4 de la composición según la acción narrada"
         }
       ],
-      "overlay": "Una bolsa que se expande",
+      "overlay": "Una bolsa de pigmento",
       "narration_excerpt": "Cada una funciona como una pequeña bolsa elástica que puede expandirse o contraerse.",
       "entities": [
         {
@@ -613,7 +613,7 @@
           "placement": "posición 4 de la composición según la acción narrada"
         }
       ],
-      "overlay": "Los músculos tiran del pigmento",
+      "overlay": "Músculos microscópicos",
       "narration_excerpt": "Cuando los músculos tiran de ella, el pigmento ocupa más espacio y cambia el tono.",
       "entities": [
         {
@@ -735,7 +735,7 @@
           "placement": "posición 4 de la composición según la acción narrada"
         }
       ],
-      "overlay": "Otras células reflejan la luz",
+      "overlay": "La luz también cambia",
       "narration_excerpt": "Otras células reflejan la luz y añaden destellos que parecen cambiar con el entorno.",
       "entities": [
         {
@@ -866,7 +866,7 @@
           "placement": "posición 5 de la composición según la acción narrada"
         }
       ],
-      "overlay": "El color no lo explica todo",
+      "overlay": "Color y silueta",
       "narration_excerpt": "Pero el color es solo una parte de este truco extraordinario.",
       "entities": [
         {
@@ -1004,7 +1004,7 @@
           "placement": "posición 4 de la composición según la acción narrada"
         }
       ],
-      "overlay": "La piel también cambia de relieve",
+      "overlay": "La piel crea picos",
       "narration_excerpt": "El pulpo también modifica la textura de su piel mediante pequeñas protuberancias musculares.",
       "entities": [
         {
@@ -1126,7 +1126,7 @@
           "placement": "posición 4 de la composición según la acción narrada"
         }
       ],
-      "overlay": "De lisa a llena de picos",
+      "overlay": "Liso o rugoso",
       "narration_excerpt": "Puede pasar de una superficie lisa a otra llena de bultos y picos.",
       "entities": [
         {
@@ -1257,7 +1257,7 @@
           "placement": "posición 5 de la composición según la acción narrada"
         }
       ],
-      "overlay": "Imita rocas, algas y corales",
+      "overlay": "Imita el arrecife",
       "narration_excerpt": "Así imita rocas, algas o corales mientras se esconde o acecha a una presa.",
       "entities": [
         {
@@ -1404,7 +1404,7 @@
           "placement": "posición 5 de la composición según la acción narrada"
         }
       ],
-      "overlay": "A veces imita a otros animales",
+      "overlay": "Un movimiento engañoso",
       "narration_excerpt": "Algunas especies incluso combinan el camuflaje con movimientos que recuerdan a otros animales.",
       "entities": [
         {
@@ -1551,7 +1551,7 @@
           "placement": "posición 5 de la composición según la acción narrada"
         }
       ],
-      "overlay": "Se esconde a plena vista",
+      "overlay": "Espera entre las rocas",
       "narration_excerpt": "Lo sorprendente es que todo sucede sin cambiar de lugar ni abandonar el fondo.",
       "entities": [
         {
@@ -1704,7 +1704,7 @@
           "placement": "posición 5 de la composición según la acción narrada"
         }
       ],
-      "overlay": "Todo ocurre sin moverse del fondo",
+      "overlay": "Camuflaje sin moverse",
       "narration_excerpt": "No se vuelve invisible: engaña a los ojos mezclando color, forma y textura.",
       "entities": [
         {
@@ -1851,7 +1851,7 @@
           "placement": "posición 5 de la composición según la acción narrada"
         }
       ],
-      "overlay": "No es invisible: engaña a la vista",
+      "overlay": "Escapa por una grieta",
       "narration_excerpt": "Y cuando el disfraz no basta, todavía puede escapar por una abertura diminuta.",
       "entities": [
         {
