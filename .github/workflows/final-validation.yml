@@ -1,0 +1,49 @@
+name: BEHIND DEL MUNDO · validación final del estudio
+
+on:
+  push:
+    branches: [prompt-video-studio]
+    paths:
+      - 'app/**'
+      - 'lib/social-oauth.ts'
+      - 'engine/**'
+      - 'package.json'
+      - '.github/workflows/final-validation.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: behind-final-validation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      NEXT_PUBLIC_SUPABASE_URL: https://example.supabase.co
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: test-anon-key
+      SUPABASE_URL: https://example.supabase.co
+      SUPABASE_SERVICE_ROLE_KEY: test-service-role-key
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Instalar dependencias Python
+        run: python -m pip install -r engine/requirements.txt
+      - name: Sintaxis Python y pruebas del motor
+        run: |
+          python -m py_compile engine/produce.py engine/render_video.py engine/audio_bed.py engine/srt_captions.py engine/publish.py
+          python -m unittest discover -s engine -p 'test_*.py'
+      - name: Instalar dependencias web
+        run: npm install
+      - name: Typecheck y build de producción
+        run: |
+          npm run typecheck
+          npm run build
