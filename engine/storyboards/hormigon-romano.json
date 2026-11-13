@@ -1,0 +1,782 @@
+{
+  "title": "El secreto del hormigón romano",
+  "hook": "¿Cómo siguen en pie algunas construcciones romanas después de casi dos mil años?",
+  "narration": "Hay edificios romanos que llevan casi dos mil años en pie. Y parte del secreto podría estar en una mezcla que parece tener pequeños trozos de cal viva. Los romanos combinaban materiales volcánicos, fragmentos de roca y cal para fabricar un hormigón distinto al actual. Un estudio de muestras antiguas apunta a que, en algunos casos, mezclaban cal viva directamente con los demás ingredientes: un proceso llamado mezcla en caliente. La reacción con el agua generaba calor y dejaba pequeños grumos ricos en calcio dentro del material. ¿Y qué tiene eso de especial? Si aparece una grieta y entra agua, esos grumos pueden liberar calcio. Con el tiempo, se forman minerales que rellenan parte de la fisura. No significa que cualquier muro romano se repare solo ni que todos usaran exactamente la misma receta. Pero esta pista ayuda a explicar su durabilidad y está inspirando nuevos materiales.",
+  "scenes": [
+    {
+      "headline": "Una obra que desafía al tiempo",
+      "subtitle": "El hormigón romano sigue entre nosotros",
+      "narration_excerpt": "Hay edificios romanos que llevan casi dos mil años en pie.",
+      "visual_type": "roman_concrete",
+      "background": "nature",
+      "description": "Un arco de hormigón romano domina un paisaje arqueológico; se ven sillares, textura mineral y vegetación creciendo en las juntas.",
+      "action": "La cámara asciende desde la base del arco hasta su clave, revelando la escala y las marcas del material.",
+      "camera": {
+        "movement": "pull_out",
+        "zoom_start": 1,
+        "zoom_end": 1.07
+      },
+      "accent": "#c5a47a",
+      "visual_elements": [
+        {
+          "shape": "arc",
+          "x": 500,
+          "y": 570,
+          "width": 330,
+          "height": 330,
+          "color": "#c5a47a",
+          "label": "arco romano",
+          "role": "main_subject",
+          "description": "Arco de hormigón romano de gran escala",
+          "motion": "none"
+        },
+        {
+          "shape": "rect",
+          "x": 500,
+          "y": 740,
+          "width": 380,
+          "height": 110,
+          "color": "#17354a",
+          "label": "muro",
+          "role": "architecture",
+          "description": "Muro macizo que soporta el arco",
+          "motion": "none"
+        },
+        {
+          "shape": "circle",
+          "x": 280,
+          "y": 680,
+          "width": 55,
+          "height": 55,
+          "color": "#55d6c2",
+          "label": "musgo",
+          "role": "environment",
+          "description": "Musgo y vegetación en una junta",
+          "motion": "none"
+        },
+        {
+          "shape": "line",
+          "x": 500,
+          "y": 430,
+          "width": 0,
+          "height": 180,
+          "color": "#efb45f",
+          "label": "clave",
+          "role": "detail",
+          "description": "Punto central superior del arco",
+          "motion": "none"
+        },
+        {
+          "shape": "polygon",
+          "x": 180,
+          "y": 790,
+          "width": 140,
+          "height": 75,
+          "color": "#c5a47a",
+          "label": "ruinas",
+          "role": "environment",
+          "description": "Fragmentos de mampostería en primer plano",
+          "motion": "none"
+        },
+        {
+          "shape": "wave",
+          "x": 760,
+          "y": 360,
+          "width": 150,
+          "height": 40,
+          "color": "#f3eee5",
+          "label": "paso del tiempo",
+          "role": "atmosphere",
+          "description": "Luz que recorre la superficie envejecida",
+          "motion": "flow"
+        }
+      ],
+      "sound_effect": "impact",
+      "labels": [
+        "Arco",
+        "Muro",
+        "Cal"
+      ]
+    },
+    {
+      "headline": "La receta era diferente",
+      "subtitle": "Roca volcánica, cal y agua",
+      "narration_excerpt": "Y parte del secreto podría estar en una mezcla que parece tener pequeños trozos de cal viva.",
+      "visual_type": "process",
+      "background": "workshop",
+      "description": "Mesa de obra romana con recipientes de cal, fragmentos de piedra volcánica, áridos y agua; cada ingrediente ocupa una zona diferenciada.",
+      "action": "Los ingredientes se acercan al centro y se mezclan en una artesa de madera.",
+      "camera": {
+        "movement": "pan_left",
+        "zoom_start": 1,
+        "zoom_end": 1.07
+      },
+      "accent": "#efb45f",
+      "visual_elements": [
+        {
+          "shape": "ellipse",
+          "x": 250,
+          "y": 620,
+          "width": 150,
+          "height": 90,
+          "color": "#c5a47a",
+          "label": "cal",
+          "role": "main_subject",
+          "description": "Montículo blanco de cal en polvo",
+          "motion": "none"
+        },
+        {
+          "shape": "polygon",
+          "x": 500,
+          "y": 620,
+          "width": 150,
+          "height": 110,
+          "color": "#d86c55",
+          "label": "roca volcánica",
+          "role": "ingredient",
+          "description": "Fragmentos porosos de roca volcánica",
+          "motion": "none"
+        },
+        {
+          "shape": "wave",
+          "x": 720,
+          "y": 590,
+          "width": 150,
+          "height": 70,
+          "color": "#77b9ed",
+          "label": "agua",
+          "role": "ingredient",
+          "description": "Agua vertida desde una jarra",
+          "motion": "flow"
+        },
+        {
+          "shape": "rounded_rect",
+          "x": 500,
+          "y": 750,
+          "width": 400,
+          "height": 95,
+          "color": "#17354a",
+          "label": "artesa",
+          "role": "container",
+          "description": "Recipiente de mezcla de madera",
+          "motion": "none"
+        },
+        {
+          "shape": "circle",
+          "x": 350,
+          "y": 450,
+          "width": 60,
+          "height": 60,
+          "color": "#f3eee5",
+          "label": "cal viva",
+          "role": "detail",
+          "description": "Trozo de cal viva antes de mezclarse",
+          "motion": "none"
+        },
+        {
+          "shape": "arrow",
+          "x": 500,
+          "y": 490,
+          "width": 120,
+          "height": 80,
+          "color": "#efb45f",
+          "label": "mezcla",
+          "role": "motion_path",
+          "description": "Dirección en que se incorporan los ingredientes",
+          "motion": "flow"
+        }
+      ],
+      "sound_effect": "water",
+      "labels": [
+        "Cal",
+        "Puzolana",
+        "Agua"
+      ]
+    },
+    {
+      "headline": "El ingrediente volcánico",
+      "subtitle": "La ceniza reacciona con la cal",
+      "narration_excerpt": "Los romanos combinaban materiales volcánicos, fragmentos de roca y cal para fabricar un hormigón distinto al actual.",
+      "visual_type": "object_cutaway",
+      "background": "workshop",
+      "description": "Primer plano de ceniza volcánica y fragmentos de toba junto a una pasta de cal; la mezcla se representa como material granular, no como cemento moderno.",
+      "action": "La cámara se acerca a los granos y muestra cómo la pasta envuelve los fragmentos.",
+      "camera": {
+        "movement": "push_in",
+        "zoom_start": 1,
+        "zoom_end": 1.07
+      },
+      "accent": "#d86c55",
+      "visual_elements": [
+        {
+          "shape": "polygon",
+          "x": 350,
+          "y": 570,
+          "width": 230,
+          "height": 170,
+          "color": "#d86c55",
+          "label": "toba volcánica",
+          "role": "main_subject",
+          "description": "Fragmento poroso de roca volcánica",
+          "motion": "none"
+        },
+        {
+          "shape": "circle",
+          "x": 570,
+          "y": 570,
+          "width": 110,
+          "height": 110,
+          "color": "#c5a47a",
+          "label": "cal",
+          "role": "ingredient",
+          "description": "Partícula de cal que rodea el árido",
+          "motion": "none"
+        },
+        {
+          "shape": "circle",
+          "x": 690,
+          "y": 640,
+          "width": 55,
+          "height": 55,
+          "color": "#f3eee5",
+          "label": "grano mineral",
+          "role": "detail",
+          "description": "Grano claro dentro de la matriz",
+          "motion": "none"
+        },
+        {
+          "shape": "rounded_rect",
+          "x": 500,
+          "y": 700,
+          "width": 420,
+          "height": 100,
+          "color": "#17354a",
+          "label": "mortero",
+          "role": "matrix",
+          "description": "Pasta que une los fragmentos",
+          "motion": "none"
+        },
+        {
+          "shape": "arrow",
+          "x": 300,
+          "y": 420,
+          "width": 170,
+          "height": 80,
+          "color": "#efb45f",
+          "label": "reacción",
+          "role": "explanation",
+          "description": "Flecha que señala la interacción entre cal y ceniza",
+          "motion": "flow"
+        },
+        {
+          "shape": "arc",
+          "x": 500,
+          "y": 570,
+          "width": 300,
+          "height": 230,
+          "color": "#55d6c2",
+          "label": "unión",
+          "role": "highlight",
+          "description": "Contorno que destaca la matriz alrededor del árido",
+          "motion": "none"
+        }
+      ],
+      "sound_effect": "impact",
+      "labels": [
+        "Toba",
+        "Cal",
+        "Mortero"
+      ]
+    },
+    {
+      "headline": "La mezcla en caliente",
+      "subtitle": "La cal viva reacciona al añadir agua",
+      "narration_excerpt": "Un estudio de muestras antiguas apunta a que, en algunos casos, mezclaban cal viva directamente con los demás ingredientes: un proceso llamado mezcla en caliente.",
+      "visual_type": "machine",
+      "background": "workshop",
+      "description": "Recreación de una artesa con cal viva y materiales volcánicos; vapor térmico sube mientras el operario mantiene distancia.",
+      "action": "El agua entra en la artesa; aparecen vapor y resplandor de calor, y la mezcla se vuelve una pasta espesa.",
+      "camera": {
+        "movement": "push_in",
+        "zoom_start": 1,
+        "zoom_end": 1.07
+      },
+      "accent": "#efb45f",
+      "visual_elements": [
+        {
+          "shape": "rounded_rect",
+          "x": 500,
+          "y": 680,
+          "width": 420,
+          "height": 170,
+          "color": "#c5a47a",
+          "label": "artesa",
+          "role": "main_subject",
+          "description": "Recipiente de mezcla con cal y áridos",
+          "motion": "none"
+        },
+        {
+          "shape": "circle",
+          "x": 400,
+          "y": 600,
+          "width": 85,
+          "height": 85,
+          "color": "#f3eee5",
+          "label": "cal viva",
+          "role": "ingredient",
+          "description": "Grumos de óxido de calcio antes de hidratarse",
+          "motion": "none"
+        },
+        {
+          "shape": "wave",
+          "x": 570,
+          "y": 420,
+          "width": 240,
+          "height": 90,
+          "color": "#77b9ed",
+          "label": "agua añadida",
+          "role": "motion_path",
+          "description": "Agua que entra en la mezcla",
+          "motion": "flow"
+        },
+        {
+          "shape": "wave",
+          "x": 500,
+          "y": 350,
+          "width": 260,
+          "height": 75,
+          "color": "#f3eee5",
+          "label": "vapor y calor",
+          "role": "effect",
+          "description": "Vapor que asciende por la reacción exotérmica",
+          "motion": "pulse"
+        },
+        {
+          "shape": "arrow",
+          "x": 700,
+          "y": 560,
+          "width": 110,
+          "height": 70,
+          "color": "#efb45f",
+          "label": "reacción",
+          "role": "explanation",
+          "description": "Indica el proceso de hidratación de la cal",
+          "motion": "flow"
+        },
+        {
+          "shape": "circle",
+          "x": 620,
+          "y": 710,
+          "width": 45,
+          "height": 45,
+          "color": "#d86c55",
+          "label": "grumo de cal",
+          "role": "detail",
+          "description": "Inclusión rica en calcio que queda en el mortero",
+          "motion": "none"
+        }
+      ],
+      "sound_effect": "water",
+      "labels": [
+        "Cal viva",
+        "Agua",
+        "Calor"
+      ]
+    },
+    {
+      "headline": "Quedan grumos dentro",
+      "subtitle": "Pequeñas inclusiones ricas en calcio",
+      "narration_excerpt": "La reacción con el agua generaba calor y dejaba pequeños grumos ricos en calcio dentro del material.",
+      "visual_type": "science",
+      "background": "dark_lab",
+      "description": "Micrografía interpretativa de la matriz del hormigón con inclusiones blancas de cal de distintos tamaños atrapadas entre partículas minerales.",
+      "action": "La cámara amplía un grumo y diferencia su núcleo claro de la matriz que lo rodea.",
+      "camera": {
+        "movement": "push_in",
+        "zoom_start": 1,
+        "zoom_end": 1.07
+      },
+      "accent": "#f3eee5",
+      "visual_elements": [
+        {
+          "shape": "rounded_rect",
+          "x": 500,
+          "y": 600,
+          "width": 440,
+          "height": 240,
+          "color": "#17354a",
+          "label": "matriz",
+          "role": "main_subject",
+          "description": "Matriz mineral del mortero observada en corte",
+          "motion": "none"
+        },
+        {
+          "shape": "circle",
+          "x": 360,
+          "y": 540,
+          "width": 100,
+          "height": 100,
+          "color": "#f3eee5",
+          "label": "grumo de cal",
+          "role": "inclusion",
+          "description": "Inclusión clara rica en calcio",
+          "motion": "none"
+        },
+        {
+          "shape": "circle",
+          "x": 650,
+          "y": 650,
+          "width": 60,
+          "height": 60,
+          "color": "#c5a47a",
+          "label": "árido",
+          "role": "inclusion",
+          "description": "Fragmento mineral dentro de la matriz",
+          "motion": "none"
+        },
+        {
+          "shape": "circle",
+          "x": 520,
+          "y": 480,
+          "width": 42,
+          "height": 42,
+          "color": "#efb45f",
+          "label": "poro",
+          "role": "detail",
+          "description": "Pequeño poro de la matriz",
+          "motion": "none"
+        },
+        {
+          "shape": "arc",
+          "x": 360,
+          "y": 540,
+          "width": 145,
+          "height": 145,
+          "color": "#55d6c2",
+          "label": "borde reactivo",
+          "role": "highlight",
+          "description": "Zona de contacto del grumo con la matriz",
+          "motion": "none"
+        },
+        {
+          "shape": "line",
+          "x": 360,
+          "y": 440,
+          "width": 0,
+          "height": 90,
+          "color": "#77b9ed",
+          "label": "sección",
+          "role": "explanation",
+          "description": "Línea de ampliación hacia la inclusión",
+          "motion": "none"
+        }
+      ],
+      "sound_effect": "click",
+      "labels": [
+        "Matriz",
+        "Cal",
+        "Inclusión"
+      ]
+    },
+    {
+      "headline": "Llega una grieta",
+      "subtitle": "El agua encuentra un camino",
+      "narration_excerpt": "¿Y qué tiene eso de especial? Si aparece una grieta y entra agua, esos grumos pueden liberar calcio.",
+      "visual_type": "object_cutaway",
+      "background": "dark_lab",
+      "description": "Bloque de hormigón cortado con una fisura diagonal que conecta la superficie con un grumo de cal; gotas entran por la abertura.",
+      "action": "Una línea de fractura se abre y el agua azul avanza por ella hasta tocar la inclusión rica en calcio.",
+      "camera": {
+        "movement": "pan_right",
+        "zoom_start": 1,
+        "zoom_end": 1.07
+      },
+      "accent": "#77b9ed",
+      "visual_elements": [
+        {
+          "shape": "rounded_rect",
+          "x": 500,
+          "y": 620,
+          "width": 440,
+          "height": 240,
+          "color": "#c5a47a",
+          "label": "bloque",
+          "role": "main_subject",
+          "description": "Sección de hormigón con áridos visibles",
+          "motion": "none"
+        },
+        {
+          "shape": "line",
+          "x": 480,
+          "y": 460,
+          "width": 120,
+          "height": 250,
+          "color": "#17354a",
+          "label": "grieta",
+          "role": "mechanism",
+          "description": "Fisura diagonal que atraviesa el bloque",
+          "motion": "none"
+        },
+        {
+          "shape": "circle",
+          "x": 530,
+          "y": 620,
+          "width": 85,
+          "height": 85,
+          "color": "#f3eee5",
+          "label": "grumo de cal",
+          "role": "source",
+          "description": "Inclusión rica en calcio junto a la fisura",
+          "motion": "none"
+        },
+        {
+          "shape": "wave",
+          "x": 390,
+          "y": 420,
+          "width": 120,
+          "height": 80,
+          "color": "#77b9ed",
+          "label": "agua",
+          "role": "motion_path",
+          "description": "Agua que penetra desde la superficie",
+          "motion": "flow"
+        },
+        {
+          "shape": "circle",
+          "x": 600,
+          "y": 650,
+          "width": 30,
+          "height": 30,
+          "color": "#55d6c2",
+          "label": "calcio disuelto",
+          "role": "detail",
+          "description": "Iones de calcio que pasan a la solución",
+          "motion": "pulse"
+        },
+        {
+          "shape": "arrow",
+          "x": 610,
+          "y": 710,
+          "width": 130,
+          "height": 60,
+          "color": "#efb45f",
+          "label": "transporte",
+          "role": "explanation",
+          "description": "Movimiento de la solución rica en calcio",
+          "motion": "flow"
+        }
+      ],
+      "sound_effect": "water",
+      "labels": [
+        "Grieta",
+        "Agua",
+        "Calcio"
+      ]
+    },
+    {
+      "headline": "La fisura puede sellarse",
+      "subtitle": "Se forman minerales que rellenan el hueco",
+      "narration_excerpt": "Con el tiempo, se forman minerales que rellenan parte de la fisura.",
+      "visual_type": "process",
+      "background": "dark_lab",
+      "description": "Macro de una grieta en mortero: cristales minerales crecen desde los bordes y reducen el espacio abierto.",
+      "action": "Pequeños depósitos claros avanzan desde ambos lados hasta estrechar el canal de agua.",
+      "camera": {
+        "movement": "push_in",
+        "zoom_start": 1,
+        "zoom_end": 1.07
+      },
+      "accent": "#55d6c2",
+      "visual_elements": [
+        {
+          "shape": "rounded_rect",
+          "x": 500,
+          "y": 610,
+          "width": 440,
+          "height": 230,
+          "color": "#c5a47a",
+          "label": "mortero",
+          "role": "main_subject",
+          "description": "Matriz del hormigón alrededor de la fisura",
+          "motion": "none"
+        },
+        {
+          "shape": "line",
+          "x": 500,
+          "y": 610,
+          "width": 60,
+          "height": 210,
+          "color": "#17354a",
+          "label": "fisura",
+          "role": "before",
+          "description": "Canal inicial que atraviesa el material",
+          "motion": "none"
+        },
+        {
+          "shape": "polygon",
+          "x": 460,
+          "y": 620,
+          "width": 90,
+          "height": 150,
+          "color": "#f3eee5",
+          "label": "calcita",
+          "role": "repair",
+          "description": "Mineral precipitado que rellena parte de la fisura",
+          "motion": "pulse"
+        },
+        {
+          "shape": "circle",
+          "x": 430,
+          "y": 500,
+          "width": 38,
+          "height": 38,
+          "color": "#77b9ed",
+          "label": "agua",
+          "role": "detail",
+          "description": "Gota que llega a la zona de reparación",
+          "motion": "none"
+        },
+        {
+          "shape": "arrow",
+          "x": 600,
+          "y": 530,
+          "width": 120,
+          "height": 60,
+          "color": "#efb45f",
+          "label": "precipitación",
+          "role": "explanation",
+          "description": "Indica el depósito mineral dentro de la grieta",
+          "motion": "flow"
+        },
+        {
+          "shape": "arc",
+          "x": 500,
+          "y": 610,
+          "width": 180,
+          "height": 250,
+          "color": "#55d6c2",
+          "label": "sellado parcial",
+          "role": "highlight",
+          "description": "Contorno que señala la zona donde la fisura se estrecha",
+          "motion": "none"
+        }
+      ],
+      "sound_effect": "impact",
+      "labels": [
+        "Fisura",
+        "Minerales",
+        "Sellado"
+      ]
+    },
+    {
+      "headline": "No es hormigón mágico",
+      "subtitle": "Una pista para materiales más duraderos",
+      "narration_excerpt": "No significa que cualquier muro romano se repare solo ni que todos usaran exactamente la misma receta. Pero esta pista ayuda a explicar su durabilidad y está inspirando nuevos materiales.",
+      "visual_type": "roman_concrete",
+      "background": "nature",
+      "description": "Comparación visual entre una estructura romana antigua y una muestra moderna inspirada en la receta; ambas aparecen sobre una mesa de laboratorio al aire libre.",
+      "action": "La cámara pasa de la ruina a la muestra actual; una fisura fina se muestra parcialmente rellenada, sin sugerir reparación instantánea.",
+      "camera": {
+        "movement": "pull_out",
+        "zoom_start": 1,
+        "zoom_end": 1.07
+      },
+      "accent": "#c5a47a",
+      "visual_elements": [
+        {
+          "shape": "arc",
+          "x": 300,
+          "y": 550,
+          "width": 210,
+          "height": 230,
+          "color": "#c5a47a",
+          "label": "ruina romana",
+          "role": "main_subject",
+          "description": "Arco antiguo como ejemplo de durabilidad",
+          "motion": "none"
+        },
+        {
+          "shape": "rounded_rect",
+          "x": 700,
+          "y": 650,
+          "width": 190,
+          "height": 150,
+          "color": "#17354a",
+          "label": "muestra moderna",
+          "role": "comparison",
+          "description": "Cubo de mortero moderno inspirado en la receta",
+          "motion": "none"
+        },
+        {
+          "shape": "line",
+          "x": 700,
+          "y": 590,
+          "width": 45,
+          "height": 100,
+          "color": "#f3eee5",
+          "label": "fisura sellada",
+          "role": "detail",
+          "description": "Fisura parcialmente rellenada en la muestra",
+          "motion": "none"
+        },
+        {
+          "shape": "circle",
+          "x": 700,
+          "y": 610,
+          "width": 35,
+          "height": 35,
+          "color": "#55d6c2",
+          "label": "mineral",
+          "role": "highlight",
+          "description": "Depósito mineral en el interior de la fisura",
+          "motion": "none"
+        },
+        {
+          "shape": "arrow",
+          "x": 500,
+          "y": 480,
+          "width": 130,
+          "height": 60,
+          "color": "#efb45f",
+          "label": "inspiración",
+          "role": "motion_path",
+          "description": "Conexión entre la técnica antigua y la investigación actual",
+          "motion": "flow"
+        },
+        {
+          "shape": "polygon",
+          "x": 160,
+          "y": 780,
+          "width": 130,
+          "height": 70,
+          "color": "#d86c55",
+          "label": "árido volcánico",
+          "role": "context",
+          "description": "Fragmentos de roca volcánica sobre la mesa",
+          "motion": "none"
+        }
+      ],
+      "sound_effect": "whoosh",
+      "labels": [
+        "Roma",
+        "Investigación",
+        "Durabilidad"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "title": "Science Advances — Hot mixing: Mechanistic insights into the durability of ancient Roman concrete",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9821858/"
+    },
+    {
+      "title": "MIT — Hot mixing: Mechanistic insights into the durability of ancient Roman concrete",
+      "url": "https://dspace.mit.edu/entities/publication/d114c164-bdc9-4faf-8cd2-bb5075acfc0e"
+    },
+    {
+      "title": "Nature Reviews Materials — Self-healing Roman concrete",
+      "url": "https://www.nature.com/articles/s41578-023-00539-z"
+    }
+  ],
+  "caption": "El hormigón romano podría esconder una pista para construir materiales más duraderos."
+}
