@@ -418,7 +418,8 @@ await command('npx', ['--yes', 'hyperframes@0.9.37', 'lint'], { cwd: lintDir });
 const imageCount = script.scenes.length; // Catorce planos 3D cortos; no dependemos de fotos estáticas externas.
 const rawVideo = path.join(work, 'video-silent.mp4');
 await command('npx', ['--yes', 'hyperframes@0.9.37', 'render', '-c', 'index.html', '-o', rawVideo, '--fps', '30', '--quality', 'standard', '--workers', '1'], { cwd: work });
-const finalPath = path.join(root, 'renders', `behind-del-mundo-${local}-${slot.replace(':','')}.mp4`);
+const manualSuffix = (process.env.MANUAL_SCRIPT_ID || process.env.MANUAL_SCRIPT_FILE) ? '-' + String(scriptId).slice(0, 8) : '';
+const outputSlot = slot.replace(':','') + manualSuffix;\nconst finalPath = path.join(root, 'renders', `behind-del-mundo-${local}-${outputSlot}.mp4`);
 // HyperFrames incorpora la narración como pista de audio del timeline. No volver a muxear
 // con -shortest: eso truncaba el vídeo al terminar la voz (48 s en la prueba anterior).
 await command('ffmpeg', ['-y','-i',rawVideo,'-af','apad','-t',String(targetDuration),'-c:v','libx264','-preset','veryfast','-crf','23','-maxrate','4500k','-bufsize','9000k','-pix_fmt','yuv420p','-c:a','aac','-b:a','128k','-movflags','+faststart',finalPath]);
@@ -437,7 +438,7 @@ if (!videoStream || videoStream.width !== 1080 || videoStream.height !== 1920) t
 if (!audioStream) throw new Error('QC fallido: el MP4 no contiene pista de audio.');
 if (actualDuration < 60 || actualDuration > 72) throw new Error(`QC fallido: duración real ${actualDuration.toFixed(1)} s fuera del margen 60–72 s.`);
 console.log(`QC MP4 verificado: ${actualDuration.toFixed(1)} s, 1080×1920, audio presente.`);
-storagePath = `${userId}/${local}/${slot.replace(':','')}.mp4`;
+storagePath = `${userId}/${local}/${outputSlot}.mp4`;
 const videoBuffer = await readFile(finalPath);
 const upload = await fetch(`${api}/storage/v1/object/nexo-videos/${storagePath}`, {
   method: 'POST',
