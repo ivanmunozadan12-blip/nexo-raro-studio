@@ -6,12 +6,12 @@ OUT.mkdir(parents=True, exist_ok=True)
 API = "https://commons.wikimedia.org/w/api.php"
 HEADERS = {"User-Agent": "BehindDelMundoCinematicProof/1.0 (educational video project)"}
 QUERIES = [
-    ("scene-01.jpg", "Antikythera shipwreck underwater archaeology diver"),
-    ("scene-02.jpg", "Antikythera mechanism fragments museum"),
-    ("scene-03.jpg", "Antikythera mechanism gears close up"),
-    ("scene-04.jpg", "Antikythera mechanism reconstruction gears"),
-    ("scene-05.jpg", "Antikythera mechanism astronomical reconstruction"),
-    ("scene-06.jpg", "Antikythera mechanism National Archaeological Museum Athens"),
+    ("scene-01.jpg", "Anticythera shipwreck Standard diving dress 1901"),
+    ("scene-02.jpg", "Antikythera mechanism museum fragments bronze"),
+    ("scene-03.jpg", "Antikythera mechanism gears detail close up"),
+    ("scene-04.jpg", "Antikythera mechanism reconstruction model gears"),
+    ("scene-05.jpg", "Antikythera mechanism astronomical dial reconstruction"),
+    ("scene-06.jpg", "Antikythera mechanism National Archaeological Museum Athens display"),
 ]
 ALLOWED = ("cc by", "cc-by", "public domain", "cc0", "cc zero")
 
@@ -45,7 +45,11 @@ def search(query):
             "description":re.sub("<[^>]+>","",meta.get("ImageDescription",{}).get("value",""))[:500]
         })
     # Prefer landscape, large and relevant title matches.
-    candidates.sort(key=lambda x:(min(x["width"],x["height"]),x["width"]*x["height"]), reverse=True)
+    terms=[w.lower() for w in re.findall(r"[a-zA-Z]{4,}",query) if w.lower() not in {"mechanism","antikythera","standard","dress"}]
+    def relevance(item):
+        hay=(item["title"]+" "+item["description"]).lower()
+        return sum(1 for term in terms if term in hay)
+    candidates.sort(key=lambda x:(relevance(x),min(x["width"],x["height"]),x["width"]*x["height"]), reverse=True)
     return candidates
 
 credits=[]
