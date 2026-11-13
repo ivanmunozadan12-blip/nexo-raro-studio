@@ -451,8 +451,8 @@ if (!wordCues.length) throw new Error('Edge TTS no ha devuelto marcas temporales
 const subtitleCues = [];
 for(let i=0;i<wordCues.length;i+=3){const group=wordCues.slice(i,i+3);subtitleCues.push({start:group[0].start,end:group[group.length-1].end,text:group.map(x=>x.text).join(' ')});}
 
-const sceneEngine = await readFile(path.join(root, 'scripts', 'scene-engine.js'), 'utf8');
-await writeFile(path.join(work, 'scene-engine.js'), sceneEngine);
+await command('npx', ['esbuild', 'scripts/scene-engine.js', '--bundle', '--format=iife', '--minify', '--outfile=' + path.join(work, 'scene-engine.bundle.js')], { cwd: root });
+const sceneEngine = await readFile(path.join(work, 'scene-engine.bundle.js'), 'utf8');
 const subtitleData = JSON.stringify(subtitleCues);
 const html = `<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=1080,initial-scale=1"><style>
 *{box-sizing:border-box}html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#8ebbd0;font-family:Arial,sans-serif}.scene{position:absolute;inset:0;width:1080px;height:1920px;overflow:hidden;isolation:isolate;background:#8ebbd0}.world-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0}.brand-mark{position:absolute;z-index:4;top:82px;left:70px;font:900 25px Arial;letter-spacing:5px;color:white;text-shadow:0 3px 12px #16334f}.brand-mark i{font-style:normal;color:#ffcf54}.scene-copy{position:absolute;z-index:4;left:70px;right:70px;top:270px;animation:enter .6s ease both}.scene h1{font-size:76px;line-height:1.02;font-weight:950;color:white;-webkit-text-stroke:2px #172b42;text-shadow:0 5px 0 #172b42,0 9px 24px #102a43}.timed-caption{position:absolute;z-index:8;left:70px;right:70px;bottom:190px;min-height:120px;text-align:center;font-size:48px;line-height:1.12;font-weight:950;color:#fff;-webkit-text-stroke:1.5px #101b2a;text-shadow:0 4px 0 #101b2a,0 7px 18px #101b2a;letter-spacing:.2px;pointer-events:none}@keyframes enter{from{opacity:0;transform:translateY(35px)}to{opacity:1;transform:none}}
