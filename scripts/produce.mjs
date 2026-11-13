@@ -357,7 +357,7 @@ if (!wordCues.length) throw new Error('Edge TTS no ha devuelto marcas temporales
 // contienen frases completas, así que interpolamos cada palabra dentro de su bloque.
 // Después agrupamos como máximo seis palabras y nunca cruzamos el final de una frase.
 const timedWords = wordCues.flatMap(cue => {
-  const tokens = String(cue.text || '').match(/\\S+/g) || [];
+  const tokens = String(cue.text || '').trim().replaceAll('\t', ' ').split(' ').filter(Boolean);
   const span = Math.max(0.08, cue.end - cue.start);
   return tokens.map((text, index) => ({
     text,
