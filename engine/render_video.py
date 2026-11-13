@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """BEHIND DEL MUNDO — deterministic code-authored explainer renderer."""
 import argparse, json, math, os, random, subprocess, sys
-from PIL import Image, ImageDraw, ImageFont, ImageFilter\nimport numpy as np
+from PIL import Image, ImageDraw, ImageFont, ImageFilter
+import numpy as np
 
 W, H, FPS = 576, 1024, 30
 S = 2
