@@ -56,6 +56,18 @@ const groupAt = (parent, position = [0, 0, 0], scale = 1) => {
 const pick = (rng, values) => values[Math.floor(rng() * values.length)];
 const clean = value => String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
 
+export function detectEnvironment(value, type = '') {
+  const text = clean(String(value || ''));
+  const has = pattern => new RegExp('(?:^|[^a-z])(?:' + pattern + ')(?:$|[^a-z])').test(text);
+  return {
+    water: String(type).toLowerCase() === 'ocean' || has('mar|oceano|agua|rio|barco|ballena|coral|oceano atlantico'),
+    space: String(type).toLowerCase() === 'space' || has('espacio|planeta|luna|estrella|orbita|galaxia'),
+    historic: String(type).toLowerCase() === 'history' || has('antiguo|romano|egipto|medieval|castillo|imperio|fortaleza'),
+    forest: has('bosque|selva|arbol|jungla|selva tropical'),
+    science: String(type).toLowerCase() === 'science' || has('laboratorio|experimento|motor|maquina|ciencia|cohete|lanzamiento'),
+  };
+}
+
 export function inferEntityType(value) {
   const text = clean(typeof value === 'string' ? value : [value?.type, value?.kind, value?.name, value?.description, value?.role].filter(Boolean).join(' '));
   if (/persona|personaje|rey|reina|soldado|marinero|explorador|colono|cientifico|astronauta|mujer|hombre|nino|niña/.test(text)) return 'human';
@@ -136,51 +148,98 @@ function createHuman(spec, rng) {
 
 function createQuadruped(g, species, rng, palette = {}) {
   const fur = palette.body || pick(rng, ['#b58a5d', '#8a8b83', '#c6a875', '#4c4a45', '#c0b5a0']);
-  const dark = palette.dark || '#45362d';
-  const body = ellipsoid(g, [0, 1.12, 0], [1.02, .58, .42], fur, 3);
-  const neck = ellipsoid(g, [0, 1.42, .48], [.34, .48, .34], fur, 2);
-  const head = groupAt(g, [0, 1.7, .72]);
-  ellipsoid(head, [0, 0, 0], [.36, .32, .34], fur, 3);
-  const muzzle = /lobo|zorro|perro|tigre|leon|jaguar|gato/.test(species);
-  if (muzzle) ellipsoid(head, [0, -.12, .28], [.2, .14, .23], palette.muzzle || '#d7c3a3', 2);
-  ellipsoid(head, [-.13, .06, .29], [.035, .04, .025], '#171514', 1);
-  ellipsoid(head, [.13, .06, .29], [.035, .04, .025], '#171514', 1);
-  if (/tigre|leon|jaguar/.test(species)) {
-    for (let i = 0; i < 7; i++) {
-      const stripe = block(g, [(i - 3) * .22, 1.38 + (i % 2) * .12, .39], [.055, .48, .035], dark);
-      stripe.rotation.z = (i - 3) * .12;
+  const dark = palette.dark || '#40352d';
+  const feline = /tigre|leon|jaguar|lobo|zorro|perro|gato/.test(species);
+  const horse = /caballo|cebra/.test(species);
+  const elephant = /elefante/.test(species);
+  const bodyLength = horse ? 1.22 : elephant ? 1.3 : 1.1;
+  ellipsoid(g, [0, 1.18, 0], [bodyLength, elephant ? .78 : .52, elephant ? .62 : .46], fur, 4);
+  ellipsoid(g, [-.62, 1.12, 0], [.42, .48, .48], fur, 3);
+  ellipsoid(g, [.62, 1.13, 0], [.42, .48, .48], fur, 3);
+
+  const head = groupAt(g, [0, horse ? 1.9 : 1.62, horse ? .8 : .78]);
+  const headScale = elephant ? 1.15 : horse ? .9 : 1;
+  ellipsoid(head, [0, 0, 0], [.34 * headScale, .31 * headScale, .35 * headScale], fur, 4);
+  const muzzleColor = palette.muzzle || (feline ? '#d0bda0' : fur);
+  if (feline) {
+    ellipsoid(head, [0, -.12, .28], [.21, .14, .23], muzzleColor, 3);
+    ellipsoid(head, [0, -.025, .47], [.065, .045, .04], '#29211d', 2);
+    ellipsoid(head, [-.12, .08, .27], [.045, .055, .035], '#171514', 2);
+    ellipsoid(head, [.12, .08, .27], [.045, .055, .035], '#171514', 2);
+    for (const side of [-1, 1]) {
+      cone(head, [side * .22, .28, -.01], .14, .32, fur, 7);
+      for (let i = 0; i < 3; i++) link(head, [side * .18, -.13, .34], [side * (.38 + i * .08), -.1 - i * .04, .42], .008, '#d7d0c2', 4);
+    }
+  } else {
+    ellipsoid(head, [-.18, .26, -.02], [.13, .18, .12], fur, 3);
+    ellipsoid(head, [.18, .26, -.02], [.13, .18, .12], fur, 3);
+    ellipsoid(head, [-.12, .08, .27], [.035, .04, .025], '#171514', 2);
+    ellipsoid(head, [.12, .08, .27], [.035, .04, .025], '#171514', 2);
+  }
+  if (horse) {
+    ellipsoid(head, [0, -.13, .3], [.2, .14, .25], '#47372c', 2);
+    for (let i = 0; i < 8; i++) ellipsoid(head, [(i - 3.5) * .055, .3 + (i % 2) * .05, -.16], [.045, .18, .07], '#342a23', 1);
+  }
+  if (/leon/.test(species)) {
+    ellipsoid(head, [0, .02, -.12], [.48, .48, .28], '#9b7043', 3);
+    ellipsoid(head, [0, -.12, .16], [.2, .16, .17], '#d4bb91', 2);
+  }
+  if (elephant) {
+    ellipsoid(head, [-.34, .02, -.02], [.25, .38, .13], fur, 3);
+    ellipsoid(head, [.34, .02, -.02], [.25, .38, .13], fur, 3);
+    link(head, [0, -.08, .25], [.02, -.42, .43], .13, fur, 12);
+    link(head, [.02, -.42, .43], [.04, -.72, .48], .105, fur, 12);
+    cone(head, [-.13, -.2, .28], .055, .38, '#e1d4bd', 8);
+    cone(head, [.13, -.2, .28], .055, .38, '#e1d4bd', 8);
+  }
+  if (/ciervo|venado/.test(species)) {
+    for (const side of [-1, 1]) {
+      link(head, [side * .13, .22, 0], [side * .28, .65, -.02], .035, dark);
+      link(head, [side * .28, .48, -.02], [side * .48, .62, .02], .025, dark);
+      link(head, [side * .28, .48, -.02], [side * .27, .72, .02], .025, dark);
     }
   }
-  if (/elefante/.test(species)) {
-    ellipsoid(head, [-.32, -.02, .03], [.23, .32, .12], fur, 2);
-    ellipsoid(head, [.32, -.02, .03], [.23, .32, .12], fur, 2);
-    link(head, [0, -.15, .25], [0, -.62, .38], .105, fur);
-    cone(head, [-.13, -.24, .26], .055, .32, '#d8c6a3', 7);
-    cone(head, [.13, -.24, .26], .055, .32, '#d8c6a3', 7);
-  } else if (/ciervo|venado/.test(species)) {
-    link(head, [-.13, .22, 0], [-.28, .68, -.02], .035, dark);
-    link(head, [-.28, .48, -.02], [-.48, .62, .02], .025, dark);
-    link(head, [-.28, .48, -.02], [-.27, .72, .02], .025, dark);
-    link(head, [.13, .22, 0], [.28, .68, -.02], .035, dark);
-    link(head, [.28, .48, -.02], [.48, .62, .02], .025, dark);
-    link(head, [.28, .48, -.02], [.27, .72, .02], .025, dark);
-  } else {
-    ellipsoid(head, [-.2, .27, 0], [.12, .2, .12], fur, 2);
-    ellipsoid(head, [.2, .27, 0], [.12, .2, .12], fur, 2);
-  }
+
   const legs = [];
-  for (const x of [-.68, .68]) for (const z of [-.24, .25]) {
-    const leg = groupAt(g, [x, .83, z]);
-    link(leg, [0, 0, 0], [0, -.55, .02], .09, fur);
-    ellipsoid(leg, [0, -.58, .1], [.12, .1, .2], dark, 1);
+  for (const x of [-.72, .72]) for (const z of [-.29, .29]) {
+    const leg = groupAt(g, [x, .9, z]);
+    const upperLength = horse ? .48 : elephant ? .5 : .4;
+    link(leg, [0, 0, 0], [0, -upperLength, .025], horse ? .105 : elephant ? .17 : .09, fur, 10);
+    ellipsoid(leg, [0, -upperLength, .025], [horse ? .12 : .1, .11, .12], fur, 2);
+    link(leg, [0, -upperLength, .025], [0, -.79, .12], horse ? .075 : elephant ? .13 : .06, fur, 10);
+    ellipsoid(leg, [0, -.82, .18], [.14, .09, .2], horse ? '#3b3029' : dark, 2);
     legs.push(leg);
   }
-  const tail = link(g, [0, 1.25, -.35], [.08, 1.03, -.95], .055, fur);
-  if (/caballo|cebra/.test(species)) {
-    ellipsoid(g, [0, 1.42, -.45], [.12, .38, .1], dark, 1);
-    for (const x of [-.1, .1]) ellipsoid(head, [x, .25, -.03], [.06, .12, .06], dark, 1);
+
+  const tail = new THREE.Group();tail.position.set(0, 1.35, -.88);g.add(tail);
+  link(tail, [0, 0, 0], [.04, -.14, -.32], .045, fur);
+  link(tail, [.04, -.14, -.32], [.12, -.28, -.64], .035, fur);
+  link(tail, [.12, -.28, -.64], [.2, -.23, -.92], .028, dark);
+  if (horse) ellipsoid(tail, [.2, -.26, -.94], [.12, .2, .14], dark, 2);
+
+  if (/jaguar/.test(species)) {
+    for (const side of [-1, 1]) {
+      for (let row = 0; row < 3; row++) for (let col = 0; col < 5; col++) {
+        const x = (col - 2) * .34 + (row % 2) * .08;
+        const y = .98 + row * .2;
+        const z = side * (.43 * Math.sqrt(Math.max(.12, 1 - (x / 1.12) ** 2)) + .012);
+        const spot = new THREE.Mesh(new THREE.TorusGeometry(.065, .018, 6, 10), material(dark));
+        spot.position.set(x, y, z);spot.rotation.x = side * Math.PI / 2;g.add(spot);
+        ellipsoid(g, [x, y, z + side * .018], [.022, .022, .018], dark, 1);
+      }
+    }
+  } else if (/tigre/.test(species)) {
+    for (let i = 0; i < 9; i++) {
+      const stripe = ellipsoid(g, [(i - 4) * .22, 1.48 - (i % 2) * .08, .18], [.045, .28, .035], dark, 1);
+      stripe.rotation.z = (i - 4) * .1;
+    }
+  } else if (/cebra/.test(species)) {
+    for (let i = 0; i < 9; i++) {
+      const stripe = ellipsoid(g, [(i - 4) * .22, 1.28, .34], [.045, .34, .035], '#242424', 1);
+      stripe.rotation.z = (i - 4) * .1;
+    }
   }
-  g.userData.rig = { legs, tail, motion: 'walk' };
+  g.userData.rig = { legs, tail, motion: horse ? 'walk' : 'idle' };
 }
 
 function createBird(g, species, rng) {
@@ -277,15 +336,28 @@ function createShip(spec, rng) {
 function createTree(spec, rng) {
   const g = new THREE.Group();
   const trunkColor = spec.trunkColor || '#765137';
-  const leafColor = spec.leafColor || pick(rng, ['#47784d', '#527d46', '#648a52']);
-  cylinder(g, [0, 1.1, 0], .2, .32, 2.2, trunkColor, 10);
-  for (let i = 0; i < 6; i++) {
-    const angle = i * Math.PI / 3;
-    const branch = [Math.cos(angle) * .55, 2.1 + (i % 2) * .3, Math.sin(angle) * .55];
-    link(g, [0, 1.2, 0], branch, .075, trunkColor);
-    ellipsoid(g, [branch[0], branch[1] + .38, branch[2]], [.62, .75, .6], leafColor, 2);
+  const leafColor = spec.leafColor || pick(rng, ['#47784d', '#527d46', '#648a52', '#3e6f49']);
+  const trunk = new THREE.Mesh(new THREE.CylinderGeometry(.12, .34, 3.5, 12), material(trunkColor));
+  trunk.position.y = 1.75;trunk.castShadow = true;g.add(trunk);
+  for (let i = 0; i < 7; i++) {
+    const angle = i * Math.PI * 2 / 7;
+    const start = [Math.cos(angle) * .06, 1.5 + (i % 3) * .22, Math.sin(angle) * .06];
+    const end = [Math.cos(angle) * (1 + (i % 2) * .2), 2.5 + (i % 3) * .3, Math.sin(angle) * (1 + (i % 2) * .2)];
+    link(g, start, end, .075, trunkColor);
+    for (let leaf = 0; leaf < 4; leaf++) {
+      const offset = (leaf - 1.5) * .2;
+      ellipsoid(g, [end[0] + Math.cos(angle + offset) * .28, end[1] + .2 + (leaf % 2) * .18, end[2] + Math.sin(angle + offset) * .28], [.38, .52, .34], leafColor, 2);
+    }
   }
-  ellipsoid(g, [0, 2.65, 0], [.72, .85, .68], leafColor, 2);
+  for (let i = 0; i < 8; i++) {
+    const angle = i * Math.PI * 2 / 8;
+    ellipsoid(g, [Math.cos(angle) * .55, 3 + (i % 3) * .25, Math.sin(angle) * .55], [.48, .65, .42], leafColor, 2);
+  }
+  ellipsoid(g, [0, 3.55, 0], [.58, .72, .5], leafColor, 2);
+  for (let i = 0; i < 4; i++) {
+    const angle = i * Math.PI / 2;
+    link(g, [0, .18, 0], [Math.cos(angle) * .62, .04, Math.sin(angle) * .62], .08, trunkColor);
+  }
   return g;
 }
 
@@ -326,18 +398,39 @@ function createBuilding(spec, rng) {
 function createVehicle(spec, rng) {
   const g = new THREE.Group();
   const name = clean(spec.name || spec.description || '');
-  const bodyColor = spec.color || pick(rng, ['#536f85', '#9c493b', '#6b7663']);
-  if (/avion|helicoptero|cohete/.test(name)) {
-    ellipsoid(g, [0, 1.1, 0], [.42, .38, 2.2], bodyColor, 3);
-    block(g, [0, 1.08, 0], [3.5, .08, .62], '#a8b2b5');
-    cone(g, [0, 1.1, 2.25], .4, .8, '#d6dce0', 12).rotation.x = Math.PI / 2;
-    if (/cohete/.test(name)) {
-      cylinder(g, [0, 2, 0], .38, .42, 2.3, '#d9dce0', 16);
-      cone(g, [0, 3.25, 0], .4, .65, '#c84b3c', 12);
-      for (const side of [-1, 1]) block(g, [side * .42, 1.2, -.45], [.22, .75, .65], '#c84b3c');
+  const bodyColor = spec.color || '#e5e8e8';
+  if (/cohete/.test(name)) {
+    cylinder(g, [0, 2.05, 0], .43, .5, 3.25, bodyColor, 24);
+    cone(g, [0, 4.08, 0], .45, .85, spec.noseColor || '#c94b3d', 20);
+    for (const side of [-1, 1]) {
+      const fin = new THREE.Shape();fin.moveTo(0, .2);fin.lineTo(side * .62, -.45);fin.lineTo(side * .5, .9);fin.lineTo(0, .75);fin.closePath();
+      const finMesh = new THREE.Mesh(new THREE.ShapeGeometry(fin), material('#c84c3d'));
+      finMesh.position.set(0, .38, side * .28);finMesh.rotation.y = side * Math.PI / 2;g.add(finMesh);
+    }
+    cylinder(g, [0, .38, 0], .34, .42, .42, '#596267', 20);
+    for (let y of [1.25, 2.2, 3.05]) {
+      const window = new THREE.Mesh(new THREE.CircleGeometry(.11, 20), material('#5f9eaf', .22, .25));
+      window.position.set(0, y, .435);g.add(window);
+      cylinder(g, [0, y, .43], .15, .15, .025, '#aeb8ba', 20).rotation.x = Math.PI / 2;
+    }
+    cone(g, [0, -.25, 0], .34, .9, '#f18a37', 16);
+    cone(g, [0, -.55, 0], .2, .7, '#f7d36b', 16);
+    g.userData.rig = { motion: 'launch' };
+  } else if (/avion|helicoptero/.test(name)) {
+    ellipsoid(g, [0, 1.35, 0], [.42, .38, 1.9], bodyColor, 4);
+    ellipsoid(g, [0, 1.48, 1.15], [.28, .23, .42], '#8ab1c2', 3);
+    block(g, [0, 1.3, -.05], [3.7, .09, .62], '#aeb8bd');
+    block(g, [0, 1.3, -1.55], [1.3, .07, .38], '#aeb8bd');
+    if (/helicoptero/.test(name)) {
+      link(g, [0, 1.8, 0], [0, 2.35, 0], .045, '#454b4f');
+      block(g, [0, 2.38, 0], [3.2, .045, .13], '#454b4f');
+      link(g, [0, 1.15, -1.5], [0, 1.15, -2.2], .04, '#454b4f');
+    } else {
+      cylinder(g, [0, 1.35, 2.0], .05, .05, .12, '#50575b', 10).rotation.x = Math.PI / 2;
+      for (const side of [-1, 1]) cylinder(g, [side * 1.45, .95, .1], .32, .32, .15, '#33383b', 16).rotation.z = Math.PI / 2;
     }
   } else {
-    block(g, [0, 1.05, 0], [2.6, .75, 1.3], bodyColor);
+    block(g, [0, 1.05, 0], [2.6, .75, 1.3], spec.color || pick(rng, ['#536f85', '#9c493b', '#6b7663']));
     block(g, [0, 1.62, -.1], [1.35, .55, 1.12], '#9db4c1');
     for (const x of [-.9, .9]) for (const z of [-.48, .48]) {
       cylinder(g, [x, .48, z], .28, .28, .18, '#252525', 16).rotation.z = Math.PI / 2;
@@ -467,13 +560,16 @@ export function createProceduralEntity(parent, input, index = 0) {
 export function directScene(parent, sceneData = {}) {
   const raw = [];
   const explicit = Array.isArray(sceneData.entities) ? sceneData.entities : [];
-  explicit.forEach(item => raw.push(item));
-  (sceneData.characters || []).forEach((item, i) => {
-    const c = typeof item === 'string' ? { role: item } : item;
-    raw.push({ ...c, type: 'human', name: c.name || c.role || ('Personaje ' + (i + 1)), position: c.position || [((i % 5) - 2) * 2.1, 0, -2 - Math.floor(i / 5) * 1.6] });
-  });
-  (sceneData.objects || []).forEach(item => raw.push(item));
-  (sceneData.props || []).forEach(item => raw.push(item));
+  if (explicit.length) {
+    explicit.forEach(item => raw.push(item));
+  } else {
+    (sceneData.characters || []).forEach((item, i) => {
+      const c = typeof item === 'string' ? { role: item } : item;
+      raw.push({ ...c, type: 'human', name: c.name || c.role || ('Personaje ' + (i + 1)), position: c.position || [((i % 5) - 2) * 2.1, 0, -2 - Math.floor(i / 5) * 1.6] });
+    });
+    (sceneData.objects || []).forEach(item => raw.push(item));
+    (sceneData.props || []).forEach(item => raw.push(item));
+  }
   const limit = 18;
   const beats = Array.isArray(sceneData.beats) ? sceneData.beats : [];
   const entities = raw.slice(0, limit).map((item, i) => {
