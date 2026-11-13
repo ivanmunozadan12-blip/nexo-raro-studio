@@ -209,7 +209,7 @@ def draw_scene(im, scene, local_t, accent):
         draw_molecule(d,cx,535,.92,local_t*4,accent)
         text_fit(d,(cx,780),"MODELO EXPLICATIVO",12,(200,225,240),anchor="mm",bold=False)
     elif kind in ("process","diagram"):
-        draw_process(d,cx,565,local_t,accent,scene.get("labels",["Entrada","Proceso","Salida"]))
+        draw_process(d,cx,565,local_t,accent,scene.get("labels") or ["Entrada","Proceso","Salida"])
     elif kind in ("timeline","history"):
         draw_timeline(d,cx,560,local_t,accent,scene.get("labels",["Origen","Cambio","Hoy"]))
     elif kind in ("fact","number","stat"):
