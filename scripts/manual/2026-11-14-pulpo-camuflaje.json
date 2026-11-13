@@ -104,7 +104,10 @@
             2.8,
             2.4,
             2.8
-          ]
+          ],
+          "palette": {
+            "body": "#a65e4b"
+          }
         },
         {
           "id": "rock-01",
@@ -302,7 +305,16 @@
             2.8,
             2.4,
             2.8
-          ]
+          ],
+          "palette": {
+            "body": "#a65e4b"
+          },
+          "colorAnimation": {
+            "from": "#a65e4b",
+            "to": "#777d7d",
+            "at": 0.1,
+            "duration": 4.5
+          }
         },
         {
           "id": "rock-02",
@@ -1156,7 +1168,10 @@
             2.8,
             2.4,
             2.8
-          ]
+          ],
+          "palette": {
+            "body": "#a65e4b"
+          }
         },
         {
           "id": "rock-07",
@@ -1682,7 +1697,10 @@
             2.8,
             2.4,
             2.8
-          ]
+          ],
+          "palette": {
+            "body": "#a65e4b"
+          }
         },
         {
           "id": "rock-10",
@@ -1880,7 +1898,10 @@
             2.8,
             2.4,
             2.8
-          ]
+          ],
+          "palette": {
+            "body": "#a65e4b"
+          }
         },
         {
           "id": "fish-11",
@@ -2078,7 +2099,10 @@
             2.8,
             2.4,
             2.8
-          ]
+          ],
+          "palette": {
+            "body": "#a65e4b"
+          }
         },
         {
           "id": "rock-12",
@@ -2276,7 +2300,10 @@
             2.8,
             2.4,
             2.8
-          ]
+          ],
+          "palette": {
+            "body": "#a65e4b"
+          }
         },
         {
           "id": "rock-13",
@@ -2474,7 +2501,10 @@
             2.8,
             2.4,
             2.8
-          ]
+          ],
+          "palette": {
+            "body": "#a65e4b"
+          }
         },
         {
           "id": "rock-14a",
@@ -7801,7 +7831,88 @@
         }
       ],
       "version": 1,
-      "animations": []
+      "animations": [
+        {
+          "target": "leg-0",
+          "property": "rotation",
+          "axis": "z",
+          "amplitude": 0.2,
+          "frequency": 4.2,
+          "phase": 0
+        },
+        {
+          "target": "leg-1",
+          "property": "rotation",
+          "axis": "z",
+          "amplitude": 0.2,
+          "frequency": 4.2,
+          "phase": 0.72
+        },
+        {
+          "target": "leg-2",
+          "property": "rotation",
+          "axis": "z",
+          "amplitude": 0.2,
+          "frequency": 4.2,
+          "phase": 1.44
+        },
+        {
+          "target": "leg-3",
+          "property": "rotation",
+          "axis": "z",
+          "amplitude": 0.2,
+          "frequency": 4.2,
+          "phase": 2.16
+        },
+        {
+          "target": "leg-4",
+          "property": "rotation",
+          "axis": "z",
+          "amplitude": 0.2,
+          "frequency": 4.2,
+          "phase": 2.88
+        },
+        {
+          "target": "leg-5",
+          "property": "rotation",
+          "axis": "z",
+          "amplitude": 0.2,
+          "frequency": 4.2,
+          "phase": 3.5999999999999996
+        },
+        {
+          "target": "leg-6",
+          "property": "rotation",
+          "axis": "z",
+          "amplitude": 0.2,
+          "frequency": 4.2,
+          "phase": 4.32
+        },
+        {
+          "target": "leg-7",
+          "property": "rotation",
+          "axis": "z",
+          "amplitude": 0.2,
+          "frequency": 4.2,
+          "phase": 5.04
+        },
+        {
+          "target": "claw-a",
+          "property": "rotation",
+          "axis": "z",
+          "amplitude": 0.12,
+          "frequency": 2.4,
+          "phase": 0
+        },
+        {
+          "target": "claw-b",
+          "property": "rotation",
+          "axis": "z",
+          "amplitude": 0.12,
+          "frequency": 2.4,
+          "phase": 3.141592653589793
+        }
+      ]
     }
   }
 }
