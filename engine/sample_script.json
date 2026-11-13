@@ -1,91 +1,638 @@
 {
   "title": "Cómo funciona un microondas",
-  "hook": "El microondas no calienta la comida desde fuera: utiliza ondas electromagnéticas para agitar ciertas moléculas.",
-  "narration": "Cuando metes comida en el microondas, no hay una resistencia calentándola como en un horno convencional. En su interior trabaja un componente llamado magnetrón, que transforma energía eléctrica en ondas electromagnéticas. Esas ondas rebotan por la cavidad metálica y atraviesan parte del alimento. Su campo eléctrico cambia de dirección miles de millones de veces por segundo. Las moléculas polares, especialmente las de agua, responden a ese campo y se reorientan continuamente. Ese movimiento y las interacciones entre moléculas ayudan a transferir energía al alimento. El plato giratorio y la distribución de las ondas reducen las zonas frías, aunque no las eliminan por completo. Por eso conviene remover la comida y dejarla reposar unos instantes: el calor sigue repartiéndose incluso después de apagar el aparato.",
+  "hook": "¿Sabías que tu microondas no calienta la comida como un horno? En realidad, hace bailar a sus moléculas.",
+  "narration": "¿Sabías que tu microondas no calienta la comida como un horno? En realidad, hace bailar a sus moléculas. Y no, no hay un mini DJ dentro: el responsable es una pieza llamada magnetrón, escondida en el aparato. El magnetrón convierte electricidad en microondas, unas ondas invisibles que rebotan por las paredes metálicas. Esas ondas llegan a la comida y crean un campo eléctrico que cambia de dirección rapidísimo. Las moléculas de agua tienen una parte ligeramente positiva y otra negativa, como un imán diminuto. Cuando el campo cambia, esas moléculas intentan orientarse una y otra vez; al interactuar, transfieren energía. Por eso la comida se calienta desde distintas zonas, aunque las ondas no se reparten perfectamente por todo el plato. El plato gira para reducir los puntos fríos. Y si remueves y dejas reposar, el calor termina de repartirse.",
   "scenes": [
     {
       "headline": "No es un horno convencional",
       "subtitle": "El calor no empieza en una resistencia",
       "visual_type": "microwave",
-      "narration_excerpt": "Cuando metes comida en el microondas, no hay una resistencia calentándola como en un horno convencional.",
+      "narration_excerpt": "¿Sabías que tu microondas no calienta la comida como un horno? En realidad, hace bailar a sus moléculas.",
       "callout": "El calentamiento se produce dentro del alimento",
       "labels": [
         "Cavidad",
         "Alimento",
         "Panel"
       ],
-      "accent": "#62d9cf"
+      "accent": "#62d9cf",
+      "description": "Plano general de un microondas doméstico sobre una encimera limpia; se ve el aparato entero y un plato de comida dentro.",
+      "action": "La puerta se ilumina y la cámara se acerca suavemente al interior; el plato empieza a girar.",
+      "background": "clean",
+      "camera": {
+        "movement": "push_in",
+        "zoom_start": 1,
+        "zoom_end": 1.055
+      },
+      "sound_effect": "mechanical",
+      "visual_elements": [
+        {
+          "shape": "rounded_rect",
+          "x": 210,
+          "y": 460,
+          "width": 420,
+          "height": 270,
+          "color": "#dce6ee",
+          "label": "cuerpo",
+          "role": "main_subject",
+          "description": "cuerpo: elemento gráfico específico de esta escena; debe leerse como cuerpo y no como decoración genérica.",
+          "motion": "float",
+          "stroke": 3
+        },
+        {
+          "shape": "rect",
+          "x": 210,
+          "y": 460,
+          "width": 285,
+          "height": 220,
+          "color": "#10283d",
+          "label": "ventana",
+          "role": "mechanism",
+          "description": "ventana: elemento gráfico específico de esta escena; debe leerse como ventana y no como decoración genérica.",
+          "motion": "pulse",
+          "stroke": 3
+        },
+        {
+          "shape": "circle",
+          "x": 510,
+          "y": 460,
+          "width": 65,
+          "height": 65,
+          "color": "#62d9cf",
+          "label": "temporizador",
+          "role": "motion_path",
+          "description": "temporizador: elemento gráfico específico de esta escena; debe leerse como temporizador y no como decoración genérica.",
+          "motion": "flow",
+          "stroke": 3
+        },
+        {
+          "shape": "ellipse",
+          "x": 210,
+          "y": 600,
+          "width": 100,
+          "height": 24,
+          "color": "#e9b16a",
+          "label": "plato",
+          "role": "explanation",
+          "description": "plato: elemento gráfico específico de esta escena; debe leerse como plato y no como decoración genérica.",
+          "motion": "rotate",
+          "stroke": 3
+        },
+        {
+          "shape": "arrow",
+          "x": 380,
+          "y": 360,
+          "width": 180,
+          "height": 85,
+          "color": "#62d9cf",
+          "label": "cámara interior",
+          "role": "detail",
+          "description": "cámara interior: elemento gráfico específico de esta escena; debe leerse como cámara interior y no como decoración genérica.",
+          "motion": "none",
+          "stroke": 3
+        },
+        {
+          "shape": "wave",
+          "x": 430,
+          "y": 510,
+          "width": 230,
+          "height": 55,
+          "color": "#f3b65e",
+          "label": "microondas",
+          "role": "supporting_context",
+          "description": "microondas: elemento gráfico específico de esta escena; debe leerse como microondas y no como decoración genérica.",
+          "motion": "pulse",
+          "stroke": 3
+        },
+        {
+          "shape": "circle",
+          "x": 390,
+          "y": 550,
+          "width": 36,
+          "height": 36,
+          "color": "#f3b65e",
+          "label": "alimento",
+          "role": "highlight",
+          "description": "alimento: elemento gráfico específico de esta escena; debe leerse como alimento y no como decoración genérica.",
+          "motion": "flow",
+          "stroke": 3
+        }
+      ]
     },
     {
       "headline": "El corazón del aparato",
       "subtitle": "Un componente convierte electricidad en ondas",
       "visual_type": "machine",
-      "narration_excerpt": "En su interior trabaja un componente llamado magnetrón, que transforma energía eléctrica en ondas electromagnéticas.",
+      "narration_excerpt": "Y no, no hay un mini DJ dentro: el responsable es una pieza llamada magnetrón, escondida en el aparato.",
       "callout": "El magnetrón genera energía electromagnética",
       "labels": [
         "Motor",
         "Generador",
         "Salida"
       ],
-      "accent": "#f3b65e"
+      "accent": "#f3b65e",
+      "description": "Vista de corte técnico del interior del aparato, con el magnetrón como pieza protagonista, claramente separado del resto.",
+      "action": "El magnetrón aparece resaltado; pulsos luminosos salen de su antena para indicar la generación de microondas.",
+      "background": "workshop",
+      "camera": {
+        "movement": "pan_right",
+        "zoom_start": 1,
+        "zoom_end": 1.055
+      },
+      "sound_effect": "electric",
+      "visual_elements": [
+        {
+          "shape": "rounded_rect",
+          "x": 500,
+          "y": 520,
+          "width": 450,
+          "height": 320,
+          "color": "#1c3d55",
+          "label": "carcasa abierta",
+          "role": "main_subject",
+          "description": "carcasa abierta: elemento gráfico específico de esta escena; debe leerse como carcasa abierta y no como decoración genérica.",
+          "motion": "float",
+          "stroke": 3
+        },
+        {
+          "shape": "rect",
+          "x": 490,
+          "y": 500,
+          "width": 140,
+          "height": 150,
+          "color": "#f3b65e",
+          "label": "magnetrón",
+          "role": "mechanism",
+          "description": "magnetrón: elemento gráfico específico de esta escena; debe leerse como magnetrón y no como decoración genérica.",
+          "motion": "pulse",
+          "stroke": 3
+        },
+        {
+          "shape": "gear",
+          "x": 480,
+          "y": 510,
+          "width": 110,
+          "height": 110,
+          "color": "#62d9cf",
+          "label": "antena",
+          "role": "motion_path",
+          "description": "antena: elemento gráfico específico de esta escena; debe leerse como antena y no como decoración genérica.",
+          "motion": "flow",
+          "stroke": 3
+        },
+        {
+          "shape": "arrow",
+          "x": 690,
+          "y": 420,
+          "width": 210,
+          "height": 80,
+          "color": "#f3b65e",
+          "label": "salida de ondas",
+          "role": "explanation",
+          "description": "salida de ondas: elemento gráfico específico de esta escena; debe leerse como salida de ondas y no como decoración genérica.",
+          "motion": "rotate",
+          "stroke": 3
+        },
+        {
+          "shape": "line",
+          "x": 300,
+          "y": 650,
+          "width": 260,
+          "height": 8,
+          "color": "#8fc7ff",
+          "label": "cable eléctrico",
+          "role": "detail",
+          "description": "cable eléctrico: elemento gráfico específico de esta escena; debe leerse como cable eléctrico y no como decoración genérica.",
+          "motion": "none",
+          "stroke": 3
+        },
+        {
+          "shape": "circle",
+          "x": 700,
+          "y": 600,
+          "width": 48,
+          "height": 48,
+          "color": "#62d9cf",
+          "label": "conector",
+          "role": "supporting_context",
+          "description": "conector: elemento gráfico específico de esta escena; debe leerse como conector y no como decoración genérica.",
+          "motion": "pulse",
+          "stroke": 3
+        }
+      ]
     },
     {
       "headline": "Las ondas rebotan",
       "subtitle": "La cavidad metálica refleja la energía",
       "visual_type": "object_cutaway",
-      "narration_excerpt": "Esas ondas rebotan por la cavidad metálica y atraviesan parte del alimento.",
+      "narration_excerpt": "El magnetrón convierte electricidad en microondas, unas ondas invisibles que rebotan por las paredes metálicas.",
       "callout": "Las paredes metálicas reflejan las microondas",
       "labels": [
         "Emisión",
         "Reflexión",
         "Comida"
       ],
-      "accent": "#62d9cf"
+      "accent": "#62d9cf",
+      "description": "Cavidad metálica representada como una caja abierta; las ondas rebotan en las paredes y llegan a un alimento situado en el centro.",
+      "action": "Tres ondas trazadas recorren la cavidad y rebotan en sus paredes antes de atravesar el alimento.",
+      "background": "clean",
+      "camera": {
+        "movement": "follow",
+        "zoom_start": 1,
+        "zoom_end": 1.055
+      },
+      "sound_effect": "electric",
+      "visual_elements": [
+        {
+          "shape": "rounded_rect",
+          "x": 500,
+          "y": 520,
+          "width": 440,
+          "height": 300,
+          "color": "#24465e",
+          "label": "cavidad",
+          "role": "main_subject",
+          "description": "cavidad: elemento gráfico específico de esta escena; debe leerse como cavidad y no como decoración genérica.",
+          "motion": "float",
+          "stroke": 3
+        },
+        {
+          "shape": "wave",
+          "x": 300,
+          "y": 410,
+          "width": 260,
+          "height": 65,
+          "color": "#62d9cf",
+          "label": "onda incidente",
+          "role": "mechanism",
+          "description": "onda incidente: elemento gráfico específico de esta escena; debe leerse como onda incidente y no como decoración genérica.",
+          "motion": "pulse",
+          "stroke": 3
+        },
+        {
+          "shape": "wave",
+          "x": 650,
+          "y": 550,
+          "width": 260,
+          "height": 65,
+          "color": "#f3b65e",
+          "label": "onda reflejada",
+          "role": "motion_path",
+          "description": "onda reflejada: elemento gráfico específico de esta escena; debe leerse como onda reflejada y no como decoración genérica.",
+          "motion": "flow",
+          "stroke": 3
+        },
+        {
+          "shape": "arrow",
+          "x": 520,
+          "y": 490,
+          "width": 180,
+          "height": 80,
+          "color": "#8fc7ff",
+          "label": "trayectoria",
+          "role": "explanation",
+          "description": "trayectoria: elemento gráfico específico de esta escena; debe leerse como trayectoria y no como decoración genérica.",
+          "motion": "rotate",
+          "stroke": 3
+        },
+        {
+          "shape": "ellipse",
+          "x": 510,
+          "y": 600,
+          "width": 130,
+          "height": 55,
+          "color": "#e8a35f",
+          "label": "alimento",
+          "role": "detail",
+          "description": "alimento: elemento gráfico específico de esta escena; debe leerse como alimento y no como decoración genérica.",
+          "motion": "none",
+          "stroke": 3
+        },
+        {
+          "shape": "line",
+          "x": 750,
+          "y": 380,
+          "width": 150,
+          "height": 10,
+          "color": "#ffffff",
+          "label": "pared metálica",
+          "role": "supporting_context",
+          "description": "pared metálica: elemento gráfico específico de esta escena; debe leerse como pared metálica y no como decoración genérica.",
+          "motion": "pulse",
+          "stroke": 3
+        }
+      ]
     },
     {
       "headline": "Un campo que cambia",
       "subtitle": "La dirección del campo eléctrico oscila",
       "visual_type": "molecule",
-      "narration_excerpt": "Su campo eléctrico cambia de dirección miles de millones de veces por segundo.",
+      "narration_excerpt": "Esas ondas llegan a la comida y crean un campo eléctrico que cambia de dirección rapidísimo.",
       "callout": "El campo eléctrico cambia de sentido continuamente",
       "labels": [
         "Campo",
         "Dirección",
         "Frecuencia"
       ],
-      "accent": "#8fc7ff"
+      "accent": "#8fc7ff",
+      "description": "Campo eléctrico representado como flechas alternas alrededor de un conjunto de moléculas; se entiende que cambia de sentido.",
+      "action": "Las flechas invierten su dirección repetidamente y las moléculas giran para responder al campo.",
+      "background": "dark_lab",
+      "camera": {
+        "movement": "push_in",
+        "zoom_start": 1,
+        "zoom_end": 1.055
+      },
+      "sound_effect": "whoosh",
+      "visual_elements": [
+        {
+          "shape": "circle",
+          "x": 500,
+          "y": 500,
+          "width": 220,
+          "height": 220,
+          "color": "#153d5d",
+          "label": "campo eléctrico",
+          "role": "main_subject",
+          "description": "campo eléctrico: elemento gráfico específico de esta escena; debe leerse como campo eléctrico y no como decoración genérica.",
+          "motion": "float",
+          "stroke": 3
+        },
+        {
+          "shape": "arrow",
+          "x": 500,
+          "y": 350,
+          "width": 180,
+          "height": 50,
+          "color": "#62d9cf",
+          "label": "dirección positiva",
+          "role": "mechanism",
+          "description": "dirección positiva: elemento gráfico específico de esta escena; debe leerse como dirección positiva y no como decoración genérica.",
+          "motion": "pulse",
+          "stroke": 3
+        },
+        {
+          "shape": "arrow",
+          "x": 500,
+          "y": 650,
+          "width": 180,
+          "height": 50,
+          "color": "#f3b65e",
+          "label": "dirección opuesta",
+          "role": "motion_path",
+          "description": "dirección opuesta: elemento gráfico específico de esta escena; debe leerse como dirección opuesta y no como decoración genérica.",
+          "motion": "flow",
+          "stroke": 3
+        },
+        {
+          "shape": "wave",
+          "x": 500,
+          "y": 500,
+          "width": 350,
+          "height": 100,
+          "color": "#8fc7ff",
+          "label": "oscilación",
+          "role": "explanation",
+          "description": "oscilación: elemento gráfico específico de esta escena; debe leerse como oscilación y no como decoración genérica.",
+          "motion": "rotate",
+          "stroke": 3
+        },
+        {
+          "shape": "circle",
+          "x": 300,
+          "y": 480,
+          "width": 36,
+          "height": 36,
+          "color": "#f3b65e",
+          "label": "molécula",
+          "role": "detail",
+          "description": "molécula: elemento gráfico específico de esta escena; debe leerse como molécula y no como decoración genérica.",
+          "motion": "none",
+          "stroke": 3
+        },
+        {
+          "shape": "circle",
+          "x": 700,
+          "y": 520,
+          "width": 36,
+          "height": 36,
+          "color": "#62d9cf",
+          "label": "molécula",
+          "role": "supporting_context",
+          "description": "molécula: elemento gráfico específico de esta escena; debe leerse como molécula y no como decoración genérica.",
+          "motion": "pulse",
+          "stroke": 3
+        }
+      ]
     },
     {
       "headline": "El agua responde",
       "subtitle": "Las moléculas polares se reorientan",
       "visual_type": "science",
-      "narration_excerpt": "Las moléculas polares, especialmente las de agua, responden a ese campo y se reorientan continuamente.",
+      "narration_excerpt": "Las moléculas de agua tienen una parte ligeramente positiva y otra negativa, como un imán diminuto.",
       "callout": "Las moléculas polares responden al campo",
       "labels": [
         "Oxígeno",
         "Hidrógeno",
         "Agua"
       ],
-      "accent": "#f3b65e"
+      "accent": "#f3b65e",
+      "description": "Modelo ampliado de una molécula de agua con un átomo de oxígeno y dos de hidrógeno; los extremos muestran cargas parciales distintas.",
+      "action": "La molécula rota lentamente y aparecen etiquetas breves para oxígeno, hidrógeno y polaridad.",
+      "background": "dark_lab",
+      "camera": {
+        "movement": "pan_left",
+        "zoom_start": 1,
+        "zoom_end": 1.055
+      },
+      "sound_effect": "click",
+      "visual_elements": [
+        {
+          "shape": "circle",
+          "x": 500,
+          "y": 510,
+          "width": 170,
+          "height": 170,
+          "color": "#e64f52",
+          "label": "oxígeno",
+          "role": "main_subject",
+          "description": "oxígeno: elemento gráfico específico de esta escena; debe leerse como oxígeno y no como decoración genérica.",
+          "motion": "float",
+          "stroke": 3
+        },
+        {
+          "shape": "circle",
+          "x": 420,
+          "y": 430,
+          "width": 70,
+          "height": 70,
+          "color": "#8fc7ff",
+          "label": "hidrógeno",
+          "role": "mechanism",
+          "description": "hidrógeno: elemento gráfico específico de esta escena; debe leerse como hidrógeno y no como decoración genérica.",
+          "motion": "pulse",
+          "stroke": 3
+        },
+        {
+          "shape": "circle",
+          "x": 590,
+          "y": 430,
+          "width": 70,
+          "height": 70,
+          "color": "#8fc7ff",
+          "label": "hidrógeno",
+          "role": "motion_path",
+          "description": "hidrógeno: elemento gráfico específico de esta escena; debe leerse como hidrógeno y no como decoración genérica.",
+          "motion": "flow",
+          "stroke": 3
+        },
+        {
+          "shape": "line",
+          "x": 460,
+          "y": 460,
+          "width": 140,
+          "height": 8,
+          "color": "#ffffff",
+          "label": "enlace químico",
+          "role": "explanation",
+          "description": "enlace químico: elemento gráfico específico de esta escena; debe leerse como enlace químico y no como decoración genérica.",
+          "motion": "rotate",
+          "stroke": 3
+        },
+        {
+          "shape": "line",
+          "x": 540,
+          "y": 460,
+          "width": 140,
+          "height": 8,
+          "color": "#ffffff",
+          "label": "enlace químico",
+          "role": "detail",
+          "description": "enlace químico: elemento gráfico específico de esta escena; debe leerse como enlace químico y no como decoración genérica.",
+          "motion": "none",
+          "stroke": 3
+        },
+        {
+          "shape": "text",
+          "x": 500,
+          "y": 700,
+          "width": 160,
+          "height": 45,
+          "color": "#ffffff",
+          "label": "H₂O POLAR",
+          "role": "supporting_context",
+          "description": "H₂O POLAR: elemento gráfico específico de esta escena; debe leerse como h₂o polar y no como decoración genérica.",
+          "motion": "pulse",
+          "stroke": 3
+        }
+      ]
     },
     {
       "headline": "La energía se reparte",
       "subtitle": "Las interacciones elevan la energía térmica",
       "visual_type": "process",
-      "narration_excerpt": "Ese movimiento y las interacciones entre moléculas ayudan a transferir energía al alimento.",
+      "narration_excerpt": "Cuando el campo cambia, esas moléculas intentan orientarse una y otra vez; al interactuar, transfieren energía.",
       "callout": "La energía termina convertida en calor",
       "labels": [
         "Ondas",
         "Movimiento",
         "Calor"
       ],
-      "accent": "#62d9cf"
+      "accent": "#62d9cf",
+      "description": "Varias moléculas interactúan en grupo; los movimientos se transmiten entre ellas y se representa el aumento de energía térmica.",
+      "action": "Las moléculas se mueven con más intensidad y los indicadores de energía aumentan gradualmente.",
+      "background": "dark_lab",
+      "camera": {
+        "movement": "push_in",
+        "zoom_start": 1,
+        "zoom_end": 1.055
+      },
+      "sound_effect": "impact",
+      "visual_elements": [
+        {
+          "shape": "circle",
+          "x": 280,
+          "y": 420,
+          "width": 48,
+          "height": 48,
+          "color": "#e64f52",
+          "label": "molécula A",
+          "role": "main_subject",
+          "description": "molécula A: elemento gráfico específico de esta escena; debe leerse como molécula a y no como decoración genérica.",
+          "motion": "float",
+          "stroke": 3
+        },
+        {
+          "shape": "circle",
+          "x": 480,
+          "y": 520,
+          "width": 48,
+          "height": 48,
+          "color": "#e64f52",
+          "label": "molécula B",
+          "role": "mechanism",
+          "description": "molécula B: elemento gráfico específico de esta escena; debe leerse como molécula b y no como decoración genérica.",
+          "motion": "pulse",
+          "stroke": 3
+        },
+        {
+          "shape": "circle",
+          "x": 680,
+          "y": 420,
+          "width": 48,
+          "height": 48,
+          "color": "#e64f52",
+          "label": "molécula C",
+          "role": "motion_path",
+          "description": "molécula C: elemento gráfico específico de esta escena; debe leerse como molécula c y no como decoración genérica.",
+          "motion": "flow",
+          "stroke": 3
+        },
+        {
+          "shape": "arrow",
+          "x": 380,
+          "y": 480,
+          "width": 150,
+          "height": 55,
+          "color": "#f3b65e",
+          "label": "transferencia",
+          "role": "explanation",
+          "description": "transferencia: elemento gráfico específico de esta escena; debe leerse como transferencia y no como decoración genérica.",
+          "motion": "rotate",
+          "stroke": 3
+        },
+        {
+          "shape": "arrow",
+          "x": 580,
+          "y": 480,
+          "width": 150,
+          "height": 55,
+          "color": "#62d9cf",
+          "label": "transferencia",
+          "role": "detail",
+          "description": "transferencia: elemento gráfico específico de esta escena; debe leerse como transferencia y no como decoración genérica.",
+          "motion": "none",
+          "stroke": 3
+        },
+        {
+          "shape": "arc",
+          "x": 480,
+          "y": 520,
+          "width": 240,
+          "height": 180,
+          "color": "#8fc7ff",
+          "label": "interacción",
+          "role": "supporting_context",
+          "description": "interacción: elemento gráfico específico de esta escena; debe leerse como interacción y no como decoración genérica.",
+          "motion": "pulse",
+          "stroke": 3
+        }
+      ]
     },
     {
       "headline": "Por qué gira el plato",
       "subtitle": "El movimiento ayuda a reducir puntos fríos",
       "visual_type": "fact",
-      "narration_excerpt": "El plato giratorio y la distribución de las ondas reducen las zonas frías, aunque no las eliminan por completo.",
+      "narration_excerpt": "Por eso la comida se calienta desde distintas zonas, aunque las ondas no se reparten perfectamente por todo el plato.",
       "callout": "El giro ayuda a repartir el calentamiento",
       "labels": [
         "Giro",
@@ -97,21 +644,213 @@
         "value": "360°",
         "label": "Plato giratorio",
         "detail": "Ayuda a repartir la exposición"
-      }
+      },
+      "description": "Vista superior de un plato giratorio con zonas de calentamiento desiguales, unas más calientes que otras.",
+      "action": "El plato gira y el mapa térmico se desplaza; las zonas frías se reducen, pero no desaparecen.",
+      "background": "clean",
+      "camera": {
+        "movement": "follow",
+        "zoom_start": 1,
+        "zoom_end": 1.055
+      },
+      "sound_effect": "mechanical",
+      "visual_elements": [
+        {
+          "shape": "ellipse",
+          "x": 500,
+          "y": 540,
+          "width": 330,
+          "height": 110,
+          "color": "#dce3e9",
+          "label": "plato giratorio",
+          "role": "main_subject",
+          "description": "plato giratorio: elemento gráfico específico de esta escena; debe leerse como plato giratorio y no como decoración genérica.",
+          "motion": "float",
+          "stroke": 3
+        },
+        {
+          "shape": "circle",
+          "x": 500,
+          "y": 520,
+          "width": 170,
+          "height": 170,
+          "color": "#e8a35f",
+          "label": "comida",
+          "role": "mechanism",
+          "description": "comida: elemento gráfico específico de esta escena; debe leerse como comida y no como decoración genérica.",
+          "motion": "pulse",
+          "stroke": 3
+        },
+        {
+          "shape": "rect",
+          "x": 300,
+          "y": 380,
+          "width": 110,
+          "height": 70,
+          "color": "#ff6d59",
+          "label": "zona caliente",
+          "role": "motion_path",
+          "description": "zona caliente: elemento gráfico específico de esta escena; debe leerse como zona caliente y no como decoración genérica.",
+          "motion": "flow",
+          "stroke": 3
+        },
+        {
+          "shape": "rect",
+          "x": 650,
+          "y": 650,
+          "width": 110,
+          "height": 70,
+          "color": "#5d9bd1",
+          "label": "zona fría",
+          "role": "explanation",
+          "description": "zona fría: elemento gráfico específico de esta escena; debe leerse como zona fría y no como decoración genérica.",
+          "motion": "rotate",
+          "stroke": 3
+        },
+        {
+          "shape": "arrow",
+          "x": 500,
+          "y": 320,
+          "width": 160,
+          "height": 55,
+          "color": "#62d9cf",
+          "label": "rotación",
+          "role": "detail",
+          "description": "rotación: elemento gráfico específico de esta escena; debe leerse como rotación y no como decoración genérica.",
+          "motion": "none",
+          "stroke": 3
+        },
+        {
+          "shape": "arc",
+          "x": 500,
+          "y": 540,
+          "width": 390,
+          "height": 300,
+          "color": "#f3b65e",
+          "label": "giro del plato",
+          "role": "supporting_context",
+          "description": "giro del plato: elemento gráfico específico de esta escena; debe leerse como giro del plato y no como decoración genérica.",
+          "motion": "pulse",
+          "stroke": 3
+        }
+      ]
     },
     {
       "headline": "Un último detalle",
       "subtitle": "El calor continúa distribuyéndose al reposar",
       "visual_type": "timeline",
-      "narration_excerpt": "Por eso conviene remover la comida y dejarla reposar unos instantes: el calor sigue repartiéndose incluso después de apagar el aparato.",
+      "narration_excerpt": "El plato gira para reducir los puntos fríos. Y si remueves y dejas reposar, el calor termina de repartirse.",
       "callout": "Remover y reposar mejora la uniformidad",
       "labels": [
         "Calentar",
         "Remover",
         "Reposar"
       ],
-      "accent": "#f3b65e"
+      "accent": "#f3b65e",
+      "description": "Plano final de un plato de comida; una mano remueve el alimento y un indicador muestra que el calor se iguala durante el reposo.",
+      "action": "Una cuchara remueve la comida, el vapor asciende y el indicador térmico se vuelve más uniforme.",
+      "background": "clean",
+      "camera": {
+        "movement": "pull_out",
+        "zoom_start": 1,
+        "zoom_end": 1.055
+      },
+      "sound_effect": "click",
+      "visual_elements": [
+        {
+          "shape": "ellipse",
+          "x": 500,
+          "y": 550,
+          "width": 300,
+          "height": 115,
+          "color": "#e8a35f",
+          "label": "plato de comida",
+          "role": "main_subject",
+          "description": "plato de comida: elemento gráfico específico de esta escena; debe leerse como plato de comida y no como decoración genérica.",
+          "motion": "float",
+          "stroke": 3
+        },
+        {
+          "shape": "line",
+          "x": 380,
+          "y": 440,
+          "width": 200,
+          "height": 10,
+          "color": "#ffffff",
+          "label": "cuchara",
+          "role": "mechanism",
+          "description": "cuchara: elemento gráfico específico de esta escena; debe leerse como cuchara y no como decoración genérica.",
+          "motion": "pulse",
+          "stroke": 3
+        },
+        {
+          "shape": "wave",
+          "x": 500,
+          "y": 360,
+          "width": 170,
+          "height": 50,
+          "color": "#ffffff",
+          "label": "vapor",
+          "role": "motion_path",
+          "description": "vapor: elemento gráfico específico de esta escena; debe leerse como vapor y no como decoración genérica.",
+          "motion": "flow",
+          "stroke": 3
+        },
+        {
+          "shape": "arrow",
+          "x": 700,
+          "y": 500,
+          "width": 130,
+          "height": 55,
+          "color": "#62d9cf",
+          "label": "calor se reparte",
+          "role": "explanation",
+          "description": "calor se reparte: elemento gráfico específico de esta escena; debe leerse como calor se reparte y no como decoración genérica.",
+          "motion": "rotate",
+          "stroke": 3
+        },
+        {
+          "shape": "circle",
+          "x": 320,
+          "y": 660,
+          "width": 38,
+          "height": 38,
+          "color": "#f3b65e",
+          "label": "calor",
+          "role": "detail",
+          "description": "calor: elemento gráfico específico de esta escena; debe leerse como calor y no como decoración genérica.",
+          "motion": "none",
+          "stroke": 3
+        },
+        {
+          "shape": "circle",
+          "x": 680,
+          "y": 660,
+          "width": 38,
+          "height": 38,
+          "color": "#f3b65e",
+          "label": "calor",
+          "role": "supporting_context",
+          "description": "calor: elemento gráfico específico de esta escena; debe leerse como calor y no como decoración genérica.",
+          "motion": "pulse",
+          "stroke": 3
+        }
+      ]
     }
   ],
-  "captions": []
+  "captions": [],
+  "sources": [
+    {
+      "title": "FDA — Microwave oven radiation",
+      "url": "https://www.fda.gov/radiation-emitting-products/home-business-and-entertainment-products/microwave-oven-radiation"
+    },
+    {
+      "title": "U.S. Department of Energy — Microwave ovens",
+      "url": "https://www.energy.gov/energysaver/microwave-ovens"
+    },
+    {
+      "title": "Encyclopaedia Britannica — Microwave oven",
+      "url": "https://www.britannica.com/technology/microwave-oven"
+    }
+  ]
 }

@@ -1,0 +1,782 @@
+{
+  "title": "Por qué los atardeceres de Marte son azules",
+  "hook": "En Marte, el cielo puede ponerse azul justo alrededor del Sol. No es un filtro.",
+  "narration": "En Marte, una puesta de sol puede teñir de azul el cielo justo alrededor del Sol. Parece un error de color, pero es física atmosférica. En la Tierra, el cielo suele enrojecerse al atardecer porque la luz atraviesa más atmósfera y se dispersan más los tonos azules. Marte tiene una atmósfera mucho más fina, pero está cargada de polvo muy pequeño. Ese polvo interactúa con la luz de otra manera: el azul puede atravesar la atmósfera con mayor facilidad y permanece concentrado cerca del Sol, mientras los tonos amarillos y rojizos se dispersan por zonas más amplias del cielo. Por eso el horizonte marciano puede verse cálido y el entorno del Sol, azulado. El rover Curiosity fotografió este efecto desde el cráter Gale. No es un filtro de cámara: las imágenes se calibraron para representar los colores, y el fenómeno también ayuda a estudiar el polvo suspendido en la atmósfera.",
+  "scenes": [
+    {
+      "headline": "Un atardecer azul en Marte",
+      "subtitle": "El cielo cambia de color junto al Sol",
+      "narration_excerpt": "En Marte, una puesta de sol puede teñir de azul el cielo justo alrededor del Sol.",
+      "visual_type": "mars_sunset",
+      "background": "sky",
+      "description": "Horizonte del cráter Gale con el Sol bajo y un halo azul intenso cerca del disco; el suelo rojizo ocupa el primer plano.",
+      "action": "El Sol desciende detrás de una cresta; el azul permanece concentrado a su alrededor mientras el resto del cielo se oscurece.",
+      "camera": {
+        "movement": "pull_out",
+        "zoom_start": 1,
+        "zoom_end": 1.07
+      },
+      "accent": "#77b9ed",
+      "visual_elements": [
+        {
+          "shape": "circle",
+          "x": 500,
+          "y": 500,
+          "width": 100,
+          "height": 100,
+          "color": "#efb45f",
+          "label": "Sol",
+          "role": "main_subject",
+          "description": "Disco solar bajo sobre el horizonte marciano",
+          "motion": "none"
+        },
+        {
+          "shape": "arc",
+          "x": 500,
+          "y": 500,
+          "width": 240,
+          "height": 180,
+          "color": "#77b9ed",
+          "label": "halo azul",
+          "role": "atmosphere",
+          "description": "Resplandor azul concentrado alrededor del Sol",
+          "motion": "pulse"
+        },
+        {
+          "shape": "polygon",
+          "x": 500,
+          "y": 760,
+          "width": 520,
+          "height": 130,
+          "color": "#d86c55",
+          "label": "horizonte",
+          "role": "landscape",
+          "description": "Línea de colinas rojizas del cráter Gale",
+          "motion": "none"
+        },
+        {
+          "shape": "circle",
+          "x": 200,
+          "y": 650,
+          "width": 70,
+          "height": 55,
+          "color": "#c5a47a",
+          "label": "roca",
+          "role": "foreground",
+          "description": "Roca oxidada en primer plano",
+          "motion": "none"
+        },
+        {
+          "shape": "wave",
+          "x": 700,
+          "y": 390,
+          "width": 230,
+          "height": 70,
+          "color": "#77b9ed",
+          "label": "polvo",
+          "role": "atmosphere",
+          "description": "Capa de polvo fino suspendido en el cielo",
+          "motion": "flow"
+        },
+        {
+          "shape": "line",
+          "x": 500,
+          "y": 570,
+          "width": 0,
+          "height": 120,
+          "color": "#efb45f",
+          "label": "luz solar",
+          "role": "light",
+          "description": "Luz que atraviesa la atmósfera en ángulo bajo",
+          "motion": "none"
+        }
+      ],
+      "sound_effect": "wind",
+      "labels": [
+        "Sol",
+        "Polvo",
+        "Horizonte"
+      ]
+    },
+    {
+      "headline": "No es un filtro",
+      "subtitle": "La luz se comporta distinto en Marte",
+      "narration_excerpt": "Parece un error de color, pero es física atmosférica.",
+      "visual_type": "science",
+      "background": "dark_lab",
+      "description": "Comparativa visual de luz solar entrando en una atmósfera polvorienta; rayos de distintos colores siguen trayectorias diferenciadas.",
+      "action": "La luz blanca se separa en bandas; el azul permanece más concentrado cerca de la dirección del Sol.",
+      "camera": {
+        "movement": "push_in",
+        "zoom_start": 1,
+        "zoom_end": 1.07
+      },
+      "accent": "#77b9ed",
+      "visual_elements": [
+        {
+          "shape": "circle",
+          "x": 240,
+          "y": 470,
+          "width": 90,
+          "height": 90,
+          "color": "#efb45f",
+          "label": "Sol",
+          "role": "source",
+          "description": "Fuente de luz blanca",
+          "motion": "none"
+        },
+        {
+          "shape": "line",
+          "x": 300,
+          "y": 480,
+          "width": 250,
+          "height": 100,
+          "color": "#f3eee5",
+          "label": "luz entrante",
+          "role": "main_subject",
+          "description": "Rayo de luz que entra en la atmósfera",
+          "motion": "flow"
+        },
+        {
+          "shape": "line",
+          "x": 520,
+          "y": 580,
+          "width": 220,
+          "height": -120,
+          "color": "#77b9ed",
+          "label": "azul",
+          "role": "mechanism",
+          "description": "Componente azul que sigue cerca de la dirección solar",
+          "motion": "flow"
+        },
+        {
+          "shape": "line",
+          "x": 520,
+          "y": 580,
+          "width": 260,
+          "height": 80,
+          "color": "#d86c55",
+          "label": "rojo",
+          "role": "mechanism",
+          "description": "Componente rojiza que se dispersa en otra dirección",
+          "motion": "flow"
+        },
+        {
+          "shape": "circle",
+          "x": 540,
+          "y": 570,
+          "width": 150,
+          "height": 150,
+          "color": "#c5a47a",
+          "label": "polvo fino",
+          "role": "environment",
+          "description": "Partículas suspendidas que interactúan con la luz",
+          "motion": "none"
+        },
+        {
+          "shape": "arc",
+          "x": 540,
+          "y": 570,
+          "width": 260,
+          "height": 210,
+          "color": "#55d6c2",
+          "label": "dispersión",
+          "role": "explanation",
+          "description": "Arco que representa la interacción de la luz con el polvo",
+          "motion": "none"
+        }
+      ],
+      "sound_effect": "electric",
+      "labels": [
+        "Luz",
+        "Polvo",
+        "Dispersión"
+      ]
+    },
+    {
+      "headline": "La Tierra hace otra cosa",
+      "subtitle": "Nuestro atardecer dispersa más azul",
+      "narration_excerpt": "En la Tierra, el cielo suele enrojecerse al atardecer porque la luz atraviesa más atmósfera y se dispersan más los tonos azules.",
+      "visual_type": "timeline",
+      "background": "sky",
+      "description": "Paisaje terrestre con Sol naranja cerca del horizonte; una capa atmosférica amplia muestra la trayectoria larga de la luz al atardecer.",
+      "action": "La cámara sigue un rayo rasante que atraviesa más atmósfera y deja tonos cálidos en la dirección de observación.",
+      "camera": {
+        "movement": "pan_left",
+        "zoom_start": 1,
+        "zoom_end": 1.07
+      },
+      "accent": "#efb45f",
+      "visual_elements": [
+        {
+          "shape": "circle",
+          "x": 500,
+          "y": 500,
+          "width": 100,
+          "height": 100,
+          "color": "#efb45f",
+          "label": "Sol naranja",
+          "role": "main_subject",
+          "description": "Disco solar cálido cerca del horizonte",
+          "motion": "none"
+        },
+        {
+          "shape": "wave",
+          "x": 500,
+          "y": 390,
+          "width": 440,
+          "height": 110,
+          "color": "#77b9ed",
+          "label": "atmósfera terrestre",
+          "role": "environment",
+          "description": "Capa atmosférica atravesada por la luz",
+          "motion": "flow"
+        },
+        {
+          "shape": "line",
+          "x": 220,
+          "y": 430,
+          "width": 280,
+          "height": 70,
+          "color": "#f3eee5",
+          "label": "trayectoria larga",
+          "role": "light",
+          "description": "Rayo solar que recorre una distancia atmosférica mayor",
+          "motion": "flow"
+        },
+        {
+          "shape": "circle",
+          "x": 330,
+          "y": 520,
+          "width": 40,
+          "height": 40,
+          "color": "#77b9ed",
+          "label": "azul dispersado",
+          "role": "mechanism",
+          "description": "Componente azul desviada fuera de la línea de visión",
+          "motion": "none"
+        },
+        {
+          "shape": "arc",
+          "x": 500,
+          "y": 500,
+          "width": 240,
+          "height": 160,
+          "color": "#d86c55",
+          "label": "tonos cálidos",
+          "role": "effect",
+          "description": "Zona de tonos rojizos y anaranjados",
+          "motion": "none"
+        },
+        {
+          "shape": "polygon",
+          "x": 500,
+          "y": 780,
+          "width": 520,
+          "height": 100,
+          "color": "#c5a47a",
+          "label": "horizonte terrestre",
+          "role": "landscape",
+          "description": "Perfil del horizonte de la Tierra",
+          "motion": "none"
+        }
+      ],
+      "sound_effect": "wind",
+      "labels": [
+        "Tierra",
+        "Atmósfera",
+        "Luz"
+      ]
+    },
+    {
+      "headline": "Marte tiene polvo muy fino",
+      "subtitle": "Su atmósfera es tenue, pero polvorienta",
+      "narration_excerpt": "Marte tiene una atmósfera mucho más fina, pero está cargada de polvo muy pequeño.",
+      "visual_type": "mars",
+      "background": "nature",
+      "description": "Plano amplio de una llanura marciana con remolinos de polvo y capas de atmósfera translúcidas sobre el horizonte.",
+      "action": "Una ráfaga levanta polvo rojizo del suelo; partículas pequeñas quedan suspendidas y cruzan el encuadre.",
+      "camera": {
+        "movement": "follow",
+        "zoom_start": 1,
+        "zoom_end": 1.07
+      },
+      "accent": "#d86c55",
+      "visual_elements": [
+        {
+          "shape": "polygon",
+          "x": 500,
+          "y": 760,
+          "width": 520,
+          "height": 150,
+          "color": "#d86c55",
+          "label": "llanura marciana",
+          "role": "main_subject",
+          "description": "Suelo rojo y rocoso de Marte",
+          "motion": "none"
+        },
+        {
+          "shape": "wave",
+          "x": 500,
+          "y": 500,
+          "width": 450,
+          "height": 130,
+          "color": "#c5a47a",
+          "label": "nube de polvo",
+          "role": "atmosphere",
+          "description": "Velo de polvo fino suspendido en la atmósfera",
+          "motion": "flow"
+        },
+        {
+          "shape": "circle",
+          "x": 300,
+          "y": 430,
+          "width": 24,
+          "height": 24,
+          "color": "#f3eee5",
+          "label": "partícula",
+          "role": "detail",
+          "description": "Partícula pequeña de polvo en suspensión",
+          "motion": "none"
+        },
+        {
+          "shape": "circle",
+          "x": 430,
+          "y": 390,
+          "width": 18,
+          "height": 18,
+          "color": "#f3eee5",
+          "label": "partícula fina",
+          "role": "detail",
+          "description": "Segunda partícula que dispersa luz",
+          "motion": "none"
+        },
+        {
+          "shape": "arc",
+          "x": 600,
+          "y": 470,
+          "width": 300,
+          "height": 170,
+          "color": "#efb45f",
+          "label": "atmósfera",
+          "role": "context",
+          "description": "Capa atmosférica muy tenue alrededor del planeta",
+          "motion": "none"
+        },
+        {
+          "shape": "line",
+          "x": 200,
+          "y": 650,
+          "width": 280,
+          "height": -80,
+          "color": "#77b9ed",
+          "label": "viento",
+          "role": "motion_path",
+          "description": "Ráfaga que transporta polvo por la superficie",
+          "motion": "flow"
+        }
+      ],
+      "sound_effect": "wind",
+      "labels": [
+        "Polvo",
+        "Viento",
+        "Atmósfera"
+      ]
+    },
+    {
+      "headline": "El azul se queda cerca del Sol",
+      "subtitle": "El polvo favorece esa distribución de luz",
+      "narration_excerpt": "Ese polvo interactúa con la luz de otra manera: el azul puede atravesar la atmósfera con mayor facilidad y permanece concentrado cerca del Sol, mientras los tonos amarillos y rojizos se dispersan por zonas más amplias del cielo.",
+      "visual_type": "process",
+      "background": "dark_lab",
+      "description": "Diagrama espacial de un Sol a la izquierda y partículas de polvo a la derecha; los rayos azules siguen más próximos a la dirección solar y los tonos cálidos se abren.",
+      "action": "Los rayos azules avanzan casi rectos; los amarillos y rojos se dispersan en abanico alrededor de las partículas.",
+      "camera": {
+        "movement": "pan_right",
+        "zoom_start": 1,
+        "zoom_end": 1.07
+      },
+      "accent": "#77b9ed",
+      "visual_elements": [
+        {
+          "shape": "circle",
+          "x": 180,
+          "y": 520,
+          "width": 95,
+          "height": 95,
+          "color": "#efb45f",
+          "label": "Sol",
+          "role": "source",
+          "description": "Fuente solar que ilumina el polvo",
+          "motion": "none"
+        },
+        {
+          "shape": "circle",
+          "x": 500,
+          "y": 520,
+          "width": 125,
+          "height": 125,
+          "color": "#c5a47a",
+          "label": "polvo",
+          "role": "main_subject",
+          "description": "Partícula de polvo que interactúa con la luz",
+          "motion": "none"
+        },
+        {
+          "shape": "line",
+          "x": 260,
+          "y": 500,
+          "width": 240,
+          "height": 20,
+          "color": "#77b9ed",
+          "label": "luz azul",
+          "role": "mechanism",
+          "description": "Componente azul que permanece en la dirección del Sol",
+          "motion": "flow"
+        },
+        {
+          "shape": "line",
+          "x": 500,
+          "y": 520,
+          "width": 210,
+          "height": -160,
+          "color": "#d86c55",
+          "label": "luz roja",
+          "role": "mechanism",
+          "description": "Componente rojiza dispersada hacia un ángulo más amplio",
+          "motion": "flow"
+        },
+        {
+          "shape": "line",
+          "x": 500,
+          "y": 520,
+          "width": 210,
+          "height": 160,
+          "color": "#efb45f",
+          "label": "luz amarilla",
+          "role": "mechanism",
+          "description": "Componente amarilla dispersada hacia otra región",
+          "motion": "flow"
+        },
+        {
+          "shape": "arc",
+          "x": 500,
+          "y": 520,
+          "width": 280,
+          "height": 250,
+          "color": "#f3eee5",
+          "label": "dispersión",
+          "role": "explanation",
+          "description": "Arco que muestra la distribución angular de la luz",
+          "motion": "none"
+        }
+      ],
+      "sound_effect": "electric",
+      "labels": [
+        "Azul",
+        "Rojo",
+        "Dispersión"
+      ]
+    },
+    {
+      "headline": "Dos colores en un mismo cielo",
+      "subtitle": "El horizonte cálido y el halo azulado",
+      "narration_excerpt": "Por eso el horizonte marciano puede verse cálido y el entorno del Sol, azulado.",
+      "visual_type": "mars_sunset",
+      "background": "sky",
+      "description": "Plano panorámico del atardecer marciano: horizonte naranja oscuro y una pequeña región azulada alrededor del Sol, con transición visible entre ambas zonas.",
+      "action": "La cámara panea desde el suelo rojizo hacia el Sol y termina en el halo azul.",
+      "camera": {
+        "movement": "pan_right",
+        "zoom_start": 1,
+        "zoom_end": 1.07
+      },
+      "accent": "#77b9ed",
+      "visual_elements": [
+        {
+          "shape": "circle",
+          "x": 510,
+          "y": 500,
+          "width": 80,
+          "height": 80,
+          "color": "#efb45f",
+          "label": "Sol",
+          "role": "main_subject",
+          "description": "Disco solar bajo sobre el horizonte",
+          "motion": "none"
+        },
+        {
+          "shape": "arc",
+          "x": 510,
+          "y": 500,
+          "width": 210,
+          "height": 160,
+          "color": "#77b9ed",
+          "label": "zona azul",
+          "role": "effect",
+          "description": "Región azulada próxima al Sol",
+          "motion": "pulse"
+        },
+        {
+          "shape": "wave",
+          "x": 500,
+          "y": 360,
+          "width": 430,
+          "height": 90,
+          "color": "#d86c55",
+          "label": "cielo cálido",
+          "role": "atmosphere",
+          "description": "Tonos rojizos y anaranjados que ocupan el resto del cielo",
+          "motion": "none"
+        },
+        {
+          "shape": "polygon",
+          "x": 500,
+          "y": 770,
+          "width": 520,
+          "height": 130,
+          "color": "#d86c55",
+          "label": "suelo",
+          "role": "landscape",
+          "description": "Suelo marciano de color óxido",
+          "motion": "none"
+        },
+        {
+          "shape": "circle",
+          "x": 210,
+          "y": 650,
+          "width": 65,
+          "height": 65,
+          "color": "#c5a47a",
+          "label": "roca",
+          "role": "foreground",
+          "description": "Roca en el borde del encuadre",
+          "motion": "none"
+        },
+        {
+          "shape": "line",
+          "x": 510,
+          "y": 570,
+          "width": 0,
+          "height": 110,
+          "color": "#efb45f",
+          "label": "rayo rasante",
+          "role": "light",
+          "description": "Luz solar que atraviesa la atmósfera al atardecer",
+          "motion": "none"
+        }
+      ],
+      "sound_effect": "wind",
+      "labels": [
+        "Halo azul",
+        "Cielo cálido",
+        "Horizonte"
+      ]
+    },
+    {
+      "headline": "Curiosity lo fotografió",
+      "subtitle": "Una puesta de sol real en el cráter Gale",
+      "narration_excerpt": "El rover Curiosity fotografió este efecto desde el cráter Gale.",
+      "visual_type": "curiosity_rover",
+      "background": "nature",
+      "description": "Rover Curiosity en silueta parcial sobre una cresta de Gale; su mástil y cámara Mastcam apuntan hacia el Sol bajo.",
+      "action": "El rover ajusta visualmente el encuadre; aparece una secuencia de cuatro instantes del Sol descendiendo.",
+      "camera": {
+        "movement": "follow",
+        "zoom_start": 1,
+        "zoom_end": 1.07
+      },
+      "accent": "#efb45f",
+      "visual_elements": [
+        {
+          "shape": "rounded_rect",
+          "x": 400,
+          "y": 700,
+          "width": 210,
+          "height": 90,
+          "color": "#c5a47a",
+          "label": "cuerpo rover",
+          "role": "main_subject",
+          "description": "Cuerpo del rover Curiosity sobre seis ruedas",
+          "motion": "none"
+        },
+        {
+          "shape": "line",
+          "x": 430,
+          "y": 700,
+          "width": 0,
+          "height": -220,
+          "color": "#f3eee5",
+          "label": "mástil",
+          "role": "mechanism",
+          "description": "Mástil de cámara elevado sobre el rover",
+          "motion": "none"
+        },
+        {
+          "shape": "circle",
+          "x": 430,
+          "y": 465,
+          "width": 35,
+          "height": 35,
+          "color": "#77b9ed",
+          "label": "Mastcam",
+          "role": "detail",
+          "description": "Cámara Mastcam que observa el cielo",
+          "motion": "none"
+        },
+        {
+          "shape": "circle",
+          "x": 720,
+          "y": 500,
+          "width": 80,
+          "height": 80,
+          "color": "#efb45f",
+          "label": "Sol",
+          "role": "subject",
+          "description": "Disco solar observado desde Gale",
+          "motion": "none"
+        },
+        {
+          "shape": "arc",
+          "x": 720,
+          "y": 500,
+          "width": 180,
+          "height": 140,
+          "color": "#77b9ed",
+          "label": "halo azul",
+          "role": "effect",
+          "description": "Región azul del atardecer fotografiada",
+          "motion": "pulse"
+        },
+        {
+          "shape": "polygon",
+          "x": 500,
+          "y": 810,
+          "width": 520,
+          "height": 100,
+          "color": "#d86c55",
+          "label": "cráter Gale",
+          "role": "environment",
+          "description": "Cresta rocosa del cráter",
+          "motion": "none"
+        }
+      ],
+      "sound_effect": "click",
+      "labels": [
+        "Curiosity",
+        "Mastcam",
+        "Gale"
+      ]
+    },
+    {
+      "headline": "No es una edición de color",
+      "subtitle": "Las imágenes ayudan a estudiar el polvo",
+      "narration_excerpt": "No es un filtro de cámara: las imágenes se calibraron para representar los colores, y el fenómeno también ayuda a estudiar el polvo suspendido en la atmósfera.",
+      "visual_type": "fact",
+      "background": "sky",
+      "description": "Cierre con la fotografía conceptual del horizonte marciano y una superposición científica discreta de partículas a distintas alturas.",
+      "action": "La cámara se aleja del Sol y revela una columna atmosférica con polvo suspendido; el plano termina en el paisaje completo.",
+      "camera": {
+        "movement": "pull_out",
+        "zoom_start": 1,
+        "zoom_end": 1.07
+      },
+      "accent": "#55d6c2",
+      "visual_elements": [
+        {
+          "shape": "circle",
+          "x": 500,
+          "y": 480,
+          "width": 80,
+          "height": 80,
+          "color": "#efb45f",
+          "label": "Sol",
+          "role": "main_subject",
+          "description": "Sol cerca del horizonte marciano",
+          "motion": "none"
+        },
+        {
+          "shape": "arc",
+          "x": 500,
+          "y": 480,
+          "width": 220,
+          "height": 160,
+          "color": "#77b9ed",
+          "label": "luz azul",
+          "role": "effect",
+          "description": "Halo azulado natural alrededor del Sol",
+          "motion": "none"
+        },
+        {
+          "shape": "circle",
+          "x": 300,
+          "y": 390,
+          "width": 18,
+          "height": 18,
+          "color": "#f3eee5",
+          "label": "polvo alto",
+          "role": "detail",
+          "description": "Partícula de polvo en altura",
+          "motion": "none"
+        },
+        {
+          "shape": "circle",
+          "x": 650,
+          "y": 360,
+          "width": 22,
+          "height": 22,
+          "color": "#c5a47a",
+          "label": "polvo",
+          "role": "detail",
+          "description": "Partícula suspendida a otra altura",
+          "motion": "none"
+        },
+        {
+          "shape": "wave",
+          "x": 500,
+          "y": 550,
+          "width": 360,
+          "height": 100,
+          "color": "#d86c55",
+          "label": "atmósfera",
+          "role": "context",
+          "description": "Capa atmosférica con polvo fino",
+          "motion": "flow"
+        },
+        {
+          "shape": "polygon",
+          "x": 500,
+          "y": 790,
+          "width": 520,
+          "height": 110,
+          "color": "#d86c55",
+          "label": "Gale",
+          "role": "landscape",
+          "description": "Relieve del cráter Gale al anochecer",
+          "motion": "none"
+        }
+      ],
+      "sound_effect": "wind",
+      "labels": [
+        "Color real",
+        "Polvo",
+        "Ciencia"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "title": "NASA Science — What Do Sunrises and Sunsets Look Like on Mars?",
+      "url": "https://science.nasa.gov/solar-system/planets/mars/what-does-a-sunrise-sunset-look-like-on-mars/"
+    },
+    {
+      "title": "NASA Science — Sunset at Mars' Gale Crater (Curiosity)",
+      "url": "https://science.nasa.gov/resource/sunset-at-mars-gale-crater-curiosity/"
+    },
+    {
+      "title": "NASA/JPL — Sunset Sequence in Mars' Gale Crater",
+      "url": "https://www.jpl.nasa.gov/images/pia19401-sunset-sequence-in-mars-gale-crater-animation/"
+    }
+  ],
+  "caption": "En Marte, el polvo cambia la forma en que la luz del Sol se reparte por el cielo."
+}

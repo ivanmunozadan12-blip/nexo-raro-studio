@@ -1,0 +1,782 @@
+{
+  "title": "Cómo se camufla un pulpo",
+  "hook": "Un pulpo puede desaparecer delante de tus ojos. Y su piel es la responsable.",
+  "narration": "Un pulpo puede cambiar de aspecto tan rápido que parece desaparecer delante de tus ojos. Pero no lo hace con magia: su piel funciona como una pantalla viva. Primero detecta el entorno con sus ojos y su sistema nervioso procesa qué patrón le conviene. Después envía señales a miles de células llamadas cromatóforos. Cada una guarda pigmento dentro de una pequeña bolsa elástica. Cuando unos músculos diminutos tiran de ella, la bolsa se expande y el color se vuelve visible; cuando se relaja, se contrae y el tono se apaga. Así aparecen manchas, bandas y destellos en cuestión de instantes. Algunas capas de la piel también reflejan la luz y aportan brillos azules o verdes. Y no solo cambia el color: puede levantar pequeñas protuberancias para parecer roca, alga o coral. El resultado no es una copia perfecta del fondo, sino un patrón que confunde a quien lo observa. Su piel es, literalmente, un disfraz controlado por el sistema nervioso.",
+  "scenes": [
+    {
+      "headline": "¿Dónde está el pulpo?",
+      "subtitle": "Un maestro del camuflaje entre las rocas",
+      "narration_excerpt": "Un pulpo puede cambiar de aspecto tan rápido que parece desaparecer delante de tus ojos.",
+      "visual_type": "octopus",
+      "background": "ocean",
+      "description": "Un pulpo realista de cuerpo entero ocupa el primer plano sobre un arrecife rocoso; un brazo se confunde con una roca y otro queda visible para que el animal siga siendo reconocible.",
+      "action": "La cámara se desliza entre algas; el pulpo cambia de marrón a moteado y se revela su silueta.",
+      "camera": {
+        "movement": "follow",
+        "zoom_start": 1,
+        "zoom_end": 1.07
+      },
+      "accent": "#ef8eaa",
+      "visual_elements": [
+        {
+          "shape": "ellipse",
+          "x": 480,
+          "y": 590,
+          "width": 300,
+          "height": 190,
+          "color": "#d86c55",
+          "label": "manto del pulpo",
+          "role": "main_subject",
+          "description": "Manto ovalado del pulpo, volumen principal del animal",
+          "motion": "float"
+        },
+        {
+          "shape": "line",
+          "x": 350,
+          "y": 650,
+          "width": 240,
+          "height": 95,
+          "color": "#ef8eaa",
+          "label": "brazo extendido",
+          "role": "anatomy",
+          "description": "Uno de los ocho brazos se curva sobre la roca",
+          "motion": "flow"
+        },
+        {
+          "shape": "line",
+          "x": 610,
+          "y": 650,
+          "width": 210,
+          "height": 150,
+          "color": "#ef8eaa",
+          "label": "ventosas",
+          "role": "detail",
+          "description": "Fila de ventosas visibles en la cara interior del brazo",
+          "motion": "pulse"
+        },
+        {
+          "shape": "ellipse",
+          "x": 555,
+          "y": 520,
+          "width": 45,
+          "height": 40,
+          "color": "#f3eee5",
+          "label": "ojo",
+          "role": "anatomy",
+          "description": "Ojo grande orientado hacia el entorno",
+          "motion": "none"
+        },
+        {
+          "shape": "polygon",
+          "x": 160,
+          "y": 740,
+          "width": 230,
+          "height": 110,
+          "color": "#c5a47a",
+          "label": "roca",
+          "role": "environment",
+          "description": "Roca irregular del arrecife que ofrece refugio",
+          "motion": "none"
+        },
+        {
+          "shape": "wave",
+          "x": 220,
+          "y": 430,
+          "width": 250,
+          "height": 60,
+          "color": "#77b9ed",
+          "label": "agua",
+          "role": "atmosphere",
+          "description": "Ondulación de agua azul filtrando la luz",
+          "motion": "flow"
+        }
+      ],
+      "sound_effect": "water",
+      "labels": [
+        "Manto",
+        "Ojo",
+        "Brazos"
+      ]
+    },
+    {
+      "headline": "Lee el escenario",
+      "subtitle": "El cambio empieza al observar el entorno",
+      "narration_excerpt": "Pero no lo hace con magia: su piel funciona como una pantalla viva. Primero detecta el entorno con sus ojos y su sistema nervioso procesa qué patrón le conviene.",
+      "visual_type": "map",
+      "background": "ocean",
+      "description": "Plano subjetivo del fondo marino: roca, arena, algas y coral se distribuyen en profundidad; el ojo del pulpo aparece en un extremo como punto de vista.",
+      "action": "Un barrido recorre texturas y colores del hábitat; líneas finas conectan el ojo con zonas de contraste.",
+      "camera": {
+        "movement": "pan_right",
+        "zoom_start": 1,
+        "zoom_end": 1.07
+      },
+      "accent": "#55d6c2",
+      "visual_elements": [
+        {
+          "shape": "ellipse",
+          "x": 155,
+          "y": 480,
+          "width": 100,
+          "height": 75,
+          "color": "#efb45f",
+          "label": "ojo",
+          "role": "main_subject",
+          "description": "Ojo del pulpo que recoge información visual",
+          "motion": "none"
+        },
+        {
+          "shape": "polygon",
+          "x": 390,
+          "y": 690,
+          "width": 220,
+          "height": 140,
+          "color": "#c5a47a",
+          "label": "roca",
+          "role": "environment",
+          "description": "Roca de tonos ocres con bordes quebrados",
+          "motion": "none"
+        },
+        {
+          "shape": "wave",
+          "x": 720,
+          "y": 580,
+          "width": 210,
+          "height": 90,
+          "color": "#55d6c2",
+          "label": "alga",
+          "role": "environment",
+          "description": "Masa de algas que se balancea con la corriente",
+          "motion": "flow"
+        },
+        {
+          "shape": "circle",
+          "x": 610,
+          "y": 390,
+          "width": 120,
+          "height": 90,
+          "color": "#d86c55",
+          "label": "coral",
+          "role": "environment",
+          "description": "Parche de coral rojizo con textura ramificada",
+          "motion": "none"
+        },
+        {
+          "shape": "line",
+          "x": 205,
+          "y": 500,
+          "width": 330,
+          "height": 150,
+          "color": "#77b9ed",
+          "label": "señal visual",
+          "role": "explanation",
+          "description": "Trayectoria de información desde el ojo hacia el sistema nervioso",
+          "motion": "flow"
+        },
+        {
+          "shape": "arc",
+          "x": 470,
+          "y": 450,
+          "width": 150,
+          "height": 150,
+          "color": "#f3eee5",
+          "label": "contraste",
+          "role": "highlight",
+          "description": "Arco que resalta las diferencias de textura y luminosidad",
+          "motion": "pulse"
+        }
+      ],
+      "sound_effect": "click",
+      "labels": [
+        "Ojo",
+        "Roca",
+        "Alga"
+      ]
+    },
+    {
+      "headline": "Una piel llena de células",
+      "subtitle": "Los cromatóforos guardan pigmentos",
+      "narration_excerpt": "Después envía señales a miles de células llamadas cromatóforos.",
+      "visual_type": "object_cutaway",
+      "background": "dark_lab",
+      "description": "Corte microscópico de la piel del pulpo en capas; numerosos cromatóforos redondos con sacos pigmentados aparecen justo bajo la superficie.",
+      "action": "La cámara atraviesa la piel y se acerca a una célula; su saco central queda iluminado.",
+      "camera": {
+        "movement": "push_in",
+        "zoom_start": 1,
+        "zoom_end": 1.07
+      },
+      "accent": "#efb45f",
+      "visual_elements": [
+        {
+          "shape": "rounded_rect",
+          "x": 500,
+          "y": 600,
+          "width": 430,
+          "height": 170,
+          "color": "#17354a",
+          "label": "piel",
+          "role": "main_subject",
+          "description": "Sección horizontal de la piel del pulpo",
+          "motion": "none"
+        },
+        {
+          "shape": "circle",
+          "x": 360,
+          "y": 500,
+          "width": 115,
+          "height": 115,
+          "color": "#efb45f",
+          "label": "cromatóforo",
+          "role": "cell",
+          "description": "Célula pigmentaria ampliada con saco central",
+          "motion": "none"
+        },
+        {
+          "shape": "circle",
+          "x": 360,
+          "y": 500,
+          "width": 45,
+          "height": 45,
+          "color": "#d86c55",
+          "label": "saco de pigmento",
+          "role": "mechanism",
+          "description": "Bolsa elástica que contiene pigmento rojo",
+          "motion": "none"
+        },
+        {
+          "shape": "circle",
+          "x": 520,
+          "y": 550,
+          "width": 70,
+          "height": 70,
+          "color": "#efb45f",
+          "label": "célula vecina",
+          "role": "cell",
+          "description": "Segundo cromatóforo dentro de la misma capa",
+          "motion": "none"
+        },
+        {
+          "shape": "circle",
+          "x": 660,
+          "y": 540,
+          "width": 62,
+          "height": 62,
+          "color": "#d86c55",
+          "label": "pigmento",
+          "role": "detail",
+          "description": "Pigmento concentrado dentro de una célula",
+          "motion": "none"
+        },
+        {
+          "shape": "line",
+          "x": 360,
+          "y": 440,
+          "width": 0,
+          "height": 120,
+          "color": "#f3eee5",
+          "label": "superficie",
+          "role": "anatomy",
+          "description": "Límite superior de la piel observado en corte",
+          "motion": "none"
+        }
+      ],
+      "sound_effect": "electric",
+      "labels": [
+        "Piel",
+        "Cromatóforo",
+        "Pigmento"
+      ]
+    },
+    {
+      "headline": "Un músculo abre el color",
+      "subtitle": "La bolsa se estira y muestra pigmento",
+      "narration_excerpt": "Cada una guarda pigmento dentro de una pequeña bolsa elástica. Cuando unos músculos diminutos tiran de ella, la bolsa se expande y el color se vuelve visible;",
+      "visual_type": "science",
+      "background": "dark_lab",
+      "description": "Macroanimación de un cromatóforo aislado: saco central rodeado de fibras musculares radiales, con fondo oscuro de laboratorio.",
+      "action": "Las fibras se contraen hacia fuera; el saco se ensancha y el disco pigmentado ocupa más superficie.",
+      "camera": {
+        "movement": "push_in",
+        "zoom_start": 1,
+        "zoom_end": 1.07
+      },
+      "accent": "#d86c55",
+      "visual_elements": [
+        {
+          "shape": "circle",
+          "x": 500,
+          "y": 560,
+          "width": 190,
+          "height": 190,
+          "color": "#d86c55",
+          "label": "saco pigmentado",
+          "role": "main_subject",
+          "description": "Saco elástico de pigmento expandido",
+          "motion": "none"
+        },
+        {
+          "shape": "line",
+          "x": 500,
+          "y": 560,
+          "width": 300,
+          "height": 0,
+          "color": "#efb45f",
+          "label": "músculos radiales",
+          "role": "mechanism",
+          "description": "Fibras musculares que tiran del saco hacia fuera",
+          "motion": "pulse"
+        },
+        {
+          "shape": "line",
+          "x": 500,
+          "y": 560,
+          "width": 0,
+          "height": 300,
+          "color": "#efb45f",
+          "label": "fibras",
+          "role": "mechanism",
+          "description": "Segundo eje de fibras musculares radiales",
+          "motion": "pulse"
+        },
+        {
+          "shape": "circle",
+          "x": 500,
+          "y": 560,
+          "width": 55,
+          "height": 55,
+          "color": "#17354a",
+          "label": "centro celular",
+          "role": "detail",
+          "description": "Centro de la célula pigmentaria",
+          "motion": "none"
+        },
+        {
+          "shape": "arc",
+          "x": 500,
+          "y": 560,
+          "width": 260,
+          "height": 260,
+          "color": "#f3eee5",
+          "label": "expansión",
+          "role": "explanation",
+          "description": "Arco que indica el aumento de superficie pigmentada",
+          "motion": "flow"
+        },
+        {
+          "shape": "arrow",
+          "x": 700,
+          "y": 430,
+          "width": 120,
+          "height": 60,
+          "color": "#55d6c2",
+          "label": "señal nerviosa",
+          "role": "signal",
+          "description": "Impulso nervioso que activa los músculos",
+          "motion": "flow"
+        }
+      ],
+      "sound_effect": "electric",
+      "labels": [
+        "Pigmento",
+        "Músculos",
+        "Señal"
+      ]
+    },
+    {
+      "headline": "El patrón aparece",
+      "subtitle": "Miles de células actúan coordinadas",
+      "narration_excerpt": "cuando se relaja, se contrae y el tono se apaga. Así aparecen manchas, bandas y destellos en cuestión de instantes.",
+      "visual_type": "process",
+      "background": "dark_lab",
+      "description": "Vista cenital de un fragmento de piel con cromatóforos de distintos pigmentos; algunos están expandidos y otros contraídos.",
+      "action": "Manchas naranjas y marrones se expanden en secuencia formando bandas; otras se apagan para crear contraste.",
+      "camera": {
+        "movement": "pan_left",
+        "zoom_start": 1,
+        "zoom_end": 1.07
+      },
+      "accent": "#efb45f",
+      "visual_elements": [
+        {
+          "shape": "circle",
+          "x": 260,
+          "y": 500,
+          "width": 100,
+          "height": 100,
+          "color": "#d86c55",
+          "label": "mancha roja",
+          "role": "main_subject",
+          "description": "Grupo de cromatóforos rojos expandidos",
+          "motion": "none"
+        },
+        {
+          "shape": "circle",
+          "x": 460,
+          "y": 440,
+          "width": 70,
+          "height": 70,
+          "color": "#efb45f",
+          "label": "punto amarillo",
+          "role": "pattern",
+          "description": "Cromatóforos amarillos activos",
+          "motion": "none"
+        },
+        {
+          "shape": "circle",
+          "x": 650,
+          "y": 560,
+          "width": 120,
+          "height": 120,
+          "color": "#17354a",
+          "label": "zona apagada",
+          "role": "contrast",
+          "description": "Área donde los sacos pigmentarios están contraídos",
+          "motion": "none"
+        },
+        {
+          "shape": "wave",
+          "x": 470,
+          "y": 650,
+          "width": 330,
+          "height": 55,
+          "color": "#55d6c2",
+          "label": "patrón en avance",
+          "role": "motion_path",
+          "description": "Onda de activación que recorre la piel",
+          "motion": "flow"
+        },
+        {
+          "shape": "arc",
+          "x": 260,
+          "y": 500,
+          "width": 155,
+          "height": 155,
+          "color": "#f3eee5",
+          "label": "expansión",
+          "role": "explanation",
+          "description": "Contorno que muestra la expansión del pigmento",
+          "motion": "pulse"
+        },
+        {
+          "shape": "line",
+          "x": 150,
+          "y": 730,
+          "width": 660,
+          "height": 0,
+          "color": "#c5a47a",
+          "label": "superficie cutánea",
+          "role": "context",
+          "description": "Plano de piel visto desde arriba",
+          "motion": "none"
+        }
+      ],
+      "sound_effect": "whoosh",
+      "labels": [
+        "Manchas",
+        "Bandas",
+        "Contraste"
+      ]
+    },
+    {
+      "headline": "También refleja la luz",
+      "subtitle": "Otras capas crean tonos iridiscentes",
+      "narration_excerpt": "Algunas capas de la piel también reflejan la luz y aportan brillos azules o verdes.",
+      "visual_type": "molecule",
+      "background": "dark_lab",
+      "description": "Sección lateral de la piel mostrando cromatóforos en la parte superior e iridóforos reflectantes debajo; haces de luz rebotan en placas microscópicas.",
+      "action": "Un haz blanco llega a la capa reflectante y sale separado en destellos azules y verdes.",
+      "camera": {
+        "movement": "pan_right",
+        "zoom_start": 1,
+        "zoom_end": 1.07
+      },
+      "accent": "#77b9ed",
+      "visual_elements": [
+        {
+          "shape": "rounded_rect",
+          "x": 500,
+          "y": 680,
+          "width": 430,
+          "height": 90,
+          "color": "#d86c55",
+          "label": "cromatóforos",
+          "role": "layer",
+          "description": "Capa superficial con pigmentos",
+          "motion": "none"
+        },
+        {
+          "shape": "rounded_rect",
+          "x": 500,
+          "y": 570,
+          "width": 430,
+          "height": 85,
+          "color": "#77b9ed",
+          "label": "iridóforos",
+          "role": "main_subject",
+          "description": "Capa de células reflectantes bajo los cromatóforos",
+          "motion": "none"
+        },
+        {
+          "shape": "line",
+          "x": 300,
+          "y": 380,
+          "width": 180,
+          "height": 140,
+          "color": "#f3eee5",
+          "label": "luz entrante",
+          "role": "light",
+          "description": "Rayo de luz que alcanza la capa reflectante",
+          "motion": "flow"
+        },
+        {
+          "shape": "line",
+          "x": 500,
+          "y": 570,
+          "width": 190,
+          "height": -150,
+          "color": "#55d6c2",
+          "label": "reflejo azul",
+          "role": "light",
+          "description": "Luz reflejada en dirección azulada",
+          "motion": "flow"
+        },
+        {
+          "shape": "line",
+          "x": 530,
+          "y": 570,
+          "width": 220,
+          "height": -80,
+          "color": "#efb45f",
+          "label": "reflejo verde",
+          "role": "light",
+          "description": "Luz reflejada en dirección verdosa",
+          "motion": "flow"
+        },
+        {
+          "shape": "arc",
+          "x": 500,
+          "y": 570,
+          "width": 260,
+          "height": 200,
+          "color": "#f3eee5",
+          "label": "placas",
+          "role": "detail",
+          "description": "Placas microscópicas que producen iridiscencia",
+          "motion": "none"
+        }
+      ],
+      "sound_effect": "electric",
+      "labels": [
+        "Pigmento",
+        "Reflejo",
+        "Iris"
+      ]
+    },
+    {
+      "headline": "No solo cambia de color",
+      "subtitle": "La piel puede imitar texturas",
+      "narration_excerpt": "Y no solo cambia el color: puede levantar pequeñas protuberancias para parecer roca, alga o coral.",
+      "visual_type": "illustration",
+      "background": "ocean",
+      "description": "Pulpo camuflado junto a un coral rugoso y algas ondulantes; sus papilas cutáneas se levantan para romper la silueta lisa.",
+      "action": "Pequeñas protuberancias emergen sobre el manto; la forma del pulpo se vuelve irregular y recuerda al coral.",
+      "camera": {
+        "movement": "pull_out",
+        "zoom_start": 1,
+        "zoom_end": 1.07
+      },
+      "accent": "#55d6c2",
+      "visual_elements": [
+        {
+          "shape": "ellipse",
+          "x": 470,
+          "y": 590,
+          "width": 270,
+          "height": 150,
+          "color": "#ef8eaa",
+          "label": "manto",
+          "role": "main_subject",
+          "description": "Manto del pulpo con superficie irregular",
+          "motion": "none"
+        },
+        {
+          "shape": "polygon",
+          "x": 470,
+          "y": 500,
+          "width": 250,
+          "height": 150,
+          "color": "#c5a47a",
+          "label": "papilas",
+          "role": "mechanism",
+          "description": "Proyecciones de la piel que levantan textura",
+          "motion": "pulse"
+        },
+        {
+          "shape": "wave",
+          "x": 230,
+          "y": 670,
+          "width": 220,
+          "height": 100,
+          "color": "#55d6c2",
+          "label": "alga",
+          "role": "environment",
+          "description": "Alga flexible que se mueve con la corriente",
+          "motion": "flow"
+        },
+        {
+          "shape": "polygon",
+          "x": 700,
+          "y": 690,
+          "width": 190,
+          "height": 120,
+          "color": "#d86c55",
+          "label": "coral",
+          "role": "environment",
+          "description": "Coral ramificado que sirve de modelo de camuflaje",
+          "motion": "none"
+        },
+        {
+          "shape": "circle",
+          "x": 340,
+          "y": 530,
+          "width": 28,
+          "height": 28,
+          "color": "#f3eee5",
+          "label": "ojo",
+          "role": "anatomy",
+          "description": "Ojo visible que mantiene reconocible al animal",
+          "motion": "none"
+        },
+        {
+          "shape": "arc",
+          "x": 470,
+          "y": 590,
+          "width": 320,
+          "height": 180,
+          "color": "#efb45f",
+          "label": "contorno roto",
+          "role": "explanation",
+          "description": "Contorno irregular que rompe la silueta del pulpo",
+          "motion": "none"
+        }
+      ],
+      "sound_effect": "water",
+      "labels": [
+        "Papilas",
+        "Coral",
+        "Alga"
+      ]
+    },
+    {
+      "headline": "Un disfraz dirigido por el cerebro",
+      "subtitle": "No copia píxel a píxel: crea un patrón",
+      "narration_excerpt": "El resultado no es una copia perfecta del fondo, sino un patrón que confunde a quien lo observa. Su piel es, literalmente, un disfraz controlado por el sistema nervioso.",
+      "visual_type": "octopus",
+      "background": "ocean",
+      "description": "Plano final del pulpo cruzando un fondo mixto de roca, arena y coral; su piel muestra un patrón moteado que lo hace difícil de distinguir, pero su silueta sigue visible.",
+      "action": "El patrón cambia una última vez y la cámara se aleja para revelar que el animal sigue moviéndose entre el arrecife.",
+      "camera": {
+        "movement": "pull_out",
+        "zoom_start": 1,
+        "zoom_end": 1.07
+      },
+      "accent": "#ef8eaa",
+      "visual_elements": [
+        {
+          "shape": "ellipse",
+          "x": 480,
+          "y": 590,
+          "width": 300,
+          "height": 180,
+          "color": "#d86c55",
+          "label": "pulpo",
+          "role": "main_subject",
+          "description": "Animal completo con manto y brazos visibles",
+          "motion": "none"
+        },
+        {
+          "shape": "line",
+          "x": 350,
+          "y": 670,
+          "width": 210,
+          "height": 90,
+          "color": "#ef8eaa",
+          "label": "brazo",
+          "role": "anatomy",
+          "description": "Brazo que se adapta al relieve de la roca",
+          "motion": "none"
+        },
+        {
+          "shape": "polygon",
+          "x": 180,
+          "y": 730,
+          "width": 230,
+          "height": 100,
+          "color": "#c5a47a",
+          "label": "roca",
+          "role": "environment",
+          "description": "Roca irregular del fondo",
+          "motion": "none"
+        },
+        {
+          "shape": "wave",
+          "x": 700,
+          "y": 690,
+          "width": 210,
+          "height": 90,
+          "color": "#55d6c2",
+          "label": "algas",
+          "role": "environment",
+          "description": "Algas que se balancean alrededor del animal",
+          "motion": "flow"
+        },
+        {
+          "shape": "circle",
+          "x": 555,
+          "y": 520,
+          "width": 38,
+          "height": 38,
+          "color": "#f3eee5",
+          "label": "ojo",
+          "role": "anatomy",
+          "description": "Ojo visible bajo el borde del manto",
+          "motion": "none"
+        },
+        {
+          "shape": "arc",
+          "x": 480,
+          "y": 590,
+          "width": 330,
+          "height": 200,
+          "color": "#efb45f",
+          "label": "patrón",
+          "role": "highlight",
+          "description": "Patrón moteado que rompe el contorno",
+          "motion": "pulse"
+        }
+      ],
+      "sound_effect": "water",
+      "labels": [
+        "Camuflaje",
+        "Sistema nervioso",
+        "Entorno"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "title": "Smithsonian Ocean — How Octopuses and Squids Change Color",
+      "url": "https://ocean.si.edu/ocean-life/invertebrates/how-octopuses-and-squids-change-color"
+    },
+    {
+      "title": "Smithsonian Ocean — Cephalopods: Octopus, Squid, Cuttlefish, and Nautilus",
+      "url": "https://ocean.si.edu/ocean-life/invertebrates/octopuses-squids-and-relatives"
+    },
+    {
+      "title": "Current Biology — Neural control of cephalopod camouflage",
+      "url": "https://doi.org/10.1016/j.cub.2023.08.095"
+    }
+  ],
+  "caption": "La piel del pulpo es mucho más que color: es un sistema de camuflaje vivo."
+}

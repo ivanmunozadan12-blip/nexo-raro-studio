@@ -39,16 +39,66 @@ def gradient():
 BG=gradient()
 PARTICLES=[(random.randrange(W),random.randrange(H),random.randrange(2,6),random.random()*6.28) for _ in range(32)]
 
-def base_frame(t, accent):
-    im=BG.copy()
+def draw_cloud(d, x, y, scale=1.0, alpha=190):
+    color=(248,252,255,int(alpha))
+    parts=[(-34,8,34,25),(-12,-8,38,22),(18,2,43,24)]
+    for x0,y0,rx,ry in parts:
+        d.ellipse(((x+x0*scale-rx*scale)*S,(y+y0*scale-ry*scale)*S,(x+x0*scale+rx*scale)*S,(y+y0*scale+ry*scale)*S),fill=color)
+
+def sky_background(t):
+    y=(np.linspace(0,1,H*S)**.9)[:,None,None]
+    top=np.array([43,126,202],dtype=np.float32)[None,None,:]
+    bottom=np.array([203,226,239],dtype=np.float32)[None,None,:]
+    rows=top*(1-y)+bottom*y
+    pixels=np.repeat(rows,W*S,axis=1).astype(np.uint8)
+    im=Image.fromarray(pixels,"RGB").convert("RGBA")
+    clouds=Image.new("RGBA",im.size,(0,0,0,0)); d=ImageDraw.Draw(clouds,"RGBA")
+    for i in range(9):
+        x=((i*137-t*(8+i%3)*2)%(W+180))-90
+        yy=180+(i%4)*132+math.sin(t*.35+i)*12
+        draw_cloud(d,x,yy,.72+(i%3)*.17,110+(i%3)*22)
+    d.rectangle((0,790*S,W*S,H*S),fill=(215,231,229,110))
+    return Image.alpha_composite(im,clouds)
+
+def base_frame(t, accent, scene=None):
+    scene=scene or {}
+    background=str(scene.get("background","dark_lab")).lower()
+    if background=="sky":
+        im=sky_background(t)
+    elif background=="clean":
+        im=Image.new("RGBA",(W*S,H*S),(13,28,43,255))
+    elif background=="workshop":
+        im=Image.new("RGBA",(W*S,H*S),(24,31,40,255))
+    elif background=="ocean":
+        im=Image.new("RGBA",(W*S,H*S),(4,54,78,255))
+    elif background=="nature":
+        im=Image.new("RGBA",(W*S,H*S),(21,63,56,255))
+    else:
+        im=BG.copy()
     overlay=Image.new("RGBA",im.size,(0,0,0,0)); d=ImageDraw.Draw(overlay,"RGBA")
+    if background=="workshop":
+        for x in range(0,W,48): d.line((x*S,90*S,x*S,H*S),fill=(180,205,220,18),width=S)
+        for y in range(130,H,48): d.line((0,y*S,W*S,y*S),fill=(180,205,220,18),width=S)
+        for i in range(4):
+            x=((i*170+t*5)%700)-70
+            d.line((x*S,100*S,(x-150)*S,H*S),fill=(255,185,90,12),width=12*S)
+    elif background=="ocean":
+        for i in range(5):
+            y=560+i*82+math.sin(t*1.1+i)*10
+            pts=[(x*S,(y+math.sin(x/38+t*1.5+i)*9)*S) for x in range(0,W+1,5)]
+            d.line(pts,fill=(110,215,225,35),width=3*S)
+    elif background=="nature":
+        for i in range(7):
+            x=(i*96+35)*S
+            d.ellipse((x-85*S,710*S,x+85*S,1030*S),fill=(5,36,35,45))
     for i in range(7):
         x=((i*155+t*13)%900)-180
         d.polygon([(int(x*S),0),(int((x+30)*S),0),(int((x-210)*S),H*S),(int((x-240)*S),H*S)],fill=(150,205,255,4))
-    for x,y,r,p in PARTICLES:
-        yy=(y-t*(9+r*2))%(H+20)-10
-        xx=x+7*math.sin(t*.8+p)
-        d.ellipse(((xx-r)*S,(yy-r)*S,(xx+r)*S,(yy+r)*S),outline=(190,225,255,50),width=S)
+    if background not in ("sky","clean","workshop","ocean","nature"):
+        for x,y,r,p in PARTICLES:
+            yy=(y-t*(9+r*2))%(H+20)-10
+            xx=x+7*math.sin(t*.8+p)
+            d.ellipse(((xx-r)*S,(yy-r)*S,(xx+r)*S,(yy+r)*S),outline=(190,225,255,50),width=S)
     d.rounded_rectangle((28*S,28*S,548*S,66*S),radius=12*S,fill=(7,22,42,165),outline=(255,255,255,35),width=S)
     text_fit(d,(44,39),"BEHIND DEL MUNDO",15,(245,249,255,245),bold=True)
     d.ellipse((511*S,43*S,521*S,53*S),fill=rgba(accent))
@@ -214,6 +264,28 @@ def draw_aircraft(d,cx,cy,t,accent):
         d.line((x*S,600*S,(x-22)*S,600*S),fill=rgba(accent,120),width=2*S)
     text_fit(d,(285,720),"SUSTENTACIÓN · EMPUJE · CONTROL",12,(235,247,255),max_width=420,anchor="mm",bold=False)
 
+def draw_aircraft_in_sky(d,cx,cy,t,accent):
+    # Tracking shot: a passenger jet crosses a real sky with layered moving clouds.
+    x=cx+12*math.sin(t*.7); y=cy-18+7*math.sin(t*.9)
+    trail_x=max(28,x-210-25*math.sin(t*.5))
+    d.line((trail_x*S,(y+18)*S,(x-70)*S,(y+18)*S),fill=(255,255,255,125),width=5*S)
+    d.line((trail_x*S,(y+24)*S,(x-80)*S,(y+24)*S),fill=(230,245,255,80),width=2*S)
+    body=[(x-142,y+4),(x-92,y-10),(x+112,y-9),(x+148,y+2),(x+119,y+15),(x-105,y+17)]
+    d.polygon([(a*S,b*S) for a,b in body],fill=(238,244,248),outline=(65,91,112),width=2*S)
+    d.polygon([((x-18)*S,(y+3)*S),((x+32)*S,(y-112)*S),((x+63)*S,(y-110)*S),((x+42)*S,(y+5)*S)],fill=(128,158,180),outline=(238,247,251),width=2*S)
+    d.polygon([((x-6)*S,(y+12)*S),((x+55)*S,(y+104)*S),((x+82)*S,(y+102)*S),((x+35)*S,(y+12)*S)],fill=(105,137,160),outline=(236,246,250),width=2*S)
+    d.polygon([((x-112)*S,(y-4)*S),((x-154)*S,(y-57)*S),((x-129)*S,(y-58)*S),((x-78)*S,(y-8)*S)],fill=(130,162,182),outline=(238,247,251),width=2*S)
+    for k in range(7):
+        wx=x-78+k*25
+        d.ellipse(((wx-3)*S,(y-1)*S,(wx+3)*S,(y+5)*S),fill=(40,91,125))
+    for ex in (x-8,x+45):
+        d.ellipse(((ex-13)*S,(y+13)*S,(ex+13)*S,(y+31)*S),fill=(50,69,82),outline=(220,234,242),width=2*S)
+    # Foreground cloud banks create depth and parallax.
+    for i in range(4):
+        cloud_x=((i*185-t*(12+i*2))%(W+220))-110
+        draw_cloud(d,cloud_x,755+(i%2)*55,1.2+(i%2)*.2,220)
+    text_fit(d,(288,820),"AIRE · VAPOR · CRISTALES DE HIELO",12,(255,255,255,240),max_width=430,anchor="mm",bold=True)
+
 def draw_vehicle(d,cx,cy,t,accent):
     panel(d,(48,340,528,790),fill=(7,27,50,170),outline=rgba(accent,130),radius=28)
     body=[(88,620),(110,570),(180,545),(230,480),(360,480),(415,540),(472,570),(492,620),(475,650),(105,650)]
@@ -263,40 +335,176 @@ def draw_turbine(d,cx,cy,t,accent):
         y=735+k*12
         d.line(((190+k*12)*S,y*S,(385-k*12)*S,y*S),fill=rgba(accent,150),width=2*S)
 
+def draw_octopus(d,cx,cy,t,accent):
+    # Silueta reconocible: manto, ojos y ocho brazos ondulantes con ventosas.
+    d.ellipse(((cx-82)*S,(cy-155)*S,(cx+82)*S,(cy+15)*S),fill=(210,105,119),outline=(255,207,198),width=4*S)
+    d.ellipse(((cx-48)*S,(cy-95)*S,(cx-17)*S,(cy-52)*S),fill=(255,255,245))
+    d.ellipse(((cx+17)*S,(cy-95)*S,(cx+48)*S,(cy-52)*S),fill=(255,255,245))
+    for ex in (cx-33,cx+33):
+        d.ellipse(((ex-9)*S,(cy-83)*S,(ex+9)*S,(cy-59)*S),fill=(14,28,42))
+    for arm in range(8):
+        a=math.pi*2*arm/8-math.pi/2
+        pts=[]
+        for k in range(30):
+            u=k/29
+            bend=math.sin(u*math.pi*2+t*2+arm)*22*u
+            x=cx+math.cos(a)*(48+190*u)+math.cos(a+math.pi/2)*bend
+            y=cy-5+math.sin(a)*(38+165*u)+math.sin(a+math.pi/2)*bend
+            pts.append((int(x*S),int(y*S)))
+        d.line(pts,fill=(222,128,139),width=13*S,joint="curve")
+        for k in range(3,27,4):
+            x,y=pts[k]
+            d.ellipse((x-4*S,y-4*S,x+4*S,y+4*S),fill=(255,215,196))
+def draw_flamingo(d,cx,cy,t,accent):
+    # Ave completa con cuello en S, pico negro y patas largas.
+    d.ellipse(((cx-105)*S,(cy-40)*S,(cx+80)*S,(cy+82)*S),fill=(244,133,157),outline=(255,218,222),width=3*S)
+    d.ellipse(((cx+18)*S,(cy-145)*S,(cx+94)*S,(cy-70)*S),fill=(245,145,166),outline=(255,225,229),width=3*S)
+    neck=[(cx+50,cy-65),(cx+22,cy-108),(cx+38,cy-155),(cx+75,cy-160)]
+    d.line([(x*S,y*S) for x,y in neck],fill=(245,145,166),width=24*S,joint="curve")
+    d.polygon([((cx+83)*S,(cy-112)*S),((cx+132)*S,(cy-101)*S),((cx+91)*S,(cy-88)*S)],fill=(28,35,43))
+    d.ellipse(((cx+65)*S,(cy-126)*S,(cx+73)*S,(cy-118)*S),fill=(15,25,35))
+    for x,phase in ((cx-28,0),(cx+28,1)):
+        d.line((x*S,(cy+65)*S,(x+math.sin(t*2+phase)*7)*S, (cy+250)*S),fill=(242,151,170),width=7*S)
+        d.line(((x+math.sin(t*2+phase)*7)*S,(cy+250)*S,(x+28)*S,(cy+255)*S),fill=(242,151,170),width=6*S)
+def draw_satellite(d,cx,cy,t,accent):
+    # Satélite de navegación con paneles solares y antena.
+    d.rectangle(((cx-42)*S,(cy-48)*S,(cx+42)*S,(cy+48)*S),fill=(190,205,215),outline=(255,255,255),width=4*S)
+    for side in (-1,1):
+        x1=cx+side*48
+        left,right=sorted((x1-side*105,x1+side*105))
+        d.rectangle((left*S,(cy-62)*S,right*S,(cy+62)*S),fill=(31,83,132),outline=(125,201,238),width=3*S)
+        for k in range(1,5):
+            xx=left+k*(right-left)/5
+            d.line((xx*S,(cy-60)*S,xx*S,(cy+60)*S),fill=(150,210,240),width=2*S)
+    d.line((cx*S,(cy-48)*S,cx*S,(cy-125)*S),fill=(230,238,243),width=4*S)
+    d.ellipse(((cx-18)*S,(cy-145)*S,(cx+18)*S,(cy-109)*S),fill=rgba(accent))
+    for k in range(3):
+        r=72+k*24+int(5*math.sin(t*4+k))
+        d.arc(((cx-r)*S,(cy-r)*S,(cx+r)*S,(cy+r)*S),205,335,fill=rgba(accent,190-k*35),width=3*S)
+def draw_mars(d,cx,cy,t,accent):
+    # Planeta rojo, horizonte y resplandor azul del atardecer marciano.
+    d.ellipse((70*S,340*S,506*S,776*S),fill=(157,66,48),outline=(241,150,112),width=5*S)
+    for i in range(9):
+        x=110+i*43
+        y=450+int(95*math.sin(i*1.3))
+        d.arc(((x-40)*S,(y-20)*S,(x+60)*S,(y+45)*S),190,345,fill=(91,43,40,180),width=5*S)
+    d.rectangle((0,710*S,W*S,860*S),fill=(83,43,42,255))
+    for i in range(6):
+        x=i*120-30
+        d.polygon([(x*S,740*S),((x+65)*S,(690+i%2*22)*S),((x+145)*S,740*S)],fill=(112,57,48))
+    for r in range(8,0,-1):
+        d.ellipse(((cx-r*27)*S,(690-r*9)*S,(cx+r*27)*S,(690+r*9)*S),outline=(68,160,231,18),width=2*S)
+
+def draw_mars_sunset(d,cx,cy,t,accent):
+    # Paisaje marciano al ocaso: horizonte cálido y halo azul junto al Sol.
+    for y in range(300,760,4):
+        q=(y-300)/460
+        col=(int(19+34*q),int(34+24*q),int(67-23*q),255)
+        d.rectangle((0,y*S,W*S,(y+4)*S),fill=col)
+    sun_x=390+int(5*math.sin(t*.7)); sun_y=600
+    d.ellipse(((sun_x-34)*S,(sun_y-34)*S,(sun_x+34)*S,(sun_y+34)*S),fill=(245,190,125,255))
+    for r in (68,94,120):
+        d.arc(((sun_x-r)*S,(sun_y-r*.72)*S,(sun_x+r)*S,(sun_y+r*.72)*S),205,335,fill=(92,174,231,170),width=4*S)
+    d.polygon([(0,735*S),(85*S,690*S),(170*S,720*S),(260*S,665*S),(355*S,715*S),(450*S,680*S),(W*S,730*S),(W*S,H*S),(0,H*S)],fill=(119,57,48,255))
+    d.polygon([(0,790*S),(120*S,755*S),(230*S,790*S),(350*S,748*S),(470*S,780*S),(W*S,760*S),(W*S,H*S),(0,H*S)],fill=(76,43,43,255))
+    for i in range(18):
+        x=(i*83+int(t*4))%(W+30)-15; y=650+(i*37)%170
+        r=2+(i%3)*2
+        d.ellipse(((x-r)*S,(y-r)*S,(x+r)*S,(y+r)*S),fill=(190,120,90,130))
+
+def draw_curiosity_rover(d,cx,cy,t,accent):
+    # Rover Curiosity reconocible: seis ruedas, cuerpo elevado, mástil y cámara.
+    ground=755
+    d.line((65*S,ground*S,510*S,ground*S),fill=(183,112,83,180),width=3*S)
+    for x in (175,285,395):
+        y=690+int(2*math.sin(t*2+x))
+        d.ellipse(((x-34)*S,(y-34)*S,(x+34)*S,(y+34)*S),fill=(24,31,39,255),outline=(205,190,166,255),width=5*S)
+        d.ellipse(((x-14)*S,(y-14)*S,(x+14)*S,(y+14)*S),fill=(126,139,143,255),outline=(238,225,202,255),width=3*S)
+        for k in range(8):
+            a=k*math.pi/4+t*.2
+            d.line((x*S,y*S,(x+28*math.cos(a))*S,(y+28*math.sin(a))*S),fill=(176,187,184,255),width=3*S)
+    d.polygon([(135*S,620*S),(170*S,555*S),(400*S,555*S),(440*S,620*S),(415*S,660*S),(155*S,660*S)],fill=(177,157,126,255),outline=(242,225,191,255))
+    d.rectangle((205*S,570*S,370*S,635*S),fill=(116,129,128,255),outline=(231,222,199,255),width=4*S)
+    d.rectangle((250*S,580*S,335*S,620*S),fill=(38,63,77,255),outline=(190,208,207,255),width=3*S)
+    d.line((292*S,565*S,292*S,405*S),fill=(218,211,190,255),width=7*S)
+    d.line((292*S,430*S,350*S,390*S),fill=(218,211,190,255),width=5*S)
+    d.ellipse((333*S,373*S,372*S,412*S),fill=(70,132,173,255),outline=(238,234,216,255),width=4*S)
+    d.ellipse((278*S,390*S,306*S,418*S),fill=(202,75,63,255),outline=(245,232,204,255),width=3*S)
+    d.line((292*S,640*S,245*S,690*S),fill=(214,199,169,255),width=5*S)
+    d.line((292*S,640*S,340*S,690*S),fill=(214,199,169,255),width=5*S)
+    text_fit(d,(292,735),"CURIOSITY · MASTCAM",12,(245,238,220),max_width=350,anchor="mm",bold=False)
+
+def draw_roman_concrete(d,cx,cy,t,accent):
+    # Arco romano y sección de opus caementicium con fragmentos minerales visibles.
+    d.rectangle((95*S,600*S,481*S,790*S),fill=(145,119,91),outline=(224,202,163),width=4*S)
+    d.pieslice((145*S,350*S,431*S,700*S),180,360,fill=(170,143,108),outline=(237,214,172),width=5*S)
+    d.rectangle((145*S,525*S,431*S,700*S),fill=(17,35,48))
+    d.rectangle((145*S,525*S,431*S,790*S),fill=(160,132,98),outline=(235,211,169),width=4*S)
+    for i in range(18):
+        x=170+(i*47)%245; y=555+(i*37)%205
+        r=7+(i%4)*3
+        d.polygon([((x+math.cos(k*math.pi/3)*r)*S,(y+math.sin(k*math.pi/3)*r)*S) for k in range(6)],fill=((93+i*3)%180, (86+i*2)%160, (69+i)%130))
+    for i in range(4):
+        x=170+i*85
+        d.line((x*S,540*S,x*S,780*S),fill=(224,202,163,100),width=2*S)
+
 def draw_visual_elements(d, elements, t, accent):
-    """Render the scene-specific objects described by the prompt planner."""
+    """Renderiza elementos en una composición con colisiones evitadas."""
+    placed=[]
     palette_fallback=rgba(accent,235)
+    # Área reservada: título arriba y subtítulos abajo.
     for item in (elements or [])[:14]:
         if not isinstance(item,dict): continue
-        shape=str(item.get("shape","")).lower()
-        x=48+clamp(float(item.get("x",500))/1000)*480
-        y=290+clamp(float(item.get("y",500))/1000)*520
-        w=max(8,min(330,float(item.get("width",100))*0.48))
-        h=max(8,min(360,float(item.get("height",100))*0.52))
+        shape=str(item.get("shape","circle")).lower()
+        wanted_x=48+clamp(float(item.get("x",500))/1000)*480
+        wanted_y=300+clamp(float(item.get("y",500))/1000)*490
+        w=max(28,min(220,float(item.get("width",100))*0.38))
+        h=max(28,min(190,float(item.get("height",100))*0.38))
+        label=str(item.get("label","")).strip()
+        role=str(item.get("role","detail")).lower()
+        # El sujeto principal es la base de la composición: los mecanismos y detalles
+        # deben poder colocarse DENTRO de él, no ser expulsados fuera de su silueta.
+        # Solo evitamos colisiones entre elementos secundarios del mismo plano.
+        box_h=h/2+(24 if label and shape!="text" else 0)
+        candidates=[]
+        for radius in range(0,241,24):
+            for dx,dy in ((0,0),(radius,0),(-radius,0),(0,radius),(0,-radius),
+                          (radius,radius),(-radius,radius),(radius,-radius),(-radius,-radius)):
+                x=max(70,min(506,wanted_x+dx)); y=max(350,min(755,wanted_y+dy))
+                rect=(x-w/2-12,y-h/2-10,x+w/2+12,y+box_h+10)
+                overlap=0
+                for other_rect,other_role in placed:
+                    if role!="main_subject" and other_role=="main_subject":
+                        continue
+                    a,b,c,e=other_rect
+                    if not (rect[2]<a or rect[0]>c or rect[3]<b or rect[1]>e):
+                        overlap+=1
+                distance=(x-wanted_x)**2+(y-wanted_y)**2
+                candidates.append((overlap,distance,x,y,rect))
+            if candidates and min(v[0] for v in candidates)==0: break
+        _,_,x,y,rect=min(candidates,key=lambda v:(v[0],v[1]))
+        placed.append((rect,role))
+        motion=str(item.get("motion","none")).lower()
+        phase=t*2.8+float(item.get("phase",0))
+        if motion=="float": y+=math.sin(phase)*5
+        elif motion=="pulse":
+            scale=1+0.05*math.sin(phase*1.5); w*=scale; h*=scale
+        elif motion=="flow": x+=math.sin(phase)*7
+        x1,y1,x2,y2=x-w/2,y-h/2,x+w/2,y+h/2
         color=item.get("color",accent)
         try: fill=rgba(color,225)
         except Exception: fill=palette_fallback
-        motion=str(item.get("motion","none")).lower()
-        phase=t*2.8+float(item.get("phase",0))
-        if motion=="float": y+=math.sin(phase)*9
-        elif motion=="pulse":
-            scale=1+0.09*math.sin(phase*1.5); w*=scale; h*=scale
-        elif motion=="flow":
-            x+=math.sin(phase)*13
-        elif motion=="rotate":
-            phase+=t*2
-        x1,y1,x2,y2=x-w/2,y-h/2,x+w/2,y+h/2
         sw=max(2,int(float(item.get("stroke",3))*S))
         if shape in ("rect","rounded_rect"):
             if shape=="rounded_rect":
-                d.rounded_rectangle((x1*S,y1*S,x2*S,y2*S),radius=min(w,h)*.12*S,fill=fill,outline=(245,250,255,170),width=sw)
+                d.rounded_rectangle((x1*S,y1*S,x2*S,y2*S),radius=min(w,h)*.12*S,fill=fill,outline=(245,250,255,190),width=sw)
             else:
-                d.rectangle((x1*S,y1*S,x2*S,y2*S),fill=fill,outline=(245,250,255,170),width=sw)
+                d.rectangle((x1*S,y1*S,x2*S,y2*S),fill=fill,outline=(245,250,255,190),width=sw)
         elif shape in ("circle","ellipse"):
-            d.ellipse((x1*S,y1*S,x2*S,y2*S),fill=fill,outline=(245,250,255,185),width=sw)
+            d.ellipse((x1*S,y1*S,x2*S,y2*S),fill=fill,outline=(245,250,255,190),width=sw)
         elif shape in ("line","arrow","wave"):
             if shape=="wave":
-                pts=[(x1+(x2-x1)*k/36,y+math.sin(k*.48+phase)*h*.35) for k in range(37)]
+                pts=[(x1+(x2-x1)*k/36,y+math.sin(k*.48+phase)*h*.25) for k in range(37)]
                 d.line([(int(a*S),int(b*S)) for a,b in pts],fill=fill,width=sw)
             else:
                 d.line((x1*S,y1*S,x2*S,y2*S),fill=fill,width=sw)
@@ -308,7 +516,7 @@ def draw_visual_elements(d, elements, t, accent):
         elif shape=="polygon":
             pts=item.get("points",[])
             if isinstance(pts,list) and len(pts)>=3:
-                mapped=[((48+clamp(float(p[0])/1000)*480)*S,(290+clamp(float(p[1])/1000)*520)*S) for p in pts[:12] if isinstance(p,(list,tuple)) and len(p)>=2]
+                mapped=[((x-w/2+clamp(float(p[0])/1000)*w)*S,(y-h/2+clamp(float(p[1])/1000)*h)*S) for p in pts[:12] if isinstance(p,(list,tuple)) and len(p)>=2]
                 if len(mapped)>=3: d.polygon(mapped,fill=fill,outline=(245,250,255,190))
         elif shape=="gear":
             radius=min(w,h)/2
@@ -321,9 +529,8 @@ def draw_visual_elements(d, elements, t, accent):
             d.arc((x1*S,y1*S,x2*S,y2*S),start=int((phase*50)%360),end=int((phase*50)%360)+245,fill=fill,width=sw)
         elif shape=="text":
             text_fit(d,(x,y),str(item.get("label",""))[:26],max(10,min(25,float(item.get("font_size",16)))),fill,max_width=int(w*S),anchor="mm")
-        label=str(item.get("label","")).strip()
-        if label and shape not in ("text",):
-            text_fit(d,(x,y2+15),label[:22],11,(239,247,255,235),max_width=int(max(75,w+35)*S),anchor="mm",bold=False)
+        if label and shape!="text":
+            text_fit(d,(x,y+h/2+17),label[:22],10,(239,247,255,245),max_width=int(max(90,w+45)*S),anchor="mm",bold=False)
 
 def draw_scene(im, scene, local_t, accent):
     overlay=Image.new("RGBA",im.size,(0,0,0,0)); d=ImageDraw.Draw(overlay,"RGBA")
@@ -332,32 +539,33 @@ def draw_scene(im, scene, local_t, accent):
     draw_title(d,title,subtitle,local_t,accent)
     kind=scene.get("visual_type","illustration")
     cx,cy=288,560
-    if kind=="microwave":
-        draw_microwave(d,cx,cy,1.24,.3+local_t,accent)
-    elif kind in ("machine","engine","turbine","industrial"):
-        draw_machine(d,cx,cy,local_t,accent,scene.get("labels"))
+    elements=scene.get("visual_elements",[])
+    # Primero se dibuja el sujeto reconocible o mecanismo propio del tema.
+    # Los elementos del JSON se superponen después como detalles, nunca lo sustituyen.
+    if kind=="microwave": draw_microwave(d,cx,cy,1.24,.3+local_t,accent)
+    elif kind in ("machine","engine","industrial"): draw_machine(d,cx,cy,local_t,accent,scene.get("labels"))
     elif kind=="aircraft":
-        draw_aircraft(d,cx,cy,local_t,accent)
-    elif kind=="vehicle":
-        draw_vehicle(d,cx,cy,local_t,accent)
-    elif kind=="phone":
-        draw_phone(d,cx,cy,local_t,accent)
-    elif kind=="turbine":
-        draw_turbine(d,cx,cy,local_t,accent)
-    elif kind=="object_cutaway":
-        draw_cutaway(d,cx,cy,local_t,accent,scene.get("labels"))
-    elif kind in ("interior","building_cutaway","facility"):
-        draw_building(d,cx,cy,local_t,accent)
+        if scene.get("background")=="sky": draw_aircraft_in_sky(d,cx,cy,local_t,accent)
+        else: draw_aircraft(d,cx,cy,local_t,accent)
+    elif kind=="vehicle": draw_vehicle(d,cx,cy,local_t,accent)
+    elif kind in ("phone","gps"): draw_phone(d,cx,cy,local_t,accent)
+    elif kind=="satellite": draw_satellite(d,cx,cy,local_t,accent)
+    elif kind=="flamingo": draw_flamingo(d,cx,cy,local_t,accent)
+    elif kind=="octopus": draw_octopus(d,cx,cy,local_t,accent)
+    elif kind=="mars": draw_mars(d,cx,cy,local_t,accent)
+    elif kind=="mars_sunset": draw_mars_sunset(d,cx,cy,local_t,accent)
+    elif kind=="curiosity_rover": draw_curiosity_rover(d,cx,cy,local_t,accent)
+    elif kind in ("roman_concrete","pompeii"): draw_roman_concrete(d,cx,cy,local_t,accent)
+    elif kind=="turbine": draw_turbine(d,cx,cy,local_t,accent)
+    elif kind=="object_cutaway": draw_cutaway(d,cx,cy,local_t,accent,scene.get("labels"))
+    elif kind in ("interior","building_cutaway","facility"): draw_building(d,cx,cy,local_t,accent)
     elif kind in ("molecule","science"):
         panel(d,(48,300,528,795),fill=(7,27,50,160),outline=rgba(accent,120),radius=30)
         draw_molecule(d,cx,535,.92,local_t*4,accent)
         text_fit(d,(cx,780),"MODELO EXPLICATIVO",12,(200,225,240),anchor="mm",bold=False)
-    elif kind in ("process","diagram"):
-        draw_process(d,cx,565,local_t,accent,scene.get("labels") or ["Entrada","Proceso","Salida"])
-    elif kind in ("timeline","history"):
-        draw_timeline(d,cx,560,local_t,accent,scene.get("labels",["Origen","Cambio","Hoy"]))
-    elif kind in ("fact","number","stat"):
-        draw_fact(d,cx,565,local_t,accent,scene.get("metric",{}))
+    elif kind in ("process","diagram"): draw_process(d,cx,565,local_t,accent,scene.get("labels") or ["Entrada","Proceso","Salida"])
+    elif kind in ("timeline","history"): draw_timeline(d,cx,560,local_t,accent,scene.get("labels",["Origen","Cambio","Hoy"]))
+    elif kind in ("fact","number","stat"): draw_fact(d,cx,565,local_t,accent,scene.get("metric",{}))
     elif kind in ("map","location"):
         panel(d,(50,310,526,800),fill=(11,48,62,220),outline=rgba(accent,160))
         for i in range(12):
@@ -370,15 +578,32 @@ def draw_scene(im, scene, local_t, accent):
             x=135+i*145; y=450+(i%2)*140
             d.ellipse(((x-11)*S,(y-11)*S,(x+11)*S,(y+11)*S),fill=rgba(accent))
             text_fit(d,(x,y+28),label,12,(245,250,255),max_width=110,anchor="mm")
-    else:
-        draw_illustration(d,cx,565,local_t,accent,scene.get("labels"))
-    # Scene-specific shapes, positions, labels and motion are generated from the user's prompt.
-    draw_visual_elements(d,scene.get("visual_elements",[]),local_t,accent)
-    # Lower explanatory chip
-    fact=str(scene.get("callout","")).strip()[:92]
-    if fact:
-        panel(d,(48,845,528,935),fill=(5,18,36,220),outline=rgba(accent,105),radius=16)
-        text_fit(d,(288,890),fact,15,(245,249,255),max_width=440,anchor="mm",bold=True)
+    elif kind in ("illustration","abstract"): draw_illustration(d,cx,565,local_t,accent,scene.get("labels"))
+    if elements: draw_visual_elements(d,elements,local_t,accent)
+    im.alpha_composite(overlay)
+
+def draw_caption(im,cue,t,accent):
+    start=float(cue["start"]); end=max(start+.05,float(cue["end"]))
+    progress=clamp((t-start)/(end-start))
+    words=str(cue.get("text","")).split()
+    if not words: return
+    visible=max(1,min(len(words),int(math.ceil(progress*len(words)))))
+    active=min(len(words)-1,int(progress*len(words)))
+    overlay=Image.new("RGBA",im.size,(0,0,0,0)); d=ImageDraw.Draw(overlay,"RGBA")
+    rise=(1-ease(min(1,progress/.18)))*12
+    alpha=int(245*smooth(0,.12,progress))
+    top=870+rise
+    panel(d,(42,top,534,top+90),fill=(3,12,25,int(alpha*.91)),outline=(255,255,255,int(alpha*.32)),radius=18)
+    f=font(19,True)
+    shown=words[:visible]
+    widths=[d.textbbox((0,0),w,font=f)[2]+10*S for w in shown]
+    total=sum(widths)
+    x=(W*S-total)//2
+    y=int((top+46)*S)
+    for idx,(word,width) in enumerate(zip(shown,widths)):
+        color=rgba(accent,255) if idx==active else (255,255,255,245)
+        d.text((x,y),word,font=f,fill=color,anchor="lm",stroke_width=0)
+        x+=width
     im.alpha_composite(overlay)
 
 def render_frame(i, script, starts, durations):
@@ -387,25 +612,28 @@ def render_frame(i, script, starts, durations):
     scene=script["scenes"][index]
     local=clamp((t-starts[index])/max(.1,durations[index]))
     accent=scene.get("accent","#62d9cf")
-    im=base_frame(t,accent)
+    im=base_frame(t,accent,scene)
     draw_scene(im,scene,local,accent)
-    # Narration captions are supplied as timestamped words from Edge TTS.
     for cue in script.get("captions",[]):
-        if cue["start"]<=t<cue["end"]:
-            overlay=Image.new("RGBA",im.size,(0,0,0,0)); d=ImageDraw.Draw(overlay,"RGBA")
-            txt=cue["text"]
-            panel(d,(45,950,531,1007),fill=(3,12,25,225),outline=(255,255,255,45),radius=12)
-            text_fit(d,(288,979),txt,17,(255,255,255),max_width=450,anchor="mm")
-            im.alpha_composite(overlay)
+        if float(cue["start"])<=t<float(cue["end"]):
+            draw_caption(im,cue,t,accent)
             break
-    # A restrained continuous camera push keeps code-drawn scenes alive.
-    zoom=1.0+0.035*ease(local)
+    # Per-scene camera direction: push, pull, pan or a steady tracking shot.
+    camera=scene.get("camera",{}) if isinstance(scene.get("camera",{}),dict) else {}
+    movement=str(camera.get("movement","push_in"))
+    zoom_start=float(camera.get("zoom_start",1.0))
+    zoom_end=float(camera.get("zoom_end",1.045))
+    zoom=zoom_start+(zoom_end-zoom_start)*ease(local)
     sw,sh=int(W*S*zoom),int(H*S*zoom)
     if zoom>1.001:
         enlarged=im.resize((sw,sh),Image.Resampling.LANCZOS)
-        pan_x=int(math.sin(local*math.pi)*7*S)
-        left=max(0,min(sw-W*S,(sw-W*S)//2+pan_x))
-        top=max(0,min(sh-H*S,int((sh-H*S)*(.42+.16*local))))
+        pan_x=float(camera.get("pan_x",0))*S + math.sin(local*math.pi)*5*S
+        pan_y=float(camera.get("pan_y",0))*S
+        if movement=="pan_left": pan_x-=local*18*S
+        elif movement=="pan_right": pan_x+=local*18*S
+        elif movement=="follow": pan_x+=math.sin(local*math.pi*2)*8*S
+        left=max(0,min(sw-W*S,int((sw-W*S)//2+pan_x)))
+        top=max(0,min(sh-H*S,int((sh-H*S)*(.42+.16*local)+pan_y)))
         im=enlarged.crop((left,top,left+W*S,top+H*S))
     return im.resize((W,H),Image.Resampling.LANCZOS).convert("RGB")
 

@@ -66,7 +66,7 @@ export default function Studio(){
   </section>
   <section className="studio-card prompt-studio">
    <div className="card-kicker">CREACIÓN / TUS TRES VÍDEOS</div><h2>Prepara los vídeos de hoy</h2>
-   <p className="muted-copy">Pega los tres guiones técnicos JSON completos que te preparo. Cada uno incluye narración, ocho escenas, elementos visuales, movimientos, rótulos y fuentes. El motor solo renderiza: no utiliza IA generativa ni consume tokens.</p>
+   <p className="muted-copy">Pega los tres guiones técnicos JSON completos que te preparo. La narración será cercana, fácil de entender y con ganchos; cada escena define fondo, acción, cámara y objetos concretos. Los subtítulos aparecen por frases cortas sincronizadas con la voz. El motor no utiliza IA generativa ni consume tokens.</p>
    <label>Vídeo 1 · Guion técnico JSON<textarea rows={3} value={prompt1} onChange={e=>setPrompt1(e.target.value)} placeholder='Pega aquí el JSON completo del vídeo 1…' maxLength={45000}/></label>
    <label>Vídeo 2 · Guion técnico JSON<textarea rows={3} value={prompt2} onChange={e=>setPrompt2(e.target.value)} placeholder='Pega aquí el JSON completo del vídeo 2…' maxLength={45000}/></label>
    <label>Vídeo 3 · Guion técnico JSON<textarea rows={3} value={prompt3} onChange={e=>setPrompt3(e.target.value)} placeholder='Pega aquí el JSON completo del vídeo 3…' maxLength={45000}/></label>

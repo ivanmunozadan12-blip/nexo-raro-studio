@@ -87,12 +87,21 @@ try:
     allowed_shapes={"rect","rounded_rect","circle","ellipse","line","arrow","polygon","gear","wave","arc","text"}
     allowed_motion={"none","float","pulse","rotate","flow"}
     for scene in script["scenes"]:
+        for field in ("description","action","background","camera","visual_type"):
+            if field not in scene:
+                raise ValueError(f"Cada escena debe explicar {field}; no basta con indicar un tipo visual.")
+        if scene["background"] not in ("sky","clean","workshop","ocean","nature","dark_lab"):
+            raise ValueError("Fondo no compatible: sky, clean, workshop, ocean, nature o dark_lab.")
+        if not isinstance(scene["camera"],dict) or scene["camera"].get("movement","push_in") not in ("push_in","pull_out","pan_left","pan_right","follow","static"):
+            raise ValueError("Cada escena necesita un movimiento de cámara compatible.")
         elements=scene.get("visual_elements")
         if not isinstance(elements,list) or not 6<=len(elements)<=14:
             raise ValueError("Cada escena necesita entre 6 y 14 elementos visuales específicos.")
         for element in elements:
             if not isinstance(element,dict) or element.get("shape") not in allowed_shapes:
                 raise ValueError("El plan visual contiene una forma no compatible.")
+            if not str(element.get("description","")).strip() or not str(element.get("role","")).strip():
+                raise ValueError("Cada elemento visual debe explicar qué representa y qué función cumple.")
             if element.get("motion","none") not in allowed_motion:
                 raise ValueError("El plan visual contiene un movimiento no compatible.")
             for axis in ("x","y"):
@@ -122,12 +131,31 @@ try:
         m=re.match(r"(\d+):(\d{2}):(\d{2}),(\d{3})",v)
         return int(m[1])*3600+int(m[2])*60+int(m[3])+int(m[4])/1000 if m else 0
     captions=[]
+    def phrase_chunks(text,max_words=6):
+        # Keep captions short even when Edge TTS emits a whole sentence as one SRT cue.
+        pieces=[]
+        for sentence in re.split(r"(?<=[,;.!?])\s+",text.strip()):
+            words=sentence.split()
+            while words:
+                pieces.append(" ".join(words[:max_words]))
+                words=words[max_words:]
+        return [p for p in pieces if p]
     for block in re.split(r"\r?\n\s*\r?\n",srt.read_text()):
         lines=block.splitlines(); ix=next((i for i,x in enumerate(lines) if "-->" in x),-1)
         if ix>=0:
             a,b=[x.strip() for x in lines[ix].split("-->")]
-            captions.append({"start":secs(a),"end":secs(b),"text":" ".join(lines[ix+1:])})
+            start,end=secs(a),secs(b)
+            words=" ".join(lines[ix+1:]).strip()
+            phrases=phrase_chunks(words)
+            weights=[max(1,len(x.split())) for x in phrases]
+            total=max(1,sum(weights)); cursor=start
+            for idx,(phrase,weight) in enumerate(zip(phrases,weights)):
+                finish=end if idx==len(phrases)-1 else cursor+(end-start)*weight/total
+                captions.append({"start":cursor,"end":max(cursor+.12,finish),"text":phrase})
+                cursor=finish
     if not captions: raise ValueError("No se recibieron subtítulos temporizados.")
+    if max(len(x["text"].split()) for x in captions)>6:
+        raise ValueError("Se ha detectado un subtítulo demasiado largo.")
     script["captions"]=captions
     script_json=work/"script.json"; script_json.write_text(json.dumps(script,ensure_ascii=False),encoding="utf-8")
     music=work/"music.wav"; silent=work/"silent.mp4"
