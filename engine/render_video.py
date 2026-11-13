@@ -39,16 +39,69 @@ def gradient():
 BG=gradient()
 PARTICLES=[(random.randrange(W),random.randrange(H),random.randrange(2,6),random.random()*6.28) for _ in range(32)]
 
-def base_frame(t, accent):
-    im=BG.copy()
+def draw_cloud(d, x, y, scale=1.0, alpha=190):
+    color=(248,252,255,int(alpha))
+    parts=[(-34,8,34,25),(-12,-8,38,22),(18,2,43,24)]
+    for x0,y0,rx,ry in parts:
+        d.ellipse(((x+x0*scale-rx*scale)*S,(y+y0*scale-ry*scale)*S,(x+x0*scale+rx*scale)*S,(y+y0*scale+ry*scale)*S),fill=color)
+
+def sky_background(t):
+    y=(np.linspace(0,1,H*S)**.9)[:,None,None]
+    top=np.array([43,126,202],dtype=np.float32)[None,None,:]
+    bottom=np.array([203,226,239],dtype=np.float32)[None,None,:]
+    rows=top*(1-y)+bottom*y
+    pixels=np.repeat(rows,W*S,axis=1).astype(np.uint8)
+    im=Image.fromarray(pixels,"RGB").convert("RGBA")
+    clouds=Image.new("RGBA",im.size,(0,0,0,0)); d=ImageDraw.Draw(clouds,"RGBA")
+    for i in range(9):
+        x=((i*137-t*(8+i%3)*2)%(W+180))-90
+        yy=180+(i%4)*132+math.sin(t*.35+i)*12
+        draw_cloud(d,x,yy,.72+(i%3)*.17,110+(i%3)*22)
+    d.rectangle((0,790*S,W*S,H*S),fill=(215,231,229,110))
+    return Image.alpha_composite(im,clouds)
+
+def base_frame(t, accent, scene=None):
+    scene=scene or {}
+    background=str(scene.get("background","dark_lab")).lower()
+    if background=="sky":
+        im=sky_background(t)
+    elif background=="clean":
+        im=Image.new("RGBA",(W*S,H*S),(13,28,43,255))
+    elif background=="workshop":
+        im=Image.new("RGBA",(W*S,H*S),(24,31,40,255))
+    elif background=="ocean":
+        im=Image.new("RGBA",(W*S,H*S),(4,54,78,255))
+    elif background=="nature":
+        im=Image.new("RGBA",(W*S,H*S),(21,63,56,255))
+    else:
+        im=BG.copy()
     overlay=Image.new("RGBA",im.size,(0,0,0,0)); d=ImageDraw.Draw(overlay,"RGBA")
+    if background=="workshop":
+        for x in range(0,W,48): d.line((x*S,90*S,x*S,H*S),fill=(180,205,220,18),width=S)
+        for y in range(130,H,48): d.line((0,y*S,W*S,y*S),fill=(180,205,220,18),width=S)
+        for i in range(4):
+            x=((i*170+t*5)%700)-70
+            d.line((x*S,100*S,(x-150)*S,H*S),fill=(255,185,90,12),width=12*S)
+    elif background=="ocean":
+        for i in range(5):
+            y=560+i*82+math.sin(t*1.1+i)*10
+            pts=[(x*S,(y+math.sin(x/38+t*1.5+i)*9)*S) for x in range(0,W+1,5)]
+            d.line(pts,fill=(110,215,225,35),width=3*S)
+    elif background=="nature":
+        for i in range(7):
+            x=(i*96+35)*S
+            d.ellipse((x-85*S,710*S,x+85*S,1030*S),fill=(5,36,35,45))
     for i in range(7):
         x=((i*155+t*13)%900)-180
         d.polygon([(int(x*S),0),(int((x+30)*S),0),(int((x-210)*S),H*S),(int((x-240)*S),H*S)],fill=(150,205,255,4))
-    for x,y,r,p in PARTICLES:
-        yy=(y-t*(9+r*2))%(H+20)-10
-        xx=x+7*math.sin(t*.8+p)
-        d.ellipse(((xx-r)*S,(yy-r)*S,(xx+r)*S,(yy+r)*S),outline=(190,225,255,50),width=S)
+    for i in range(7):
+        x=((i*155+t*13)%900)-180
+        d.polygon([(int(x*S),0),(int((x+30)*S),0),(int((x-210)*S),H*S),(int((x-240)*S),H*S)],fill=(150,205,255,4))
+    if background not in ("sky","clean","workshop","ocean","nature"):
+        for x,y,r,p in PARTICLES:
+            yy=(y-t*(9+r*2))%(H+20)-10
+            xx=x+7*math.sin(t*.8+p)
+            d.ellipse(((xx-r)*S,(yy-r)*S,(xx+r)*S,(yy+r)*S),outline=(190,225,255,50),width=S)
     d.rounded_rectangle((28*S,28*S,548*S,66*S),radius=12*S,fill=(7,22,42,165),outline=(255,255,255,35),width=S)
     text_fit(d,(44,39),"BEHIND DEL MUNDO",15,(245,249,255,245),bold=True)
     d.ellipse((511*S,43*S,521*S,53*S),fill=rgba(accent))
@@ -214,6 +267,28 @@ def draw_aircraft(d,cx,cy,t,accent):
         d.line((x*S,600*S,(x-22)*S,600*S),fill=rgba(accent,120),width=2*S)
     text_fit(d,(285,720),"SUSTENTACIÓN · EMPUJE · CONTROL",12,(235,247,255),max_width=420,anchor="mm",bold=False)
 
+def draw_aircraft_in_sky(d,cx,cy,t,accent):
+    # Tracking shot: a passenger jet crosses a real sky with layered moving clouds.
+    x=cx+12*math.sin(t*.7); y=cy-18+7*math.sin(t*.9)
+    trail_x=max(28,x-210-25*math.sin(t*.5))
+    d.line((trail_x*S,(y+18)*S,(x-70)*S,(y+18)*S),fill=(255,255,255,125),width=5*S)
+    d.line((trail_x*S,(y+24)*S,(x-80)*S,(y+24)*S),fill=(230,245,255,80),width=2*S)
+    body=[(x-142,y+4),(x-92,y-10),(x+112,y-9),(x+148,y+2),(x+119,y+15),(x-105,y+17)]
+    d.polygon([(a*S,b*S) for a,b in body],fill=(238,244,248),outline=(65,91,112),width=2*S)
+    d.polygon([((x-18)*S,(y+3)*S),((x+32)*S,(y-112)*S),((x+63)*S,(y-110)*S),((x+42)*S,(y+5)*S)],fill=(128,158,180),outline=(238,247,251),width=2*S)
+    d.polygon([((x-6)*S,(y+12)*S),((x+55)*S,(y+104)*S),((x+82)*S,(y+102)*S),((x+35)*S,(y+12)*S)],fill=(105,137,160),outline=(236,246,250),width=2*S)
+    d.polygon([((x-112)*S,(y-4)*S),((x-154)*S,(y-57)*S),((x-129)*S,(y-58)*S),((x-78)*S,(y-8)*S)],fill=(130,162,182),outline=(238,247,251),width=2*S)
+    for k in range(7):
+        wx=x-78+k*25
+        d.ellipse(((wx-3)*S,(y-1)*S,(wx+3)*S,(y+5)*S),fill=(40,91,125))
+    for ex in (x-8,x+45):
+        d.ellipse(((ex-13)*S,(y+13)*S,(ex+13)*S,(y+31)*S),fill=(50,69,82),outline=(220,234,242),width=2*S)
+    # Foreground cloud banks create depth and parallax.
+    for i in range(4):
+        cloud_x=((i*185-t*(12+i*2))%(W+220))-110
+        draw_cloud(d,cloud_x,755+(i%2)*55,1.2+(i%2)*.2,220)
+    text_fit(d,(288,820),"AIRE · VAPOR · CRISTALES DE HIELO",12,(255,255,255,240),max_width=430,anchor="mm",bold=True)
+
 def draw_vehicle(d,cx,cy,t,accent):
     panel(d,(48,340,528,790),fill=(7,27,50,170),outline=rgba(accent,130),radius=28)
     body=[(88,620),(110,570),(180,545),(230,480),(360,480),(415,540),(472,570),(492,620),(475,650),(105,650)]
@@ -337,7 +412,10 @@ def draw_scene(im, scene, local_t, accent):
     elif kind in ("machine","engine","turbine","industrial"):
         draw_machine(d,cx,cy,local_t,accent,scene.get("labels"))
     elif kind=="aircraft":
-        draw_aircraft(d,cx,cy,local_t,accent)
+        if scene.get("background")=="sky":
+            draw_aircraft_in_sky(d,cx,cy,local_t,accent)
+        else:
+            draw_aircraft(d,cx,cy,local_t,accent)
     elif kind=="vehicle":
         draw_vehicle(d,cx,cy,local_t,accent)
     elif kind=="phone":
@@ -374,11 +452,30 @@ def draw_scene(im, scene, local_t, accent):
         draw_illustration(d,cx,565,local_t,accent,scene.get("labels"))
     # Scene-specific shapes, positions, labels and motion are generated from the user's prompt.
     draw_visual_elements(d,scene.get("visual_elements",[]),local_t,accent)
-    # Lower explanatory chip
-    fact=str(scene.get("callout","")).strip()[:92]
-    if fact:
-        panel(d,(48,845,528,935),fill=(5,18,36,220),outline=rgba(accent,105),radius=16)
-        text_fit(d,(288,890),fact,15,(245,249,255),max_width=440,anchor="mm",bold=True)
+    im.alpha_composite(overlay)
+
+def draw_caption(im,cue,t,accent):
+    start=float(cue["start"]); end=max(start+.05,float(cue["end"]))
+    progress=clamp((t-start)/(end-start))
+    words=str(cue.get("text","")).split()
+    if not words: return
+    visible=max(1,min(len(words),int(math.ceil(progress*len(words)))))
+    active=min(len(words)-1,int(progress*len(words)))
+    overlay=Image.new("RGBA",im.size,(0,0,0,0)); d=ImageDraw.Draw(overlay,"RGBA")
+    rise=(1-ease(min(1,progress/.18)))*12
+    alpha=int(245*smooth(0,.12,progress))
+    top=870+rise
+    panel(d,(42,top,534,top+90),fill=(3,12,25,int(alpha*.91)),outline=(255,255,255,int(alpha*.32)),radius=18)
+    f=font(19,True)
+    shown=words[:visible]
+    widths=[d.textbbox((0,0),w,font=f)[2]+10*S for w in shown]
+    total=sum(widths)
+    x=(W*S-total)//2
+    y=int((top+46)*S)
+    for idx,(word,width) in enumerate(zip(shown,widths)):
+        color=rgba(accent,255) if idx==active else (255,255,255,245)
+        d.text((x,y),word,font=f,fill=color,anchor="lm",stroke_width=0)
+        x+=width
     im.alpha_composite(overlay)
 
 def render_frame(i, script, starts, durations):
@@ -387,25 +484,28 @@ def render_frame(i, script, starts, durations):
     scene=script["scenes"][index]
     local=clamp((t-starts[index])/max(.1,durations[index]))
     accent=scene.get("accent","#62d9cf")
-    im=base_frame(t,accent)
+    im=base_frame(t,accent,scene)
     draw_scene(im,scene,local,accent)
-    # Narration captions are supplied as timestamped words from Edge TTS.
     for cue in script.get("captions",[]):
-        if cue["start"]<=t<cue["end"]:
-            overlay=Image.new("RGBA",im.size,(0,0,0,0)); d=ImageDraw.Draw(overlay,"RGBA")
-            txt=cue["text"]
-            panel(d,(45,950,531,1007),fill=(3,12,25,225),outline=(255,255,255,45),radius=12)
-            text_fit(d,(288,979),txt,17,(255,255,255),max_width=450,anchor="mm")
-            im.alpha_composite(overlay)
+        if float(cue["start"])<=t<float(cue["end"]):
+            draw_caption(im,cue,t,accent)
             break
-    # A restrained continuous camera push keeps code-drawn scenes alive.
-    zoom=1.0+0.035*ease(local)
+    # Per-scene camera direction: push, pull, pan or a steady tracking shot.
+    camera=scene.get("camera",{}) if isinstance(scene.get("camera",{}),dict) else {}
+    movement=str(camera.get("movement","push_in"))
+    zoom_start=float(camera.get("zoom_start",1.0))
+    zoom_end=float(camera.get("zoom_end",1.045))
+    zoom=zoom_start+(zoom_end-zoom_start)*ease(local)
     sw,sh=int(W*S*zoom),int(H*S*zoom)
     if zoom>1.001:
         enlarged=im.resize((sw,sh),Image.Resampling.LANCZOS)
-        pan_x=int(math.sin(local*math.pi)*7*S)
-        left=max(0,min(sw-W*S,(sw-W*S)//2+pan_x))
-        top=max(0,min(sh-H*S,int((sh-H*S)*(.42+.16*local))))
+        pan_x=float(camera.get("pan_x",0))*S + math.sin(local*math.pi)*5*S
+        pan_y=float(camera.get("pan_y",0))*S
+        if movement=="pan_left": pan_x-=local*18*S
+        elif movement=="pan_right": pan_x+=local*18*S
+        elif movement=="follow": pan_x+=math.sin(local*math.pi*2)*8*S
+        left=max(0,min(sw-W*S,int((sw-W*S)//2+pan_x)))
+        top=max(0,min(sh-H*S,int((sh-H*S)*(.42+.16*local)+pan_y)))
         im=enlarged.crop((left,top,left+W*S,top+H*S))
     return im.resize((W,H),Image.Resampling.LANCZOS).convert("RGB")
 
