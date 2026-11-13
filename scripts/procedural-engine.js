@@ -594,9 +594,9 @@ function createFromBlueprint(spec) {
       let geometry;
       switch (part.primitive) {
         case 'box': geometry = new THREE.BoxGeometry(...size); break;
-        case 'cylinder': geometry = new THREE.CylinderGeometry(Number(part.radiusTop ?? size[0]/2), Number(part.radiusBottom ?? size[0]/2), Number(part.height ?? size[1]), Number(part.segments ?? 12)); break;
-        case 'cone': geometry = new THREE.ConeGeometry(Number(part.radius ?? size[0]/2), Number(part.height ?? size[1]), Number(part.segments ?? 12)); break;
-        case 'torus': geometry = new THREE.TorusGeometry(Number(part.radius ?? size[0]/2), Number(part.tube ?? .04), 8, Number(part.segments ?? 20)); break;
+        case 'cylinder': geometry = new THREE.CylinderGeometry(Number(part.radiusTop ?? 1), Number(part.radiusBottom ?? 1), 1, Number(part.segments ?? 12)); break;
+        case 'cone': geometry = new THREE.ConeGeometry(Number(part.radius ?? 1), 1, Number(part.segments ?? 12)); break;
+        case 'torus': geometry = new THREE.TorusGeometry(Number(part.radius ?? .42), Number(part.tube ?? .08), 8, Number(part.segments ?? 20)); break;
         case 'sphere':
         default: geometry = new THREE.SphereGeometry(1, Number(part.widthSegments ?? 16), Number(part.heightSegments ?? 12)); break;
       }
