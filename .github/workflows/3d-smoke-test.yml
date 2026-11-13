@@ -9,6 +9,10 @@ on:
       - "scripts/columbus-preview.mjs"
       - "scripts/columbus-test-script.json"
 
+concurrency:
+  group: columbus-3d-preview
+  cancel-in-progress: true
+
 permissions:
   contents: read
 
