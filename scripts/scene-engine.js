@@ -1,4 +1,7 @@
 import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+const shipModelTargets = [];
 
 const MAT = (color, roughness=0.9) => new THREE.MeshStandardMaterial({ color, roughness, flatShading:true });
 const box = (g,x,y,z,sx,sy,sz,color) => { const m=new THREE.Mesh(new THREE.BoxGeometry(sx,sy,sz),MAT(color));m.position.set(x,y,z);g.add(m);return m; };
@@ -49,7 +52,7 @@ function hall(g){
  for(let x of [-5,5]){cyl(g,x,.55,-1,.22,.25,1.1,'#74563c');cyl(g,x,1.18,-1,.45,.45,.12,'#a88a62');}
 }
 function ship(g,x,z,index=0){
- const root=new THREE.Group();root.position.set(x,0,z);root.userData.baseX=x;root.userData.baseZ=z;if(index===0)root.scale.set(1.18,1.08,1.18);g.add(root);
+ const root=new THREE.Group();root.position.set(x,0,z);root.userData.baseX=x;root.userData.baseZ=z;if(index===0)root.scale.set(1.18,1.08,1.18);g.add(root);shipModelTargets.push(root);
  const wood=MAT('#68442d'),dark=MAT('#493426'),sail=MAT(index===1?'#eee5cd':'#dfd2b4'),rope=MAT('#a88a5e');
  // tapered hull mesh, bow at +z, stern at -z
  const verts=[],inds=[];const sections=[[-2.9,.12,.08],[-2.2,.65,.02],[-1,.82,-.08],[1,.78,-.1],[2.2,.57,.05],[2.9,.08,.32]];
@@ -139,4 +142,27 @@ function buildGenericScene(renderer,d){
  return t=>{const sceneStart=Number(d.start||0);if(t<sceneStart||t>=sceneStart+duration)return;const p=Math.min(1,Math.max(0,(t-sceneStart)/duration));camera.position.set(8-5*p,5+Math.sin(p*Math.PI),15-4*p);camera.lookAt(0,1,-4);renderer.render(scene,camera);};
 }
 const canvas=document.querySelector('#world-canvas');const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false});renderer.setPixelRatio(1);renderer.setSize(1080,1920,false);renderer.outputColorSpace=THREE.SRGBColorSpace;const nodes=[...document.querySelectorAll('.scene')];const renderers=nodes.map(node=>{const data=JSON.parse(node.dataset.scene);if(data.storyId!=='columbus-1492')return buildGenericScene(renderer,data);return buildScene(renderer,data);});
+// HyperFrames must wait for all local 3D assets before capturing frames.
+window.__renderReady = (async () => {
+ const loader = new GLTFLoader();
+ const gltf = await loader.loadAsync('assets/3d/sailing-pinnace.glb');
+ const sourceModel = gltf.scene;
+ sourceModel.traverse(object => {
+  if (object.isMesh) { object.castShadow = true; object.receiveShadow = true; }
+ });
+ const bounds = new THREE.Box3().setFromObject(sourceModel);
+ const dimensions = new THREE.Vector3();
+ bounds.getSize(dimensions);
+ const largest = Math.max(dimensions.x, dimensions.y, dimensions.z);
+ if (!Number.isFinite(largest) || largest <= 0) throw new Error('El modelo de barco GLB no tiene dimensiones válidas.');
+ const center = bounds.getCenter(new THREE.Vector3());
+ for (const target of shipModelTargets) {
+  const model = sourceModel.clone(true);
+  model.position.sub(center);
+  model.scale.setScalar(6 / largest);
+  target.clear();
+  target.add(model);
+ }
+ console.info('Modelo de barco CC0 cargado:', shipModelTargets.length, 'instancias.');
+})();
 const timeline=window.__timelines?.['behind-del-mundo']||window.__timelines?.['columbus-3d-preview']||Object.values(window.__timelines||{})[0];if(timeline){timeline.eventCallback('onUpdate',()=>{const t=timeline.time();renderers.forEach(render=>render(t));});}renderers.forEach(render=>render(0));
