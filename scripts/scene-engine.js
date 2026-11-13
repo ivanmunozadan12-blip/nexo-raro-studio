@@ -8,10 +8,10 @@ const rod = (g,a,b,r,color,segments=6) => { const v=new THREE.Vector3(...b).sub(
 const plane = (g,x,y,z,w,h,color) => { const m=new THREE.Mesh(new THREE.PlaneGeometry(w,h),MAT(color));m.position.set(x,y,z);g.add(m);return m; };
 function person(g,x,z,kind='crew',scale=1){
  const p=new THREE.Group();p.position.set(x,0,z);p.scale.setScalar(scale);g.add(p);
- const royal=kind==='king'||kind==='queen',sailor=kind==='columbus'||kind==='crew';
- const cloth=MAT(royal?(kind==='queen'?'#7f263d':'#263e68'):kind==='columbus'?'#75472f':'#31536c'),skin=MAT('#d6a27e'),leather=MAT('#40342e');
+ const royal=kind==='king'||kind==='queen',local=kind==='lucayan',sailor=kind==='columbus'||kind==='crew';
+ const cloth=MAT(local?'#b28b62':royal?(kind==='queen'?'#7f263d':'#263e68'):kind==='columbus'?'#75472f':'#31536c'),skin=MAT('#d6a27e'),leather=MAT('#40342e');
  // boots and legs
- for(const side of [-1,1]){box(p,side*.14,.17,0,.18,.34,.28,'#40342e');rod(p,[side*.14,.28,0],[side*.14,.72,0],.095,royal?'#b58b45':sailor?'#6c5039':'#544b42');}
+ for(const side of [-1,1]){box(p,side*.14,.17,0,.18,.34,.28,local?'#76543b':'#40342e');rod(p,[side*.14,.28,0],[side*.14,.72,0],.095,local?'#a47a51':royal?'#b58b45':sailor?'#6c5039':'#544b42');}
  // tailored torso and shoulders
  const torso=new THREE.Mesh(new THREE.CylinderGeometry(.22,.31,.72,9),cloth);torso.position.y=1.05;p.add(torso);
  sphere(p,0,1.36,0,.33,.16,.22,royal?'#d2b15e':cloth.color,1);
@@ -22,7 +22,7 @@ function person(g,x,z,kind='crew',scale=1){
  sphere(p,0,1.72,0,.22,.27,.2,'#d6a27e',2);
  sphere(p,-.085,1.77,.17,.025,.035,.018,'#342b27',1);sphere(p,.085,1.77,.17,.025,.035,.018,'#342b27',1);
  sphere(p,0,1.69,.195,.035,.045,.025,'#b9795d',1);
- if(kind==='columbus'){sphere(p,0,1.56,.17,.13,.075,.06,'#754b36',1);sphere(p,0,1.9,0,.24,.12,.23,'#75472f',1);cyl(p,0,1.98,0,.24,.24,.05,'#d0ad72',8);}
+ if(local){sphere(p,0,1.91,0,.24,.09,.23,'#29251f',1);box(p,0,1.38,.02,.46,.08,.32,'#b68d5f');}else if(kind==='columbus'){sphere(p,0,1.56,.17,.13,.075,.06,'#754b36',1);sphere(p,0,1.9,0,.24,.12,.23,'#75472f',1);cyl(p,0,1.98,0,.24,.24,.05,'#d0ad72',8);}
  else if(sailor){sphere(p,0,1.91,0,.24,.09,.23,'#4b392d',1);cyl(p,0,1.96,0,.25,.25,.045,'#d1b37d',8);}
  else {sphere(p,0,1.91,0,.24,.12,.22,kind==='queen'?'#3d2836':'#4a342b',1);if(royal){cyl(p,0,2.04,0,.22,.26,.12,'#d5ad47',8);for(let k=0;k<5;k++)sphere(p,Math.sin(k*1.256)*.2,2.13,Math.cos(k*1.256)*.2,.045,.13,.045,'#f0d16b',1);}}
  // arms with sleeves, forearms and hands
@@ -108,11 +108,11 @@ function buildScene(canvas,d){
  const idx=d.index,words=(d.title+' '+d.visual+' '+d.setting+' '+d.action+' '+(d.props||[]).join(' ')).toLowerCase();
  if(idx===0){scene.background.set('#b9a78d');scene.fog.color.set('#b9a78d');hall(world);people.push(person(world,-2.25,1.1,'columbus',1.05),person(world,-.1,-4.3,'king',1.12),person(world,2.15,-4.2,'queen',1.12));person(world,-4,-1.2,'crew',.9);person(world,4,-1.2,'crew',.9);}
  else if(idx===1){const fleet=harbor(world);ships.push(...fleet);for(let i=0;i<12;i++)people.push(person(world,-10+(i%6)*4.1,-1.4+Math.floor(i/6)*1.3,'crew',.78));}
- else if(idx===2){const fleet=harbor(world);ships.push(...fleet);world.children.filter(o=>o!==fleet[0]&&o!==fleet[1]&&o!==fleet[2]).forEach(o=>{if(o.position.z<-7)o.visible=false;});}
+ else if(idx===2){const fleet=harbor(world);ships.push(...fleet);}
  else if(idx===3){animateWater=ocean(world,true);ships.push(ship(world,-4,-3,0),ship(world,0,-7,1),ship(world,4,-4,2));}
  else if(idx===4){animateWater=ocean(world,false);coast(world);ships.push(ship(world,-3,-8,0),ship(world,2,-10,1));people.push(person(world,-3,0,'columbus',.95));}
- else if(idx===5){coast(world);ships.push(ship(world,-6,-9,0));for(let i=0;i<5;i++)people.push(person(world,-4+i*1.7,-1+i*.15,i===0?'columbus':'crew',.85));}
- else {coast(world);ships.push(ship(world,-8,-9,0),ship(world,7,-10,1));for(let i=0;i<8;i++)people.push(person(world,-6+(i%4)*3.4,-.8+Math.floor(i/4)*1.4,i===0?'columbus':'crew',.82));}
+ else if(idx===5){coast(world);const landing=ship(world,-6,-7,0);landing.scale.set(.38,.38,.48);ships.push(landing);for(let i=0;i<5;i++)people.push(person(world,-4+i*1.7,-1+i*.15,i===0?'columbus':'crew',.85));}
+ else {coast(world);ships.push(ship(world,-8,-9,0),ship(world,7,-10,1));for(let x of [-5,0,5]){const hut= new THREE.Mesh(new THREE.ConeGeometry(1.7,1.2,7),MAT('#a98251'));hut.position.set(x,1.8,-7);world.add(hut);box(world,x,0,-7,2.3,1.4,1.8,'#9b7954');box(world,x,1,-6.08,.65,1.3,.08,'#4d3c2d');}for(let i=0;i<4;i++)people.push(person(world,-5+i*2.2,-.4,'lucayan',.82));for(let i=0;i<4;i++)people.push(person(world,-4+i*2.6,1.8,i===0?'columbus':'crew',.82));}
  // Camera direction and scene-specific motion; every shot has its own establishing move.
  const camera=new THREE.PerspectiveCamera(42,1080/1920,.1,120);const duration=Math.max(1,Number(d.duration)||8);
  return t=>{const local=Math.max(0,t-Number(d.start||0));const p=Math.min(1,local/duration),ease=p*p*(3-2*p);if(idx===0){camera.position.set(8-5*ease,5.2+Math.sin(p*Math.PI)*.6,14-7*ease);camera.lookAt(0,2,-3);}
