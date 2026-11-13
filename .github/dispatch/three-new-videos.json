@@ -1,5 +1,5 @@
 {
-  "batch": "webgl-swiftshader-validated-production",
+  "batch": "external-threejs-webgl-render-fix",
   "files": [
     "scripts/manual/2026-11-14-pulpo-camuflaje.json",
     "scripts/manual/2026-11-14-hormigon-romano.json",
