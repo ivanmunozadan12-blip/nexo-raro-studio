@@ -685,6 +685,7 @@ export function directScene(parent, sceneData = {}) {
   const beats = Array.isArray(sceneData.beats) ? sceneData.beats : [];
   const entities = raw.slice(0, limit).map((item, i) => {
     const spec = typeof item === 'string' ? { name: item } : { ...(item || {}) };
+    if (!spec.blueprint && spec.model_id && sceneData.models) spec.blueprint = sceneData.models[spec.model_id];
     if (!spec.position) {
       const col = (i % 5) - 2;
       const row = Math.floor(i / 5);
