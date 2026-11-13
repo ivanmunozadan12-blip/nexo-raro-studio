@@ -571,7 +571,8 @@ export function createProceduralEntity(parent, input, index = 0) {
   if (typeof scale === 'number') model.scale.setScalar(scale);
   else if (Array.isArray(scale)) model.scale.set(...scale);
   if (Number.isFinite(Number(spec.rotationY))) model.rotation.y = Number(spec.rotationY);
-  model.userData.entity = { id: String(spec.id || seed), name: String(name), type, action: spec.action || spec.motion || 'idle' };
+  model.userData.entity = { id: String(spec.id || seed), name: String(name), type, action: spec.action || spec.motion || 'idle', support: spec.support || 'ground', dimensions: spec.dimensions || null };
+  model.userData.rig = model.userData.rig || {};
   model.userData.basePosition = model.position.clone();
   parent.add(model);
   return model;
@@ -613,8 +614,12 @@ export function animateEntities(entities, time = 0) {
     const action = clean(beat?.action || entity.userData.entity?.action || rig.motion || 'idle');
     const base = entity.userData.basePosition || entity.position;
     entity.position.y = base.y + .035 * Math.sin(time * 1.6 + entities.indexOf(entity));
-    if (rig.legs) rig.legs.forEach((leg, i) => { leg.rotation.x = /caminar|andar|correr|walk|run|marchar/.test(action) ? Math.sin(time * 5 + i * Math.PI) * .32 : 0; });
-    if (rig.arms) rig.arms.forEach(({ group, side }) => { group.rotation.z = /saludar|senalar|señalar|hablar|gesticular|indicar/.test(action) ? side * (.18 + .12 * Math.sin(time * 2)) : side * .025 * Math.sin(time * 1.5); });
+    const walking = /caminar|andar|correr|walk|run|marchar|avanzar|acercarse|alejarse|perseguir/.test(action);
+    const working = /examinar|observar|mirar|manipular|construir|reparar|levantar|girar|abrir|cerrar|escribir|medir|tocar|sujetar|golpear|lanzar|recoger|senalar|señalar|hablar|gesticular|indicar/.test(action);
+    if (rig.legs) rig.legs.forEach((leg, i) => { leg.rotation.x = walking ? Math.sin(time * 6 + i * Math.PI) * .38 : 0; });
+    if (rig.arms) rig.arms.forEach(({ group, side }) => { group.rotation.z = working ? side * (.22 + .18 * Math.sin(time * 3 + side)) : side * .035 * Math.sin(time * 1.8); group.rotation.x = working ? .12 * Math.sin(time * 2.6 + side) : 0; });
+    if (rig.head) rig.head.rotation.y = working ? .12 * Math.sin(time * 1.7) : .045 * Math.sin(time * 1.1);
+    if (rig.body) rig.body.rotation.y = walking ? .12 * Math.sin(time * 3) : .025 * Math.sin(time * 1.2);
     if (rig.wings) rig.wings.forEach(({ group, side }) => { group.rotation.z = side * (.1 + .55 * Math.sin(time * 8)); });
     if (rig.tail) rig.tail.rotation.y = .25 * Math.sin(time * 2.5);
     if (rig.fins) rig.fins.forEach((fin, i) => { fin.rotation.y = .18 * Math.sin(time * 3 + i); });
