@@ -128,35 +128,110 @@ function buildScene(renderer,d){
 }
 
 function buildGenericScene(renderer,d){
- const scene=new THREE.Scene(),world=new THREE.Group();scene.add(world);scene.background=new THREE.Color('#9ac9df');scene.fog=new THREE.Fog('#9ac9df',24,65);scene.add(new THREE.HemisphereLight('#fff', '#65766c',2));const sun=new THREE.DirectionalLight('#fff0ce',2.3);sun.position.set(-8,14,9);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);sun.shadow.camera.near=.5;sun.shadow.camera.far=60;sun.shadow.bias=-.00015;scene.add(sun);
- const words=d.title+' '+d.visual+' '+d.setting+' '+d.action+' '+(d.props||[]).join(' ')+' '+(d.objects||[]).join(' ')+' '+JSON.stringify(d.entities||[]);const {water,space,historic,forest,science}=detectEnvironment(words,d.type);
- const groundColor=space?'#263b6a':forest?'#557b4c':historic?'#9a8b75':science?'#647b83':'#9b9a83';
- if(space){scene.background.set('#111d3a');for(let i=0;i<130;i++){const x=Math.sin(i*9)*22,y=Math.cos(i*3)*13,z=-18+(i%7)*1.5;sphere(world,x,y,z,.025,.025,.025,'#fff',0);}}
- if(water){box(world,0,-.5,-11,28,1,10,groundColor);const waterMesh=new THREE.Mesh(new THREE.PlaneGeometry(30,25,40,40),MAT('#247f9e'));waterMesh.rotation.x=-Math.PI/2;waterMesh.position.set(0,-.08,3);world.add(waterMesh);}
- else if(!space) box(world,0,-.5,-3,28,1,30,groundColor);
- if(forest){for(let i=0;i<12;i++){const x=(i%4-1.5)*5.4,z=-12+Math.floor(i/4)*5;createProceduralEntity(world,{id:'background-tree-'+i,type:'tree',name:'Árbol tropical',position:[x,0,z],scale:.9+(i%3)*.18},i);}}
- if(historic){for(const side of [-1,1])createProceduralEntity(world,{id:'background-house-'+side,type:'building',name:'Casa medieval de piedra',position:[side*7,0,-13],scale:.72},side+2);box(world,0,.02,-5,18,.08,3,'#8a7c69');}
- if(science){cyl(world,0,-.08,-6,4.8,5.2,.28,'#68767c',48);cyl(world,0,.08,-6,3.8,4.1,.08,'#9ca8a9',48);for(let i=0;i<8;i++){const a=i*Math.PI/4;const light=cyl(world,Math.cos(a)*4.4,.18,-6+Math.sin(a)*4.4,.13,.13,.16,i%2?'#d8a44d':'#6ba4b3',12);light.material.emissive=new THREE.Color(i%2?'#80501d':'#174b5d');light.material.emissiveIntensity=.3;}}
+ const scene=new THREE.Scene(),world=new THREE.Group();scene.add(world);
+ const words=[d.title,d.visual,d.setting,d.action,JSON.stringify(d.entities||[])].join(' ');
+ const env=detectEnvironment(words,d.scene_type||d.type);
+ const ocean=env.water||d.scene_type==='ocean',space=env.space||d.scene_type==='space',historic=env.historic||d.scene_type==='history',forest=env.forest,science=env.science||d.scene_type==='science';
+ const palette=ocean
+  ? {bg:'#061b2c',fog:'#0b2b43',ground:'#18394a',water:'#0b3854',key:'#72c9e8',fill:'#183f59'}
+  : space
+  ? {bg:'#071126',fog:'#101e39',ground:'#263b6a',water:'#152c4d',key:'#8bbcff',fill:'#283e6b'}
+  : historic
+  ? {bg:'#75624d',fog:'#a18a6d',ground:'#8b7962',water:'#8b7962',key:'#f2c27b',fill:'#554737'}
+  : forest
+  ? {bg:'#10271e',fog:'#274b37',ground:'#456b43',water:'#456b43',key:'#a8d58a',fill:'#294b36'}
+  : science
+  ? {bg:'#142b38',fog:'#274653',ground:'#536d78',water:'#536d78',key:'#8be2e4',fill:'#294a5b'}
+  : {bg:'#1b2d42',fog:'#42566a',ground:'#777c7c',water:'#777c7c',key:'#f3d29a',fill:'#33495d'};
+ scene.background=new THREE.Color(palette.bg);
+ scene.fog=new THREE.Fog(palette.fog,ocean?18:26,ocean?62:78);
+ scene.add(new THREE.HemisphereLight(ocean?'#b8e9ff':'#fff4df',palette.fill,ocean?1.45:1.65));
+ const key=new THREE.DirectionalLight(palette.key,ocean?2.25:2.1);key.position.set(-7,13,8);key.castShadow=true;key.shadow.mapSize.set(1536,1536);key.shadow.camera.near=.5;key.shadow.camera.far=65;key.shadow.bias=-.00012;scene.add(key);
+ const rim=new THREE.DirectionalLight(ocean?'#278bb9':'#9fc8df',ocean?1.15:.65);rim.position.set(8,7,-10);scene.add(rim);
+ const fill=new THREE.PointLight(palette.key,ocean?1.0:.45,28);fill.position.set(-3,4,-5);scene.add(fill);
+ const groundColor=palette.ground;
+ if(space){
+  for(let i=0;i<180;i++){const x=Math.sin(i*9)*25,y=Math.cos(i*3)*15,z=-22+(i%9)*1.8;const star=sphere(world,x,y,z,.018+(i%4)*.008,.018+(i%4)*.008,.018+(i%4)*.008,'#d8eaff',0);star.material.emissive=new THREE.Color('#8bbcff');star.material.emissiveIntensity=.35;}
+ }else{
+  box(world,0,-.62,-4,34,.35,36,groundColor);
+  if(ocean){
+   const sand=box(world,0,-.39,-5,34,.08,34,'#9a8b70');sand.material.roughness=1;
+   for(let i=0;i<22;i++){
+    const x=Math.sin(i*12.3)*13,z=-17+(i%8)*3.4;
+    const rock=sphere(world,x,-.22,z,.45+(i%3)*.2,.12,.5+(i%4)*.13,i%2?'#3b5860':'#52636a',1);
+    rock.rotation.y=i*.7;
+   }
+   // Volumetric-looking shafts and suspended particles establish underwater depth.
+   for(let i=0;i<5;i++){
+    const beam=new THREE.Mesh(new THREE.PlaneGeometry(2.2+(i%2),19),new THREE.MeshBasicMaterial({color:'#68c7e8',transparent:true,opacity:.055,depthWrite:false,side:THREE.DoubleSide}));
+    beam.position.set(-10+i*5.1,7,-13-i*.4);beam.rotation.y=-.18+i*.08;world.add(beam);
+   }
+   const particles=new THREE.Group();world.add(particles);
+   for(let i=0;i<115;i++){
+    const x=(Math.sin(i*17.13)*.5+.5)*28-14,y=(Math.cos(i*7.71)*.5+.5)*10+.2,z=-22+(i%23)*.85;
+    const p=sphere(particles,x,y,z,.018+(i%5)*.009,.018+(i%5)*.009,.018+(i%5)*.009,'#b9e8ef',0);
+    p.material.transparent=true;p.material.opacity=.25+(i%4)*.12;
+   }
+   world.userData.particles=particles;
+  }else if(forest){
+   for(let i=0;i<16;i++){const x=(i%4-1.5)*6,z=-16+Math.floor(i/4)*5.2;createProceduralEntity(world,{id:'background-tree-'+i,type:'tree',name:'Árbol de fondo',position:[x,0,z],scale:.72+(i%3)*.15},i);}
+  }else if(historic){
+   for(const side of [-1,1])createProceduralEntity(world,{id:'background-house-'+side,type:'building',name:'Edificio histórico de piedra',position:[side*8,0,-15],scale:.62},side+2);
+   box(world,0,.015,-5,20,.08,4,'#75624d');
+  }else if(science){
+   const platform=cyl(world,0,-.12,-7,5.5,5.5,.24,'#455d68',48);platform.material.roughness=.48;
+   const inset=cyl(world,0,.02,-7,4.6,4.6,.08,'#78939b',48);inset.material.metalness=.2;
+   for(let i=0;i<12;i++){const a=i*Math.PI/6;const light=cyl(world,Math.cos(a)*4.9,.12,-7+Math.sin(a)*4.9,.1,.1,.12,i%2?'#d8a44d':'#6ba4b3',12);light.material.emissive=new THREE.Color(i%2?'#80501d':'#174b5d');light.material.emissiveIntensity=.45;}
+  }
+ }
  const entities=directScene(world,d);
- // En escenas acuáticas, edificios y vegetación permanecen en la franja de costa firme.
- if(water){entities.forEach(entity=>{const type=entity.userData.entity?.type;const support=String(entity.userData.entity?.support||'').toLowerCase();if(type==='building'||type==='tree'||support.includes('tierra')||support.includes('suelo firme')){entity.position.x=Math.max(-10,Math.min(10,entity.position.x));entity.position.z=Math.min(-11,entity.position.z);entity.position.y=0;entity.userData.basePosition.copy(entity.position);}});}
- const camera=new THREE.PerspectiveCamera(56,1080/1920,.1,180);const duration=Math.max(1,Number(d.duration)||8);
- const cameraPlan=String(d.camera||'').toLowerCase();
- // Microcortes cada 2,55 s: alterna distancia, altura y ángulo dentro de cada plano.
- return t=>{const sceneStart=Number(d.start||0);if(t<sceneStart||t>=sceneStart+duration)return;const local=Math.max(0,t-sceneStart),p=Math.min(1,local/duration),ease=p*p*(3-2*p);
-  const shotIndex=Math.floor(local/2.55),shotProgress=(local%2.55)/2.55,shotEase=shotProgress*shotProgress*(3-2*shotProgress);
+ if(ocean){
+  entities.forEach(entity=>{
+   const type=entity.userData.entity?.type,support=String(entity.userData.entity?.support||'').toLowerCase();
+   if(type==='building'||type==='tree'||support.includes('tierra')||support.includes('suelo firme')){entity.position.y=0;entity.userData.basePosition.copy(entity.position);}
+  });
+ }
+ const camera=new THREE.PerspectiveCamera(49,1080/1920,.1,180);
+ const duration=Math.max(1,Number(d.duration)||8),cameraPlan=String(d.camera||'').toLowerCase();
+ const targetId=String(d.camera_target||'');
+ const targetEntity=entities.find(e=>e.userData.entity?.id===targetId);
+ const subjects=entities.filter(e=>['human','animal','vehicle','ship','celestial'].includes(e.userData.entity?.type));
+ const points=targetEntity?[targetEntity]:subjects.length?[subjects[0]]:entities.slice(0,1);
+ const targetEntityData=points[0]?.userData.entity||{};
+ const dims=Array.isArray(targetEntityData.dimensions)?targetEntityData.dimensions.map(Number):[2,2,2];
+ const radius=Math.max(.7,...dims)*.5;
+ const macro=/macro|microscop|celula|celular|detalle extremo|primerisimo/.test(cameraPlan);
+ const close=/primer plano|detalle|acercamiento|zoom/.test(cameraPlan);
+ const overhead=/cenital|aereo|desde arriba|vista superior/.test(cameraPlan);
+ const orbit=/orbita|rode|gira alrededor|circular/.test(cameraPlan);
+ const lateral=/lateral|travelling|seguimiento|recorre|desplazamiento/.test(cameraPlan);
+ const distance=macro?Math.max(3.2,radius*3.1):close?Math.max(5.2,radius*3.8):Math.max(8.5,radius*5.1);
+ const height=macro?Math.max(.8,radius*.8):close?Math.max(1.8,radius*1.2):Math.max(3.2,radius*1.8);
+ const baseTarget=points.reduce((sum,e)=>sum.add(e.position),new THREE.Vector3()).multiplyScalar(1/Math.max(1,points.length));
+ baseTarget.y+=macro?.12:Math.min(1.15,radius*.65);
+ return t=>{
+  const sceneStart=Number(d.start||0);if(t<sceneStart||t>=sceneStart+duration)return;
+  const local=Math.max(0,t-sceneStart),p=Math.min(1,local/duration),ease=p*p*(3-2*p);
   animateEntities(entities,local);
-  const targetId=String(d.camera_target||'');const targetEntity=entities.find(e=>e.userData.entity?.id===targetId);
-  const subjects=entities.filter(e=>['human','animal','vehicle','ship','celestial'].includes(e.userData.entity?.type));
-  const points=targetEntity?[targetEntity]:subjects.length?subjects:entities;
-  const target=points.reduce((sum,e)=>sum.add(e.position),new THREE.Vector3()).multiplyScalar(1/Math.max(1,points.length));target.y+=1.05;
-  const orbitAngle=(shotIndex%4)*Math.PI*.5+shotEase*.28+Math.sin(local*1.15)*.035;
-  const distance=[12,8.5,14,9.5][shotIndex%4],height=[4.5,2.8,6.2,3.4][shotIndex%4];
-  if(/cenital|aereo|desde arriba|vista superior/.test(cameraPlan)){camera.position.set(target.x+Math.cos(orbitAngle)*2.2,17+shotEase,target.z+Math.sin(orbitAngle)*7);}
-  else if(/orbita|rode|gira alrededor|circular/.test(cameraPlan)){camera.position.set(target.x+Math.cos(orbitAngle)*distance,target.y+height,target.z+Math.sin(orbitAngle)*distance);}
-  else if(/primer plano|detalle|acercamiento|zoom/.test(cameraPlan)){camera.position.set(target.x+Math.cos(orbitAngle)*6,target.y+1.3+shotEase*.5,target.z+Math.sin(orbitAngle)*6);}
-  else {camera.position.set(target.x+Math.cos(orbitAngle)*distance,target.y+height+Math.sin(local*1.2)*.16,target.z+Math.sin(orbitAngle)*distance);}
-  camera.lookAt(target);renderer.render(scene,camera);};
+  const target=targetEntity?targetEntity.position.clone():baseTarget.clone();
+  if(!macro)target.y+=Math.min(.3,radius*.12);
+  const orbitAngle=(orbit?-.55:Math.PI*.18)+p*(orbit?1.35:.42)+Math.sin(local*.45)*.025;
+  if(overhead){
+   camera.position.set(target.x+Math.cos(orbitAngle)*Math.max(2.5,radius*1.7),target.y+Math.max(10,radius*5),target.z+Math.sin(orbitAngle)*Math.max(4,radius*2.8));
+  }else if(orbit){
+   camera.position.set(target.x+Math.cos(orbitAngle)*distance,target.y+height,target.z+Math.sin(orbitAngle)*distance);
+  }else if(lateral){
+   const side=-1+2*ease;
+   camera.position.set(target.x+side*distance*.72,target.y+height*.72,target.z+distance*.82);
+  }else{
+   const push=close||macro?1.15:.35;
+   const dNow=distance*(1-push*.28*ease);
+   camera.position.set(target.x+Math.cos(orbitAngle)*dNow,target.y+height+Math.sin(local*.65)*.06,target.z+Math.sin(orbitAngle)*dNow);
+  }
+  camera.lookAt(target);
+  if(world.userData.particles)world.userData.particles.rotation.y=Math.sin(local*.12)*.035;
+  renderer.render(scene,camera);
+ };
 }
 window.__renderReady = new Promise((resolve,reject)=>{window.__resolveSceneReady=resolve;window.__rejectSceneReady=reject;});
 try {
