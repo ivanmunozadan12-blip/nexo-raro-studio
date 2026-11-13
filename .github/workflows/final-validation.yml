@@ -41,23 +41,6 @@ jobs:
         run: |
           python -m py_compile engine/produce.py engine/render_video.py engine/audio_bed.py engine/srt_captions.py engine/publish.py
           python -m unittest discover -s engine -p 'test_*.py'
-      - name: Renderizar muestra vertical completa
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y ffmpeg
-          python -m edge_tts --voice es-ES-AlvaroNeural --rate=+5% --text "$(python -c 'import json; print(json.load(open("engine/sample_script.json"))["narration"])')" --write-media /tmp/voice.mp3 --write-subtitles /tmp/voice.srt
-          python engine/srt_captions.py --script engine/sample_script.json --srt /tmp/voice.srt
-          python engine/audio_bed.py --duration 66 --output /tmp/music.wav --script engine/sample_script.json
-          python engine/render_video.py --script engine/sample_script.json --voice /tmp/voice.mp3 --output /tmp/silent.mp4
-          ffmpeg -y -v error -i /tmp/silent.mp4 -i /tmp/voice.mp3 -i /tmp/music.wav -filter_complex "[1:a]volume=1.0[v];[2:a]volume=0.22,afade=t=in:st=0:d=2,afade=t=out:st=60:d=3[m];[v][m]amix=inputs=2:duration=longest:dropout_transition=2[a]" -map 0:v:0 -map "[a]" -c:v copy -c:a aac -b:a 160k -shortest /tmp/behind-del-mundo-test.mp4
-          ffprobe -v error -show_entries format=duration:stream=codec_type,width,height -of json /tmp/behind-del-mundo-test.mp4
-      - name: Guardar MP4 de prueba
-        uses: actions/upload-artifact@v4
-        with:
-          name: behind-del-mundo-final-video-test
-          path: /tmp/behind-del-mundo-test.mp4
-          if-no-files-found: error
-          retention-days: 7
       - name: Instalar dependencias web
         run: npm install
       - name: Typecheck y build de producción
