@@ -65,7 +65,289 @@
             0,
             -4
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; metres; rover 1.8 metres long",
+            "parts": [
+              {
+                "id": "chassis",
+                "primitive": "box",
+                "position": [
+                  0,
+                  0.95,
+                  0
+                ],
+                "size": [
+                  1.25,
+                  0.35,
+                  1.45
+                ],
+                "color": "#b5a27b",
+                "metalness": 0.55
+              },
+              {
+                "id": "deck",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.18,
+                  0
+                ],
+                "size": [
+                  1.1,
+                  0.12,
+                  1.25
+                ],
+                "color": "#d1c4a3",
+                "metalness": 0.4
+              },
+              {
+                "id": "mast",
+                "group": true,
+                "position": [
+                  0,
+                  1.25,
+                  0.48
+                ]
+              },
+              {
+                "id": "mast-pole",
+                "parent": "mast",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  0.55,
+                  0
+                ],
+                "size": [
+                  0.08,
+                  1.1,
+                  0.08
+                ],
+                "color": "#9c9b92",
+                "metalness": 0.65
+              },
+              {
+                "id": "camera-head",
+                "parent": "mast",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.12,
+                  0.04
+                ],
+                "size": [
+                  0.38,
+                  0.22,
+                  0.24
+                ],
+                "color": "#c9b889",
+                "metalness": 0.5
+              },
+              {
+                "id": "camera-lens",
+                "parent": "mast",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  1.12,
+                  0.18
+                ],
+                "size": [
+                  0.09,
+                  0.09,
+                  0.04
+                ],
+                "color": "#263d4a",
+                "metalness": 0.7
+              },
+              {
+                "id": "wheel--1--0.55",
+                "primitive": "cylinder",
+                "position": [
+                  -0.7,
+                  0.38,
+                  -0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel--1-0",
+                "primitive": "cylinder",
+                "position": [
+                  -0.7,
+                  0.38,
+                  0
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel--1-0.55",
+                "primitive": "cylinder",
+                "position": [
+                  -0.7,
+                  0.38,
+                  0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel-1--0.55",
+                "primitive": "cylinder",
+                "position": [
+                  0.7,
+                  0.38,
+                  -0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel-1-0",
+                "primitive": "cylinder",
+                "position": [
+                  0.7,
+                  0.38,
+                  0
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel-1-0.55",
+                "primitive": "cylinder",
+                "position": [
+                  0.7,
+                  0.38,
+                  0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              }
+            ],
+            "animations": [
+              {
+                "target": "mast",
+                "property": "rotation",
+                "axis": "y",
+                "amplitude": 0.22,
+                "frequency": 0.45,
+                "phase": 0
+              },
+              {
+                "target": "wheel--1--0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel--1-0",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel--1-0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel-1--0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel-1-0",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel-1-0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              }
+            ]
+          }
         },
         {
           "id": "mars-sun",
@@ -88,7 +370,55 @@
             2,
             -7
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; distant luminous disc represented as a sphere",
+            "parts": [
+              {
+                "id": "solar-disc",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  0,
+                  0
+                ],
+                "size": [
+                  0.72,
+                  0.72,
+                  0.72
+                ],
+                "color": "#f2b56d",
+                "roughness": 0.25
+              },
+              {
+                "id": "solar-core",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  0,
+                  0.02
+                ],
+                "size": [
+                  0.53,
+                  0.53,
+                  0.53
+                ],
+                "color": "#ffd99a",
+                "roughness": 0.2
+              }
+            ],
+            "animations": [
+              {
+                "target": "solar-disc",
+                "property": "rotation",
+                "axis": "y",
+                "amplitude": 0.04,
+                "frequency": 0.2,
+                "phase": 0
+              }
+            ]
+          }
         }
       ],
       "beats": [
@@ -151,7 +481,289 @@
             0,
             -4.6
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; metres; rover 1.8 metres long",
+            "parts": [
+              {
+                "id": "chassis",
+                "primitive": "box",
+                "position": [
+                  0,
+                  0.95,
+                  0
+                ],
+                "size": [
+                  1.25,
+                  0.35,
+                  1.45
+                ],
+                "color": "#b5a27b",
+                "metalness": 0.55
+              },
+              {
+                "id": "deck",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.18,
+                  0
+                ],
+                "size": [
+                  1.1,
+                  0.12,
+                  1.25
+                ],
+                "color": "#d1c4a3",
+                "metalness": 0.4
+              },
+              {
+                "id": "mast",
+                "group": true,
+                "position": [
+                  0,
+                  1.25,
+                  0.48
+                ]
+              },
+              {
+                "id": "mast-pole",
+                "parent": "mast",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  0.55,
+                  0
+                ],
+                "size": [
+                  0.08,
+                  1.1,
+                  0.08
+                ],
+                "color": "#9c9b92",
+                "metalness": 0.65
+              },
+              {
+                "id": "camera-head",
+                "parent": "mast",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.12,
+                  0.04
+                ],
+                "size": [
+                  0.38,
+                  0.22,
+                  0.24
+                ],
+                "color": "#c9b889",
+                "metalness": 0.5
+              },
+              {
+                "id": "camera-lens",
+                "parent": "mast",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  1.12,
+                  0.18
+                ],
+                "size": [
+                  0.09,
+                  0.09,
+                  0.04
+                ],
+                "color": "#263d4a",
+                "metalness": 0.7
+              },
+              {
+                "id": "wheel--1--0.55",
+                "primitive": "cylinder",
+                "position": [
+                  -0.7,
+                  0.38,
+                  -0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel--1-0",
+                "primitive": "cylinder",
+                "position": [
+                  -0.7,
+                  0.38,
+                  0
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel--1-0.55",
+                "primitive": "cylinder",
+                "position": [
+                  -0.7,
+                  0.38,
+                  0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel-1--0.55",
+                "primitive": "cylinder",
+                "position": [
+                  0.7,
+                  0.38,
+                  -0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel-1-0",
+                "primitive": "cylinder",
+                "position": [
+                  0.7,
+                  0.38,
+                  0
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel-1-0.55",
+                "primitive": "cylinder",
+                "position": [
+                  0.7,
+                  0.38,
+                  0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              }
+            ],
+            "animations": [
+              {
+                "target": "mast",
+                "property": "rotation",
+                "axis": "y",
+                "amplitude": 0.22,
+                "frequency": 0.45,
+                "phase": 0
+              },
+              {
+                "target": "wheel--1--0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel--1-0",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel--1-0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel-1--0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel-1-0",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel-1-0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              }
+            ]
+          }
         },
         {
           "id": "mars-sun",
@@ -174,7 +786,55 @@
             2,
             -7.6
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; distant luminous disc represented as a sphere",
+            "parts": [
+              {
+                "id": "solar-disc",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  0,
+                  0
+                ],
+                "size": [
+                  0.72,
+                  0.72,
+                  0.72
+                ],
+                "color": "#f2b56d",
+                "roughness": 0.25
+              },
+              {
+                "id": "solar-core",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  0,
+                  0.02
+                ],
+                "size": [
+                  0.53,
+                  0.53,
+                  0.53
+                ],
+                "color": "#ffd99a",
+                "roughness": 0.2
+              }
+            ],
+            "animations": [
+              {
+                "target": "solar-disc",
+                "property": "rotation",
+                "axis": "y",
+                "amplitude": 0.04,
+                "frequency": 0.2,
+                "phase": 0
+              }
+            ]
+          }
         }
       ],
       "beats": [
@@ -237,7 +897,289 @@
             0,
             -5.2
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; metres; rover 1.8 metres long",
+            "parts": [
+              {
+                "id": "chassis",
+                "primitive": "box",
+                "position": [
+                  0,
+                  0.95,
+                  0
+                ],
+                "size": [
+                  1.25,
+                  0.35,
+                  1.45
+                ],
+                "color": "#b5a27b",
+                "metalness": 0.55
+              },
+              {
+                "id": "deck",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.18,
+                  0
+                ],
+                "size": [
+                  1.1,
+                  0.12,
+                  1.25
+                ],
+                "color": "#d1c4a3",
+                "metalness": 0.4
+              },
+              {
+                "id": "mast",
+                "group": true,
+                "position": [
+                  0,
+                  1.25,
+                  0.48
+                ]
+              },
+              {
+                "id": "mast-pole",
+                "parent": "mast",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  0.55,
+                  0
+                ],
+                "size": [
+                  0.08,
+                  1.1,
+                  0.08
+                ],
+                "color": "#9c9b92",
+                "metalness": 0.65
+              },
+              {
+                "id": "camera-head",
+                "parent": "mast",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.12,
+                  0.04
+                ],
+                "size": [
+                  0.38,
+                  0.22,
+                  0.24
+                ],
+                "color": "#c9b889",
+                "metalness": 0.5
+              },
+              {
+                "id": "camera-lens",
+                "parent": "mast",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  1.12,
+                  0.18
+                ],
+                "size": [
+                  0.09,
+                  0.09,
+                  0.04
+                ],
+                "color": "#263d4a",
+                "metalness": 0.7
+              },
+              {
+                "id": "wheel--1--0.55",
+                "primitive": "cylinder",
+                "position": [
+                  -0.7,
+                  0.38,
+                  -0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel--1-0",
+                "primitive": "cylinder",
+                "position": [
+                  -0.7,
+                  0.38,
+                  0
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel--1-0.55",
+                "primitive": "cylinder",
+                "position": [
+                  -0.7,
+                  0.38,
+                  0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel-1--0.55",
+                "primitive": "cylinder",
+                "position": [
+                  0.7,
+                  0.38,
+                  -0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel-1-0",
+                "primitive": "cylinder",
+                "position": [
+                  0.7,
+                  0.38,
+                  0
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel-1-0.55",
+                "primitive": "cylinder",
+                "position": [
+                  0.7,
+                  0.38,
+                  0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              }
+            ],
+            "animations": [
+              {
+                "target": "mast",
+                "property": "rotation",
+                "axis": "y",
+                "amplitude": 0.22,
+                "frequency": 0.45,
+                "phase": 0
+              },
+              {
+                "target": "wheel--1--0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel--1-0",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel--1-0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel-1--0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel-1-0",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel-1-0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              }
+            ]
+          }
         },
         {
           "id": "mars-sun",
@@ -260,7 +1202,55 @@
             2,
             -8.2
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; distant luminous disc represented as a sphere",
+            "parts": [
+              {
+                "id": "solar-disc",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  0,
+                  0
+                ],
+                "size": [
+                  0.72,
+                  0.72,
+                  0.72
+                ],
+                "color": "#f2b56d",
+                "roughness": 0.25
+              },
+              {
+                "id": "solar-core",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  0,
+                  0.02
+                ],
+                "size": [
+                  0.53,
+                  0.53,
+                  0.53
+                ],
+                "color": "#ffd99a",
+                "roughness": 0.2
+              }
+            ],
+            "animations": [
+              {
+                "target": "solar-disc",
+                "property": "rotation",
+                "axis": "y",
+                "amplitude": 0.04,
+                "frequency": 0.2,
+                "phase": 0
+              }
+            ]
+          }
         }
       ],
       "beats": [
@@ -323,7 +1313,289 @@
             0,
             -4
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; metres; rover 1.8 metres long",
+            "parts": [
+              {
+                "id": "chassis",
+                "primitive": "box",
+                "position": [
+                  0,
+                  0.95,
+                  0
+                ],
+                "size": [
+                  1.25,
+                  0.35,
+                  1.45
+                ],
+                "color": "#b5a27b",
+                "metalness": 0.55
+              },
+              {
+                "id": "deck",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.18,
+                  0
+                ],
+                "size": [
+                  1.1,
+                  0.12,
+                  1.25
+                ],
+                "color": "#d1c4a3",
+                "metalness": 0.4
+              },
+              {
+                "id": "mast",
+                "group": true,
+                "position": [
+                  0,
+                  1.25,
+                  0.48
+                ]
+              },
+              {
+                "id": "mast-pole",
+                "parent": "mast",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  0.55,
+                  0
+                ],
+                "size": [
+                  0.08,
+                  1.1,
+                  0.08
+                ],
+                "color": "#9c9b92",
+                "metalness": 0.65
+              },
+              {
+                "id": "camera-head",
+                "parent": "mast",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.12,
+                  0.04
+                ],
+                "size": [
+                  0.38,
+                  0.22,
+                  0.24
+                ],
+                "color": "#c9b889",
+                "metalness": 0.5
+              },
+              {
+                "id": "camera-lens",
+                "parent": "mast",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  1.12,
+                  0.18
+                ],
+                "size": [
+                  0.09,
+                  0.09,
+                  0.04
+                ],
+                "color": "#263d4a",
+                "metalness": 0.7
+              },
+              {
+                "id": "wheel--1--0.55",
+                "primitive": "cylinder",
+                "position": [
+                  -0.7,
+                  0.38,
+                  -0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel--1-0",
+                "primitive": "cylinder",
+                "position": [
+                  -0.7,
+                  0.38,
+                  0
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel--1-0.55",
+                "primitive": "cylinder",
+                "position": [
+                  -0.7,
+                  0.38,
+                  0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel-1--0.55",
+                "primitive": "cylinder",
+                "position": [
+                  0.7,
+                  0.38,
+                  -0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel-1-0",
+                "primitive": "cylinder",
+                "position": [
+                  0.7,
+                  0.38,
+                  0
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel-1-0.55",
+                "primitive": "cylinder",
+                "position": [
+                  0.7,
+                  0.38,
+                  0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              }
+            ],
+            "animations": [
+              {
+                "target": "mast",
+                "property": "rotation",
+                "axis": "y",
+                "amplitude": 0.22,
+                "frequency": 0.45,
+                "phase": 0
+              },
+              {
+                "target": "wheel--1--0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel--1-0",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel--1-0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel-1--0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel-1-0",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel-1-0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              }
+            ]
+          }
         },
         {
           "id": "mars-sun",
@@ -346,7 +1618,55 @@
             2,
             -7
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; distant luminous disc represented as a sphere",
+            "parts": [
+              {
+                "id": "solar-disc",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  0,
+                  0
+                ],
+                "size": [
+                  0.72,
+                  0.72,
+                  0.72
+                ],
+                "color": "#f2b56d",
+                "roughness": 0.25
+              },
+              {
+                "id": "solar-core",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  0,
+                  0.02
+                ],
+                "size": [
+                  0.53,
+                  0.53,
+                  0.53
+                ],
+                "color": "#ffd99a",
+                "roughness": 0.2
+              }
+            ],
+            "animations": [
+              {
+                "target": "solar-disc",
+                "property": "rotation",
+                "axis": "y",
+                "amplitude": 0.04,
+                "frequency": 0.2,
+                "phase": 0
+              }
+            ]
+          }
         }
       ],
       "beats": [
@@ -409,7 +1729,289 @@
             0,
             -4.6
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; metres; rover 1.8 metres long",
+            "parts": [
+              {
+                "id": "chassis",
+                "primitive": "box",
+                "position": [
+                  0,
+                  0.95,
+                  0
+                ],
+                "size": [
+                  1.25,
+                  0.35,
+                  1.45
+                ],
+                "color": "#b5a27b",
+                "metalness": 0.55
+              },
+              {
+                "id": "deck",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.18,
+                  0
+                ],
+                "size": [
+                  1.1,
+                  0.12,
+                  1.25
+                ],
+                "color": "#d1c4a3",
+                "metalness": 0.4
+              },
+              {
+                "id": "mast",
+                "group": true,
+                "position": [
+                  0,
+                  1.25,
+                  0.48
+                ]
+              },
+              {
+                "id": "mast-pole",
+                "parent": "mast",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  0.55,
+                  0
+                ],
+                "size": [
+                  0.08,
+                  1.1,
+                  0.08
+                ],
+                "color": "#9c9b92",
+                "metalness": 0.65
+              },
+              {
+                "id": "camera-head",
+                "parent": "mast",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.12,
+                  0.04
+                ],
+                "size": [
+                  0.38,
+                  0.22,
+                  0.24
+                ],
+                "color": "#c9b889",
+                "metalness": 0.5
+              },
+              {
+                "id": "camera-lens",
+                "parent": "mast",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  1.12,
+                  0.18
+                ],
+                "size": [
+                  0.09,
+                  0.09,
+                  0.04
+                ],
+                "color": "#263d4a",
+                "metalness": 0.7
+              },
+              {
+                "id": "wheel--1--0.55",
+                "primitive": "cylinder",
+                "position": [
+                  -0.7,
+                  0.38,
+                  -0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel--1-0",
+                "primitive": "cylinder",
+                "position": [
+                  -0.7,
+                  0.38,
+                  0
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel--1-0.55",
+                "primitive": "cylinder",
+                "position": [
+                  -0.7,
+                  0.38,
+                  0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel-1--0.55",
+                "primitive": "cylinder",
+                "position": [
+                  0.7,
+                  0.38,
+                  -0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel-1-0",
+                "primitive": "cylinder",
+                "position": [
+                  0.7,
+                  0.38,
+                  0
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel-1-0.55",
+                "primitive": "cylinder",
+                "position": [
+                  0.7,
+                  0.38,
+                  0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              }
+            ],
+            "animations": [
+              {
+                "target": "mast",
+                "property": "rotation",
+                "axis": "y",
+                "amplitude": 0.22,
+                "frequency": 0.45,
+                "phase": 0
+              },
+              {
+                "target": "wheel--1--0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel--1-0",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel--1-0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel-1--0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel-1-0",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel-1-0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              }
+            ]
+          }
         },
         {
           "id": "mars-sun",
@@ -432,7 +2034,55 @@
             2,
             -7.6
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; distant luminous disc represented as a sphere",
+            "parts": [
+              {
+                "id": "solar-disc",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  0,
+                  0
+                ],
+                "size": [
+                  0.72,
+                  0.72,
+                  0.72
+                ],
+                "color": "#f2b56d",
+                "roughness": 0.25
+              },
+              {
+                "id": "solar-core",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  0,
+                  0.02
+                ],
+                "size": [
+                  0.53,
+                  0.53,
+                  0.53
+                ],
+                "color": "#ffd99a",
+                "roughness": 0.2
+              }
+            ],
+            "animations": [
+              {
+                "target": "solar-disc",
+                "property": "rotation",
+                "axis": "y",
+                "amplitude": 0.04,
+                "frequency": 0.2,
+                "phase": 0
+              }
+            ]
+          }
         }
       ],
       "beats": [
@@ -495,7 +2145,289 @@
             0,
             -5.2
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; metres; rover 1.8 metres long",
+            "parts": [
+              {
+                "id": "chassis",
+                "primitive": "box",
+                "position": [
+                  0,
+                  0.95,
+                  0
+                ],
+                "size": [
+                  1.25,
+                  0.35,
+                  1.45
+                ],
+                "color": "#b5a27b",
+                "metalness": 0.55
+              },
+              {
+                "id": "deck",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.18,
+                  0
+                ],
+                "size": [
+                  1.1,
+                  0.12,
+                  1.25
+                ],
+                "color": "#d1c4a3",
+                "metalness": 0.4
+              },
+              {
+                "id": "mast",
+                "group": true,
+                "position": [
+                  0,
+                  1.25,
+                  0.48
+                ]
+              },
+              {
+                "id": "mast-pole",
+                "parent": "mast",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  0.55,
+                  0
+                ],
+                "size": [
+                  0.08,
+                  1.1,
+                  0.08
+                ],
+                "color": "#9c9b92",
+                "metalness": 0.65
+              },
+              {
+                "id": "camera-head",
+                "parent": "mast",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.12,
+                  0.04
+                ],
+                "size": [
+                  0.38,
+                  0.22,
+                  0.24
+                ],
+                "color": "#c9b889",
+                "metalness": 0.5
+              },
+              {
+                "id": "camera-lens",
+                "parent": "mast",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  1.12,
+                  0.18
+                ],
+                "size": [
+                  0.09,
+                  0.09,
+                  0.04
+                ],
+                "color": "#263d4a",
+                "metalness": 0.7
+              },
+              {
+                "id": "wheel--1--0.55",
+                "primitive": "cylinder",
+                "position": [
+                  -0.7,
+                  0.38,
+                  -0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel--1-0",
+                "primitive": "cylinder",
+                "position": [
+                  -0.7,
+                  0.38,
+                  0
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel--1-0.55",
+                "primitive": "cylinder",
+                "position": [
+                  -0.7,
+                  0.38,
+                  0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel-1--0.55",
+                "primitive": "cylinder",
+                "position": [
+                  0.7,
+                  0.38,
+                  -0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel-1-0",
+                "primitive": "cylinder",
+                "position": [
+                  0.7,
+                  0.38,
+                  0
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel-1-0.55",
+                "primitive": "cylinder",
+                "position": [
+                  0.7,
+                  0.38,
+                  0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              }
+            ],
+            "animations": [
+              {
+                "target": "mast",
+                "property": "rotation",
+                "axis": "y",
+                "amplitude": 0.22,
+                "frequency": 0.45,
+                "phase": 0
+              },
+              {
+                "target": "wheel--1--0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel--1-0",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel--1-0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel-1--0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel-1-0",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel-1-0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              }
+            ]
+          }
         },
         {
           "id": "mars-sun",
@@ -518,7 +2450,55 @@
             2,
             -8.2
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; distant luminous disc represented as a sphere",
+            "parts": [
+              {
+                "id": "solar-disc",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  0,
+                  0
+                ],
+                "size": [
+                  0.72,
+                  0.72,
+                  0.72
+                ],
+                "color": "#f2b56d",
+                "roughness": 0.25
+              },
+              {
+                "id": "solar-core",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  0,
+                  0.02
+                ],
+                "size": [
+                  0.53,
+                  0.53,
+                  0.53
+                ],
+                "color": "#ffd99a",
+                "roughness": 0.2
+              }
+            ],
+            "animations": [
+              {
+                "target": "solar-disc",
+                "property": "rotation",
+                "axis": "y",
+                "amplitude": 0.04,
+                "frequency": 0.2,
+                "phase": 0
+              }
+            ]
+          }
         }
       ],
       "beats": [
@@ -581,7 +2561,289 @@
             0,
             -4
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; metres; rover 1.8 metres long",
+            "parts": [
+              {
+                "id": "chassis",
+                "primitive": "box",
+                "position": [
+                  0,
+                  0.95,
+                  0
+                ],
+                "size": [
+                  1.25,
+                  0.35,
+                  1.45
+                ],
+                "color": "#b5a27b",
+                "metalness": 0.55
+              },
+              {
+                "id": "deck",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.18,
+                  0
+                ],
+                "size": [
+                  1.1,
+                  0.12,
+                  1.25
+                ],
+                "color": "#d1c4a3",
+                "metalness": 0.4
+              },
+              {
+                "id": "mast",
+                "group": true,
+                "position": [
+                  0,
+                  1.25,
+                  0.48
+                ]
+              },
+              {
+                "id": "mast-pole",
+                "parent": "mast",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  0.55,
+                  0
+                ],
+                "size": [
+                  0.08,
+                  1.1,
+                  0.08
+                ],
+                "color": "#9c9b92",
+                "metalness": 0.65
+              },
+              {
+                "id": "camera-head",
+                "parent": "mast",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.12,
+                  0.04
+                ],
+                "size": [
+                  0.38,
+                  0.22,
+                  0.24
+                ],
+                "color": "#c9b889",
+                "metalness": 0.5
+              },
+              {
+                "id": "camera-lens",
+                "parent": "mast",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  1.12,
+                  0.18
+                ],
+                "size": [
+                  0.09,
+                  0.09,
+                  0.04
+                ],
+                "color": "#263d4a",
+                "metalness": 0.7
+              },
+              {
+                "id": "wheel--1--0.55",
+                "primitive": "cylinder",
+                "position": [
+                  -0.7,
+                  0.38,
+                  -0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel--1-0",
+                "primitive": "cylinder",
+                "position": [
+                  -0.7,
+                  0.38,
+                  0
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel--1-0.55",
+                "primitive": "cylinder",
+                "position": [
+                  -0.7,
+                  0.38,
+                  0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel-1--0.55",
+                "primitive": "cylinder",
+                "position": [
+                  0.7,
+                  0.38,
+                  -0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel-1-0",
+                "primitive": "cylinder",
+                "position": [
+                  0.7,
+                  0.38,
+                  0
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel-1-0.55",
+                "primitive": "cylinder",
+                "position": [
+                  0.7,
+                  0.38,
+                  0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              }
+            ],
+            "animations": [
+              {
+                "target": "mast",
+                "property": "rotation",
+                "axis": "y",
+                "amplitude": 0.22,
+                "frequency": 0.45,
+                "phase": 0
+              },
+              {
+                "target": "wheel--1--0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel--1-0",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel--1-0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel-1--0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel-1-0",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel-1-0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              }
+            ]
+          }
         },
         {
           "id": "mars-sun",
@@ -604,7 +2866,55 @@
             2,
             -7
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; distant luminous disc represented as a sphere",
+            "parts": [
+              {
+                "id": "solar-disc",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  0,
+                  0
+                ],
+                "size": [
+                  0.72,
+                  0.72,
+                  0.72
+                ],
+                "color": "#f2b56d",
+                "roughness": 0.25
+              },
+              {
+                "id": "solar-core",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  0,
+                  0.02
+                ],
+                "size": [
+                  0.53,
+                  0.53,
+                  0.53
+                ],
+                "color": "#ffd99a",
+                "roughness": 0.2
+              }
+            ],
+            "animations": [
+              {
+                "target": "solar-disc",
+                "property": "rotation",
+                "axis": "y",
+                "amplitude": 0.04,
+                "frequency": 0.2,
+                "phase": 0
+              }
+            ]
+          }
         }
       ],
       "beats": [
@@ -667,7 +2977,289 @@
             0,
             -4.6
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; metres; rover 1.8 metres long",
+            "parts": [
+              {
+                "id": "chassis",
+                "primitive": "box",
+                "position": [
+                  0,
+                  0.95,
+                  0
+                ],
+                "size": [
+                  1.25,
+                  0.35,
+                  1.45
+                ],
+                "color": "#b5a27b",
+                "metalness": 0.55
+              },
+              {
+                "id": "deck",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.18,
+                  0
+                ],
+                "size": [
+                  1.1,
+                  0.12,
+                  1.25
+                ],
+                "color": "#d1c4a3",
+                "metalness": 0.4
+              },
+              {
+                "id": "mast",
+                "group": true,
+                "position": [
+                  0,
+                  1.25,
+                  0.48
+                ]
+              },
+              {
+                "id": "mast-pole",
+                "parent": "mast",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  0.55,
+                  0
+                ],
+                "size": [
+                  0.08,
+                  1.1,
+                  0.08
+                ],
+                "color": "#9c9b92",
+                "metalness": 0.65
+              },
+              {
+                "id": "camera-head",
+                "parent": "mast",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.12,
+                  0.04
+                ],
+                "size": [
+                  0.38,
+                  0.22,
+                  0.24
+                ],
+                "color": "#c9b889",
+                "metalness": 0.5
+              },
+              {
+                "id": "camera-lens",
+                "parent": "mast",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  1.12,
+                  0.18
+                ],
+                "size": [
+                  0.09,
+                  0.09,
+                  0.04
+                ],
+                "color": "#263d4a",
+                "metalness": 0.7
+              },
+              {
+                "id": "wheel--1--0.55",
+                "primitive": "cylinder",
+                "position": [
+                  -0.7,
+                  0.38,
+                  -0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel--1-0",
+                "primitive": "cylinder",
+                "position": [
+                  -0.7,
+                  0.38,
+                  0
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel--1-0.55",
+                "primitive": "cylinder",
+                "position": [
+                  -0.7,
+                  0.38,
+                  0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel-1--0.55",
+                "primitive": "cylinder",
+                "position": [
+                  0.7,
+                  0.38,
+                  -0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel-1-0",
+                "primitive": "cylinder",
+                "position": [
+                  0.7,
+                  0.38,
+                  0
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel-1-0.55",
+                "primitive": "cylinder",
+                "position": [
+                  0.7,
+                  0.38,
+                  0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              }
+            ],
+            "animations": [
+              {
+                "target": "mast",
+                "property": "rotation",
+                "axis": "y",
+                "amplitude": 0.22,
+                "frequency": 0.45,
+                "phase": 0
+              },
+              {
+                "target": "wheel--1--0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel--1-0",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel--1-0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel-1--0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel-1-0",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel-1-0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              }
+            ]
+          }
         },
         {
           "id": "mars-sun",
@@ -690,7 +3282,55 @@
             2,
             -7.6
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; distant luminous disc represented as a sphere",
+            "parts": [
+              {
+                "id": "solar-disc",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  0,
+                  0
+                ],
+                "size": [
+                  0.72,
+                  0.72,
+                  0.72
+                ],
+                "color": "#f2b56d",
+                "roughness": 0.25
+              },
+              {
+                "id": "solar-core",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  0,
+                  0.02
+                ],
+                "size": [
+                  0.53,
+                  0.53,
+                  0.53
+                ],
+                "color": "#ffd99a",
+                "roughness": 0.2
+              }
+            ],
+            "animations": [
+              {
+                "target": "solar-disc",
+                "property": "rotation",
+                "axis": "y",
+                "amplitude": 0.04,
+                "frequency": 0.2,
+                "phase": 0
+              }
+            ]
+          }
         }
       ],
       "beats": [
@@ -753,7 +3393,289 @@
             0,
             -5.2
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; metres; rover 1.8 metres long",
+            "parts": [
+              {
+                "id": "chassis",
+                "primitive": "box",
+                "position": [
+                  0,
+                  0.95,
+                  0
+                ],
+                "size": [
+                  1.25,
+                  0.35,
+                  1.45
+                ],
+                "color": "#b5a27b",
+                "metalness": 0.55
+              },
+              {
+                "id": "deck",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.18,
+                  0
+                ],
+                "size": [
+                  1.1,
+                  0.12,
+                  1.25
+                ],
+                "color": "#d1c4a3",
+                "metalness": 0.4
+              },
+              {
+                "id": "mast",
+                "group": true,
+                "position": [
+                  0,
+                  1.25,
+                  0.48
+                ]
+              },
+              {
+                "id": "mast-pole",
+                "parent": "mast",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  0.55,
+                  0
+                ],
+                "size": [
+                  0.08,
+                  1.1,
+                  0.08
+                ],
+                "color": "#9c9b92",
+                "metalness": 0.65
+              },
+              {
+                "id": "camera-head",
+                "parent": "mast",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.12,
+                  0.04
+                ],
+                "size": [
+                  0.38,
+                  0.22,
+                  0.24
+                ],
+                "color": "#c9b889",
+                "metalness": 0.5
+              },
+              {
+                "id": "camera-lens",
+                "parent": "mast",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  1.12,
+                  0.18
+                ],
+                "size": [
+                  0.09,
+                  0.09,
+                  0.04
+                ],
+                "color": "#263d4a",
+                "metalness": 0.7
+              },
+              {
+                "id": "wheel--1--0.55",
+                "primitive": "cylinder",
+                "position": [
+                  -0.7,
+                  0.38,
+                  -0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel--1-0",
+                "primitive": "cylinder",
+                "position": [
+                  -0.7,
+                  0.38,
+                  0
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel--1-0.55",
+                "primitive": "cylinder",
+                "position": [
+                  -0.7,
+                  0.38,
+                  0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel-1--0.55",
+                "primitive": "cylinder",
+                "position": [
+                  0.7,
+                  0.38,
+                  -0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel-1-0",
+                "primitive": "cylinder",
+                "position": [
+                  0.7,
+                  0.38,
+                  0
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel-1-0.55",
+                "primitive": "cylinder",
+                "position": [
+                  0.7,
+                  0.38,
+                  0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              }
+            ],
+            "animations": [
+              {
+                "target": "mast",
+                "property": "rotation",
+                "axis": "y",
+                "amplitude": 0.22,
+                "frequency": 0.45,
+                "phase": 0
+              },
+              {
+                "target": "wheel--1--0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel--1-0",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel--1-0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel-1--0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel-1-0",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel-1-0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              }
+            ]
+          }
         },
         {
           "id": "mars-sun",
@@ -776,7 +3698,55 @@
             2,
             -8.2
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; distant luminous disc represented as a sphere",
+            "parts": [
+              {
+                "id": "solar-disc",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  0,
+                  0
+                ],
+                "size": [
+                  0.72,
+                  0.72,
+                  0.72
+                ],
+                "color": "#f2b56d",
+                "roughness": 0.25
+              },
+              {
+                "id": "solar-core",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  0,
+                  0.02
+                ],
+                "size": [
+                  0.53,
+                  0.53,
+                  0.53
+                ],
+                "color": "#ffd99a",
+                "roughness": 0.2
+              }
+            ],
+            "animations": [
+              {
+                "target": "solar-disc",
+                "property": "rotation",
+                "axis": "y",
+                "amplitude": 0.04,
+                "frequency": 0.2,
+                "phase": 0
+              }
+            ]
+          }
         }
       ],
       "beats": [
@@ -839,7 +3809,289 @@
             0,
             -4
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; metres; rover 1.8 metres long",
+            "parts": [
+              {
+                "id": "chassis",
+                "primitive": "box",
+                "position": [
+                  0,
+                  0.95,
+                  0
+                ],
+                "size": [
+                  1.25,
+                  0.35,
+                  1.45
+                ],
+                "color": "#b5a27b",
+                "metalness": 0.55
+              },
+              {
+                "id": "deck",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.18,
+                  0
+                ],
+                "size": [
+                  1.1,
+                  0.12,
+                  1.25
+                ],
+                "color": "#d1c4a3",
+                "metalness": 0.4
+              },
+              {
+                "id": "mast",
+                "group": true,
+                "position": [
+                  0,
+                  1.25,
+                  0.48
+                ]
+              },
+              {
+                "id": "mast-pole",
+                "parent": "mast",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  0.55,
+                  0
+                ],
+                "size": [
+                  0.08,
+                  1.1,
+                  0.08
+                ],
+                "color": "#9c9b92",
+                "metalness": 0.65
+              },
+              {
+                "id": "camera-head",
+                "parent": "mast",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.12,
+                  0.04
+                ],
+                "size": [
+                  0.38,
+                  0.22,
+                  0.24
+                ],
+                "color": "#c9b889",
+                "metalness": 0.5
+              },
+              {
+                "id": "camera-lens",
+                "parent": "mast",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  1.12,
+                  0.18
+                ],
+                "size": [
+                  0.09,
+                  0.09,
+                  0.04
+                ],
+                "color": "#263d4a",
+                "metalness": 0.7
+              },
+              {
+                "id": "wheel--1--0.55",
+                "primitive": "cylinder",
+                "position": [
+                  -0.7,
+                  0.38,
+                  -0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel--1-0",
+                "primitive": "cylinder",
+                "position": [
+                  -0.7,
+                  0.38,
+                  0
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel--1-0.55",
+                "primitive": "cylinder",
+                "position": [
+                  -0.7,
+                  0.38,
+                  0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel-1--0.55",
+                "primitive": "cylinder",
+                "position": [
+                  0.7,
+                  0.38,
+                  -0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel-1-0",
+                "primitive": "cylinder",
+                "position": [
+                  0.7,
+                  0.38,
+                  0
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel-1-0.55",
+                "primitive": "cylinder",
+                "position": [
+                  0.7,
+                  0.38,
+                  0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              }
+            ],
+            "animations": [
+              {
+                "target": "mast",
+                "property": "rotation",
+                "axis": "y",
+                "amplitude": 0.22,
+                "frequency": 0.45,
+                "phase": 0
+              },
+              {
+                "target": "wheel--1--0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel--1-0",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel--1-0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel-1--0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel-1-0",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel-1-0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              }
+            ]
+          }
         },
         {
           "id": "mars-sun",
@@ -862,7 +4114,55 @@
             2,
             -7
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; distant luminous disc represented as a sphere",
+            "parts": [
+              {
+                "id": "solar-disc",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  0,
+                  0
+                ],
+                "size": [
+                  0.72,
+                  0.72,
+                  0.72
+                ],
+                "color": "#f2b56d",
+                "roughness": 0.25
+              },
+              {
+                "id": "solar-core",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  0,
+                  0.02
+                ],
+                "size": [
+                  0.53,
+                  0.53,
+                  0.53
+                ],
+                "color": "#ffd99a",
+                "roughness": 0.2
+              }
+            ],
+            "animations": [
+              {
+                "target": "solar-disc",
+                "property": "rotation",
+                "axis": "y",
+                "amplitude": 0.04,
+                "frequency": 0.2,
+                "phase": 0
+              }
+            ]
+          }
         }
       ],
       "beats": [
@@ -925,7 +4225,289 @@
             0,
             -4.6
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; metres; rover 1.8 metres long",
+            "parts": [
+              {
+                "id": "chassis",
+                "primitive": "box",
+                "position": [
+                  0,
+                  0.95,
+                  0
+                ],
+                "size": [
+                  1.25,
+                  0.35,
+                  1.45
+                ],
+                "color": "#b5a27b",
+                "metalness": 0.55
+              },
+              {
+                "id": "deck",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.18,
+                  0
+                ],
+                "size": [
+                  1.1,
+                  0.12,
+                  1.25
+                ],
+                "color": "#d1c4a3",
+                "metalness": 0.4
+              },
+              {
+                "id": "mast",
+                "group": true,
+                "position": [
+                  0,
+                  1.25,
+                  0.48
+                ]
+              },
+              {
+                "id": "mast-pole",
+                "parent": "mast",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  0.55,
+                  0
+                ],
+                "size": [
+                  0.08,
+                  1.1,
+                  0.08
+                ],
+                "color": "#9c9b92",
+                "metalness": 0.65
+              },
+              {
+                "id": "camera-head",
+                "parent": "mast",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.12,
+                  0.04
+                ],
+                "size": [
+                  0.38,
+                  0.22,
+                  0.24
+                ],
+                "color": "#c9b889",
+                "metalness": 0.5
+              },
+              {
+                "id": "camera-lens",
+                "parent": "mast",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  1.12,
+                  0.18
+                ],
+                "size": [
+                  0.09,
+                  0.09,
+                  0.04
+                ],
+                "color": "#263d4a",
+                "metalness": 0.7
+              },
+              {
+                "id": "wheel--1--0.55",
+                "primitive": "cylinder",
+                "position": [
+                  -0.7,
+                  0.38,
+                  -0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel--1-0",
+                "primitive": "cylinder",
+                "position": [
+                  -0.7,
+                  0.38,
+                  0
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel--1-0.55",
+                "primitive": "cylinder",
+                "position": [
+                  -0.7,
+                  0.38,
+                  0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel-1--0.55",
+                "primitive": "cylinder",
+                "position": [
+                  0.7,
+                  0.38,
+                  -0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel-1-0",
+                "primitive": "cylinder",
+                "position": [
+                  0.7,
+                  0.38,
+                  0
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel-1-0.55",
+                "primitive": "cylinder",
+                "position": [
+                  0.7,
+                  0.38,
+                  0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              }
+            ],
+            "animations": [
+              {
+                "target": "mast",
+                "property": "rotation",
+                "axis": "y",
+                "amplitude": 0.22,
+                "frequency": 0.45,
+                "phase": 0
+              },
+              {
+                "target": "wheel--1--0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel--1-0",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel--1-0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel-1--0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel-1-0",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel-1-0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              }
+            ]
+          }
         },
         {
           "id": "mars-sun",
@@ -948,7 +4530,55 @@
             2,
             -7.6
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; distant luminous disc represented as a sphere",
+            "parts": [
+              {
+                "id": "solar-disc",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  0,
+                  0
+                ],
+                "size": [
+                  0.72,
+                  0.72,
+                  0.72
+                ],
+                "color": "#f2b56d",
+                "roughness": 0.25
+              },
+              {
+                "id": "solar-core",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  0,
+                  0.02
+                ],
+                "size": [
+                  0.53,
+                  0.53,
+                  0.53
+                ],
+                "color": "#ffd99a",
+                "roughness": 0.2
+              }
+            ],
+            "animations": [
+              {
+                "target": "solar-disc",
+                "property": "rotation",
+                "axis": "y",
+                "amplitude": 0.04,
+                "frequency": 0.2,
+                "phase": 0
+              }
+            ]
+          }
         }
       ],
       "beats": [
@@ -1011,7 +4641,289 @@
             0,
             -5.2
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; metres; rover 1.8 metres long",
+            "parts": [
+              {
+                "id": "chassis",
+                "primitive": "box",
+                "position": [
+                  0,
+                  0.95,
+                  0
+                ],
+                "size": [
+                  1.25,
+                  0.35,
+                  1.45
+                ],
+                "color": "#b5a27b",
+                "metalness": 0.55
+              },
+              {
+                "id": "deck",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.18,
+                  0
+                ],
+                "size": [
+                  1.1,
+                  0.12,
+                  1.25
+                ],
+                "color": "#d1c4a3",
+                "metalness": 0.4
+              },
+              {
+                "id": "mast",
+                "group": true,
+                "position": [
+                  0,
+                  1.25,
+                  0.48
+                ]
+              },
+              {
+                "id": "mast-pole",
+                "parent": "mast",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  0.55,
+                  0
+                ],
+                "size": [
+                  0.08,
+                  1.1,
+                  0.08
+                ],
+                "color": "#9c9b92",
+                "metalness": 0.65
+              },
+              {
+                "id": "camera-head",
+                "parent": "mast",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.12,
+                  0.04
+                ],
+                "size": [
+                  0.38,
+                  0.22,
+                  0.24
+                ],
+                "color": "#c9b889",
+                "metalness": 0.5
+              },
+              {
+                "id": "camera-lens",
+                "parent": "mast",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  1.12,
+                  0.18
+                ],
+                "size": [
+                  0.09,
+                  0.09,
+                  0.04
+                ],
+                "color": "#263d4a",
+                "metalness": 0.7
+              },
+              {
+                "id": "wheel--1--0.55",
+                "primitive": "cylinder",
+                "position": [
+                  -0.7,
+                  0.38,
+                  -0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel--1-0",
+                "primitive": "cylinder",
+                "position": [
+                  -0.7,
+                  0.38,
+                  0
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel--1-0.55",
+                "primitive": "cylinder",
+                "position": [
+                  -0.7,
+                  0.38,
+                  0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel-1--0.55",
+                "primitive": "cylinder",
+                "position": [
+                  0.7,
+                  0.38,
+                  -0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel-1-0",
+                "primitive": "cylinder",
+                "position": [
+                  0.7,
+                  0.38,
+                  0
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel-1-0.55",
+                "primitive": "cylinder",
+                "position": [
+                  0.7,
+                  0.38,
+                  0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              }
+            ],
+            "animations": [
+              {
+                "target": "mast",
+                "property": "rotation",
+                "axis": "y",
+                "amplitude": 0.22,
+                "frequency": 0.45,
+                "phase": 0
+              },
+              {
+                "target": "wheel--1--0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel--1-0",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel--1-0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel-1--0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel-1-0",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel-1-0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              }
+            ]
+          }
         },
         {
           "id": "mars-sun",
@@ -1034,7 +4946,55 @@
             2,
             -8.2
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; distant luminous disc represented as a sphere",
+            "parts": [
+              {
+                "id": "solar-disc",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  0,
+                  0
+                ],
+                "size": [
+                  0.72,
+                  0.72,
+                  0.72
+                ],
+                "color": "#f2b56d",
+                "roughness": 0.25
+              },
+              {
+                "id": "solar-core",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  0,
+                  0.02
+                ],
+                "size": [
+                  0.53,
+                  0.53,
+                  0.53
+                ],
+                "color": "#ffd99a",
+                "roughness": 0.2
+              }
+            ],
+            "animations": [
+              {
+                "target": "solar-disc",
+                "property": "rotation",
+                "axis": "y",
+                "amplitude": 0.04,
+                "frequency": 0.2,
+                "phase": 0
+              }
+            ]
+          }
         }
       ],
       "beats": [
@@ -1097,7 +5057,289 @@
             0,
             -4
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; metres; rover 1.8 metres long",
+            "parts": [
+              {
+                "id": "chassis",
+                "primitive": "box",
+                "position": [
+                  0,
+                  0.95,
+                  0
+                ],
+                "size": [
+                  1.25,
+                  0.35,
+                  1.45
+                ],
+                "color": "#b5a27b",
+                "metalness": 0.55
+              },
+              {
+                "id": "deck",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.18,
+                  0
+                ],
+                "size": [
+                  1.1,
+                  0.12,
+                  1.25
+                ],
+                "color": "#d1c4a3",
+                "metalness": 0.4
+              },
+              {
+                "id": "mast",
+                "group": true,
+                "position": [
+                  0,
+                  1.25,
+                  0.48
+                ]
+              },
+              {
+                "id": "mast-pole",
+                "parent": "mast",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  0.55,
+                  0
+                ],
+                "size": [
+                  0.08,
+                  1.1,
+                  0.08
+                ],
+                "color": "#9c9b92",
+                "metalness": 0.65
+              },
+              {
+                "id": "camera-head",
+                "parent": "mast",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.12,
+                  0.04
+                ],
+                "size": [
+                  0.38,
+                  0.22,
+                  0.24
+                ],
+                "color": "#c9b889",
+                "metalness": 0.5
+              },
+              {
+                "id": "camera-lens",
+                "parent": "mast",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  1.12,
+                  0.18
+                ],
+                "size": [
+                  0.09,
+                  0.09,
+                  0.04
+                ],
+                "color": "#263d4a",
+                "metalness": 0.7
+              },
+              {
+                "id": "wheel--1--0.55",
+                "primitive": "cylinder",
+                "position": [
+                  -0.7,
+                  0.38,
+                  -0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel--1-0",
+                "primitive": "cylinder",
+                "position": [
+                  -0.7,
+                  0.38,
+                  0
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel--1-0.55",
+                "primitive": "cylinder",
+                "position": [
+                  -0.7,
+                  0.38,
+                  0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel-1--0.55",
+                "primitive": "cylinder",
+                "position": [
+                  0.7,
+                  0.38,
+                  -0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel-1-0",
+                "primitive": "cylinder",
+                "position": [
+                  0.7,
+                  0.38,
+                  0
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel-1-0.55",
+                "primitive": "cylinder",
+                "position": [
+                  0.7,
+                  0.38,
+                  0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              }
+            ],
+            "animations": [
+              {
+                "target": "mast",
+                "property": "rotation",
+                "axis": "y",
+                "amplitude": 0.22,
+                "frequency": 0.45,
+                "phase": 0
+              },
+              {
+                "target": "wheel--1--0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel--1-0",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel--1-0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel-1--0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel-1-0",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel-1-0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              }
+            ]
+          }
         },
         {
           "id": "mars-sun",
@@ -1120,7 +5362,55 @@
             2,
             -7
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; distant luminous disc represented as a sphere",
+            "parts": [
+              {
+                "id": "solar-disc",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  0,
+                  0
+                ],
+                "size": [
+                  0.72,
+                  0.72,
+                  0.72
+                ],
+                "color": "#f2b56d",
+                "roughness": 0.25
+              },
+              {
+                "id": "solar-core",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  0,
+                  0.02
+                ],
+                "size": [
+                  0.53,
+                  0.53,
+                  0.53
+                ],
+                "color": "#ffd99a",
+                "roughness": 0.2
+              }
+            ],
+            "animations": [
+              {
+                "target": "solar-disc",
+                "property": "rotation",
+                "axis": "y",
+                "amplitude": 0.04,
+                "frequency": 0.2,
+                "phase": 0
+              }
+            ]
+          }
         }
       ],
       "beats": [
@@ -1183,7 +5473,289 @@
             0,
             -4.6
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; metres; rover 1.8 metres long",
+            "parts": [
+              {
+                "id": "chassis",
+                "primitive": "box",
+                "position": [
+                  0,
+                  0.95,
+                  0
+                ],
+                "size": [
+                  1.25,
+                  0.35,
+                  1.45
+                ],
+                "color": "#b5a27b",
+                "metalness": 0.55
+              },
+              {
+                "id": "deck",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.18,
+                  0
+                ],
+                "size": [
+                  1.1,
+                  0.12,
+                  1.25
+                ],
+                "color": "#d1c4a3",
+                "metalness": 0.4
+              },
+              {
+                "id": "mast",
+                "group": true,
+                "position": [
+                  0,
+                  1.25,
+                  0.48
+                ]
+              },
+              {
+                "id": "mast-pole",
+                "parent": "mast",
+                "primitive": "cylinder",
+                "position": [
+                  0,
+                  0.55,
+                  0
+                ],
+                "size": [
+                  0.08,
+                  1.1,
+                  0.08
+                ],
+                "color": "#9c9b92",
+                "metalness": 0.65
+              },
+              {
+                "id": "camera-head",
+                "parent": "mast",
+                "primitive": "box",
+                "position": [
+                  0,
+                  1.12,
+                  0.04
+                ],
+                "size": [
+                  0.38,
+                  0.22,
+                  0.24
+                ],
+                "color": "#c9b889",
+                "metalness": 0.5
+              },
+              {
+                "id": "camera-lens",
+                "parent": "mast",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  1.12,
+                  0.18
+                ],
+                "size": [
+                  0.09,
+                  0.09,
+                  0.04
+                ],
+                "color": "#263d4a",
+                "metalness": 0.7
+              },
+              {
+                "id": "wheel--1--0.55",
+                "primitive": "cylinder",
+                "position": [
+                  -0.7,
+                  0.38,
+                  -0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel--1-0",
+                "primitive": "cylinder",
+                "position": [
+                  -0.7,
+                  0.38,
+                  0
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel--1-0.55",
+                "primitive": "cylinder",
+                "position": [
+                  -0.7,
+                  0.38,
+                  0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel-1--0.55",
+                "primitive": "cylinder",
+                "position": [
+                  0.7,
+                  0.38,
+                  -0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel-1-0",
+                "primitive": "cylinder",
+                "position": [
+                  0.7,
+                  0.38,
+                  0
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              },
+              {
+                "id": "wheel-1-0.55",
+                "primitive": "cylinder",
+                "position": [
+                  0.7,
+                  0.38,
+                  0.55
+                ],
+                "size": [
+                  0.25,
+                  0.16,
+                  0.25
+                ],
+                "color": "#34383a",
+                "rotation": [
+                  0,
+                  0,
+                  1.5707963267948966
+                ],
+                "metalness": 0.1
+              }
+            ],
+            "animations": [
+              {
+                "target": "mast",
+                "property": "rotation",
+                "axis": "y",
+                "amplitude": 0.22,
+                "frequency": 0.45,
+                "phase": 0
+              },
+              {
+                "target": "wheel--1--0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel--1-0",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel--1-0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel-1--0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel-1-0",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              },
+              {
+                "target": "wheel-1-0.55",
+                "property": "rotation",
+                "axis": "z",
+                "amplitude": 0,
+                "frequency": 1,
+                "phase": 0
+              }
+            ]
+          }
         },
         {
           "id": "mars-sun",
@@ -1206,7 +5778,55 @@
             2,
             -7.6
           ],
-          "support": "ground"
+          "support": "ground",
+          "blueprint": {
+            "version": 1,
+            "coordinate_system": "Y-up; distant luminous disc represented as a sphere",
+            "parts": [
+              {
+                "id": "solar-disc",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  0,
+                  0
+                ],
+                "size": [
+                  0.72,
+                  0.72,
+                  0.72
+                ],
+                "color": "#f2b56d",
+                "roughness": 0.25
+              },
+              {
+                "id": "solar-core",
+                "primitive": "sphere",
+                "position": [
+                  0,
+                  0,
+                  0.02
+                ],
+                "size": [
+                  0.53,
+                  0.53,
+                  0.53
+                ],
+                "color": "#ffd99a",
+                "roughness": 0.2
+              }
+            ],
+            "animations": [
+              {
+                "target": "solar-disc",
+                "property": "rotation",
+                "axis": "y",
+                "amplitude": 0.04,
+                "frequency": 0.2,
+                "phase": 0
+              }
+            ]
+          }
         }
       ],
       "beats": [
