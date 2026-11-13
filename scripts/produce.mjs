@@ -353,15 +353,43 @@ const srtText = await readFile(subtitlesPath,'utf8');
 const srtBlocks = srtText.trim().split(/\r?\n\s*\r?\n/);
 const wordCues = srtBlocks.map(block=>{const lines=block.split(/\r?\n/);const ix=lines.findIndex(line=>line.includes('-->'));if(ix<0)return null;const [from,to]=lines[ix].split('-->').map(x=>x.trim());return {start:parseSrtTime(from),end:parseSrtTime(to),text:lines.slice(ix+1).join(' ').trim()};}).filter(Boolean);
 if (!wordCues.length) throw new Error('Edge TTS no ha devuelto marcas temporales de subtítulos; se cancela el render para evitar texto desincronizado.');
+// Convierte las marcas de Edge TTS en palabras temporizadas. Algunos bloques SRT
+// contienen frases completas, así que interpolamos cada palabra dentro de su bloque.
+// Después agrupamos como máximo seis palabras y nunca cruzamos el final de una frase.
+const timedWords = wordCues.flatMap(cue => {
+  const tokens = String(cue.text || '').match(/\\S+/g) || [];
+  const span = Math.max(0.08, cue.end - cue.start);
+  return tokens.map((text, index) => ({
+    text,
+    start: cue.start + span * index / Math.max(1, tokens.length),
+    end: cue.start + span * (index + 1) / Math.max(1, tokens.length),
+  }));
+});
 const subtitleCues = [];
-for(let i=0;i<wordCues.length;i+=2){const group=wordCues.slice(i,i+2);subtitleCues.push({start:group[0].start,end:group[group.length-1].end,words:group.map(x=>({text:x.text,start:x.start,end:x.end}))});}
+let captionGroup = [];
+const flushCaption = () => {
+  if (!captionGroup.length) return;
+  subtitleCues.push({
+    start: captionGroup[0].start,
+    end: captionGroup[captionGroup.length - 1].end,
+    words: captionGroup,
+  });
+  captionGroup = [];
+};
+for (const word of timedWords) {
+  captionGroup.push(word);
+  const sentenceEnd = /[.!?…][”"'»)]*$/.test(word.text);
+  if (captionGroup.length >= 6 || sentenceEnd) flushCaption();
+}
+flushCaption();
+if (!subtitleCues.length) throw new Error('No se pudieron crear subtítulos breves a partir de las marcas de voz.');
 
 await command('npx', ['esbuild', 'scripts/scene-engine.js', '--bundle', '--format=iife', '--minify', '--outfile=' + path.join(work, 'scene-engine.bundle.js')], { cwd: root });
 const sceneEngine = await readFile(path.join(work, 'scene-engine.bundle.js'), 'utf8');
 const sceneEngineTag = '<script>' + sceneEngine + '</script>';
 const subtitleData = JSON.stringify(subtitleCues);
 const html = `<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=1080,initial-scale=1"><style>
-*{box-sizing:border-box}html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#8ebbd0;font-family:Arial,sans-serif}#root{position:relative;width:1080px;height:1920px}.scene{position:absolute;inset:0;width:1080px;height:1920px;overflow:hidden;background:transparent!important;z-index:2}.world-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}.brand-mark{position:absolute;z-index:4;top:82px;left:70px;font:900 25px Arial;letter-spacing:5px;color:white;text-shadow:0 3px 12px #16334f}.brand-mark i{font-style:normal;color:#ffcf54}.scene-copy{position:absolute;z-index:4;left:70px;right:70px;top:270px;animation:enter .6s ease both}.scene h1{font-size:76px;line-height:1.02;font-weight:950;color:white;-webkit-text-stroke:2px #172b42;text-shadow:0 5px 0 #172b42,0 9px 24px #102a43}.timed-caption{position:absolute;z-index:8;left:70px;right:70px;bottom:190px;min-height:120px;text-align:center;font-size:48px;line-height:1.12;font-weight:950;color:#fff;-webkit-text-stroke:1.5px #101b2a;text-shadow:0 4px 0 #101b2a,0 7px 18px #101b2a;letter-spacing:.2px;pointer-events:none}.caption-word{display:inline-block;padding:0 3px;opacity:.78;transform:translateY(5px) scale(.96);transition:transform .12s ease,opacity .12s ease,color .12s ease}.caption-word.active{color:#ffd45b;opacity:1;transform:translateY(0) scale(1.08);text-shadow:0 3px 0 #101b2a,0 0 18px #ffcf54}@keyframes enter{from{opacity:0;transform:translateY(35px)}to{opacity:1;transform:none}}
+*{box-sizing:border-box}html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#8ebbd0;font-family:Arial,sans-serif}#root{position:relative;width:1080px;height:1920px}.scene{position:absolute;inset:0;width:1080px;height:1920px;overflow:hidden;background:transparent!important;z-index:2}.world-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}.brand-mark{position:absolute;z-index:4;top:82px;left:70px;font:900 25px Arial;letter-spacing:5px;color:white;text-shadow:0 3px 12px #16334f}.brand-mark i{font-style:normal;color:#ffcf54}.scene-copy{position:absolute;z-index:4;left:70px;right:70px;top:270px;animation:enter .6s ease both}.scene h1{font-size:76px;line-height:1.02;font-weight:950;color:white;-webkit-text-stroke:2px #172b42;text-shadow:0 5px 0 #172b42,0 9px 24px #102a43}.timed-caption{position:absolute;z-index:8;left:110px;right:110px;bottom:205px;min-height:0;width:max-content;max-width:860px;margin:0 auto;padding:13px 24px;text-align:center;font-size:38px;line-height:1.16;font-weight:850;color:#fff;letter-spacing:.1px;pointer-events:none;background:rgba(10,24,39,.76);border:1px solid rgba(255,211,105,.48);border-radius:18px;box-shadow:0 8px 28px rgba(4,15,28,.25);backdrop-filter:blur(8px)}.caption-word{display:inline-block;padding:0 2px;opacity:.82;transform:translateY(2px);transition:transform .12s ease,opacity .12s ease,color .12s ease}.caption-word.active{color:#ffd45b;opacity:1;transform:translateY(-1px);text-shadow:0 0 12px rgba(255,207,84,.45)}@keyframes enter{from{opacity:0;transform:translateY(35px)}to{opacity:1;transform:none}}
 </style></head><body><div id="root" data-composition-id="behind-del-mundo" data-start="0" data-duration="${targetDuration}" data-width="1080" data-height="1920"><canvas id="world-canvas" class="world-canvas"></canvas><div id="timed-caption" class="timed-caption"></div><audio id="narration-audio" src="voice.mp3" data-start="0" data-duration="${targetDuration}" data-track-index="0" data-volume="1"></audio>${clips}<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script><script>
 const tl=gsap.timeline({paused:true});
 const subtitleCues=${subtitleData};
