@@ -596,7 +596,7 @@ function createFromBlueprint(spec) {
     const parent = nodes.get(part.parent || 'root') || root;
     const position = Array.isArray(part.position) ? part.position : [0,0,0];
     const size = Array.isArray(part.size) ? part.size : [1,1,1];
-    const isOctopusBody = /^(mantle|head-base|arm-\\d+-segment)/.test(String(part.id || ''));
+    const isOctopusBody = /^(mantle|head-base|arm-\d+-segment)/.test(String(part.id || ''));
     const color = spec.colorOverrides?.[part.id] || (isOctopusBody && spec.palette?.body ? spec.palette.body : null) || part.color || spec.color || '#9b978e';
     const surface = clean(spec.material || '');
     const defaults = /metal|alumin|acero|reflect|iridoforo/.test(surface)
