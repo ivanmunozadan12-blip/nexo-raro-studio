@@ -222,7 +222,7 @@ if (process.env.MANUAL_SCRIPT_ID) {
   const imported = importedRows[0];
   if (!imported) throw new Error('No se encontró el guion importado o no pertenece a esta cuenta.');
   if (!['queued','in_production','approved'].includes(imported.status)) throw new Error('El guion no está en cola de producción (estado: ' + imported.status + ').');
-  script = { title: imported.title, hook: imported.hook || '', narration: imported.narration || '', scenes: imported.visual_plan || [], sources: imported.source_notes || [], caption: imported.title + ' | Descubre lo que hay detrás. #BehindDelMundo', category: seriesRows.find(x => x.id === imported.series_id)?.slug || 'nadie-te-lo-explica' };
+  const storedPlan = imported.visual_plan || [];\n  script = { title: imported.title, hook: imported.hook || '', narration: imported.narration || '', scenes: Array.isArray(storedPlan) ? storedPlan : (storedPlan.scenes || []), models: Array.isArray(storedPlan) ? {} : (storedPlan.models || {}), sources: imported.source_notes || [], caption: imported.title + ' | Descubre lo que hay detrás. #BehindDelMundo', category: seriesRows.find(x => x.id === imported.series_id)?.slug || 'nadie-te-lo-explica' };
   scriptId = imported.id;
   wordCount = countWords(script.narration);
   await supabase('scripts', { method: 'PATCH', query: '?id=eq.' + scriptId, body: { status: 'in_production' } });
@@ -273,7 +273,7 @@ for (const [index, scene] of script.scenes.entries()) {
 }
 // Guarda los fragmentos corregidos para que panel, reintentos y render usen
 // exactamente la misma versión del plan visual.
-await supabase('scripts', { method:'PATCH', query:'?id=eq.' + encodeURIComponent(scriptId), body:{ visual_plan:script.scenes } });
+await supabase('scripts', { method:'PATCH', query:'?id=eq.' + encodeURIComponent(scriptId), body:{ visual_plan:{ scenes:script.scenes, models:script.models || {} } } });
 const allowedEntityTypes = new Set(['human','animal','ship','tree','building','vehicle','machine','lab','celestial','furniture','prop','artifact']);
 const entityRegistry = new Map();
 for (const [sceneIndex, scene] of script.scenes.entries()) {
