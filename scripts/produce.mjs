@@ -381,7 +381,7 @@ const clips = script.scenes.map((scene, i) => {
   const start = elapsedSceneSeconds.toFixed(3), duration = durationSeconds.toFixed(3);
   elapsedSceneSeconds += durationSeconds;
   const sceneData = escaped(JSON.stringify({title:script.title,visual:scene.visual||'',setting:scene.setting||'',action:scene.action||'',camera:scene.camera||'',camera_target:scene.camera_target||'',continuity:scene.continuity||'',characters:Array.isArray(scene.characters)?scene.characters:[],props:Array.isArray(scene.props)?scene.props:[],type:scene.scene_type||'object',objects:Array.isArray(scene.objects)?scene.objects.slice(0,12):[],entities:Array.isArray(scene.entities)?scene.entities.slice(0,18):[],models:script.models||{},beats:Array.isArray(scene.beats)?scene.beats.slice(0,12):[],index:i,start:Number(start),duration:Number(duration),storyId:script.story_id||'' }));
-  return '<section id="scene-'+(i+1)+'" class="clip scene motion-'+(i%4)+'" data-start="'+start+'" data-duration="'+duration+'" data-track-index="0" data-scene="'+sceneData+'"><div class="brand-mark">BEHIND <i>DEL MUNDO</i></div><div class="scene-copy"><h1>'+escaped(scene.overlay)+'</h1></div></section>';
+  return '<section id="scene-'+(i+1)+'" class="scene motion-'+(i%4)+'" data-scene-start="'+start+'" data-scene-duration="'+duration+'" data-scene="'+sceneData+'"><div class="brand-mark">BEHIND <i>DEL MUNDO</i></div><div class="scene-copy"><h1>'+escaped(scene.overlay)+'</h1></div></section>';
 }).join('');
 const parseSrtTime = value => { const m=String(value).match(/(\d+):(\d{2}):(\d{2}),(\d{3})/); return m ? Number(m[1])*3600+Number(m[2])*60+Number(m[3])+Number(m[4])/1000 : 0; };
 const srtText = await readFile(subtitlesPath,'utf8');
@@ -402,7 +402,7 @@ const tl=gsap.timeline({paused:true});
 const subtitleCues=${subtitleData};
 const caption=document.getElementById('timed-caption');
 subtitleCues.forEach(cue=>{tl.call(()=>{caption.innerHTML=cue.words.map((word,i)=>'<span class="caption-word" data-word="'+i+'">'+word.text.replace(/[&<>\"]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}[ch]))+'</span>').join(' ');caption.querySelectorAll('.caption-word').forEach((node,i)=>{if(i===0)node.classList.add('active');});},null,cue.start);cue.words.forEach((word,i)=>{if(i===0)return;tl.call(()=>{caption.querySelectorAll('.caption-word').forEach(node=>node.classList.remove('active'));caption.querySelectorAll('.caption-word')[i]?.classList.add('active');},null,word.start);});tl.call(()=>{caption.textContent='';},null,cue.end);});
-document.querySelectorAll('.scene').forEach((e,i)=>{tl.fromTo(e,{opacity:0},{opacity:1,duration:.35},Number(e.dataset.start));tl.to(e,{opacity:0,duration:.25},Number(e.dataset.start)+Number(e.dataset.duration)-.25);if(i>0){tl.to('#world-canvas',{opacity:0,duration:.12},Number(e.dataset.start)-.12);tl.to('#world-canvas',{opacity:1,duration:.18},Number(e.dataset.start));}});
+document.querySelectorAll('.scene').forEach((e,i)=>{tl.fromTo(e,{opacity:0},{opacity:1,duration:.35},Number(e.dataset.sceneStart));tl.to(e,{opacity:0,duration:.25},Number(e.dataset.sceneStart)+Number(e.dataset.sceneDuration)-.25);if(i>0){tl.to('#world-canvas',{opacity:0,duration:.12},Number(e.dataset.start)-.12);tl.to('#world-canvas',{opacity:1,duration:.18},Number(e.dataset.start));}});
 tl.set({}, {},${targetDuration});
 window.__timelines=window.__timelines||{};window.__timelines['behind-del-mundo']=tl;
 </script>${sceneEngineTag}</div></body></html>`;
