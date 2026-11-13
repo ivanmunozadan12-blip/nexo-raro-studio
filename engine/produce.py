@@ -36,6 +36,9 @@ def groq(messages):
 now=datetime.datetime.now(ZoneInfo("Europe/Madrid"))
 today=now.strftime("%Y-%m-%d")
 slot=os.getenv("VIDEO_SLOT","how-it-works")
+user_prompt=os.getenv("USER_PROMPT","").strip()
+if len(user_prompt)<12: raise SystemExit("Falta un prompt creativo válido (mínimo 12 caracteres).")
+if len(user_prompt)>3500: raise SystemExit("El prompt supera los 3.500 caracteres.")
 slots={
  "how-it-works":("07:30","Cómo funciona","Explica cómo funciona un objeto, mecanismo, tecnología o fenómeno que usamos o vemos a diario."),
  "inside":("14:30","Por dentro","Entra visualmente en el interior de un lugar, instalación, edificio, transporte o infraestructura y explica su funcionamiento."),
@@ -67,11 +70,11 @@ script_id=None; storage_path=None
 work=ROOT/"renders"/(today+"-"+slot)
 work.mkdir(parents=True,exist_ok=True)
 try:
-    prompt=f"""Eres director editorial de BEHIND DEL MUNDO. Crea UN vídeo de divulgación visual en español de España para el espacio {clock} ({category}). Enfoque: {angle}
+    prompt=f"""Eres director audiovisual y animador técnico de BEHIND DEL MUNDO. Debes cumplir este encargo del usuario como prioridad absoluta: """{user_prompt}""". La categoría {category} solo sirve como contexto editorial; nunca sustituyas ni contradigas el encargo.
 Duración 60–72 segundos; narración de 125–155 palabras; gancho inmediato, explicación progresiva, una revelación y cierre memorable. Voz: narrador masculino de España, cercano, curioso y cinematográfico. No hay presentador ni personaje recurrente.
 No repitas estos temas o enfoques ya cubiertos/excluidos: {json.dumps(excluded[:55],ensure_ascii=False)}
-Elige un tema concreto, no genérico, interesante para público amplio. No inventes datos. Crea 8 escenas en orden, cada una ilustra literalmente el fragmento de voz correspondiente. El vídeo se dibuja mediante Python/Pillow como animación vectorial, NO fotografías ni slideshow. visual_type debe ser uno de: illustration,machine,object_cutaway,interior,building_cutaway,facility,molecule,science,process,diagram,timeline,history,fact,number,stat,map,location,abstract. Usa variedad visual y composición.
-Cada escena lleva headline (máx 6 palabras), subtitle, visual_type, narration_excerpt (fragmento literal), callout, labels (2–5 etiquetas), accent (hex). Para fact/number/stat incluye metric {{"value":"...","label":"...","detail":"..."}}.
+No cambies el tema solicitado. Crea 8 escenas en orden narrativo, cada una ilustra literalmente el fragmento de voz correspondiente. El vídeo se dibuja mediante Python/Pillow y NumPy como animación vectorial por código, NO fotografías, slideshow ni fondos con texto. Cada escena debe tener una composición visual distinta y específica del tema. Elige visual_type entre: microwave,machine,object_cutaway,interior,building_cutaway,molecule,science,process,diagram,timeline,fact,map,aircraft,vehicle,engine,phone,turbine,industrial,illustration. Usa visual_type para indicar qué debe dibujar el motor y añade visual_elements: entre 6 y 12 elementos concretos de la escena, con shape (rect,circle,ellipse,line,arrow,polygon,gear,wave,arc,text), x e y en coordenadas 0-1000, width y height, color hexadecimal, label breve y motion (none,float,pulse,rotate,flow). Las piezas deben representar partes reales del objeto/lugar descrito, no círculos decorativos genéricos. Alterna planos generales, cortes interiores, acercamientos, diagramas y detalles. Incluye movimientos visibles en cada escena.
+Cada escena lleva headline (máx 6 palabras), subtitle, visual_type, narration_excerpt (fragmento literal), callout, labels (2–5 etiquetas), accent (hex) y visual_elements. Para fact/number/stat incluye metric {{"value":"...","label":"...","detail":"..."}}.
 Incluye 3 fuentes fiables con title y URL HTTPS real. No uses URLs inventadas.
 Devuelve SOLO JSON: {{"title":"...","hook":"...","category":"{slot}","narration":"...","caption":"...","sources":[{{"title":"...","url":"https://..."}}],"scenes":[{{"headline":"...","subtitle":"...","visual_type":"...","narration_excerpt":"...","callout":"...","labels":["..."],"accent":"#62d9cf","metric":{{"value":"...","label":"...","detail":"..."}}}}]}}"""
     script=groq([{"role":"system","content":"Devuelve exclusivamente JSON válido. Prioriza exactitud factual; si no conoces una cifra, no la inventes."},{"role":"user","content":prompt}])
@@ -79,6 +82,7 @@ Devuelve SOLO JSON: {{"title":"...","hook":"...","category":"{slot}","narration"
     words=len(script["narration"].split())
     if not 110<=words<=175: raise ValueError(f"Narración fuera de rango: {words} palabras.")
     if len({s.get("visual_type") for s in script["scenes"]})<4: raise ValueError("Las escenas no tienen variedad visual suficiente.")
+    if any(not isinstance(s.get("visual_elements"),list) or len(s["visual_elements"])<6 for s in script["scenes"]): raise ValueError("Cada escena necesita al menos seis elementos visuales específicos.")
     if len(script.get("sources",[]))<3: raise ValueError("Faltan tres fuentes documentales.")
     if any(not s.get("narration_excerpt") or s["narration_excerpt"] not in script["narration"] for s in script["scenes"]): raise ValueError("Los fragmentos de escena deben aparecer literalmente en la narración.")
     script["category"]=slot
