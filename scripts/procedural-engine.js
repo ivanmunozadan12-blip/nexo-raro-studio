@@ -350,7 +350,7 @@ function createAnimal(spec, rng) {
   const species = clean(spec.species || spec.name || spec.description || 'animal');
   if (/pulpo|octopus/.test(species)) return createOctopus(spec, rng);
   if (/ave|aguila|halcon|buho|pajaro|flamenco|pinguino/.test(species)) createBird(g, species, rng);
-  else if (/pez|tiburon|ballena|delfin/.test(species)) createFish(g, species, rng);
+  else if (/pez|peces|pescado|tiburon|ballena|delfin/.test(species)) createFish(g, species, rng);
   else if (/serpiente|cocodrilo|lagarto|tortuga/.test(species)) createReptile(g, species, rng);
   else createQuadruped(g, species, rng, spec.palette || {});
   return g;
