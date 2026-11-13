@@ -709,11 +709,11 @@ export function animateEntities(entities, time = 0) {
       const node = entity.userData.blueprintNodes.get(track.target);
       if (!node) continue;
       const phase = Number(track.phase || 0);
-      const value = Number(track.amplitude || 0) * Math.sin(time * Number(track.frequency || 1) + phase);
       const axis = ['x','y','z'].includes(track.axis) ? track.axis : 'z';
-      if (track.property === 'rotation') node.rotation[axis] = Number(track.base || 0) + value;
-      else if (track.property === 'position') node.position[axis] = Number(track.base || 0) + value;
-      else if (track.property === 'scale') node.scale[axis] = Number(track.base || 1) + value;
+      const channel = node[track.property];
+      const baseValue = Number.isFinite(Number(track.base)) ? Number(track.base) : channel[axis];
+      const value = track.mode === 'spin' ? time * Number(track.frequency || 1) : Number(track.amplitude || 0) * Math.sin(time * Number(track.frequency || 1) + phase);
+      channel[axis] = baseValue + value;
     }
     const walking = /caminar|andar|correr|walk|run|marchar|avanzar|acercarse|alejarse|perseguir/.test(action);
     const working = /examinar|observar|mirar|manipular|construir|reparar|levantar|girar|abrir|cerrar|escribir|medir|tocar|sujetar|golpear|lanzar|recoger|senalar|señalar|hablar|gesticular|indicar/.test(action);
