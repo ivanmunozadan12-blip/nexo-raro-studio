@@ -1,7 +1,4 @@
 import * as THREE from 'three';
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-
-const shipModelTargets = [];
 
 const MAT = (color, roughness=0.9) => new THREE.MeshStandardMaterial({ color, roughness, flatShading:true });
 const box = (g,x,y,z,sx,sy,sz,color) => { const m=new THREE.Mesh(new THREE.BoxGeometry(sx,sy,sz),MAT(color));m.position.set(x,y,z);g.add(m);return m; };
@@ -52,7 +49,7 @@ function hall(g){
  for(let x of [-5,5]){cyl(g,x,.55,-1,.22,.25,1.1,'#74563c');cyl(g,x,1.18,-1,.45,.45,.12,'#a88a62');}
 }
 function ship(g,x,z,index=0){
- const root=new THREE.Group();root.position.set(x,0,z);root.userData.baseX=x;root.userData.baseZ=z;if(index===0)root.scale.set(1.18,1.08,1.18);g.add(root);shipModelTargets.push(root);
+ const root=new THREE.Group();root.position.set(x,0,z);root.userData.baseX=x;root.userData.baseZ=z;if(index===0)root.scale.set(1.18,1.08,1.18);g.add(root);
  const wood=MAT('#68442d'),dark=MAT('#493426'),sail=MAT(index===1?'#eee5cd':'#dfd2b4'),rope=MAT('#a88a5e');
  // tapered hull mesh, bow at +z, stern at -z
  const verts=[],inds=[];const sections=[[-2.9,.12,.08],[-2.2,.65,.02],[-1,.82,-.08],[1,.78,-.1],[2.2,.57,.05],[2.9,.08,.32]];
@@ -78,16 +75,18 @@ function ship(g,x,z,index=0){
  rod(root,[0,.2,-2.3],[0,-.55,-2.9],.09,dark);return root;
 }
 function harbor(g){
- box(g,0,-.35,-2,28,.6,25,'#b5a078');box(g,0,-.05,-8,28,.18,10,'#267fa0');
- // waterfront houses with roofs, shutters and chimneys
- for(let i=0;i<8;i++){const x=-10+i*2.8,h=2.8+(i%3)*.7;box(g,x,h/2,-10,2.3,h,2,'#d4b88f');const roof=new THREE.Mesh(new THREE.ConeGeometry(1.75,.9,4),MAT(i%2?'#a34d3b':'#76503c'));roof.position.set(x,h+.35,-10);roof.rotation.y=Math.PI/4;g.add(roof);for(let y=1;y<h-0.2;y+=1.1)for(let side of [-1,1])box(g,x+side*.55,y,-8.97,.36,.55,.08,'#314b60');}
- // quay, mooring posts, ropes, crates and barrels
- box(g,0,.1,-3,25,.45,2.2,'#79563a');for(let x=-11;x<=11;x+=2){cyl(g,x,.45,-2.2,.12,.12,.9,'#5b402e');cyl(g,x,.9,-2.2,.16,.16,.12,'#a67b4e');}
- for(let i=0;i<10;i++){const x=-10+i*2.1;box(g,x,.42,-4.3,.65,.75,.65,i%2?'#9a7047':'#775436');cyl(g,x+.55,.4,-3.9,.28,.28,.8,'#8b5a37',10);for(let y of [.12,.68])cyl(g,x+.55,y,-3.9,.29,.29,.06,'#b48a5d',10);}
- for(let x of [-8,-3,3,8]){rod(g,[x,.2,-3],[x,3,-3],.07,'#6b4b32');rod(g,[x,3,-3],[x+1.1,2.4,-3],.06,'#6b4b32');}
- // three persistent caravels
- const fleet=[ship(g,-5,-5,0),ship(g,0,-6,1),ship(g,5,-5,2)];
- fleet.forEach((s,i)=>{const mastTop= i===1?4.2:3.2;});
+ // La ciudad ocupa tierra firme al fondo; el agua queda separada detrás del muelle.
+ box(g,0,-.35,4,28,.6,18,'#b5a078');
+ const waterGeo=new THREE.PlaneGeometry(30,18,40,28);waterGeo.rotateX(-Math.PI/2);
+ const water=new THREE.Mesh(waterGeo,MAT('#267fa0'));water.position.set(0,-.08,-10);g.add(water);
+ // Casas apoyadas sobre el terreno, nunca sobre la superficie del agua.
+ for(let i=0;i<8;i++){const x=-10+i*2.8,h=2.8+(i%3)*.7;box(g,x,h/2,7,2.3,h,2,'#d4b88f');const roof=new THREE.Mesh(new THREE.ConeGeometry(1.75,.9,4),MAT(i%2?'#a34d3b':'#76503c'));roof.position.set(x,h+.35,7);roof.rotation.y=Math.PI/4;g.add(roof);for(let y=1;y<h-.2;y+=1.1)for(let side of [-1,1])box(g,x+side*.55,y,8.03,.36,.55,.08,'#314b60');}
+ // Muelle de madera en la línea de costa.
+ box(g,0,.1,-1.2,25,.45,2.2,'#79563a');for(let x=-11;x<=11;x+=2){cyl(g,x,.45,-.2,.12,.12,.9,'#5b402e');cyl(g,x,.9,-.2,.16,.16,.12,'#a67b4e');}
+ for(let i=0;i<10;i++){const x=-10+i*2.1;box(g,x,.42,-2.35,.65,.75,.65,i%2?'#9a7047':'#775436');cyl(g,x+.55,.4,-1.95,.28,.28,.8,'#8b5a37',10);for(let y of [.12,.68])cyl(g,x+.55,y,-1.95,.29,.29,.06,'#b48a5d',10);}
+ for(let x of [-8,-3,3,8]){rod(g,[x,.2,-1.2],[x,3,-1.2],.07,'#6b4b32');rod(g,[x,3,-1.2],[x+1.1,2.4,-1.2],.06,'#6b4b32');}
+ // Tres naves amarradas y claramente separadas del muelle.
+ const fleet=[ship(g,-5,-8,0),ship(g,0,-9.5,1),ship(g,5,-8,2)];
  return fleet;
 }
 function ocean(g,night=false){
@@ -118,8 +117,8 @@ function buildScene(renderer,d){
  const camera=new THREE.PerspectiveCamera(42,1080/1920,.1,120);const duration=Math.max(1,Number(d.duration)||8);
  return t=>{const sceneStart=Number(d.start||0);if(t<sceneStart||t>=sceneStart+duration)return;const local=Math.max(0,t-sceneStart);const p=Math.min(1,local/duration),ease=p*p*(3-2*p);if(idx===0){camera.position.set(8-5*ease,5.2+Math.sin(p*Math.PI)*.6,14-7*ease);camera.lookAt(0,2,-3);}
  else if(idx===1){camera.position.set(1.5-1.2*ease,3.1,9-2*ease);camera.lookAt(0,1,-1.3);}
- else if(idx===2){camera.position.set(-12+20*ease,7.5,12-5*ease);camera.lookAt(0,1,-4);}
- else if(idx===3){camera.position.set(0,8,16-5*ease);camera.lookAt(0,1,-4);ships.forEach((s,i)=>{s.position.z=s.userData.baseZ-local*.22;s.position.x=s.userData.baseX+(i-1)*local*.035;});}
+ else if(idx===2){camera.position.set(-9+18*ease,11,24-3*ease);camera.lookAt(0,1,-5);}
+ else if(idx===3){camera.position.set(0,13,27-3*ease);camera.lookAt(0,1,-8);ships.forEach((s,i)=>{s.position.z=s.userData.baseZ-local*.22;s.position.x=s.userData.baseX+(i-1)*local*.035;});}
  else if(idx===4){camera.position.set(7*Math.sin(p*1.3),10,25-2*ease);camera.lookAt(0,1,-5);ships.forEach((s,i)=>{s.position.z=s.userData.baseZ+Math.sin(local*.65+i)*.08;s.rotation.z=Math.sin(local*.7+i)*.035;});}
  else if(idx===5){camera.position.set(7-5*ease,9,24-4*ease);camera.lookAt(0,1,-8);ships.forEach((s,i)=>{s.position.z=s.userData.baseZ+local*.13;s.rotation.y=.08*Math.sin(local+i);});}
  else {camera.position.set(-10+12*ease,9,20-3*ease);camera.lookAt(0,1,-3);}
@@ -142,27 +141,6 @@ function buildGenericScene(renderer,d){
  return t=>{const sceneStart=Number(d.start||0);if(t<sceneStart||t>=sceneStart+duration)return;const p=Math.min(1,Math.max(0,(t-sceneStart)/duration));camera.position.set(8-5*p,5+Math.sin(p*Math.PI),15-4*p);camera.lookAt(0,1,-4);renderer.render(scene,camera);};
 }
 const canvas=document.querySelector('#world-canvas');const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false});renderer.setPixelRatio(1);renderer.setSize(1080,1920,false);renderer.outputColorSpace=THREE.SRGBColorSpace;const nodes=[...document.querySelectorAll('.scene')];const renderers=nodes.map(node=>{const data=JSON.parse(node.dataset.scene);if(data.storyId!=='columbus-1492')return buildGenericScene(renderer,data);return buildScene(renderer,data);});
-// HyperFrames must wait for all local 3D assets before capturing frames.
-window.__renderReady = (async () => {
- const loader = new GLTFLoader();
- const gltf = await loader.loadAsync('assets/3d/sailing-pinnace.glb');
- const sourceModel = gltf.scene;
- sourceModel.traverse(object => {
-  if (object.isMesh) { object.castShadow = true; object.receiveShadow = true; }
- });
- const bounds = new THREE.Box3().setFromObject(sourceModel);
- const dimensions = new THREE.Vector3();
- bounds.getSize(dimensions);
- const largest = Math.max(dimensions.x, dimensions.y, dimensions.z);
- if (!Number.isFinite(largest) || largest <= 0) throw new Error('El modelo de barco GLB no tiene dimensiones válidas.');
- const center = bounds.getCenter(new THREE.Vector3());
- for (const target of shipModelTargets) {
-  const model = sourceModel.clone(true);
-  model.position.sub(center);
-  model.scale.setScalar(6 / largest);
-  target.clear();
-  target.add(model);
- }
- console.info('Modelo de barco CC0 cargado:', shipModelTargets.length, 'instancias.');
-})();
+// Se conserva la flota diferenciada hasta integrar modelos específicos para nao y carabelas.
+window.__renderReady = Promise.resolve();
 const timeline=window.__timelines?.['behind-del-mundo']||window.__timelines?.['columbus-3d-preview']||Object.values(window.__timelines||{})[0];if(timeline){timeline.eventCallback('onUpdate',()=>{const t=timeline.time();renderers.forEach(render=>render(t));});}renderers.forEach(render=>render(0));
