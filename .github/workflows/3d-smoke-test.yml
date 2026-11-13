@@ -1,4 +1,4 @@
-name: Behind del Mundo · prueba cinematográfica de Colón
+name: Behind del Mundo · pruebas del motor 3D procedural
 
 on:
   workflow_dispatch:
@@ -6,7 +6,10 @@ on:
     paths:
       - ".github/workflows/3d-smoke-test.yml"
       - "scripts/scene-engine.js"
-      - "scripts/prepare-3d-assets.mjs"
+      - "scripts/procedural-engine.js"
+      - "scripts/procedural-engine.test.mjs"
+      - "scripts/procedural-preview.mjs"
+      - "scripts/procedural-preview-script.json"
       - "scripts/columbus-preview.mjs"
       - "scripts/columbus-test-script.json"
 
@@ -19,17 +22,12 @@ permissions:
 
 jobs:
   columbus-3d-preview:
-    name: Render de las siete escenas históricas
+    name: Tests de modelos y renders visuales
     runs-on: ubuntu-latest
     timeout-minutes: 120
     steps:
       - name: Descargar proyecto
         uses: actions/checkout@v4
-      - name: Restaurar biblioteca 3D reutilizable
-        uses: actions/cache@v4
-        with:
-          path: .cache/3d-assets
-          key: behind-del-mundo-3d-assets-v1-sailing-pinnace
       - name: Node.js 22
         uses: actions/setup-node@v4
         with:
@@ -47,12 +45,17 @@ jobs:
           node --check scripts/scene-engine.js
           node --check scripts/columbus-preview.mjs
           node --check scripts/produce.mjs
-      - name: Renderizar vídeo visual de Colón con el mismo motor de producción
+          node --test scripts/procedural-engine.test.mjs
+      - name: Renderizar escenas variadas con modelos procedurales
+        run: node scripts/procedural-preview.mjs
+      - name: Renderizar vídeo histórico de Colón para comprobar compatibilidad
         run: node scripts/columbus-preview.mjs
-      - name: Guardar MP4 de prueba
+      - name: Guardar pruebas visuales
         uses: actions/upload-artifact@v4
         with:
-          name: columbus-cinematic-3d-preview
-          path: .artifacts/columbus-visual-test/columbus-3d-preview.mp4
+          name: behind-del-mundo-procedural-3d-previews
+          path: |
+            .artifacts/procedural-3d-preview/procedural-3d-preview.mp4
+            .artifacts/columbus-visual-test/columbus-3d-preview.mp4
           if-no-files-found: error
           retention-days: 7
