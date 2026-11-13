@@ -86,6 +86,49 @@ def create_primitive(entity):
             poly.use_smooth = True
     return obj
 
+
+def create_custom_mesh(entity):
+    details = entity.get("details", {})
+    vertices = details.get("vertices", [])
+    faces = details.get("faces", [])
+    if len(vertices) < 3 or not faces:
+        raise ValueError("Custom mesh requires at least 3 vertices and one face: " + entity["id"])
+    mesh = bpy.data.meshes.new(entity.get("name", entity["id"]) + "_Mesh")
+    mesh.from_pydata(vertices, [], faces)
+    mesh.validate(verbose=True)
+    mesh.update()
+    obj = bpy.data.objects.new(entity.get("name", entity["id"]), mesh)
+    bpy.context.scene.collection.objects.link(obj)
+    for poly in mesh.polygons:
+        poly.use_smooth = bool(details.get("smooth", True))
+    return obj
+
+def create_curve(entity):
+    details = entity.get("details", {})
+    points = details.get("points", [])
+    if len(points) < 2:
+        raise ValueError("Curve requires at least two points: " + entity["id"])
+    curve = bpy.data.curves.new(entity.get("name", entity["id"]) + "_Curve", "CURVE")
+    curve.dimensions = "3D"
+    curve.resolution_u = int(details.get("resolution", 16))
+    curve.bevel_depth = float(details.get("bevel_depth", .05))
+    curve.bevel_resolution = int(details.get("bevel_resolution", 4))
+    spline = curve.splines.new("BEZIER" if details.get("bezier", True) else "POLY")
+    if spline.type == "BEZIER":
+        spline.bezier_points.add(len(points) - 1)
+        for point, co in zip(spline.bezier_points, points):
+            point.co = co
+            point.handle_left_type = "AUTO"
+            point.handle_right_type = "AUTO"
+    else:
+        spline.points.add(len(points) - 1)
+        for point, co in zip(spline.points, points):
+            point.co = (*co, 1)
+    spline.use_cyclic_u = bool(details.get("cyclic", False))
+    obj = bpy.data.objects.new(entity.get("name", entity["id"]), curve)
+    bpy.context.scene.collection.objects.link(obj)
+    return obj
+
 def import_asset(entity, project_dir):
     rel = entity.get("asset")
     if not rel:
@@ -118,6 +161,10 @@ def create_entity(entity, project_dir):
         obj = import_asset(entity, project_dir)
     elif kind == "primitive":
         obj = create_primitive(entity)
+    elif kind == "mesh":
+        obj = create_custom_mesh(entity)
+    elif kind == "curve":
+        obj = create_curve(entity)
     elif kind == "text":
         bpy.ops.object.text_add()
         obj = bpy.context.object
@@ -131,7 +178,7 @@ def create_entity(entity, project_dir):
     obj.rotation_euler = vec(tr.get("rotation"))
     obj.scale = vec(tr.get("scale"), (1, 1, 1))
     material_spec = entity.get("material")
-    if material_spec and kind == "primitive":
+    if material_spec and kind in ("primitive", "mesh", "curve", "asset", "text"):
         mat = make_material(material_spec)
         for child in [obj] + list(obj.children):
             if hasattr(child.data, "materials"):
