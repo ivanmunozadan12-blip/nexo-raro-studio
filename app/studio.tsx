@@ -6,7 +6,7 @@ const fmt=(v:string)=>new Date(v).toLocaleString('es-ES',{dateStyle:'medium',tim
 export default function Studio(){
  const db=supabase();
  const [session,setSession]=useState<any>(null),[email,setEmail]=useState(''),[password,setPassword]=useState(''),[signup,setSignup]=useState(false);
- const [scripts,setScripts]=useState<any[]>([]),[jobs,setJobs]=useState<any[]>([]),[videos,setVideos]=useState<any[]>([]),[memory,setMemory]=useState<any[]>([]),[posts,setPosts]=useState<any[]>([]),[social,setSocial]=useState({youtube:false,tiktok:false});
+ const [jobs,setJobs]=useState<any[]>([]),[videos,setVideos]=useState<any[]>([]),[posts,setPosts]=useState<any[]>([]),[social,setSocial]=useState({youtube:false,tiktok:false});
  const [signed,setSigned]=useState<Record<string,string>>({}),[busy,setBusy]=useState(false),[dispatching,setDispatching]=useState(false),[message,setMessage]=useState(''),[prompt1,setPrompt1]=useState(''),[prompt2,setPrompt2]=useState(''),[prompt3,setPrompt3]=useState('');
  const load=useCallback(async()=>{
   if(!session)return;
@@ -18,9 +18,9 @@ export default function Studio(){
    db.from('editorial_memory').select('id,topic,angle,memory_status,created_at').order('created_at',{ascending:false}).limit(40),
    db.from('social_posts').select('id,video_id,platform,status,external_post_id,error_message,created_at').order('created_at',{ascending:false}).limit(60)
   ]);
-  const error=s.error||j.error||v.error||m.error||p.error;
+  const error=j.error||v.error||p.error;
   if(error)setMessage('No se han podido cargar todos los datos: '+error.message);
-  setScripts(s.data||[]);setJobs(j.data||[]);setVideos(v.data||[]);setMemory(m.data||[]);setPosts(p.data||[]);\n  const socialResponse=await fetch('/api/social/status',{headers:{Authorization:'Bearer '+session.access_token},cache:'no-store'});if(socialResponse.ok)setSocial(await socialResponse.json());
+  setJobs(j.data||[]);setVideos(v.data||[]);setPosts(p.data||[]);\n  const socialResponse=await fetch('/api/social/status',{headers:{Authorization:'Bearer '+session.access_token},cache:'no-store'});if(socialResponse.ok)setSocial(await socialResponse.json());
   setBusy(false);
  },[session]);
  useEffect(()=>{db.auth.getSession().then(({data}:any)=>setSession(data.session));const {data}=db.auth.onAuthStateChange((_e:any,s:any)=>setSession(s));return()=>data.subscription.unsubscribe()},[]);
@@ -61,7 +61,7 @@ export default function Studio(){
   <header className="studio-top"><a className="brand" href="/"><span className="brand-mark brand-mark-world"><img src="/brand-mark.svg" alt=""/></span><span>BEHIND <b>DEL MUNDO</b><small>STUDIO / CONTROL ROOM</small></span></a><div className="top-actions"><span className="user-email">{session.user.email}</span><button className="ghost-button" onClick={load}>{busy?'Actualizando…':'↻ Actualizar'}</button><button className="ghost-button" onClick={()=>db.auth.signOut()}>Salir</button></div></header>
   <section className="studio-heading"><div><div className="eyebrow">TUS TRES IDEAS / UN SOLO ENVÍO</div><h1>Centro de <em>producción.</em></h1><p>Pega tus tres prompts y deja que el motor construya los vídeos completos.</p></div><div className="system-pill"><i/> MOTOR PYTHON / PILLOW / FFMPEG</div></section>
   {message&&<div className="studio-message">{message}<button onClick={()=>setMessage('')}>×</button></div>}
-  <div className="metric-grid"><Metric label="Vídeos guardados" value={ready} note="Biblioteca privada"/><Metric label="En producción" value={active} note="Trabajos activos"/><Metric label="Fallidos" value={failed} note="Requieren revisión"/><Metric label="Temas recordados" value={memory.length} note="Memoria editorial"/></div>
+  <div className="metric-grid"><Metric label="Vídeos guardados" value={ready} note="Biblioteca privada"/><Metric label="En producción" value={active} note="Trabajos activos"/><Metric label="Fallidos" value={failed} note="Requieren revisión"/></div>
   <section className="studio-card social-connect-card">
    <div className="card-kicker">PUBLICACIÓN / CUENTAS CONECTADAS</div><h2>Conecta tus canales</h2>
    <p className="muted-copy">Autoriza una vez cada cuenta. Después, los vídeos se enviarán automáticamente al terminar.</p>
@@ -80,9 +80,7 @@ export default function Studio(){
    <button className="primary-button" disabled={dispatching||busy||[prompt1,prompt2,prompt3].some(x=>x.trim().length<12)} onClick={generateAll}>{dispatching?'Enviando los tres vídeos…':'GENERAR LOS 3 VÍDEOS'}</button>
    <p className="muted-copy">Formato vertical · Animación dibujada por código · Voz masculina española · Música y efectos · MP4</p>
   </section>
-  <div className="studio-columns"><section className="studio-card"><div className="card-kicker">PROMPTS Y GUIONES / HOY</div><h2>Temas generados ({todays.length})</h2>{todays.length?todays.map(s=><article className="data-row" key={s.id}><div><b>{s.title}</b><small>{fmt(s.created_at)} · {(s.source_notes||[]).length} fuentes</small></div><Status value={s.status}/></article>):<Empty text="Todavía no se ha generado ningún tema hoy."/>}</section><section className="studio-card"><div className="card-kicker">ESTADO DEL MOTOR</div><h2>Producción de los tres vídeos</h2><div className="pipeline"><span>Idea + fuentes</span><i>→</i><span>Guion</span><i>→</i><span>Voz</span><i>→</i><span>Animación</span><i>→</i><span>Sonido</span><i>→</i><span>MP4</span></div><p className="muted-copy">Narrador masculino es-ES-AlvaroNeural. Música ambiental y efectos originales generados por código. Publicación automática en YouTube y TikTok cuando las cuentas estén conectadas. Si falta una conexión, el MP4 se guarda igualmente en la biblioteca.</p><button className="ghost-button" onClick={addExclusion}>＋ Excluir un tema</button></section></div>
   <section className="studio-card"><div className="card-kicker">BIBLIOTECA / VÍDEOS MP4</div><h2>Últimos vídeos ({videos.length})</h2><div className="video-grid">{latest.map(v=><article className="video-card" key={v.id}>{signed[v.id]?<video controls playsInline preload="metadata" src={signed[v.id]}/>:<div className="video-placeholder">VÍDEO PRIVADO</div>}<b>{v.storage_path.split('/').pop()}</b><small>{fmt(v.created_at)} · {v.duration_seconds||'—'} s · {v.width}×{v.height}</small>{signed[v.id]&&<a href={signed[v.id]} target="_blank" rel="noreferrer">Abrir MP4 ↗</a>}<div className="social-status-list">{posts.filter(p=>p.video_id===v.id).map(p=><div className="social-status" key={p.id}><span>{p.platform==='youtube'?'YouTube':'TikTok'}</span><Status value={p.status}/>{p.platform==='youtube'&&p.external_post_id&&<a href={'https://youtu.be/'+p.external_post_id} target="_blank" rel="noreferrer">Ver vídeo ↗</a>}{p.error_message&&<small>{p.error_message}</small>}</div>)}</div></article>)}</div>{!videos.length&&<Empty text="Los vídeos terminados aparecerán aquí para reproducirlos y revisarlos."/>}</section>
-  <section className="studio-card"><div className="card-kicker">MEMORIA EDITORIAL</div><h2>Temas ya tratados y excluidos</h2>{memory.slice(0,12).map(x=><div className="data-row" key={x.id}><div><b>{x.topic}</b><small>{x.angle||'Sin enfoque registrado'} · {fmt(x.created_at)}</small></div><Status value={x.memory_status}/></div>)}{!memory.length&&<Empty text="La memoria se irá completando con cada vídeo."/>}</section>
   <footer className="studio-footer">BEHIND DEL MUNDO © 2026 · DESCUBRE LO QUE HAY DETRÁS <span>Panel privado · {session.user.email}</span></footer>
  </main>;
 }
