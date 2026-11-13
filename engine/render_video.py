@@ -25,8 +25,8 @@ def rgba(hex_color, alpha=255):
     return tuple(int(h[i:i+2],16) for i in (0,2,4))+(int(alpha),)
 def text_fit(d, xy, txt, size, fill, max_width=480, bold=True, anchor=None):
     f=font(size,bold)
-    while f.size>12 and d.textbbox((0,0),str(txt),font=f)[2]>max_width*S:
-        f=font(max(12,f.size/S-1),bold)
+    while f.size>18 and d.textbbox((0,0),str(txt),font=f)[2]>max_width*S:
+        f=font(max(9,f.size/S-1),bold)
     d.text((int(xy[0]*S),int(xy[1]*S)),str(txt),font=f,fill=fill,anchor=anchor,stroke_width=0)
 
 def gradient():
