@@ -15,6 +15,11 @@ on:
         description: Instrucción creativa para este vídeo
         required: true
         type: string
+      publish:
+        description: Publicar automáticamente en las redes conectadas
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: read
@@ -44,6 +49,7 @@ jobs:
       TIKTOK_PRIVACY: ${{ secrets.TIKTOK_PRIVACY || 'PUBLIC_TO_EVERYONE' }}
       VIDEO_SLOT: ${{ inputs.slot }}
       USER_PROMPT: ${{ inputs.prompt }}
+      AUTO_PUBLISH: ${{ inputs.publish }}
     steps:
       - uses: actions/checkout@v4
       - name: Instalar Python y FFmpeg
