@@ -464,7 +464,7 @@ subtitleCues.forEach(cue=>{tl.call(()=>{caption.textContent=cue.text;},null,cue.
 document.querySelectorAll('.scene').forEach(e=>{tl.fromTo(e,{opacity:0},{opacity:1,duration:.35},Number(e.dataset.start));tl.to(e,{opacity:0,duration:.25},Number(e.dataset.start)+Number(e.dataset.duration)-.25);});
 tl.set({}, {},${targetDuration});
 window.__timelines=window.__timelines||{};window.__timelines['behind-del-mundo']=tl;
-</script><script type="module">${sceneEngine}</script></div></body></html>`;
+</script><script>${sceneEngine}</script></div></body></html>`;
 
 await command('npx', ['--yes', 'hyperframes@0.9.37', 'lint'], { cwd: work });
 const imageCount = script.scenes.length; // Siete escenas 3D renderizadas; ya no dependemos de siete fotos externas.
