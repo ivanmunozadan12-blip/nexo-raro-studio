@@ -286,8 +286,8 @@ for (const [sceneIndex, scene] of script.scenes.entries()) {
     }
     if (['human','animal'].includes(entityType) && !entity.appearance && !entity.description) throw new Error('El personaje o animal ' + entity.name + ' necesita una apariencia visual concreta.');
 
-    const blueprint = entity.blueprint;
-    if (!blueprint || blueprint.version !== 1 || !Array.isArray(blueprint.parts) || blueprint.parts.length < 1 || !Array.isArray(blueprint.animations)) {
+    const blueprint = entity.blueprint || (script.models && script.models[entity.model_id]);
+    if (!entity.model_id && !entity.blueprint || !blueprint || blueprint.version !== 1 || !Array.isArray(blueprint.parts) || blueprint.parts.length < 1 || !Array.isArray(blueprint.animations)) {
       throw new Error('La entidad "' + entity.name + '" necesita un blueprint 3D autocontenido en su JSON (piezas, geometría y animaciones).');
     }
     const partIds = new Set(['root']);
@@ -379,7 +379,7 @@ const clips = script.scenes.map((scene, i) => {
   const durationSeconds = i === script.scenes.length - 1 ? targetDuration - elapsedSceneSeconds : targetDuration * sceneWordCounts[i] / totalSceneWords;
   const start = elapsedSceneSeconds.toFixed(3), duration = durationSeconds.toFixed(3);
   elapsedSceneSeconds += durationSeconds;
-  const sceneData = escaped(JSON.stringify({title:script.title,visual:scene.visual||'',setting:scene.setting||'',action:scene.action||'',camera:scene.camera||'',camera_target:scene.camera_target||'',continuity:scene.continuity||'',characters:Array.isArray(scene.characters)?scene.characters:[],props:Array.isArray(scene.props)?scene.props:[],type:scene.scene_type||'object',objects:Array.isArray(scene.objects)?scene.objects.slice(0,12):[],entities:Array.isArray(scene.entities)?scene.entities.slice(0,18):[],beats:Array.isArray(scene.beats)?scene.beats.slice(0,12):[],index:i,start:Number(start),duration:Number(duration),storyId:script.story_id||'' }));
+  const sceneData = escaped(JSON.stringify({title:script.title,visual:scene.visual||'',setting:scene.setting||'',action:scene.action||'',camera:scene.camera||'',camera_target:scene.camera_target||'',continuity:scene.continuity||'',characters:Array.isArray(scene.characters)?scene.characters:[],props:Array.isArray(scene.props)?scene.props:[],type:scene.scene_type||'object',objects:Array.isArray(scene.objects)?scene.objects.slice(0,12):[],entities:Array.isArray(scene.entities)?scene.entities.slice(0,18):[],models:script.models||{},beats:Array.isArray(scene.beats)?scene.beats.slice(0,12):[],index:i,start:Number(start),duration:Number(duration),storyId:script.story_id||'' }));
   return '<section id="scene-'+(i+1)+'" class="clip scene motion-'+(i%4)+'" data-start="'+start+'" data-duration="'+duration+'" data-track-index="0" data-scene="'+sceneData+'"><div class="brand-mark">BEHIND <i>DEL MUNDO</i></div><div class="scene-copy"><h1>'+escaped(scene.overlay)+'</h1></div></section>';
 }).join('');
 const parseSrtTime = value => { const m=String(value).match(/(\d+):(\d{2}):(\d{2}),(\d{3})/); return m ? Number(m[1])*3600+Number(m[2])*60+Number(m[3])+Number(m[4])/1000 : 0; };
