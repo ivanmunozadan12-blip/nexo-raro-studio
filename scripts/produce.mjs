@@ -394,6 +394,7 @@ wordCount = countWords(script.narration);
 // la narración real en siete bloques contiguos y los persistimos con el guion.
 {
   const narrationTokens = String(script.narration || '').trim().split(/\\s+/).filter(Boolean);
+  script.narration = narrationTokens.join(' ');
   if (narrationTokens.length >= 56 && Array.isArray(script.scenes) && script.scenes.length === 7) {
     for (let i = 0; i < 7; i++) {
       const start = Math.floor(i * narrationTokens.length / 7);
