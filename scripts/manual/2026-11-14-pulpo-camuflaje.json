@@ -219,6 +219,13 @@
           "at": 1.8,
           "duration": 2.2
         }
+      ],
+      "graphics": [
+        {
+          "label": "Anatomía",
+          "value": "8 brazos",
+          "detail": "Ventosas en cada tentáculo"
+        }
       ]
     },
     {
@@ -590,6 +597,13 @@
           "at": 1.4,
           "duration": 3
         }
+      ],
+      "graphics": [
+        {
+          "label": "Bajo la piel",
+          "value": "Miles",
+          "detail": "De células con pigmento"
+        }
       ]
     },
     {
@@ -753,6 +767,13 @@
           "action": "Movimiento ambiental secundario: permanece fijo para comparar el diámetro.",
           "at": 1.4,
           "duration": 3
+        }
+      ],
+      "graphics": [
+        {
+          "label": "Cromatóforos",
+          "value": "Se expanden",
+          "detail": "El pigmento ocupa más espacio"
         }
       ]
     },
@@ -918,6 +939,13 @@
           "at": 1.5,
           "duration": 3
         }
+      ],
+      "graphics": [
+        {
+          "label": "Mecanismo",
+          "value": "Fibras radiales",
+          "detail": "Tiran del saco pigmentario"
+        }
       ]
     },
     {
@@ -1081,6 +1109,13 @@
           "action": "Movimiento ambiental secundario: refleja tonos plateados.",
           "at": 1.4,
           "duration": 3
+        }
+      ],
+      "graphics": [
+        {
+          "label": "Iridóforos",
+          "value": "Reflejan luz",
+          "detail": "El brillo cambia con el ángulo"
         }
       ]
     },
@@ -1447,6 +1482,13 @@
           "at": 1.4,
           "duration": 3
         }
+      ],
+      "graphics": [
+        {
+          "label": "Textura",
+          "value": "Papilas",
+          "detail": "Relieve muscular de la piel"
+        }
       ]
     },
     {
@@ -1610,6 +1652,13 @@
           "action": "Movimiento ambiental secundario: permanece liso.",
           "at": 1.4,
           "duration": 3
+        }
+      ],
+      "graphics": [
+        {
+          "label": "Comparación",
+          "value": "Lisa / rugosa",
+          "detail": "Dos texturas, un mismo animal"
         }
       ]
     },
@@ -1812,6 +1861,13 @@
           "at": 1.4,
           "duration": 3
         }
+      ],
+      "graphics": [
+        {
+          "label": "Camuflaje",
+          "value": "Color + forma",
+          "detail": "La textura completa el disfraz"
+        }
       ]
     },
     {
@@ -2012,6 +2068,13 @@
           "action": "Movimiento ambiental secundario: nada hacia el fondo.",
           "at": 1.4,
           "duration": 3
+        }
+      ],
+      "graphics": [
+        {
+          "label": "Imitación",
+          "value": "Movimiento",
+          "detail": "También engaña con su silueta"
         }
       ]
     },
@@ -2214,6 +2277,13 @@
           "at": 2.1,
           "duration": 2.4
         }
+      ],
+      "graphics": [
+        {
+          "label": "Caza",
+          "value": "Acecho",
+          "detail": "Un brazo se acerca a la presa"
+        }
       ]
     },
     {
@@ -2415,6 +2485,13 @@
           "at": 1.4,
           "duration": 3
         }
+      ],
+      "graphics": [
+        {
+          "label": "La clave",
+          "value": "No es invisible",
+          "detail": "Combina color, forma y textura"
+        }
       ]
     },
     {
@@ -2615,6 +2692,13 @@
           "action": "Movimiento ambiental secundario: forma un lado de la abertura.",
           "at": 1.5,
           "duration": 3
+        }
+      ],
+      "graphics": [
+        {
+          "label": "Escape",
+          "value": "Abertura estrecha",
+          "detail": "Comprime su cuerpo para pasar"
         }
       ]
     }
