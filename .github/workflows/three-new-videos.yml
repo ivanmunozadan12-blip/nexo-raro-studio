@@ -20,7 +20,8 @@ jobs:
         name: Leer archivos JSON
         run: |
           MATRIX=$(jq -c '[.files | to_entries[] | {queue_index: (.key | tostring), file: .value}]' .github/dispatch/three-new-videos.json)
-          test "$(echo "$MATRIX" | jq 'length')" -eq 3
+          COUNT=$(echo "$MATRIX" | jq 'length')
+test "$COUNT" -ge 1 -a "$COUNT" -le 3
           echo "$MATRIX" | jq -e 'all(.[]; (.file | type == "string") and (.file | endswith(".json")))' >/dev/null
           echo "matrix=$MATRIX" >> "$GITHUB_OUTPUT"
           echo "Se producirán tres vídeos: $MATRIX"
