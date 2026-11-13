@@ -30,7 +30,7 @@ jobs:
           if (config.confirm !== 'DELETE_PRODUCTION_LIBRARY' || config.preserve_config !== true) {
             throw new Error('Falta la confirmación explícita de borrado o la protección de configuración.');
           }
-          const base = process.env.SUPABASE_URL?.replace(/\\/$/, '');
+          const base = (process.env.SUPABASE_URL || '').replace(/\/$/, '');
           const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
           if (!base || !key) throw new Error('Faltan las credenciales de Supabase.');
           const headers = { apikey: key, Authorization: `Bearer ${key}` };
