@@ -1,9 +1,14 @@
 {
-  "batch": "three-new-videos-repaired-output-2026-11-14",
+  "batch": "three-new-videos-chat-authored-2026-11-14",
   "production_date": "2026-11-14",
   "slots": [
     "07:30",
     "14:30",
     "20:30"
+  ],
+  "files": [
+    "scripts/manual/2026-11-14-pulpo-camuflaje.json",
+    "scripts/manual/2026-11-14-hormigon-romano.json",
+    "scripts/manual/2026-11-14-atardecer-marte.json"
   ]
 }
