@@ -543,7 +543,7 @@ const video = await supabase('videos', { method:'POST', body: {
 
 }});
 const topicKey = String(script.title || '').toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-await supabase('editorial_memory', { method: 'POST', query: '?on_conflict=script_id', extraHeaders: { Prefer: 'resolution=merge-duplicates,return=minimal' }, body: {
+await supabase('editorial_memory', { method: 'POST', extraHeaders: { Prefer: 'return=minimal' }, body: {
   user_id: userId, script_id: scriptId, topic: script.title, topic_key: topicKey,
   angle: script.hook || '', summary: String(script.narration || '').slice(0, 1200),
   source_urls: script.sources || [], memory_status: 'produced',
