@@ -426,7 +426,7 @@ for (const [sceneIndex, scene] of script.scenes.entries()) {
   if (entities.length < 2 || entities.length > 12) throw new Error('La escena ' + (sceneIndex + 1) + ' necesita entre 2 y 12 entidades 3D explícitas para el nuevo motor procedural.');
   for (const entity of entities) {
     const entityType = String(entity.type || '').toLowerCase();
-    if (!entity.id || !entity.name || !allowedEntityTypes.has(entityType) || !Array.isArray(entity.position) || entity.position.length !== 3 || !entity.position.every(value => Number.isFinite(Number(value))) || !entity.action || countWords(entity.action) < 3 || !(Number.isFinite(Number(entity.scale)) && Number(entity.scale) > 0) && !(Array.isArray(entity.scale) && entity.scale.length === 3 && entity.scale.every(value => Number.isFinite(Number(value)) && Number(value) > 0)) || !entity.appearance && !entity.description || !entity.dimensions || !Array.isArray(entity.dimensions) || entity.dimensions.length !== 3 || !entity.dimensions.every(value => Number.isFinite(Number(value)) && Number(value) > 0) || !entity.shape || !entity.material || !entity.color || !entity.support) {
+    if (!entity.id || !entity.name || !allowedEntityTypes.has(entityType) || !Array.isArray(entity.position) || entity.position.length !== 3 || !entity.position.every(value => Number.isFinite(Number(value))) || !entity.action || countWords(entity.action) < 3 || !entity.motion || countWords(entity.motion) < 3 || !(Number.isFinite(Number(entity.scale)) && Number(entity.scale) > 0) && !(Array.isArray(entity.scale) && entity.scale.length === 3 && entity.scale.every(value => Number.isFinite(Number(value)) && Number(value) > 0)) || (!entity.appearance || String(entity.appearance).trim().length < 100) && (!entity.description || String(entity.description).trim().length < 100) || !entity.dimensions || !Array.isArray(entity.dimensions) || entity.dimensions.length !== 3 || !entity.dimensions.every(value => Number.isFinite(Number(value)) && Number(value) > 0) || !entity.shape || !entity.material || !entity.color || !entity.support) {
       throw new Error('Entidad 3D incompleta en escena ' + (sceneIndex + 1) + ': cada modelo necesita id, nombre, tipo, apariencia, posición, dimensiones, forma, material, color, soporte y acción.');
     }
     if (['human','animal'].includes(entityType) && !entity.appearance && !entity.description) throw new Error('El personaje o animal ' + entity.name + ' necesita una apariencia visual concreta.');
@@ -447,7 +447,7 @@ for (const [sceneIndex, scene] of script.scenes.entries()) {
     });
     if (overlap.every(value => value > .82)) throw new Error('Solapamiento 3D grave entre "' + A.name + '" y "' + B.name + '" en la escena ' + (sceneIndex + 1) + '; separa sus posiciones o define un soporte/relación física real.');
   }
-  if (!Array.isArray(scene.beats) || scene.beats.length < 2 || scene.beats.length > 12 || scene.beats.some(beat => !beat.entity_id || !beat.action || !Number.isFinite(Number(beat.at)) || Number(beat.at) < 0 || Number(beat.duration || 0) <= 0)) {
+  if (!Array.isArray(scene.beats) || scene.beats.length < 2 || scene.beats.length > 12 || scene.beats.some(beat => !beat.entity_id || !entities.some(entity => String(entity.id) === String(beat.entity_id)) || !beat.action || !Number.isFinite(Number(beat.at)) || Number(beat.at) < 0 || Number(beat.duration || 0) <= 0)) {
     throw new Error('Los beats de la escena ' + (sceneIndex + 1) + ' deben tener entity_id, acción y segundo de inicio válidos.');
   }
 }
@@ -570,7 +570,7 @@ if (!upload.ok) throw new Error(`Storage upload ${upload.status}: ${(await uploa
 const video = await supabase('videos', { method:'POST', body: {
   user_id:userId, job_id:jobId, script_id:scriptId, storage_path:storagePath,
   duration_seconds:actualDuration, width:1080, height:1920, mime_type:'video/mp4',
-  quality_check:{passed:true, duration_seconds:actualDuration, bytes:stat.size, has_audio:true, visual_assets:imageCount, visual_sources:script.scenes.map((scene,index)=>({scene:index+1,type:scene.scene_type||'object',description:scene.visual,objects:scene.objects||[]})), sources:script.sources.length, word_count:wordCount, voice:'es-ES-AlvaroNeural', voice_rate:'+0%', rendered_by:'HyperFrames + Three.js', visual_style:'procedural-3d-scene-engine-v2'},
+  quality_check:{passed:true, duration_seconds:actualDuration, bytes:stat.size, has_audio:true, visual_assets:imageCount, visual_sources:script.scenes.map((scene,index)=>({scene:index+1,type:scene.scene_type||'object',description:scene.visual,objects:scene.objects||[]})), sources:script.sources.length, word_count:wordCount, voice:'es-ES-AlvaroNeural', voice_rate:'+0%', rendered_by:'HyperFrames + Three.js', visual_style:'procedural-3d-scene-engine-v3'},
 
 }});
 const topicKey = String(script.title || '').toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
