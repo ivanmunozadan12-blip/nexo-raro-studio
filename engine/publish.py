@@ -14,10 +14,13 @@ def http(url, method="GET", body=None, headers=None, timeout=120):
     except urllib.error.HTTPError as e:
         return e.code,e.headers,e.read()
 
-def db_patch(video_id, platform, status):
+def db_patch(video_id, platform, status, external_id=None, error=None):
     if not API or not KEY: return
     query="?video_id=eq."+urllib.parse.quote(video_id)+"&platform=eq."+platform
-    http(API+"/rest/v1/social_posts"+query,"PATCH",{"status":status},HEAD)
+    payload={"status":status,"error_message":error}
+    if external_id: payload["external_post_id"]=external_id
+    if status=="published": payload["published_at"]=datetime.datetime.now(datetime.timezone.utc).isoformat()
+    http(API+"/rest/v1/social_posts"+query,"PATCH",payload,HEAD)
 
 def google_token():
     cid=os.environ["YOUTUBE_CLIENT_ID"]; secret=os.environ["YOUTUBE_CLIENT_SECRET"]; refresh=os.environ["YOUTUBE_REFRESH_TOKEN"]
@@ -42,7 +45,7 @@ def youtube_upload(path,title,caption):
             sent=end+1
             if code in (200,201):
                 result=json.loads(raw or b"{}")
-                return "https://www.youtube.com/watch?v="+result.get("id","")
+                return {"url":"https://www.youtube.com/watch?v="+result.get("id",""),"external_id":result.get("id",""),"status":"published"}
     raise RuntimeError("YouTube no confirmó el vídeo.")
 
 def tiktok_token():
@@ -98,24 +101,24 @@ def tiktok_upload(path,title):
     status=json.loads(raw or b"{}")
     if code!=200 or status.get("error",{}).get("code")!="ok": raise RuntimeError("No se pudo consultar el estado TikTok: "+str(status)[:500])
     data=status.get("data",{})
-    return "TikTok publish_id="+publish_id+" · "+str(data.get("status","processing"))+" · privacidad "+privacy
+    return {"url":"TikTok publish_id="+publish_id+" · "+str(data.get("status","processing"))+" · privacidad "+privacy,"external_id":publish_id,"status":"published" if data.get("status")=="PUBLISH_COMPLETE" else "publishing"}
 
 def main():
     p=argparse.ArgumentParser()
     p.add_argument("--file",required=True); p.add_argument("--title",required=True); p.add_argument("--caption",default=""); p.add_argument("--video-id",default="")
     a=p.parse_args(); path=pathlib.Path(a.file); results={}
     if os.getenv("YOUTUBE_CLIENT_ID") and os.getenv("YOUTUBE_CLIENT_SECRET") and os.getenv("YOUTUBE_REFRESH_TOKEN"):
-        try: results["youtube"]={"status":"published","url":youtube_upload(path,a.title,a.caption)}
+        try: results["youtube"]=youtube_upload(path,a.title,a.caption)
         except Exception as e: results["youtube"]={"status":"failed","error":str(e)[:1200]}
     else: results["youtube"]={"status":"not_configured","error":"Faltan credenciales OAuth de YouTube."}
     if os.getenv("TIKTOK_CLIENT_KEY") and os.getenv("TIKTOK_CLIENT_SECRET") and (os.getenv("TIKTOK_REFRESH_TOKEN") or os.getenv("TIKTOK_ACCESS_TOKEN")):
-        try: results["tiktok"]={"status":"published","url":tiktok_upload(path,a.title,a.caption)}
+        try: results["tiktok"]=tiktok_upload(path,a.title)
         except Exception as e: results["tiktok"]={"status":"failed","error":str(e)[:1200]}
     else: results["tiktok"]={"status":"not_configured","error":"Faltan credenciales de Content Posting API."}
     if a.video_id:
         for platform,result in results.items():
-            if result["status"] in ("published","failed"):
-                try: db_patch(a.video_id,platform,result["status"])
+            if result["status"] in ("published","publishing","failed"):
+                try: db_patch(a.video_id,platform,result["status"],result.get("external_id"),result.get("error"))
                 except Exception as e: print("No se pudo actualizar el estado social:",str(e))
     print(json.dumps(results,ensure_ascii=False))
 if __name__=="__main__": main()
