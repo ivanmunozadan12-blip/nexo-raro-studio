@@ -10,7 +10,7 @@ await mkdir(work,{recursive:true});
 await run('npx',['esbuild','scripts/scene-engine.js','--bundle','--format=iife','--minify','--outfile='+path.join(work,'scene-engine.bundle.js')],root);
 const sceneEngine=await readFile(path.join(work,'scene-engine.bundle.js'),'utf8');
 const engineTag='<script>'+sceneEngine+'</script>';
-const duration=4.5;
+const duration=2.4;
 const escape=value=>String(value||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const clips=fixture.scenes.map((scene,index)=>{
  const start=index*duration;
@@ -27,6 +27,6 @@ await writeFile(path.join(work,'index.html'),html);
 const output=path.join(work,'columbus-3d-preview.mp4');
 await run('npx',['--yes','hyperframes@0.9.37','render','-c','index.html','-o',output,'--fps','24','--quality','standard','--workers','1'],work);
 await run('ffmpeg',['-y','-i',output,'-c:v','libx264','-preset','veryfast','-crf','22','-pix_fmt','yuv420p','-movflags','+faststart',output+'.tmp.mp4'],work);
-await run('node',['-e',`const {execFileSync}=require('node:child_process');const p=JSON.parse(execFileSync('ffprobe',['-v','error','-show_entries','format=duration:stream=codec_type,width,height','-of','json',process.argv[1]],{encoding:'utf8'}));const v=p.streams.find(x=>x.codec_type==='video');if(!v||v.width!==1080||v.height!==1920||Number(p.format.duration)<30)process.exit(2);console.log('QC visual OK:',p.format.duration,'s',v.width+'x'+v.height);`,'--',output+'.tmp.mp4'],work);
+await run('node',['-e',`const {execFileSync}=require('node:child_process');const p=JSON.parse(execFileSync('ffprobe',['-v','error','-show_entries','format=duration:stream=codec_type,width,height','-of','json',process.argv[1]],{encoding:'utf8'}));const v=p.streams.find(x=>x.codec_type==='video');if(!v||v.width!==1080||v.height!==1920||Number(p.format.duration)<15)process.exit(2);console.log('QC visual OK:',p.format.duration,'s',v.width+'x'+v.height);`,'--',output+'.tmp.mp4'],work);
 await (await import('node:fs/promises')).rename(output+'.tmp.mp4',output);
 console.log('Columbus 3D preview ready:',output);
