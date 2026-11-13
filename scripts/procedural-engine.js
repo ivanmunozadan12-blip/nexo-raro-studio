@@ -552,6 +552,16 @@ export function createProceduralEntity(parent, input, index = 0) {
     ? spec.type : inferEntityType({ ...spec, name });
   const seed = spec.id || spec.name || spec.role || (type + '-' + index);
   const rng = seededRandom(seed);
+  if (Array.isArray(spec.dimensions) && spec.dimensions.length === 3) {
+    const [width, height, depth] = spec.dimensions.map(Number);
+    if (type === 'building') { spec.width = width; spec.height = height; spec.depth = depth; }
+    if (type === 'human' && !spec.scale) spec.scale = height / 2.5;
+  }
+  if (type === 'building') spec.wallColor = spec.wallColor || spec.color;
+  if (type === 'ship') spec.woodColor = spec.woodColor || spec.color;
+  if (type === 'tree') spec.leafColor = spec.leafColor || spec.color;
+  if (type === 'human') spec.clothingColor = spec.clothingColor || spec.color;
+  if (type === 'animal') spec.palette = { ...(spec.palette || {}), body: (spec.palette && spec.palette.body) || spec.color };
   let model;
   if (type === 'human') model = createHuman(spec, rng);
   else if (type === 'animal') model = createAnimal(spec, rng);
@@ -571,7 +581,7 @@ export function createProceduralEntity(parent, input, index = 0) {
   if (typeof scale === 'number') model.scale.setScalar(scale);
   else if (Array.isArray(scale)) model.scale.set(...scale);
   if (Number.isFinite(Number(spec.rotationY))) model.rotation.y = Number(spec.rotationY);
-  model.userData.entity = { id: String(spec.id || seed), name: String(name), type, action: spec.action || spec.motion || 'idle', support: spec.support || 'ground', dimensions: spec.dimensions || null };
+  model.userData.entity = { id: String(spec.id || seed), name: String(name), type, action: spec.action || spec.motion || 'idle', support: spec.support || 'ground', dimensions: spec.dimensions || null, shape: spec.shape || null, material: spec.material || null, color: spec.color || null };
   model.userData.rig = model.userData.rig || {};
   model.userData.basePosition = model.position.clone();
   parent.add(model);
