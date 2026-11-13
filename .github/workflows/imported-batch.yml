@@ -20,10 +20,13 @@ jobs:
         include:
           - script_id: "2b63b51e-c2fe-44d5-a1f4-57bcca6cef51"
             queue_index: "0"
+            slot: "07:30"
           - script_id: "f4c64208-0f86-479a-a779-273123d485f2"
             queue_index: "1"
+            slot: "14:30"
           - script_id: "fbdcdc8c-dcf0-4eef-aac1-3611eb07bf4f"
             queue_index: "2"
+            slot: "20:30"
     concurrency:
       group: behind-del-mundo-imported-${{ matrix.script_id }}
       cancel-in-progress: false
@@ -31,7 +34,7 @@ jobs:
       SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
       SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
       TZ: Europe/Madrid
-      MANUAL_SLOT: "20:30"
+      MANUAL_SLOT: ${{ matrix.slot }}
       MANUAL_SCRIPT_ID: ${{ matrix.script_id }}
       MANUAL_QUEUE_INDEX: ${{ matrix.queue_index }}
     steps:
