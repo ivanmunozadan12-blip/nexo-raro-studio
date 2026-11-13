@@ -22,12 +22,12 @@
   "scenes": [
     {
       "scene_type": "space",
-      "visual": "Plano 1. En la Tierra, los atardeceres suelen teñir el cielo de rojo y naranja. El polvo suspendido modifica la luz mientras el rover observa el horizonte del cráter. En primer plano aparecen Rover Curiosity y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
-      "setting": "Superficie marciana en un cráter rocoso durante el crepúsculo, con polvo fino suspendido y horizonte amplio.",
-      "action": "En la Tierra, los atardeceres suelen teñir el cielo de rojo y naranja. El polvo suspendido modifica la luz mientras el rover observa el horizonte del cráter. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
-      "camera": "Travelling rasante que revela lentamente el sujeto principal y termina en un detalle reconocible. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "visual": "Plano 1. En la Tierra, los atardeceres suelen teñir el cielo de rojo y naranja. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (rocas del cráter, estratos del terreno, campo de rocas, cresta del horizonte). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "setting": "Superficie de Marte en un cráter con rocas erosionadas, estratos, huellas del rover, polvo suspendido y cresta distante.",
+      "action": "Acción ilustrativa: En la Tierra, los atardeceres suelen teñir el cielo de rojo y naranja. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
+      "camera": "travelling lateral de contexto",
       "camera_target": "Por qué los atardeceres de Marte son azules",
-      "continuity": "Superficie marciana en un cráter rocoso durante el crepúsculo, con polvo fino suspendido y horizonte amplio. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
       "characters": [],
       "props": [
         "material principal",
@@ -58,12 +58,12 @@
             1.8
           ],
           "scale": 1,
-          "action": "El rover avanza sobre el terreno y orienta su mástil hacia el horizonte.",
+          "action": "avanza lentamente y orienta el mástil hacia el horizonte",
           "motion": "rueda lentamente y gira el mástil",
           "position": [
-            -3,
             0,
-            -4
+            0.2,
+            -3.8
           ],
           "support": "ground",
           "model_id": "curiosity-rover"
@@ -82,15 +82,63 @@
             1.2
           ],
           "scale": 1,
-          "action": "El Sol desciende lentamente hacia el borde del cráter.",
+          "action": "brilla bajo en el horizonte",
           "motion": "se desplaza lentamente hacia el horizonte",
           "position": [
+            2.8,
             3,
-            2,
-            -7
+            -12
           ],
           "support": "ground",
           "model_id": "mars-sun"
+        },
+        {
+          "id": "mars-1-1",
+          "name": "Rocas del cráter",
+          "model_id": "mars-crater-rocks",
+          "position": [
+            -3.2,
+            0.05,
+            -2.5
+          ],
+          "scale": 1,
+          "action": "permanece fijo y aporta escala"
+        },
+        {
+          "id": "mars-1-2",
+          "name": "Estratos del terreno",
+          "model_id": "layered-strata",
+          "position": [
+            3.1,
+            0.05,
+            -3.5
+          ],
+          "scale": 1,
+          "action": "permanece fijo y aporta escala"
+        },
+        {
+          "id": "mars-1-3",
+          "name": "Campo de rocas",
+          "model_id": "mars-boulder-field",
+          "position": [
+            -4,
+            0.1,
+            -7
+          ],
+          "scale": 0.8,
+          "action": "permanece fijo y aporta escala"
+        },
+        {
+          "id": "mars-1-4",
+          "name": "Cresta del horizonte",
+          "model_id": "mars-horizon-ridge",
+          "position": [
+            4,
+            0.1,
+            -8
+          ],
+          "scale": 1,
+          "action": "permanece fijo y aporta escala"
         }
       ],
       "beats": [
@@ -110,12 +158,12 @@
     },
     {
       "scene_type": "space",
-      "visual": "Plano 2. Pero en Marte, el Sol puede quedar rodeado por un resplandor azulado. El polvo suspendido modifica la luz mientras el rover observa el horizonte del cráter. En primer plano aparecen Rover Curiosity y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
-      "setting": "Superficie marciana en un cráter rocoso durante el crepúsculo, con polvo fino suspendido y horizonte amplio.",
-      "action": "Pero en Marte, el Sol puede quedar rodeado por un resplandor azulado. El polvo suspendido modifica la luz mientras el rover observa el horizonte del cráter. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
-      "camera": "Dolly-in con arco corto alrededor del sujeto mientras cambia su aspecto. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "visual": "Plano 2. Pero en Marte, el Sol puede quedar rodeado por un resplandor azulado. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (columna de polvo, halo azul del crepúsculo, huellas del rover, rocas del cráter). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "setting": "Superficie de Marte en un cráter con rocas erosionadas, estratos, huellas del rover, polvo suspendido y cresta distante.",
+      "action": "Acción ilustrativa: Pero en Marte, el Sol puede quedar rodeado por un resplandor azulado. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
+      "camera": "acercamiento macro al detalle",
       "camera_target": "Por qué los atardeceres de Marte son azules",
-      "continuity": "Superficie marciana en un cráter rocoso durante el crepúsculo, con polvo fino suspendido y horizonte amplio. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
       "characters": [],
       "props": [
         "material principal",
@@ -146,12 +194,12 @@
             1.8
           ],
           "scale": 1,
-          "action": "El rover avanza sobre el terreno y orienta su mástil hacia el horizonte.",
+          "action": "avanza lentamente y orienta el mástil hacia el horizonte",
           "motion": "rueda lentamente y gira el mástil",
           "position": [
-            -3,
             0,
-            -4.6
+            0.2,
+            -3.8
           ],
           "support": "ground",
           "model_id": "curiosity-rover"
@@ -170,15 +218,63 @@
             1.2
           ],
           "scale": 1,
-          "action": "El Sol desciende lentamente hacia el borde del cráter.",
+          "action": "brilla bajo en el horizonte",
           "motion": "se desplaza lentamente hacia el horizonte",
           "position": [
+            2.8,
             3,
-            2,
-            -7.6
+            -12
           ],
           "support": "ground",
           "model_id": "mars-sun"
+        },
+        {
+          "id": "mars-2-1",
+          "name": "Columna de polvo",
+          "model_id": "dust-devil",
+          "position": [
+            -3.2,
+            0.05,
+            -2.5
+          ],
+          "scale": 1,
+          "action": "el polvo gira y asciende"
+        },
+        {
+          "id": "mars-2-2",
+          "name": "Halo azul del crepúsculo",
+          "model_id": "blue-sunset-glow",
+          "position": [
+            3.1,
+            0.05,
+            -3.5
+          ],
+          "scale": 1,
+          "action": "el halo azul pulsa"
+        },
+        {
+          "id": "mars-2-3",
+          "name": "Huellas del rover",
+          "model_id": "rover-track",
+          "position": [
+            -4,
+            0.1,
+            -7
+          ],
+          "scale": 0.8,
+          "action": "permanece fijo y aporta escala"
+        },
+        {
+          "id": "mars-2-4",
+          "name": "Rocas del cráter",
+          "model_id": "mars-crater-rocks",
+          "position": [
+            4,
+            0.1,
+            -8
+          ],
+          "scale": 1,
+          "action": "permanece fijo y aporta escala"
         }
       ],
       "beats": [
@@ -198,12 +294,12 @@
     },
     {
       "scene_type": "space",
-      "visual": "Plano 3. No es un filtro de cámara ni un efecto añadido por ordenador. El polvo suspendido modifica la luz mientras el rover observa el horizonte del cráter. En primer plano aparecen Rover Curiosity y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
-      "setting": "Superficie marciana en un cráter rocoso durante el crepúsculo, con polvo fino suspendido y horizonte amplio.",
-      "action": "No es un filtro de cámara ni un efecto añadido por ordenador. El polvo suspendido modifica la luz mientras el rover observa el horizonte del cráter. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
-      "camera": "Macro travelling sobre la superficie, pasando de una zona general a un detalle microscópico. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "visual": "Plano 3. No es un filtro de cámara ni un efecto añadido por ordenador. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (estratos del terreno, campo de rocas, cresta del horizonte, columna de polvo). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "setting": "Superficie de Marte en un cráter con rocas erosionadas, estratos, huellas del rover, polvo suspendido y cresta distante.",
+      "action": "Acción ilustrativa: No es un filtro de cámara ni un efecto añadido por ordenador. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
+      "camera": "órbita corta alrededor del sujeto",
       "camera_target": "Por qué los atardeceres de Marte son azules",
-      "continuity": "Superficie marciana en un cráter rocoso durante el crepúsculo, con polvo fino suspendido y horizonte amplio. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
       "characters": [],
       "props": [
         "material principal",
@@ -234,12 +330,12 @@
             1.8
           ],
           "scale": 1,
-          "action": "El rover avanza sobre el terreno y orienta su mástil hacia el horizonte.",
+          "action": "avanza lentamente y orienta el mástil hacia el horizonte",
           "motion": "rueda lentamente y gira el mástil",
           "position": [
-            -3,
             0,
-            -5.2
+            0.2,
+            -3.8
           ],
           "support": "ground",
           "model_id": "curiosity-rover"
@@ -258,15 +354,63 @@
             1.2
           ],
           "scale": 1,
-          "action": "El Sol desciende lentamente hacia el borde del cráter.",
+          "action": "brilla bajo en el horizonte",
           "motion": "se desplaza lentamente hacia el horizonte",
           "position": [
+            2.8,
             3,
-            2,
-            -8.2
+            -12
           ],
           "support": "ground",
           "model_id": "mars-sun"
+        },
+        {
+          "id": "mars-3-1",
+          "name": "Estratos del terreno",
+          "model_id": "layered-strata",
+          "position": [
+            -3.2,
+            0.05,
+            -2.5
+          ],
+          "scale": 1,
+          "action": "permanece fijo y aporta escala"
+        },
+        {
+          "id": "mars-3-2",
+          "name": "Campo de rocas",
+          "model_id": "mars-boulder-field",
+          "position": [
+            3.1,
+            0.05,
+            -3.5
+          ],
+          "scale": 1,
+          "action": "permanece fijo y aporta escala"
+        },
+        {
+          "id": "mars-3-3",
+          "name": "Cresta del horizonte",
+          "model_id": "mars-horizon-ridge",
+          "position": [
+            -4,
+            0.1,
+            -7
+          ],
+          "scale": 0.8,
+          "action": "permanece fijo y aporta escala"
+        },
+        {
+          "id": "mars-3-4",
+          "name": "Columna de polvo",
+          "model_id": "dust-devil",
+          "position": [
+            4,
+            0.1,
+            -8
+          ],
+          "scale": 1,
+          "action": "el polvo gira y asciende"
         }
       ],
       "beats": [
@@ -286,12 +430,12 @@
     },
     {
       "scene_type": "space",
-      "visual": "Plano 4. La explicación está en el polvo suspendido dentro de su atmósfera. El polvo suspendido modifica la luz mientras el rover observa el horizonte del cráter. En primer plano aparecen Rover Curiosity y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
-      "setting": "Superficie marciana en un cráter rocoso durante el crepúsculo, con polvo fino suspendido y horizonte amplio.",
-      "action": "La explicación está en el polvo suspendido dentro de su atmósfera. El polvo suspendido modifica la luz mientras el rover observa el horizonte del cráter. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
-      "camera": "Zoom controlado hacia el mecanismo central y órbita corta para mostrar su volumen. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "visual": "Plano 4. La explicación está en el polvo suspendido dentro de su atmósfera. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (halo azul del crepúsculo, huellas del rover, rocas del cráter, estratos del terreno). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "setting": "Superficie de Marte en un cráter con rocas erosionadas, estratos, huellas del rover, polvo suspendido y cresta distante.",
+      "action": "Acción ilustrativa: La explicación está en el polvo suspendido dentro de su atmósfera. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
+      "camera": "retroceso para revelar el entorno",
       "camera_target": "Por qué los atardeceres de Marte son azules",
-      "continuity": "Superficie marciana en un cráter rocoso durante el crepúsculo, con polvo fino suspendido y horizonte amplio. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
       "characters": [],
       "props": [
         "material principal",
@@ -322,12 +466,12 @@
             1.8
           ],
           "scale": 1,
-          "action": "El rover avanza sobre el terreno y orienta su mástil hacia el horizonte.",
+          "action": "avanza lentamente y orienta el mástil hacia el horizonte",
           "motion": "rueda lentamente y gira el mástil",
           "position": [
-            -3,
             0,
-            -4
+            0.2,
+            -3.8
           ],
           "support": "ground",
           "model_id": "curiosity-rover"
@@ -346,15 +490,63 @@
             1.2
           ],
           "scale": 1,
-          "action": "El Sol desciende lentamente hacia el borde del cráter.",
+          "action": "brilla bajo en el horizonte",
           "motion": "se desplaza lentamente hacia el horizonte",
           "position": [
+            2.8,
             3,
-            2,
-            -7
+            -12
           ],
           "support": "ground",
           "model_id": "mars-sun"
+        },
+        {
+          "id": "mars-4-1",
+          "name": "Halo azul del crepúsculo",
+          "model_id": "blue-sunset-glow",
+          "position": [
+            -3.2,
+            0.05,
+            -2.5
+          ],
+          "scale": 1,
+          "action": "el halo azul pulsa"
+        },
+        {
+          "id": "mars-4-2",
+          "name": "Huellas del rover",
+          "model_id": "rover-track",
+          "position": [
+            3.1,
+            0.05,
+            -3.5
+          ],
+          "scale": 1,
+          "action": "permanece fijo y aporta escala"
+        },
+        {
+          "id": "mars-4-3",
+          "name": "Rocas del cráter",
+          "model_id": "mars-crater-rocks",
+          "position": [
+            -4,
+            0.1,
+            -7
+          ],
+          "scale": 0.8,
+          "action": "permanece fijo y aporta escala"
+        },
+        {
+          "id": "mars-4-4",
+          "name": "Estratos del terreno",
+          "model_id": "layered-strata",
+          "position": [
+            4,
+            0.1,
+            -8
+          ],
+          "scale": 1,
+          "action": "permanece fijo y aporta escala"
         }
       ],
       "beats": [
@@ -374,12 +566,12 @@
     },
     {
       "scene_type": "space",
-      "visual": "Plano 5. Marte tiene una atmósfera muy tenue, pero contiene partículas finas de polvo. El polvo suspendido modifica la luz mientras el rover observa el horizonte del cráter. En primer plano aparecen Rover Curiosity y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
-      "setting": "Superficie marciana en un cráter rocoso durante el crepúsculo, con polvo fino suspendido y horizonte amplio.",
-      "action": "Marte tiene una atmósfera muy tenue, pero contiene partículas finas de polvo. El polvo suspendido modifica la luz mientras el rover observa el horizonte del cráter. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
-      "camera": "Push-in durante la acción principal y pausa breve en el instante más legible. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "visual": "Plano 5. Marte tiene una atmósfera muy tenue, pero contiene partículas finas de polvo. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (campo de rocas, cresta del horizonte, columna de polvo, halo azul del crepúsculo). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "setting": "Superficie de Marte en un cráter con rocas erosionadas, estratos, huellas del rover, polvo suspendido y cresta distante.",
+      "action": "Acción ilustrativa: Marte tiene una atmósfera muy tenue, pero contiene partículas finas de polvo. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
+      "camera": "travelling lateral de contexto",
       "camera_target": "Por qué los atardeceres de Marte son azules",
-      "continuity": "Superficie marciana en un cráter rocoso durante el crepúsculo, con polvo fino suspendido y horizonte amplio. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
       "characters": [],
       "props": [
         "material principal",
@@ -410,12 +602,12 @@
             1.8
           ],
           "scale": 1,
-          "action": "El rover avanza sobre el terreno y orienta su mástil hacia el horizonte.",
+          "action": "avanza lentamente y orienta el mástil hacia el horizonte",
           "motion": "rueda lentamente y gira el mástil",
           "position": [
-            -3,
             0,
-            -4.6
+            0.2,
+            -3.8
           ],
           "support": "ground",
           "model_id": "curiosity-rover"
@@ -434,15 +626,63 @@
             1.2
           ],
           "scale": 1,
-          "action": "El Sol desciende lentamente hacia el borde del cráter.",
+          "action": "brilla bajo en el horizonte",
           "motion": "se desplaza lentamente hacia el horizonte",
           "position": [
+            2.8,
             3,
-            2,
-            -7.6
+            -12
           ],
           "support": "ground",
           "model_id": "mars-sun"
+        },
+        {
+          "id": "mars-5-1",
+          "name": "Campo de rocas",
+          "model_id": "mars-boulder-field",
+          "position": [
+            -3.2,
+            0.05,
+            -2.5
+          ],
+          "scale": 1,
+          "action": "permanece fijo y aporta escala"
+        },
+        {
+          "id": "mars-5-2",
+          "name": "Cresta del horizonte",
+          "model_id": "mars-horizon-ridge",
+          "position": [
+            3.1,
+            0.05,
+            -3.5
+          ],
+          "scale": 1,
+          "action": "permanece fijo y aporta escala"
+        },
+        {
+          "id": "mars-5-3",
+          "name": "Columna de polvo",
+          "model_id": "dust-devil",
+          "position": [
+            -4,
+            0.1,
+            -7
+          ],
+          "scale": 0.8,
+          "action": "el polvo gira y asciende"
+        },
+        {
+          "id": "mars-5-4",
+          "name": "Halo azul del crepúsculo",
+          "model_id": "blue-sunset-glow",
+          "position": [
+            4,
+            0.1,
+            -8
+          ],
+          "scale": 1,
+          "action": "el halo azul pulsa"
         }
       ],
       "beats": [
@@ -462,12 +702,12 @@
     },
     {
       "scene_type": "space",
-      "visual": "Plano 6. Cuando la luz atraviesa ese polvo, no se dispersan todos los colores igual. El polvo suspendido modifica la luz mientras el rover observa el horizonte del cráter. En primer plano aparecen Rover Curiosity y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
-      "setting": "Superficie marciana en un cráter rocoso durante el crepúsculo, con polvo fino suspendido y horizonte amplio.",
-      "action": "Cuando la luz atraviesa ese polvo, no se dispersan todos los colores igual. El polvo suspendido modifica la luz mientras el rover observa el horizonte del cráter. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
-      "camera": "Desplazamiento lateral siguiendo los reflejos y cambio de foco entre capas. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "visual": "Plano 6. Cuando la luz atraviesa ese polvo, no se dispersan todos los colores igual. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (huellas del rover, rocas del cráter, estratos del terreno, campo de rocas). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "setting": "Superficie de Marte en un cráter con rocas erosionadas, estratos, huellas del rover, polvo suspendido y cresta distante.",
+      "action": "Acción ilustrativa: Cuando la luz atraviesa ese polvo, no se dispersan todos los colores igual. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
+      "camera": "acercamiento macro al detalle",
       "camera_target": "Por qué los atardeceres de Marte son azules",
-      "continuity": "Superficie marciana en un cráter rocoso durante el crepúsculo, con polvo fino suspendido y horizonte amplio. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
       "characters": [],
       "props": [
         "material principal",
@@ -498,12 +738,12 @@
             1.8
           ],
           "scale": 1,
-          "action": "El rover avanza sobre el terreno y orienta su mástil hacia el horizonte.",
+          "action": "avanza lentamente y orienta el mástil hacia el horizonte",
           "motion": "rueda lentamente y gira el mástil",
           "position": [
-            -3,
             0,
-            -5.2
+            0.2,
+            -3.8
           ],
           "support": "ground",
           "model_id": "curiosity-rover"
@@ -522,15 +762,63 @@
             1.2
           ],
           "scale": 1,
-          "action": "El Sol desciende lentamente hacia el borde del cráter.",
+          "action": "brilla bajo en el horizonte",
           "motion": "se desplaza lentamente hacia el horizonte",
           "position": [
+            2.8,
             3,
-            2,
-            -8.2
+            -12
           ],
           "support": "ground",
           "model_id": "mars-sun"
+        },
+        {
+          "id": "mars-6-1",
+          "name": "Huellas del rover",
+          "model_id": "rover-track",
+          "position": [
+            -3.2,
+            0.05,
+            -2.5
+          ],
+          "scale": 1,
+          "action": "permanece fijo y aporta escala"
+        },
+        {
+          "id": "mars-6-2",
+          "name": "Rocas del cráter",
+          "model_id": "mars-crater-rocks",
+          "position": [
+            3.1,
+            0.05,
+            -3.5
+          ],
+          "scale": 1,
+          "action": "permanece fijo y aporta escala"
+        },
+        {
+          "id": "mars-6-3",
+          "name": "Estratos del terreno",
+          "model_id": "layered-strata",
+          "position": [
+            -4,
+            0.1,
+            -7
+          ],
+          "scale": 0.8,
+          "action": "permanece fijo y aporta escala"
+        },
+        {
+          "id": "mars-6-4",
+          "name": "Campo de rocas",
+          "model_id": "mars-boulder-field",
+          "position": [
+            4,
+            0.1,
+            -8
+          ],
+          "scale": 1,
+          "action": "permanece fijo y aporta escala"
         }
       ],
       "beats": [
@@ -550,12 +838,12 @@
     },
     {
       "scene_type": "space",
-      "visual": "Plano 7. Parte de la luz azul se dispersa hacia delante y permanece cerca del Sol. El polvo suspendido modifica la luz mientras el rover observa el horizonte del cráter. En primer plano aparecen Rover Curiosity y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
-      "setting": "Superficie marciana en un cráter rocoso durante el crepúsculo, con polvo fino suspendido y horizonte amplio.",
-      "action": "Parte de la luz azul se dispersa hacia delante y permanece cerca del Sol. El polvo suspendido modifica la luz mientras el rover observa el horizonte del cráter. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
-      "camera": "Retroceso de cámara para revelar el sujeto completo y su entorno. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "visual": "Plano 7. Parte de la luz azul se dispersa hacia delante y permanece cerca del Sol. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (cresta del horizonte, columna de polvo, halo azul del crepúsculo, huellas del rover). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "setting": "Superficie de Marte en un cráter con rocas erosionadas, estratos, huellas del rover, polvo suspendido y cresta distante.",
+      "action": "Acción ilustrativa: Parte de la luz azul se dispersa hacia delante y permanece cerca del Sol. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
+      "camera": "órbita corta alrededor del sujeto",
       "camera_target": "Por qué los atardeceres de Marte son azules",
-      "continuity": "Superficie marciana en un cráter rocoso durante el crepúsculo, con polvo fino suspendido y horizonte amplio. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
       "characters": [],
       "props": [
         "material principal",
@@ -586,12 +874,12 @@
             1.8
           ],
           "scale": 1,
-          "action": "El rover avanza sobre el terreno y orienta su mástil hacia el horizonte.",
+          "action": "avanza lentamente y orienta el mástil hacia el horizonte",
           "motion": "rueda lentamente y gira el mástil",
           "position": [
-            -3,
             0,
-            -4
+            0.2,
+            -3.8
           ],
           "support": "ground",
           "model_id": "curiosity-rover"
@@ -610,15 +898,63 @@
             1.2
           ],
           "scale": 1,
-          "action": "El Sol desciende lentamente hacia el borde del cráter.",
+          "action": "brilla bajo en el horizonte",
           "motion": "se desplaza lentamente hacia el horizonte",
           "position": [
+            2.8,
             3,
-            2,
-            -7
+            -12
           ],
           "support": "ground",
           "model_id": "mars-sun"
+        },
+        {
+          "id": "mars-7-1",
+          "name": "Cresta del horizonte",
+          "model_id": "mars-horizon-ridge",
+          "position": [
+            -3.2,
+            0.05,
+            -2.5
+          ],
+          "scale": 1,
+          "action": "permanece fijo y aporta escala"
+        },
+        {
+          "id": "mars-7-2",
+          "name": "Columna de polvo",
+          "model_id": "dust-devil",
+          "position": [
+            3.1,
+            0.05,
+            -3.5
+          ],
+          "scale": 1,
+          "action": "el polvo gira y asciende"
+        },
+        {
+          "id": "mars-7-3",
+          "name": "Halo azul del crepúsculo",
+          "model_id": "blue-sunset-glow",
+          "position": [
+            -4,
+            0.1,
+            -7
+          ],
+          "scale": 0.8,
+          "action": "el halo azul pulsa"
+        },
+        {
+          "id": "mars-7-4",
+          "name": "Huellas del rover",
+          "model_id": "rover-track",
+          "position": [
+            4,
+            0.1,
+            -8
+          ],
+          "scale": 1,
+          "action": "permanece fijo y aporta escala"
         }
       ],
       "beats": [
@@ -638,12 +974,12 @@
     },
     {
       "scene_type": "space",
-      "visual": "Plano 8. Los tonos rojos y amarillos se extienden de otra manera por el cielo. El polvo suspendido modifica la luz mientras el rover observa el horizonte del cráter. En primer plano aparecen Rover Curiosity y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
-      "setting": "Superficie marciana en un cráter rocoso durante el crepúsculo, con polvo fino suspendido y horizonte amplio.",
-      "action": "Los tonos rojos y amarillos se extienden de otra manera por el cielo. El polvo suspendido modifica la luz mientras el rover observa el horizonte del cráter. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
-      "camera": "Macro ascendente que recorre los detalles desde la base hasta el punto más alto. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "visual": "Plano 8. Los tonos rojos y amarillos se extienden de otra manera por el cielo. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (rocas del cráter, estratos del terreno, campo de rocas, cresta del horizonte). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "setting": "Superficie de Marte en un cráter con rocas erosionadas, estratos, huellas del rover, polvo suspendido y cresta distante.",
+      "action": "Acción ilustrativa: Los tonos rojos y amarillos se extienden de otra manera por el cielo. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
+      "camera": "retroceso para revelar el entorno",
       "camera_target": "Por qué los atardeceres de Marte son azules",
-      "continuity": "Superficie marciana en un cráter rocoso durante el crepúsculo, con polvo fino suspendido y horizonte amplio. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
       "characters": [],
       "props": [
         "material principal",
@@ -674,12 +1010,12 @@
             1.8
           ],
           "scale": 1,
-          "action": "El rover avanza sobre el terreno y orienta su mástil hacia el horizonte.",
+          "action": "avanza lentamente y orienta el mástil hacia el horizonte",
           "motion": "rueda lentamente y gira el mástil",
           "position": [
-            -3,
             0,
-            -4.6
+            0.2,
+            -3.8
           ],
           "support": "ground",
           "model_id": "curiosity-rover"
@@ -698,15 +1034,63 @@
             1.2
           ],
           "scale": 1,
-          "action": "El Sol desciende lentamente hacia el borde del cráter.",
+          "action": "brilla bajo en el horizonte",
           "motion": "se desplaza lentamente hacia el horizonte",
           "position": [
+            2.8,
             3,
-            2,
-            -7.6
+            -12
           ],
           "support": "ground",
           "model_id": "mars-sun"
+        },
+        {
+          "id": "mars-8-1",
+          "name": "Rocas del cráter",
+          "model_id": "mars-crater-rocks",
+          "position": [
+            -3.2,
+            0.05,
+            -2.5
+          ],
+          "scale": 1,
+          "action": "permanece fijo y aporta escala"
+        },
+        {
+          "id": "mars-8-2",
+          "name": "Estratos del terreno",
+          "model_id": "layered-strata",
+          "position": [
+            3.1,
+            0.05,
+            -3.5
+          ],
+          "scale": 1,
+          "action": "permanece fijo y aporta escala"
+        },
+        {
+          "id": "mars-8-3",
+          "name": "Campo de rocas",
+          "model_id": "mars-boulder-field",
+          "position": [
+            -4,
+            0.1,
+            -7
+          ],
+          "scale": 0.8,
+          "action": "permanece fijo y aporta escala"
+        },
+        {
+          "id": "mars-8-4",
+          "name": "Cresta del horizonte",
+          "model_id": "mars-horizon-ridge",
+          "position": [
+            4,
+            0.1,
+            -8
+          ],
+          "scale": 1,
+          "action": "permanece fijo y aporta escala"
         }
       ],
       "beats": [
@@ -726,12 +1110,12 @@
     },
     {
       "scene_type": "space",
-      "visual": "Plano 9. Por eso el horizonte puede verse rojizo mientras la zona junto al Sol parece azul. El polvo suspendido modifica la luz mientras el rover observa el horizonte del cráter. En primer plano aparecen Rover Curiosity y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
-      "setting": "Superficie marciana en un cráter rocoso durante el crepúsculo, con polvo fino suspendido y horizonte amplio.",
-      "action": "Por eso el horizonte puede verse rojizo mientras la zona junto al Sol parece azul. El polvo suspendido modifica la luz mientras el rover observa el horizonte del cráter. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
-      "camera": "Órbita corta alrededor del sujeto mientras la transformación avanza de forma visible. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "visual": "Plano 9. Por eso el horizonte puede verse rojizo mientras la zona junto al Sol parece azul. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (columna de polvo, halo azul del crepúsculo, huellas del rover, rocas del cráter). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "setting": "Superficie de Marte en un cráter con rocas erosionadas, estratos, huellas del rover, polvo suspendido y cresta distante.",
+      "action": "Acción ilustrativa: Por eso el horizonte puede verse rojizo mientras la zona junto al Sol parece azul. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
+      "camera": "travelling lateral de contexto",
       "camera_target": "Por qué los atardeceres de Marte son azules",
-      "continuity": "Superficie marciana en un cráter rocoso durante el crepúsculo, con polvo fino suspendido y horizonte amplio. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
       "characters": [],
       "props": [
         "material principal",
@@ -762,12 +1146,12 @@
             1.8
           ],
           "scale": 1,
-          "action": "El rover avanza sobre el terreno y orienta su mástil hacia el horizonte.",
+          "action": "avanza lentamente y orienta el mástil hacia el horizonte",
           "motion": "rueda lentamente y gira el mástil",
           "position": [
-            -3,
             0,
-            -5.2
+            0.2,
+            -3.8
           ],
           "support": "ground",
           "model_id": "curiosity-rover"
@@ -786,15 +1170,63 @@
             1.2
           ],
           "scale": 1,
-          "action": "El Sol desciende lentamente hacia el borde del cráter.",
+          "action": "brilla bajo en el horizonte",
           "motion": "se desplaza lentamente hacia el horizonte",
           "position": [
+            2.8,
             3,
-            2,
-            -8.2
+            -12
           ],
           "support": "ground",
           "model_id": "mars-sun"
+        },
+        {
+          "id": "mars-9-1",
+          "name": "Columna de polvo",
+          "model_id": "dust-devil",
+          "position": [
+            -3.2,
+            0.05,
+            -2.5
+          ],
+          "scale": 1,
+          "action": "el polvo gira y asciende"
+        },
+        {
+          "id": "mars-9-2",
+          "name": "Halo azul del crepúsculo",
+          "model_id": "blue-sunset-glow",
+          "position": [
+            3.1,
+            0.05,
+            -3.5
+          ],
+          "scale": 1,
+          "action": "el halo azul pulsa"
+        },
+        {
+          "id": "mars-9-3",
+          "name": "Huellas del rover",
+          "model_id": "rover-track",
+          "position": [
+            -4,
+            0.1,
+            -7
+          ],
+          "scale": 0.8,
+          "action": "permanece fijo y aporta escala"
+        },
+        {
+          "id": "mars-9-4",
+          "name": "Rocas del cráter",
+          "model_id": "mars-crater-rocks",
+          "position": [
+            4,
+            0.1,
+            -8
+          ],
+          "scale": 1,
+          "action": "permanece fijo y aporta escala"
         }
       ],
       "beats": [
@@ -814,12 +1246,12 @@
     },
     {
       "scene_type": "space",
-      "visual": "Plano 10. Los rovers han fotografiado este fenómeno desde distintos cráteres marcianos. El polvo suspendido modifica la luz mientras el rover observa el horizonte del cráter. En primer plano aparecen Rover Curiosity y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
-      "setting": "Superficie marciana en un cráter rocoso durante el crepúsculo, con polvo fino suspendido y horizonte amplio.",
-      "action": "Los rovers han fotografiado este fenómeno desde distintos cráteres marcianos. El polvo suspendido modifica la luz mientras el rover observa el horizonte del cráter. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
-      "camera": "Travelling diagonal que cruza el entorno y revela poco a poco el elemento principal. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "visual": "Plano 10. Los rovers han fotografiado este fenómeno desde distintos cráteres marcianos. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (estratos del terreno, campo de rocas, cresta del horizonte, columna de polvo). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "setting": "Superficie de Marte en un cráter con rocas erosionadas, estratos, huellas del rover, polvo suspendido y cresta distante.",
+      "action": "Acción ilustrativa: Los rovers han fotografiado este fenómeno desde distintos cráteres marcianos. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
+      "camera": "acercamiento macro al detalle",
       "camera_target": "Por qué los atardeceres de Marte son azules",
-      "continuity": "Superficie marciana en un cráter rocoso durante el crepúsculo, con polvo fino suspendido y horizonte amplio. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
       "characters": [],
       "props": [
         "material principal",
@@ -850,12 +1282,12 @@
             1.8
           ],
           "scale": 1,
-          "action": "El rover avanza sobre el terreno y orienta su mástil hacia el horizonte.",
+          "action": "avanza lentamente y orienta el mástil hacia el horizonte",
           "motion": "rueda lentamente y gira el mástil",
           "position": [
-            -3,
             0,
-            -4
+            0.2,
+            -3.8
           ],
           "support": "ground",
           "model_id": "curiosity-rover"
@@ -874,15 +1306,63 @@
             1.2
           ],
           "scale": 1,
-          "action": "El Sol desciende lentamente hacia el borde del cráter.",
+          "action": "brilla bajo en el horizonte",
           "motion": "se desplaza lentamente hacia el horizonte",
           "position": [
+            2.8,
             3,
-            2,
-            -7
+            -12
           ],
           "support": "ground",
           "model_id": "mars-sun"
+        },
+        {
+          "id": "mars-10-1",
+          "name": "Estratos del terreno",
+          "model_id": "layered-strata",
+          "position": [
+            -3.2,
+            0.05,
+            -2.5
+          ],
+          "scale": 1,
+          "action": "permanece fijo y aporta escala"
+        },
+        {
+          "id": "mars-10-2",
+          "name": "Campo de rocas",
+          "model_id": "mars-boulder-field",
+          "position": [
+            3.1,
+            0.05,
+            -3.5
+          ],
+          "scale": 1,
+          "action": "permanece fijo y aporta escala"
+        },
+        {
+          "id": "mars-10-3",
+          "name": "Cresta del horizonte",
+          "model_id": "mars-horizon-ridge",
+          "position": [
+            -4,
+            0.1,
+            -7
+          ],
+          "scale": 0.8,
+          "action": "permanece fijo y aporta escala"
+        },
+        {
+          "id": "mars-10-4",
+          "name": "Columna de polvo",
+          "model_id": "dust-devil",
+          "position": [
+            4,
+            0.1,
+            -8
+          ],
+          "scale": 1,
+          "action": "el polvo gira y asciende"
         }
       ],
       "beats": [
@@ -902,12 +1382,12 @@
     },
     {
       "scene_type": "space",
-      "visual": "Plano 11. Las imágenes se calibran para aproximarse a los colores que vería una persona. El polvo suspendido modifica la luz mientras el rover observa el horizonte del cráter. En primer plano aparecen Rover Curiosity y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
-      "setting": "Superficie marciana en un cráter rocoso durante el crepúsculo, con polvo fino suspendido y horizonte amplio.",
-      "action": "Las imágenes se calibran para aproximarse a los colores que vería una persona. El polvo suspendido modifica la luz mientras el rover observa el horizonte del cráter. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
-      "camera": "Plano medio con seguimiento lateral del movimiento principal y de sus consecuencias. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "visual": "Plano 11. Las imágenes se calibran para aproximarse a los colores que vería una persona. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (halo azul del crepúsculo, huellas del rover, rocas del cráter, estratos del terreno). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "setting": "Superficie de Marte en un cráter con rocas erosionadas, estratos, huellas del rover, polvo suspendido y cresta distante.",
+      "action": "Acción ilustrativa: Las imágenes se calibran para aproximarse a los colores que vería una persona. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
+      "camera": "órbita corta alrededor del sujeto",
       "camera_target": "Por qué los atardeceres de Marte son azules",
-      "continuity": "Superficie marciana en un cráter rocoso durante el crepúsculo, con polvo fino suspendido y horizonte amplio. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
       "characters": [],
       "props": [
         "material principal",
@@ -938,12 +1418,12 @@
             1.8
           ],
           "scale": 1,
-          "action": "El rover avanza sobre el terreno y orienta su mástil hacia el horizonte.",
+          "action": "avanza lentamente y orienta el mástil hacia el horizonte",
           "motion": "rueda lentamente y gira el mástil",
           "position": [
-            -3,
             0,
-            -4.6
+            0.2,
+            -3.8
           ],
           "support": "ground",
           "model_id": "curiosity-rover"
@@ -962,15 +1442,63 @@
             1.2
           ],
           "scale": 1,
-          "action": "El Sol desciende lentamente hacia el borde del cráter.",
+          "action": "brilla bajo en el horizonte",
           "motion": "se desplaza lentamente hacia el horizonte",
           "position": [
+            2.8,
             3,
-            2,
-            -7.6
+            -12
           ],
           "support": "ground",
           "model_id": "mars-sun"
+        },
+        {
+          "id": "mars-11-1",
+          "name": "Halo azul del crepúsculo",
+          "model_id": "blue-sunset-glow",
+          "position": [
+            -3.2,
+            0.05,
+            -2.5
+          ],
+          "scale": 1,
+          "action": "el halo azul pulsa"
+        },
+        {
+          "id": "mars-11-2",
+          "name": "Huellas del rover",
+          "model_id": "rover-track",
+          "position": [
+            3.1,
+            0.05,
+            -3.5
+          ],
+          "scale": 1,
+          "action": "permanece fijo y aporta escala"
+        },
+        {
+          "id": "mars-11-3",
+          "name": "Rocas del cráter",
+          "model_id": "mars-crater-rocks",
+          "position": [
+            -4,
+            0.1,
+            -7
+          ],
+          "scale": 0.8,
+          "action": "permanece fijo y aporta escala"
+        },
+        {
+          "id": "mars-11-4",
+          "name": "Estratos del terreno",
+          "model_id": "layered-strata",
+          "position": [
+            4,
+            0.1,
+            -8
+          ],
+          "scale": 1,
+          "action": "permanece fijo y aporta escala"
         }
       ],
       "beats": [
@@ -990,12 +1518,12 @@
     },
     {
       "scene_type": "space",
-      "visual": "Plano 12. La cantidad de polvo cambia el resultado y puede apagar o intensificar el azul. El polvo suspendido modifica la luz mientras el rover observa el horizonte del cráter. En primer plano aparecen Rover Curiosity y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
-      "setting": "Superficie marciana en un cráter rocoso durante el crepúsculo, con polvo fino suspendido y horizonte amplio.",
-      "action": "La cantidad de polvo cambia el resultado y puede apagar o intensificar el azul. El polvo suspendido modifica la luz mientras el rover observa el horizonte del cráter. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
-      "camera": "Dolly circular muy lento que demuestra la relación entre el sujeto y su entorno. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "visual": "Plano 12. La cantidad de polvo cambia el resultado y puede apagar o intensificar el azul. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (campo de rocas, cresta del horizonte, columna de polvo, halo azul del crepúsculo). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "setting": "Superficie de Marte en un cráter con rocas erosionadas, estratos, huellas del rover, polvo suspendido y cresta distante.",
+      "action": "Acción ilustrativa: La cantidad de polvo cambia el resultado y puede apagar o intensificar el azul. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
+      "camera": "retroceso para revelar el entorno",
       "camera_target": "Por qué los atardeceres de Marte son azules",
-      "continuity": "Superficie marciana en un cráter rocoso durante el crepúsculo, con polvo fino suspendido y horizonte amplio. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
       "characters": [],
       "props": [
         "material principal",
@@ -1026,12 +1554,12 @@
             1.8
           ],
           "scale": 1,
-          "action": "El rover avanza sobre el terreno y orienta su mástil hacia el horizonte.",
+          "action": "avanza lentamente y orienta el mástil hacia el horizonte",
           "motion": "rueda lentamente y gira el mástil",
           "position": [
-            -3,
             0,
-            -5.2
+            0.2,
+            -3.8
           ],
           "support": "ground",
           "model_id": "curiosity-rover"
@@ -1050,15 +1578,63 @@
             1.2
           ],
           "scale": 1,
-          "action": "El Sol desciende lentamente hacia el borde del cráter.",
+          "action": "brilla bajo en el horizonte",
           "motion": "se desplaza lentamente hacia el horizonte",
           "position": [
+            2.8,
             3,
-            2,
-            -8.2
+            -12
           ],
           "support": "ground",
           "model_id": "mars-sun"
+        },
+        {
+          "id": "mars-12-1",
+          "name": "Campo de rocas",
+          "model_id": "mars-boulder-field",
+          "position": [
+            -3.2,
+            0.05,
+            -2.5
+          ],
+          "scale": 1,
+          "action": "permanece fijo y aporta escala"
+        },
+        {
+          "id": "mars-12-2",
+          "name": "Cresta del horizonte",
+          "model_id": "mars-horizon-ridge",
+          "position": [
+            3.1,
+            0.05,
+            -3.5
+          ],
+          "scale": 1,
+          "action": "permanece fijo y aporta escala"
+        },
+        {
+          "id": "mars-12-3",
+          "name": "Columna de polvo",
+          "model_id": "dust-devil",
+          "position": [
+            -4,
+            0.1,
+            -7
+          ],
+          "scale": 0.8,
+          "action": "el polvo gira y asciende"
+        },
+        {
+          "id": "mars-12-4",
+          "name": "Halo azul del crepúsculo",
+          "model_id": "blue-sunset-glow",
+          "position": [
+            4,
+            0.1,
+            -8
+          ],
+          "scale": 1,
+          "action": "el halo azul pulsa"
         }
       ],
       "beats": [
@@ -1078,12 +1654,12 @@
     },
     {
       "scene_type": "space",
-      "visual": "Plano 13. Así que no todos los atardeceres marcianos son idénticos ni igual de intensos. El polvo suspendido modifica la luz mientras el rover observa el horizonte del cráter. En primer plano aparecen Rover Curiosity y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
-      "setting": "Superficie marciana en un cráter rocoso durante el crepúsculo, con polvo fino suspendido y horizonte amplio.",
-      "action": "Así que no todos los atardeceres marcianos son idénticos ni igual de intensos. El polvo suspendido modifica la luz mientras el rover observa el horizonte del cráter. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
-      "camera": "Desplazamiento de foco desde el fondo hacia el detalle que explica el fenómeno. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "visual": "Plano 13. Así que no todos los atardeceres marcianos son idénticos ni igual de intensos. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (huellas del rover, rocas del cráter, estratos del terreno, campo de rocas). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "setting": "Superficie de Marte en un cráter con rocas erosionadas, estratos, huellas del rover, polvo suspendido y cresta distante.",
+      "action": "Acción ilustrativa: Así que no todos los atardeceres marcianos son idénticos ni igual de intensos. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
+      "camera": "travelling lateral de contexto",
       "camera_target": "Por qué los atardeceres de Marte son azules",
-      "continuity": "Superficie marciana en un cráter rocoso durante el crepúsculo, con polvo fino suspendido y horizonte amplio. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
       "characters": [],
       "props": [
         "material principal",
@@ -1114,12 +1690,12 @@
             1.8
           ],
           "scale": 1,
-          "action": "El rover avanza sobre el terreno y orienta su mástil hacia el horizonte.",
+          "action": "avanza lentamente y orienta el mástil hacia el horizonte",
           "motion": "rueda lentamente y gira el mástil",
           "position": [
-            -3,
             0,
-            -4
+            0.2,
+            -3.8
           ],
           "support": "ground",
           "model_id": "curiosity-rover"
@@ -1138,15 +1714,63 @@
             1.2
           ],
           "scale": 1,
-          "action": "El Sol desciende lentamente hacia el borde del cráter.",
+          "action": "brilla bajo en el horizonte",
           "motion": "se desplaza lentamente hacia el horizonte",
           "position": [
+            2.8,
             3,
-            2,
-            -7
+            -12
           ],
           "support": "ground",
           "model_id": "mars-sun"
+        },
+        {
+          "id": "mars-13-1",
+          "name": "Huellas del rover",
+          "model_id": "rover-track",
+          "position": [
+            -3.2,
+            0.05,
+            -2.5
+          ],
+          "scale": 1,
+          "action": "permanece fijo y aporta escala"
+        },
+        {
+          "id": "mars-13-2",
+          "name": "Rocas del cráter",
+          "model_id": "mars-crater-rocks",
+          "position": [
+            3.1,
+            0.05,
+            -3.5
+          ],
+          "scale": 1,
+          "action": "permanece fijo y aporta escala"
+        },
+        {
+          "id": "mars-13-3",
+          "name": "Estratos del terreno",
+          "model_id": "layered-strata",
+          "position": [
+            -4,
+            0.1,
+            -7
+          ],
+          "scale": 0.8,
+          "action": "permanece fijo y aporta escala"
+        },
+        {
+          "id": "mars-13-4",
+          "name": "Campo de rocas",
+          "model_id": "mars-boulder-field",
+          "position": [
+            4,
+            0.1,
+            -8
+          ],
+          "scale": 1,
+          "action": "permanece fijo y aporta escala"
         }
       ],
       "beats": [
@@ -1166,12 +1790,12 @@
     },
     {
       "scene_type": "space",
-      "visual": "Plano 14. En otro planeta, incluso el momento más familiar del día puede parecer alienígena. El polvo suspendido modifica la luz mientras el rover observa el horizonte del cráter. En primer plano aparecen Rover Curiosity y detalles reconocibles de su superficie; en el plano medio se distinguen los elementos que explican la acción; al fondo se conserva el entorno completo para dar escala. La luz principal marca los bordes de cada volumen y permite separar las siluetas sin quemar las altas luces. Añade partículas, pequeñas variaciones de profundidad y movimiento ambiental coherente con el lugar. La composición debe tener un sujeto dominante, una acción que se entienda sin texto y un segundo elemento que aporte contexto. Render 3D procedural cinematográfico vertical 9:16, materiales físicamente legibles, iluminación volumétrica suave, profundidad atmosférica y escala coherente. Reserva el tercio inferior para subtítulos blancos; no generes rótulos, logotipos ni marcas de agua. Añade movimiento ambiental sutil, partículas y detalles en primer, medio y último plano.",
-      "setting": "Superficie marciana en un cráter rocoso durante el crepúsculo, con polvo fino suspendido y horizonte amplio.",
-      "action": "En otro planeta, incluso el momento más familiar del día puede parecer alienígena. El polvo suspendido modifica la luz mientras el rover observa el horizonte del cráter. El movimiento comienza de forma clara, alcanza un momento visual reconocible y termina dejando preparada la transición al siguiente plano. Los elementos secundarios reaccionan con desplazamientos pequeños y creíbles; evita que todos se muevan a la vez o que parezcan flotar sin causa física.",
-      "camera": "Seguimiento cercano que termina con una salida de cámara hacia un plano más amplio. Mantén el sujeto principal dentro del eje vertical seguro, usa un desplazamiento fluido y termina con una composición que permita cortar al siguiente plano sin salto espacial brusco.",
+      "visual": "Plano 14. En otro planeta, incluso el momento más familiar del día puede parecer alienígena. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (cresta del horizonte, columna de polvo, halo azul del crepúsculo, huellas del rover). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "setting": "Superficie de Marte en un cráter con rocas erosionadas, estratos, huellas del rover, polvo suspendido y cresta distante.",
+      "action": "Acción ilustrativa: En otro planeta, incluso el momento más familiar del día puede parecer alienígena. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
+      "camera": "acercamiento macro al detalle",
       "camera_target": "Por qué los atardeceres de Marte son azules",
-      "continuity": "Superficie marciana en un cráter rocoso durante el crepúsculo, con polvo fino suspendido y horizonte amplio. Conserva la dirección de luz, la paleta cromática y la posición relativa del sujeto principal respecto al entorno para que el montaje parezca una secuencia continua.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
       "characters": [],
       "props": [
         "material principal",
@@ -1202,12 +1826,12 @@
             1.8
           ],
           "scale": 1,
-          "action": "El rover avanza sobre el terreno y orienta su mástil hacia el horizonte.",
+          "action": "avanza lentamente y orienta el mástil hacia el horizonte",
           "motion": "rueda lentamente y gira el mástil",
           "position": [
-            -3,
             0,
-            -4.6
+            0.2,
+            -3.8
           ],
           "support": "ground",
           "model_id": "curiosity-rover"
@@ -1226,15 +1850,63 @@
             1.2
           ],
           "scale": 1,
-          "action": "El Sol desciende lentamente hacia el borde del cráter.",
+          "action": "brilla bajo en el horizonte",
           "motion": "se desplaza lentamente hacia el horizonte",
           "position": [
+            2.8,
             3,
-            2,
-            -7.6
+            -12
           ],
           "support": "ground",
           "model_id": "mars-sun"
+        },
+        {
+          "id": "mars-14-1",
+          "name": "Cresta del horizonte",
+          "model_id": "mars-horizon-ridge",
+          "position": [
+            -3.2,
+            0.05,
+            -2.5
+          ],
+          "scale": 1,
+          "action": "permanece fijo y aporta escala"
+        },
+        {
+          "id": "mars-14-2",
+          "name": "Columna de polvo",
+          "model_id": "dust-devil",
+          "position": [
+            3.1,
+            0.05,
+            -3.5
+          ],
+          "scale": 1,
+          "action": "el polvo gira y asciende"
+        },
+        {
+          "id": "mars-14-3",
+          "name": "Halo azul del crepúsculo",
+          "model_id": "blue-sunset-glow",
+          "position": [
+            -4,
+            0.1,
+            -7
+          ],
+          "scale": 0.8,
+          "action": "el halo azul pulsa"
+        },
+        {
+          "id": "mars-14-4",
+          "name": "Huellas del rover",
+          "model_id": "rover-track",
+          "position": [
+            4,
+            0.1,
+            -8
+          ],
+          "scale": 1,
+          "action": "permanece fijo y aporta escala"
         }
       ],
       "beats": [
@@ -1583,6 +2255,320 @@
           "phase": 0
         }
       ]
+    },
+    "mars-crater-rocks": {
+      "version": 1,
+      "parts": [
+        {
+          "id": "large",
+          "primitive": "sphere",
+          "position": [
+            -0.5,
+            0.35,
+            0
+          ],
+          "size": [
+            1.7,
+            0.7,
+            1.2
+          ],
+          "color": "#8b6652",
+          "roughness": 0.8
+        },
+        {
+          "id": "small",
+          "primitive": "sphere",
+          "position": [
+            1,
+            0.2,
+            0.5
+          ],
+          "size": [
+            0.8,
+            0.4,
+            0.65
+          ],
+          "color": "#a17a60",
+          "roughness": 0.8
+        }
+      ],
+      "animations": []
+    },
+    "dust-devil": {
+      "version": 1,
+      "parts": [
+        {
+          "id": "column",
+          "primitive": "cylinder",
+          "position": [
+            0,
+            1.3,
+            0
+          ],
+          "size": [
+            0.35,
+            2.6,
+            0.35
+          ],
+          "color": "#c47b58",
+          "roughness": 0.8
+        },
+        {
+          "id": "base",
+          "primitive": "sphere",
+          "position": [
+            0,
+            0.2,
+            0
+          ],
+          "size": [
+            1.1,
+            0.25,
+            0.8
+          ],
+          "color": "#d18c65",
+          "roughness": 0.8
+        }
+      ],
+      "animations": [
+        {
+          "target": "column",
+          "property": "rotation",
+          "axis": "y",
+          "mode": "spin",
+          "frequency": 0.45
+        }
+      ]
+    },
+    "layered-strata": {
+      "version": 1,
+      "parts": [
+        {
+          "id": "base",
+          "primitive": "box",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "size": [
+            3,
+            0.45,
+            1.4
+          ],
+          "color": "#9a6b55",
+          "roughness": 0.8
+        },
+        {
+          "id": "middle",
+          "primitive": "box",
+          "position": [
+            0,
+            0.42,
+            0.04
+          ],
+          "size": [
+            2.7,
+            0.28,
+            1.25
+          ],
+          "color": "#c28b69",
+          "roughness": 0.8
+        },
+        {
+          "id": "top",
+          "primitive": "box",
+          "position": [
+            0,
+            0.72,
+            -0.02
+          ],
+          "size": [
+            2.4,
+            0.3,
+            1.1
+          ],
+          "color": "#7f594c",
+          "roughness": 0.8
+        }
+      ],
+      "animations": []
+    },
+    "blue-sunset-glow": {
+      "version": 1,
+      "parts": [
+        {
+          "id": "halo",
+          "primitive": "sphere",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "size": [
+            1.8,
+            1.8,
+            0.12
+          ],
+          "color": "#4b8fca",
+          "roughness": 0.8
+        },
+        {
+          "id": "core",
+          "primitive": "sphere",
+          "position": [
+            0,
+            0,
+            0.05
+          ],
+          "size": [
+            0.55,
+            0.55,
+            0.14
+          ],
+          "color": "#8bc9f2",
+          "roughness": 0.8
+        }
+      ],
+      "animations": [
+        {
+          "target": "halo",
+          "property": "scale",
+          "axis": "x",
+          "amplitude": 0.12,
+          "frequency": 0.9
+        }
+      ]
+    },
+    "mars-boulder-field": {
+      "version": 1,
+      "parts": [
+        {
+          "id": "a",
+          "primitive": "sphere",
+          "position": [
+            -1,
+            0.25,
+            0
+          ],
+          "size": [
+            0.75,
+            0.5,
+            0.65
+          ],
+          "color": "#8b6554",
+          "roughness": 0.8
+        },
+        {
+          "id": "b",
+          "primitive": "sphere",
+          "position": [
+            0,
+            0.18,
+            0.25
+          ],
+          "size": [
+            0.5,
+            0.36,
+            0.45
+          ],
+          "color": "#a77960",
+          "roughness": 0.8
+        },
+        {
+          "id": "c",
+          "primitive": "sphere",
+          "position": [
+            1,
+            0.3,
+            -0.1
+          ],
+          "size": [
+            0.9,
+            0.6,
+            0.7
+          ],
+          "color": "#735347",
+          "roughness": 0.8
+        }
+      ],
+      "animations": []
+    },
+    "rover-track": {
+      "version": 1,
+      "parts": [
+        {
+          "id": "left",
+          "primitive": "box",
+          "position": [
+            -0.42,
+            0.03,
+            0
+          ],
+          "size": [
+            0.22,
+            0.06,
+            3.5
+          ],
+          "color": "#6d5145",
+          "roughness": 0.8
+        },
+        {
+          "id": "right",
+          "primitive": "box",
+          "position": [
+            0.42,
+            0.03,
+            0
+          ],
+          "size": [
+            0.22,
+            0.06,
+            3.5
+          ],
+          "color": "#6d5145",
+          "roughness": 0.8
+        }
+      ],
+      "animations": []
+    },
+    "mars-horizon-ridge": {
+      "version": 1,
+      "parts": [
+        {
+          "id": "ridge",
+          "primitive": "box",
+          "position": [
+            0,
+            0.5,
+            0
+          ],
+          "size": [
+            5,
+            1,
+            1.2
+          ],
+          "color": "#7b5148",
+          "roughness": 0.8
+        },
+        {
+          "id": "peak",
+          "primitive": "sphere",
+          "position": [
+            -1.4,
+            1.1,
+            0
+          ],
+          "size": [
+            1.3,
+            0.8,
+            0.7
+          ],
+          "color": "#9c6251",
+          "roughness": 0.8
+        }
+      ],
+      "animations": []
     }
   }
 }
