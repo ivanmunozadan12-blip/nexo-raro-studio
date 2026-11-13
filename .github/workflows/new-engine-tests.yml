@@ -2,7 +2,7 @@ name: BEHIND DEL MUNDO · pruebas del nuevo motor
 
 on:
   push:
-    branches: [prompt-video-studio]
+    branches: [main]
     paths:
       - 'engine/**'
       - 'app/**'
