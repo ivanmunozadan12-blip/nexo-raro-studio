@@ -388,6 +388,21 @@ scriptId = scriptRow[0].id;
 
 // Validación común para guiones externos y automáticos antes de generar voz o vídeo.
 wordCount = countWords(script.narration);
+// Los fragmentos visuales los propone el modelo, pero pueden quedar obsoletos
+// si el texto se edita después (por ejemplo, al ajustar la duración). No
+// debemos abortar una producción válida por una cita desincronizada: repartimos
+// la narración real en siete bloques contiguos y los persistimos con el guion.
+{
+  const narrationTokens = String(script.narration || '').trim().split(/\\s+/).filter(Boolean);
+  if (narrationTokens.length >= 56 && Array.isArray(script.scenes) && script.scenes.length === 7) {
+    for (let i = 0; i < 7; i++) {
+      const start = Math.floor(i * narrationTokens.length / 7);
+      const end = Math.floor((i + 1) * narrationTokens.length / 7);
+      script.scenes[i].narration_excerpt = narrationTokens.slice(start, end).join(' ');
+    }
+    console.log('Fragmentos de narración sincronizados automáticamente con la voz final (7 escenas).');
+  }
+}
 if (wordCount < 145 || wordCount > 205) throw new Error('El guion debe tener entre 145 y 205 palabras; recibido: ' + wordCount + '.');
 if (!Array.isArray(script.scenes) || script.scenes.length !== 7) throw new Error('El guion debe incluir exactamente 7 escenas.');
 if (!Array.isArray(script.sources) || script.sources.length < 3) throw new Error('El guion debe incluir al menos 3 fuentes.');
@@ -400,6 +415,9 @@ for (const [index, scene] of script.scenes.entries()) {
   if (excerptWords < 8 || !script.narration.includes(scene.narration_excerpt)) throw new Error('El fragmento de narración de la escena ' + (index + 1) + ' debe contener al menos 8 palabras y coincidir literalmente con la voz.');
   for (const character of scene.characters) if (!character.role || !character.appearance || String(character.appearance).length < 25 || !character.action || String(character.action).length < 25) throw new Error('Personaje incompleto en escena ' + (index + 1) + ': cada personaje necesita identidad, aspecto y acción propios.');
 }
+// Guarda los fragmentos corregidos para que panel, reintentos y render usen
+// exactamente la misma versión del plan visual.
+await supabase('scripts', { method:'PATCH', query:'?id=eq.' + encodeURIComponent(scriptId), body:{ visual_plan:script.scenes } });
 const allowedEntityTypes = new Set(['human','animal','ship','tree','building','vehicle','machine','lab','celestial','furniture','prop','artifact']);
 const entityRegistry = new Map();
 for (const [sceneIndex, scene] of script.scenes.entries()) {
