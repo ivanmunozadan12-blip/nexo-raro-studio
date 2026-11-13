@@ -6,8 +6,6 @@ from zoneinfo import ZoneInfo
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 API=os.environ["SUPABASE_URL"].rstrip("/")
 KEY=os.environ["SUPABASE_SERVICE_ROLE_KEY"]
-GROQ=os.environ["GROQ_API_KEY"]
-MODEL=os.getenv("GROQ_MODEL","openai/gpt-oss-120b")
 if urllib.parse.urlparse(API).hostname.split(".")[0]!="fnivzsazuovldhbkxrqv":
     raise SystemExit("SUPABASE_URL no corresponde al proyecto configurado de BEHIND DEL MUNDO.")
 HEAD={"apikey":KEY,**({"Authorization":"Bearer "+KEY} if not KEY.startswith("sb_secret_") else {}),"Content-Type":"application/json","Prefer":"return=representation"}
@@ -25,14 +23,6 @@ def slug(s):
     s=unicodedata.normalize("NFD",s.lower())
     s="".join(c for c in s if unicodedata.category(c)!="Mn")
     return re.sub(r"[^a-z0-9]+","-",s).strip("-")
-def groq(messages):
-    payload={"model":MODEL,"messages":messages,"temperature":0.72,"max_tokens":6500,"response_format":{"type":"json_object"}}
-    req=urllib.request.Request("https://api.groq.com/openai/v1/chat/completions",data=json.dumps(payload).encode(),headers={"Authorization":"Bearer "+GROQ,"Content-Type":"application/json"})
-    with urllib.request.urlopen(req,timeout=120) as r: data=json.loads(r.read())
-    content=data["choices"][0]["message"]["content"].strip()
-    content=re.sub(r"^\s*```(?:json)?|\s*```$","",content).strip()
-    return json.loads(content)
-
 now=datetime.datetime.now(ZoneInfo("Europe/Madrid"))
 today=now.strftime("%Y-%m-%d")
 slot=os.getenv("VIDEO_SLOT","how-it-works")
@@ -70,14 +60,22 @@ script_id=None; storage_path=None
 work=ROOT/"renders"/(today+"-"+slot)
 work.mkdir(parents=True,exist_ok=True)
 try:
-    prompt=f"""Eres director audiovisual y animador técnico de BEHIND DEL MUNDO. Debes cumplir este encargo del usuario como prioridad absoluta: [INICIO DEL ENCARGO] {user_prompt} [FIN DEL ENCARGO]. La categoría {category} solo sirve como contexto editorial; nunca sustituyas ni contradigas el encargo.
-Duración 60–72 segundos; narración de 125–155 palabras; gancho inmediato, explicación progresiva, una revelación y cierre memorable. Voz: narrador masculino de España, cercano, curioso y cinematográfico. No hay presentador ni personaje recurrente.
-No repitas estos temas o enfoques ya cubiertos/excluidos: {json.dumps(excluded[:55],ensure_ascii=False)}
-No cambies el tema solicitado. Crea 8 escenas en orden narrativo, cada una ilustra literalmente el fragmento de voz correspondiente. El vídeo se dibuja mediante Python/Pillow y NumPy como animación vectorial por código, NO fotografías, slideshow ni fondos con texto. Cada escena debe tener una composición visual distinta y específica del tema. Elige visual_type entre: microwave,machine,object_cutaway,interior,building_cutaway,molecule,science,process,diagram,timeline,fact,map,aircraft,vehicle,engine,phone,turbine,industrial,illustration. Usa visual_type para indicar qué debe dibujar el motor y añade visual_elements: entre 6 y 12 elementos concretos de la escena, con shape (rect,circle,ellipse,line,arrow,polygon,gear,wave,arc,text), x e y en coordenadas 0-1000, width y height, color hexadecimal, label breve y motion (none,float,pulse,rotate,flow). Las piezas deben representar partes reales del objeto/lugar descrito, no círculos decorativos genéricos. Alterna planos generales, cortes interiores, acercamientos, diagramas y detalles. Incluye movimientos visibles en cada escena.
-Cada escena lleva headline (máx 6 palabras), subtitle, visual_type, narration_excerpt (fragmento literal), callout, labels (2–5 etiquetas), accent (hex), sound_effect (mechanical,electric,water,impact,click,wind,whoosh) y visual_elements. Para fact/number/stat incluye metric {{"value":"...","label":"...","detail":"..."}}.
-Incluye al menos seis elementos concretos en visual_elements en cada escena; no copies el mismo conjunto entre escenas. Incluye 3 fuentes fiables con title y URL HTTPS real. No uses URLs inventadas.
-Devuelve SOLO JSON: {{"title":"...","hook":"...","category":"{slot}","narration":"...","caption":"...","sources":[{{"title":"...","url":"https://..."}}],"scenes":[{{"headline":"...","subtitle":"...","visual_type":"...","narration_excerpt":"...","callout":"...","labels":["..."],"accent":"#62d9cf","sound_effect":"mechanical","visual_elements":[{{"shape":"rect","x":500,"y":500,"width":180,"height":120,"color":"#62d9cf","label":"pieza","motion":"pulse"}},{{"shape":"circle","x":260,"y":420,"width":70,"height":70,"color":"#f3b65e","label":"componente","motion":"float"}},{{"shape":"arrow","x":650,"y":500,"width":160,"height":55,"color":"#8fc7ff","label":"flujo","motion":"flow"}},{{"shape":"line","x":350,"y":650,"width":210,"height":10,"color":"#ffffff","label":"conexión","motion":"none"}},{{"shape":"gear","x":720,"y":700,"width":110,"height":110,"color":"#62d9cf","label":"rotor","motion":"rotate"}},{{"shape":"wave","x":500,"y":820,"width":300,"height":70,"color":"#8fc7ff","label":"onda","motion":"pulse"}}],"metric":{{"value":"...","label":"...","detail":"..."}}}}]}}"""
-    script=groq([{"role":"system","content":"Devuelve exclusivamente JSON válido. Prioriza exactitud factual; si no conoces una cifra, no la inventes."},{"role":"user","content":prompt}])
+    # El guion técnico completo lo prepara el equipo editorial fuera del motor.
+    # Aceptamos JSON puro o JSON dentro de un bloque Markdown.
+    raw=user_prompt
+    raw=re.sub(r"^\s*```(?:json)?\s*|\s*```\s*$","",raw,flags=re.IGNORECASE).strip()
+    try:
+        script=json.loads(raw)
+    except json.JSONDecodeError as exc:
+        raise ValueError("Este motor ya no usa Groq. Pega el guion técnico completo en formato JSON, no una idea breve. Error JSON: "+str(exc))
+    if not isinstance(script,dict):
+        raise ValueError("El guion debe ser un objeto JSON.")
+    required=("title","narration","scenes","sources")
+    missing=[key for key in required if key not in script]
+    if missing:
+        raise ValueError("Al guion le faltan campos: "+", ".join(missing))
+    if not isinstance(script["scenes"],list):
+        raise ValueError("scenes debe ser una lista de escenas.")
     if len(script.get("scenes",[]))!=8: raise ValueError("El guion debe contener exactamente 8 escenas.")
     words=len(script["narration"].split())
     if not 110<=words<=175: raise ValueError(f"Narración fuera de rango: {words} palabras.")
@@ -103,7 +101,10 @@ Devuelve SOLO JSON: {{"title":"...","hook":"...","category":"{slot}","narration"
                 element["color"]=scene.get("accent","#62d9cf")
     if any(s.get("sound_effect") not in ("mechanical","electric","water","impact","click","wind","whoosh") for s in script["scenes"]): raise ValueError("Cada escena necesita un efecto sonoro válido.")
     if len(script.get("sources",[]))<3: raise ValueError("Faltan tres fuentes documentales.")
-    if any(not s.get("narration_excerpt") or s["narration_excerpt"] not in script["narration"] for s in script["scenes"]): raise ValueError("Los fragmentos de escena deben aparecer literalmente en la narración.")
+    for source in script["sources"]:
+        if not isinstance(source,dict) or not str(source.get("title","")).strip() or not re.match(r"^https://",str(source.get("url",""))):
+            raise ValueError("Cada fuente debe incluir título y URL HTTPS.")
+    if any(not isinstance(s,dict) or not s.get("narration_excerpt") or s["narration_excerpt"] not in script["narration"] for s in script["scenes"]): raise ValueError("Los fragmentos de escena deben aparecer literalmente en la narración.")
     script["category"]=slot
     script_row=db("scripts","", "POST",{"user_id":user,"series_id":series_row["id"] if series_row else None,"title":script["title"],"hook":script.get("hook",""),"narration":script["narration"],"visual_plan":{"scenes":script["scenes"]},"source_notes":script["sources"],"target_seconds":66,"status":"in_production"})[0]
     script_id=script_row["id"]
