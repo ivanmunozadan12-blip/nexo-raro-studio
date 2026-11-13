@@ -143,6 +143,7 @@ Devuelve SOLO JSON: {{"title":"...","hook":"...","category":"{slot}","narration"
     db("social_posts","", "POST",[{"user_id":user,"video_id":video_row["id"],"platform":p,"caption":script.get("caption",script["title"]),"status":"draft"} for p in ("youtube","tiktok")])
     publish_result={}
     if os.getenv("AUTO_PUBLISH","false").lower()=="true":
+        db("production_jobs","?id=eq."+job["id"],"PATCH",{"status":"publishing"})
         publish_env=os.environ.copy(); publish_env["CHANNEL_USER_ID"]=user
         publish=subprocess.run(["python","engine/publish.py","--file",str(final),"--title",script["title"],"--caption",script.get("caption",script["title"]),"--video-id",video_row["id"]],cwd=ROOT,env=publish_env,text=True,capture_output=True)
         if publish.stdout.strip():
