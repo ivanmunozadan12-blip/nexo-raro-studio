@@ -139,7 +139,7 @@ function buildGenericScene(canvas,d){
  (d.characters||[]).slice(0,6).forEach((c,i)=>person(world,(i-2.5)*1.8,1,String(c.role||'crew').toLowerCase().includes('rey')?'king':'crew',.9));
  (d.props||[]).slice(0,8).forEach((p,i)=>{const n=String(p).toLowerCase(),x=(i-3.5)*2.1;if(/barco|carabela|navio/.test(n))ship(world,x,-4,i%3);else if(/arbol|palmera/.test(n)){rod(world,[x,0,-3],[x,2,-3],.14,'#765033');sphere(world,x,2.6,-3,.9,1,.9,'#4c985b',1);}else if(/edificio|casa|templo|castillo/.test(n))box(world,x,1.5,-5,1.8,3,1.8,'#c7b18e');else if(/persona|soldado|marinero/.test(n))person(world,x,0,'crew',.9);else sphere(world,x,.8,-2,.65,.8,.65,['#c89b64','#5b9fb0','#a85e54','#7c9c65'][i%4],1);});
  const camera=new THREE.PerspectiveCamera(42,1080/1920,.1,120);const duration=Math.max(1,Number(d.duration)||8);
- return t=>{const p=Math.min(1,Math.max(0,(t-Number(d.start||0))/duration));camera.position.set(8-5*p,5+Math.sin(p*Math.PI),15-4*p);camera.lookAt(0,1,-4);renderer.render(scene,camera);};
+ return t=>{const sceneStart=Number(d.start||0);if(t<sceneStart-.15||t>sceneStart+duration+.15)return;const p=Math.min(1,Math.max(0,(t-sceneStart)/duration));camera.position.set(8-5*p,5+Math.sin(p*Math.PI),15-4*p);camera.lookAt(0,1,-4);renderer.render(scene,camera);};
 }
 const nodes=[...document.querySelectorAll('.world-canvas')];const renderers=nodes.map(node=>{const data=JSON.parse(node.dataset.scene);if(data.storyId!=='columbus-1492')return buildGenericScene(node,data);return buildScene(node,data);});
 const timeline=window.__timelines?.['behind-del-mundo'];if(timeline){timeline.eventCallback('onUpdate',()=>{const t=timeline.time();renderers.forEach(render=>render(t));});renderers.forEach(render=>render(0));}
