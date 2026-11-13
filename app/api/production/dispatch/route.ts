@@ -21,8 +21,8 @@ export async function POST(request: NextRequest) {
 
     const body = await request.json();
     const ids = Array.isArray(body?.scriptIds) ? body.scriptIds : [];
-    if (![1, 3].includes(ids.length) || ids.some((id: unknown) => typeof id !== 'string')) {
-      return NextResponse.json({ error: 'Envía un guion para reintentar o exactamente tres guiones nuevos.' }, { status: 400 });
+    if (ids.length < 1 || ids.length > 10 || ids.some((id: unknown) => typeof id !== 'string')) {
+      return NextResponse.json({ error: 'Envía entre uno y diez guiones por lote.' }, { status: 400 });
     }
     const { data: scripts, error: scriptsError } = await db.from('scripts').select('id,status').in('id', ids);
     if (scriptsError) return NextResponse.json({ error: scriptsError.message }, { status: 400 });
@@ -30,8 +30,6 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: ids.length === 1 ? 'No se ha encontrado el guion pendiente de esta cuenta o su estado no permite reintentarlo.' : 'No se han encontrado los tres guiones pendientes de esta cuenta.' }, { status: 400 });
     }
 
-    const localDate = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Madrid', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
-    const slots = ids.length === 1 ? ['07:30'] : ['07:30', '14:30', '20:30'];
     const dispatched: string[] = [];
     for (let index = 0; index < ids.length; index++) {
       const response = await fetch('https://api.github.com/repos/ivanmunozadan12-blip/nexo-raro-studio/actions/workflows/daily-production.yml/dispatches', {
@@ -44,7 +42,7 @@ export async function POST(request: NextRequest) {
         },
         body: JSON.stringify({
           ref: 'main',
-          inputs: { slot: slots[index], production_date: localDate, script_id: ids[index], queue_index: String(index) },
+          inputs: { script_id: ids[index], queue_index: String(index) },
         }),
       });
       if (!response.ok) {
