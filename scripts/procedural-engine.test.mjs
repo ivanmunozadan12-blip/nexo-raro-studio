@@ -39,8 +39,10 @@ test('all procedural families create real Three.js meshes, not placeholder spher
   for (const sample of samples) {
     const world = new THREE.Group();
     const model = createProceduralEntity(world, sample, 0);
+    let meshCount = 0;
+    model.traverse(node => { if (node.isMesh) meshCount++; });
     assert.ok(model instanceof THREE.Group, sample.name + ' should be a group');
-    assert.ok(model.children.length >= 2, sample.name + ' should contain multiple model parts');
+    assert.ok(meshCount >= 2, sample.name + ' should contain multiple mesh parts');
     assert.equal(world.children[0], model);
     assert.ok(model.userData.entity.id);
     assert.ok(model.userData.entity.type);
