@@ -143,7 +143,7 @@ function buildGenericScene(renderer,d){
  return t=>{const sceneStart=Number(d.start||0);if(t<sceneStart||t>=sceneStart+duration)return;const local=Math.max(0,t-sceneStart),p=Math.min(1,local/duration),ease=p*p*(3-2*p);
   animateEntities(entities,local);
   const targetId=String(d.camera_target||'');const targetEntity=entities.find(e=>e.userData.entity?.id===targetId);
-  const subjects=entities.filter(e=>['human','animal','vehicle','ship'].includes(e.userData.entity?.type));
+  const subjects=entities.filter(e=>['human','animal','vehicle','ship','celestial'].includes(e.userData.entity?.type));
   const points=targetEntity?[targetEntity]:subjects.length?subjects:entities;
   const target=points.reduce((sum,e)=>sum.add(e.position),new THREE.Vector3()).multiplyScalar(1/Math.max(1,points.length));target.y+=1.05;
   if(/cenital|aereo|desde arriba|vista superior/.test(cameraPlan)){camera.position.set(target.x+1,18,target.z+8);}
