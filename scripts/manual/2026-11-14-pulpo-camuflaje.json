@@ -22,26 +22,54 @@
   "scenes": [
     {
       "scene_type": "ocean",
-      "visual": "Plano 1. Imagina que una roca del fondo marino abre un ojo y desaparece delante de ti. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (roca de arrecife, coral ramificado, columna de burbujas, lecho de arena). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "visual": "Plano 1. Imagina que una roca del fondo marino abre un ojo y desaparece delante de ti. La composición muestra el sujeto principal con anatomía, escala y materiales consistentes, y cuatro elementos ambientales construidos como modelos 3D separados: Roca de arrecife, Coral ramificado, Columna de burbujas, Lecho de arena. En primer término se aprecian detalles de superficie y partículas; en el plano medio ocurre la acción científica o histórica; al fondo se mantiene un entorno reconocible que aporta profundidad y contexto. La cámara vertical 9:16 realiza un movimiento suave, con un encuadre distinto en cada plano y un acercamiento cuando la narración explica un detalle. La iluminación es direccional y volumétrica, con contraste suficiente para separar todas las siluetas. Cada objeto conserva su posición física y su proporción respecto al protagonista. Reservar el tercio inferior para subtítulos blancos. No añadir texto, rótulos, logotipos ni marcas de agua.",
       "setting": "Arrecife submarino con roca erosionada, coral ramificado, algas, arena ondulada, partículas y burbujas; luz azul verdosa filtrada.",
-      "action": "Acción ilustrativa: Imagina que una roca del fondo marino abre un ojo y desaparece delante de ti. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
-      "camera": "travelling lateral de contexto",
+      "action": "La acción representa con claridad el fragmento narrado: Imagina que una roca del fondo marino abre un ojo y desaparece delante de ti. El sujeto principal ejecuta un movimiento reconocible con inicio, desarrollo y final; los elementos secundarios responden de forma limitada y coherente con su naturaleza. Las piezas rígidas permanecen apoyadas y las partículas o elementos ligeros se mueven suavemente.",
+      "camera": "travelling lateral de contexto. Desplazamiento controlado con paralaje entre primer plano, sujeto y fondo; mantener el horizonte estable, evitar giros bruscos y terminar en un encuadre que permita enlazar con el plano siguiente.",
       "camera_target": "El animal que convierte su piel en un disfraz",
-      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos. Conservar el mismo diseño de los modelos, paleta de materiales, escala relativa y dirección de iluminación entre planos; los objetos no deben cambiar de forma, desaparecer ni teletransportarse durante los cortes.",
       "characters": [],
       "props": [
-        "material principal",
-        "partículas ambientales",
-        "elemento de escala",
-        "detalle de superficie"
+        {
+          "name": "Roca de arrecife",
+          "description": "Roca de arrecife modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Coral ramificado",
+          "description": "Coral ramificado modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Columna de burbujas",
+          "description": "Columna de burbujas modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Lecho de arena",
+          "description": "Lecho de arena modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        }
       ],
       "objects": [
-        "sujeto principal",
-        "entorno reconocible",
-        "elemento secundario",
-        "detalle en profundidad"
+        {
+          "name": "Roca de arrecife",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Coral ramificado",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Columna de burbujas",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Lecho de arena",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        }
       ],
-      "overlay": "Camuflaje total",
+      "overlay": "Camuflaje instantáneo",
       "narration_excerpt": "Imagina que una roca del fondo marino abre un ojo y desaparece delante de ti.",
       "entities": [
         {
@@ -206,26 +234,54 @@
     },
     {
       "scene_type": "ocean",
-      "visual": "Plano 2. No es magia: algunos pulpos transforman su piel en un disfraz casi instantáneo. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (coral ramificado, algas ondulantes, lecho de arena, cromatóforo ampliado). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "visual": "Plano 2. No es magia: algunos pulpos transforman su piel en un disfraz casi instantáneo. La composición muestra el sujeto principal con anatomía, escala y materiales consistentes, y cuatro elementos ambientales construidos como modelos 3D separados: Coral ramificado, Algas ondulantes, Lecho de arena, Cromatóforo ampliado. En primer término se aprecian detalles de superficie y partículas; en el plano medio ocurre la acción científica o histórica; al fondo se mantiene un entorno reconocible que aporta profundidad y contexto. La cámara vertical 9:16 realiza un movimiento suave, con un encuadre distinto en cada plano y un acercamiento cuando la narración explica un detalle. La iluminación es direccional y volumétrica, con contraste suficiente para separar todas las siluetas. Cada objeto conserva su posición física y su proporción respecto al protagonista. Reservar el tercio inferior para subtítulos blancos. No añadir texto, rótulos, logotipos ni marcas de agua.",
       "setting": "Arrecife submarino con roca erosionada, coral ramificado, algas, arena ondulada, partículas y burbujas; luz azul verdosa filtrada.",
-      "action": "Acción ilustrativa: No es magia: algunos pulpos transforman su piel en un disfraz casi instantáneo. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
-      "camera": "acercamiento macro al detalle",
+      "action": "La acción representa con claridad el fragmento narrado: No es magia: algunos pulpos transforman su piel en un disfraz casi instantáneo. El sujeto principal ejecuta un movimiento reconocible con inicio, desarrollo y final; los elementos secundarios responden de forma limitada y coherente con su naturaleza. Las piezas rígidas permanecen apoyadas y las partículas o elementos ligeros se mueven suavemente.",
+      "camera": "acercamiento macro al detalle. Desplazamiento controlado con paralaje entre primer plano, sujeto y fondo; mantener el horizonte estable, evitar giros bruscos y terminar en un encuadre que permita enlazar con el plano siguiente.",
       "camera_target": "El animal que convierte su piel en un disfraz",
-      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos. Conservar el mismo diseño de los modelos, paleta de materiales, escala relativa y dirección de iluminación entre planos; los objetos no deben cambiar de forma, desaparecer ni teletransportarse durante los cortes.",
       "characters": [],
       "props": [
-        "material principal",
-        "partículas ambientales",
-        "elemento de escala",
-        "detalle de superficie"
+        {
+          "name": "Coral ramificado",
+          "description": "Coral ramificado modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Algas ondulantes",
+          "description": "Algas ondulantes modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Lecho de arena",
+          "description": "Lecho de arena modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Cromatóforo ampliado",
+          "description": "Cromatóforo ampliado modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        }
       ],
       "objects": [
-        "sujeto principal",
-        "entorno reconocible",
-        "elemento secundario",
-        "detalle en profundidad"
+        {
+          "name": "Coral ramificado",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Algas ondulantes",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Lecho de arena",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Cromatóforo ampliado",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        }
       ],
-      "overlay": "Camuflaje total",
+      "overlay": "Piel que engaña",
       "narration_excerpt": "No es magia: algunos pulpos transforman su piel en un disfraz casi instantáneo.",
       "entities": [
         {
@@ -390,26 +446,54 @@
     },
     {
       "scene_type": "ocean",
-      "visual": "Plano 3. Bajo la superficie esconden miles de células diminutas llamadas cromatóforos, llenas de pigmento. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (algas ondulantes, columna de burbujas, cromatóforo ampliado, roca de arrecife). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "visual": "Plano 3. Bajo la superficie esconden miles de células diminutas llamadas cromatóforos, llenas de pigmento. La composición muestra el sujeto principal con anatomía, escala y materiales consistentes, y cuatro elementos ambientales construidos como modelos 3D separados: Algas ondulantes, Columna de burbujas, Cromatóforo ampliado, Roca de arrecife. En primer término se aprecian detalles de superficie y partículas; en el plano medio ocurre la acción científica o histórica; al fondo se mantiene un entorno reconocible que aporta profundidad y contexto. La cámara vertical 9:16 realiza un movimiento suave, con un encuadre distinto en cada plano y un acercamiento cuando la narración explica un detalle. La iluminación es direccional y volumétrica, con contraste suficiente para separar todas las siluetas. Cada objeto conserva su posición física y su proporción respecto al protagonista. Reservar el tercio inferior para subtítulos blancos. No añadir texto, rótulos, logotipos ni marcas de agua.",
       "setting": "Arrecife submarino con roca erosionada, coral ramificado, algas, arena ondulada, partículas y burbujas; luz azul verdosa filtrada.",
-      "action": "Acción ilustrativa: Bajo la superficie esconden miles de células diminutas llamadas cromatóforos, llenas de pigmento. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
-      "camera": "órbita corta alrededor del sujeto",
+      "action": "La acción representa con claridad el fragmento narrado: Bajo la superficie esconden miles de células diminutas llamadas cromatóforos, llenas de pigmento. El sujeto principal ejecuta un movimiento reconocible con inicio, desarrollo y final; los elementos secundarios responden de forma limitada y coherente con su naturaleza. Las piezas rígidas permanecen apoyadas y las partículas o elementos ligeros se mueven suavemente.",
+      "camera": "órbita corta alrededor del sujeto. Desplazamiento controlado con paralaje entre primer plano, sujeto y fondo; mantener el horizonte estable, evitar giros bruscos y terminar en un encuadre que permita enlazar con el plano siguiente.",
       "camera_target": "El animal que convierte su piel en un disfraz",
-      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos. Conservar el mismo diseño de los modelos, paleta de materiales, escala relativa y dirección de iluminación entre planos; los objetos no deben cambiar de forma, desaparecer ni teletransportarse durante los cortes.",
       "characters": [],
       "props": [
-        "material principal",
-        "partículas ambientales",
-        "elemento de escala",
-        "detalle de superficie"
+        {
+          "name": "Algas ondulantes",
+          "description": "Algas ondulantes modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Columna de burbujas",
+          "description": "Columna de burbujas modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Cromatóforo ampliado",
+          "description": "Cromatóforo ampliado modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Roca de arrecife",
+          "description": "Roca de arrecife modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        }
       ],
       "objects": [
-        "sujeto principal",
-        "entorno reconocible",
-        "elemento secundario",
-        "detalle en profundidad"
+        {
+          "name": "Algas ondulantes",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Columna de burbujas",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Cromatóforo ampliado",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Roca de arrecife",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        }
       ],
-      "overlay": "Camuflaje total",
+      "overlay": "Un disfraz vivo",
       "narration_excerpt": "Bajo la superficie esconden miles de células diminutas llamadas cromatóforos, llenas de pigmento.",
       "entities": [
         {
@@ -574,26 +658,54 @@
     },
     {
       "scene_type": "ocean",
-      "visual": "Plano 4. Cada una funciona como una pequeña bolsa elástica que puede expandirse o contraerse. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (columna de burbujas, lecho de arena, roca de arrecife, coral ramificado). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "visual": "Plano 4. Cada una funciona como una pequeña bolsa elástica que puede expandirse o contraerse. La composición muestra el sujeto principal con anatomía, escala y materiales consistentes, y cuatro elementos ambientales construidos como modelos 3D separados: Columna de burbujas, Lecho de arena, Roca de arrecife, Coral ramificado. En primer término se aprecian detalles de superficie y partículas; en el plano medio ocurre la acción científica o histórica; al fondo se mantiene un entorno reconocible que aporta profundidad y contexto. La cámara vertical 9:16 realiza un movimiento suave, con un encuadre distinto en cada plano y un acercamiento cuando la narración explica un detalle. La iluminación es direccional y volumétrica, con contraste suficiente para separar todas las siluetas. Cada objeto conserva su posición física y su proporción respecto al protagonista. Reservar el tercio inferior para subtítulos blancos. No añadir texto, rótulos, logotipos ni marcas de agua.",
       "setting": "Arrecife submarino con roca erosionada, coral ramificado, algas, arena ondulada, partículas y burbujas; luz azul verdosa filtrada.",
-      "action": "Acción ilustrativa: Cada una funciona como una pequeña bolsa elástica que puede expandirse o contraerse. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
-      "camera": "retroceso para revelar el entorno",
+      "action": "La acción representa con claridad el fragmento narrado: Cada una funciona como una pequeña bolsa elástica que puede expandirse o contraerse. El sujeto principal ejecuta un movimiento reconocible con inicio, desarrollo y final; los elementos secundarios responden de forma limitada y coherente con su naturaleza. Las piezas rígidas permanecen apoyadas y las partículas o elementos ligeros se mueven suavemente.",
+      "camera": "retroceso para revelar el entorno. Desplazamiento controlado con paralaje entre primer plano, sujeto y fondo; mantener el horizonte estable, evitar giros bruscos y terminar en un encuadre que permita enlazar con el plano siguiente.",
       "camera_target": "El animal que convierte su piel en un disfraz",
-      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos. Conservar el mismo diseño de los modelos, paleta de materiales, escala relativa y dirección de iluminación entre planos; los objetos no deben cambiar de forma, desaparecer ni teletransportarse durante los cortes.",
       "characters": [],
       "props": [
-        "material principal",
-        "partículas ambientales",
-        "elemento de escala",
-        "detalle de superficie"
+        {
+          "name": "Columna de burbujas",
+          "description": "Columna de burbujas modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Lecho de arena",
+          "description": "Lecho de arena modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Roca de arrecife",
+          "description": "Roca de arrecife modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Coral ramificado",
+          "description": "Coral ramificado modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        }
       ],
       "objects": [
-        "sujeto principal",
-        "entorno reconocible",
-        "elemento secundario",
-        "detalle en profundidad"
+        {
+          "name": "Columna de burbujas",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Lecho de arena",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Roca de arrecife",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Coral ramificado",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        }
       ],
-      "overlay": "Camuflaje total",
+      "overlay": "El truco del pulpo",
       "narration_excerpt": "Cada una funciona como una pequeña bolsa elástica que puede expandirse o contraerse.",
       "entities": [
         {
@@ -758,26 +870,54 @@
     },
     {
       "scene_type": "ocean",
-      "visual": "Plano 5. Cuando los músculos tiran de ella, el pigmento ocupa más espacio y cambia el tono. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (lecho de arena, cromatóforo ampliado, coral ramificado, algas ondulantes). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "visual": "Plano 5. Cuando los músculos tiran de ella, el pigmento ocupa más espacio y cambia el tono. La composición muestra el sujeto principal con anatomía, escala y materiales consistentes, y cuatro elementos ambientales construidos como modelos 3D separados: Lecho de arena, Cromatóforo ampliado, Coral ramificado, Algas ondulantes. En primer término se aprecian detalles de superficie y partículas; en el plano medio ocurre la acción científica o histórica; al fondo se mantiene un entorno reconocible que aporta profundidad y contexto. La cámara vertical 9:16 realiza un movimiento suave, con un encuadre distinto en cada plano y un acercamiento cuando la narración explica un detalle. La iluminación es direccional y volumétrica, con contraste suficiente para separar todas las siluetas. Cada objeto conserva su posición física y su proporción respecto al protagonista. Reservar el tercio inferior para subtítulos blancos. No añadir texto, rótulos, logotipos ni marcas de agua.",
       "setting": "Arrecife submarino con roca erosionada, coral ramificado, algas, arena ondulada, partículas y burbujas; luz azul verdosa filtrada.",
-      "action": "Acción ilustrativa: Cuando los músculos tiran de ella, el pigmento ocupa más espacio y cambia el tono. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
-      "camera": "travelling lateral de contexto",
+      "action": "La acción representa con claridad el fragmento narrado: Cuando los músculos tiran de ella, el pigmento ocupa más espacio y cambia el tono. El sujeto principal ejecuta un movimiento reconocible con inicio, desarrollo y final; los elementos secundarios responden de forma limitada y coherente con su naturaleza. Las piezas rígidas permanecen apoyadas y las partículas o elementos ligeros se mueven suavemente.",
+      "camera": "travelling lateral de contexto. Desplazamiento controlado con paralaje entre primer plano, sujeto y fondo; mantener el horizonte estable, evitar giros bruscos y terminar en un encuadre que permita enlazar con el plano siguiente.",
       "camera_target": "El animal que convierte su piel en un disfraz",
-      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos. Conservar el mismo diseño de los modelos, paleta de materiales, escala relativa y dirección de iluminación entre planos; los objetos no deben cambiar de forma, desaparecer ni teletransportarse durante los cortes.",
       "characters": [],
       "props": [
-        "material principal",
-        "partículas ambientales",
-        "elemento de escala",
-        "detalle de superficie"
+        {
+          "name": "Lecho de arena",
+          "description": "Lecho de arena modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Cromatóforo ampliado",
+          "description": "Cromatóforo ampliado modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Coral ramificado",
+          "description": "Coral ramificado modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Algas ondulantes",
+          "description": "Algas ondulantes modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        }
       ],
       "objects": [
-        "sujeto principal",
-        "entorno reconocible",
-        "elemento secundario",
-        "detalle en profundidad"
+        {
+          "name": "Lecho de arena",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Cromatóforo ampliado",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Coral ramificado",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Algas ondulantes",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        }
       ],
-      "overlay": "Camuflaje total",
+      "overlay": "Color bajo el mar",
       "narration_excerpt": "Cuando los músculos tiran de ella, el pigmento ocupa más espacio y cambia el tono.",
       "entities": [
         {
@@ -942,26 +1082,54 @@
     },
     {
       "scene_type": "ocean",
-      "visual": "Plano 6. Otras células reflejan la luz y añaden destellos que parecen cambiar con el entorno. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (cromatóforo ampliado, roca de arrecife, algas ondulantes, columna de burbujas). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "visual": "Plano 6. Otras células reflejan la luz y añaden destellos que parecen cambiar con el entorno. La composición muestra el sujeto principal con anatomía, escala y materiales consistentes, y cuatro elementos ambientales construidos como modelos 3D separados: Cromatóforo ampliado, Roca de arrecife, Algas ondulantes, Columna de burbujas. En primer término se aprecian detalles de superficie y partículas; en el plano medio ocurre la acción científica o histórica; al fondo se mantiene un entorno reconocible que aporta profundidad y contexto. La cámara vertical 9:16 realiza un movimiento suave, con un encuadre distinto en cada plano y un acercamiento cuando la narración explica un detalle. La iluminación es direccional y volumétrica, con contraste suficiente para separar todas las siluetas. Cada objeto conserva su posición física y su proporción respecto al protagonista. Reservar el tercio inferior para subtítulos blancos. No añadir texto, rótulos, logotipos ni marcas de agua.",
       "setting": "Arrecife submarino con roca erosionada, coral ramificado, algas, arena ondulada, partículas y burbujas; luz azul verdosa filtrada.",
-      "action": "Acción ilustrativa: Otras células reflejan la luz y añaden destellos que parecen cambiar con el entorno. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
-      "camera": "acercamiento macro al detalle",
+      "action": "La acción representa con claridad el fragmento narrado: Otras células reflejan la luz y añaden destellos que parecen cambiar con el entorno. El sujeto principal ejecuta un movimiento reconocible con inicio, desarrollo y final; los elementos secundarios responden de forma limitada y coherente con su naturaleza. Las piezas rígidas permanecen apoyadas y las partículas o elementos ligeros se mueven suavemente.",
+      "camera": "acercamiento macro al detalle. Desplazamiento controlado con paralaje entre primer plano, sujeto y fondo; mantener el horizonte estable, evitar giros bruscos y terminar en un encuadre que permita enlazar con el plano siguiente.",
       "camera_target": "El animal que convierte su piel en un disfraz",
-      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos. Conservar el mismo diseño de los modelos, paleta de materiales, escala relativa y dirección de iluminación entre planos; los objetos no deben cambiar de forma, desaparecer ni teletransportarse durante los cortes.",
       "characters": [],
       "props": [
-        "material principal",
-        "partículas ambientales",
-        "elemento de escala",
-        "detalle de superficie"
+        {
+          "name": "Cromatóforo ampliado",
+          "description": "Cromatóforo ampliado modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Roca de arrecife",
+          "description": "Roca de arrecife modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Algas ondulantes",
+          "description": "Algas ondulantes modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Columna de burbujas",
+          "description": "Columna de burbujas modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        }
       ],
       "objects": [
-        "sujeto principal",
-        "entorno reconocible",
-        "elemento secundario",
-        "detalle en profundidad"
+        {
+          "name": "Cromatóforo ampliado",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Roca de arrecife",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Algas ondulantes",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Columna de burbujas",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        }
       ],
-      "overlay": "Camuflaje total",
+      "overlay": "Textura cambiante",
       "narration_excerpt": "Otras células reflejan la luz y añaden destellos que parecen cambiar con el entorno.",
       "entities": [
         {
@@ -1126,26 +1294,54 @@
     },
     {
       "scene_type": "ocean",
-      "visual": "Plano 7. Pero el color es solo una parte de este truco extraordinario. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (roca de arrecife, coral ramificado, columna de burbujas, lecho de arena). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "visual": "Plano 7. Pero el color es solo una parte de este truco extraordinario. La composición muestra el sujeto principal con anatomía, escala y materiales consistentes, y cuatro elementos ambientales construidos como modelos 3D separados: Roca de arrecife, Coral ramificado, Columna de burbujas, Lecho de arena. En primer término se aprecian detalles de superficie y partículas; en el plano medio ocurre la acción científica o histórica; al fondo se mantiene un entorno reconocible que aporta profundidad y contexto. La cámara vertical 9:16 realiza un movimiento suave, con un encuadre distinto en cada plano y un acercamiento cuando la narración explica un detalle. La iluminación es direccional y volumétrica, con contraste suficiente para separar todas las siluetas. Cada objeto conserva su posición física y su proporción respecto al protagonista. Reservar el tercio inferior para subtítulos blancos. No añadir texto, rótulos, logotipos ni marcas de agua.",
       "setting": "Arrecife submarino con roca erosionada, coral ramificado, algas, arena ondulada, partículas y burbujas; luz azul verdosa filtrada.",
-      "action": "Acción ilustrativa: Pero el color es solo una parte de este truco extraordinario. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
-      "camera": "órbita corta alrededor del sujeto",
+      "action": "La acción representa con claridad el fragmento narrado: Pero el color es solo una parte de este truco extraordinario. El sujeto principal ejecuta un movimiento reconocible con inicio, desarrollo y final; los elementos secundarios responden de forma limitada y coherente con su naturaleza. Las piezas rígidas permanecen apoyadas y las partículas o elementos ligeros se mueven suavemente.",
+      "camera": "órbita corta alrededor del sujeto. Desplazamiento controlado con paralaje entre primer plano, sujeto y fondo; mantener el horizonte estable, evitar giros bruscos y terminar en un encuadre que permita enlazar con el plano siguiente.",
       "camera_target": "El animal que convierte su piel en un disfraz",
-      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos. Conservar el mismo diseño de los modelos, paleta de materiales, escala relativa y dirección de iluminación entre planos; los objetos no deben cambiar de forma, desaparecer ni teletransportarse durante los cortes.",
       "characters": [],
       "props": [
-        "material principal",
-        "partículas ambientales",
-        "elemento de escala",
-        "detalle de superficie"
+        {
+          "name": "Roca de arrecife",
+          "description": "Roca de arrecife modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Coral ramificado",
+          "description": "Coral ramificado modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Columna de burbujas",
+          "description": "Columna de burbujas modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Lecho de arena",
+          "description": "Lecho de arena modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        }
       ],
       "objects": [
-        "sujeto principal",
-        "entorno reconocible",
-        "elemento secundario",
-        "detalle en profundidad"
+        {
+          "name": "Roca de arrecife",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Coral ramificado",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Columna de burbujas",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Lecho de arena",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        }
       ],
-      "overlay": "Camuflaje total",
+      "overlay": "Una piel increíble",
       "narration_excerpt": "Pero el color es solo una parte de este truco extraordinario.",
       "entities": [
         {
@@ -1310,26 +1506,54 @@
     },
     {
       "scene_type": "ocean",
-      "visual": "Plano 8. El pulpo también modifica la textura de su piel mediante pequeñas protuberancias musculares. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (coral ramificado, algas ondulantes, lecho de arena, cromatóforo ampliado). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "visual": "Plano 8. El pulpo también modifica la textura de su piel mediante pequeñas protuberancias musculares. La composición muestra el sujeto principal con anatomía, escala y materiales consistentes, y cuatro elementos ambientales construidos como modelos 3D separados: Coral ramificado, Algas ondulantes, Lecho de arena, Cromatóforo ampliado. En primer término se aprecian detalles de superficie y partículas; en el plano medio ocurre la acción científica o histórica; al fondo se mantiene un entorno reconocible que aporta profundidad y contexto. La cámara vertical 9:16 realiza un movimiento suave, con un encuadre distinto en cada plano y un acercamiento cuando la narración explica un detalle. La iluminación es direccional y volumétrica, con contraste suficiente para separar todas las siluetas. Cada objeto conserva su posición física y su proporción respecto al protagonista. Reservar el tercio inferior para subtítulos blancos. No añadir texto, rótulos, logotipos ni marcas de agua.",
       "setting": "Arrecife submarino con roca erosionada, coral ramificado, algas, arena ondulada, partículas y burbujas; luz azul verdosa filtrada.",
-      "action": "Acción ilustrativa: El pulpo también modifica la textura de su piel mediante pequeñas protuberancias musculares. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
-      "camera": "retroceso para revelar el entorno",
+      "action": "La acción representa con claridad el fragmento narrado: El pulpo también modifica la textura de su piel mediante pequeñas protuberancias musculares. El sujeto principal ejecuta un movimiento reconocible con inicio, desarrollo y final; los elementos secundarios responden de forma limitada y coherente con su naturaleza. Las piezas rígidas permanecen apoyadas y las partículas o elementos ligeros se mueven suavemente.",
+      "camera": "retroceso para revelar el entorno. Desplazamiento controlado con paralaje entre primer plano, sujeto y fondo; mantener el horizonte estable, evitar giros bruscos y terminar en un encuadre que permita enlazar con el plano siguiente.",
       "camera_target": "El animal que convierte su piel en un disfraz",
-      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos. Conservar el mismo diseño de los modelos, paleta de materiales, escala relativa y dirección de iluminación entre planos; los objetos no deben cambiar de forma, desaparecer ni teletransportarse durante los cortes.",
       "characters": [],
       "props": [
-        "material principal",
-        "partículas ambientales",
-        "elemento de escala",
-        "detalle de superficie"
+        {
+          "name": "Coral ramificado",
+          "description": "Coral ramificado modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Algas ondulantes",
+          "description": "Algas ondulantes modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Lecho de arena",
+          "description": "Lecho de arena modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Cromatóforo ampliado",
+          "description": "Cromatóforo ampliado modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        }
       ],
       "objects": [
-        "sujeto principal",
-        "entorno reconocible",
-        "elemento secundario",
-        "detalle en profundidad"
+        {
+          "name": "Coral ramificado",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Algas ondulantes",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Lecho de arena",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Cromatóforo ampliado",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        }
       ],
-      "overlay": "Camuflaje total",
+      "overlay": "Roca o animal",
       "narration_excerpt": "El pulpo también modifica la textura de su piel mediante pequeñas protuberancias musculares.",
       "entities": [
         {
@@ -1494,26 +1718,54 @@
     },
     {
       "scene_type": "ocean",
-      "visual": "Plano 9. Puede pasar de una superficie lisa a otra llena de bultos y picos. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (algas ondulantes, columna de burbujas, cromatóforo ampliado, roca de arrecife). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "visual": "Plano 9. Puede pasar de una superficie lisa a otra llena de bultos y picos. La composición muestra el sujeto principal con anatomía, escala y materiales consistentes, y cuatro elementos ambientales construidos como modelos 3D separados: Algas ondulantes, Columna de burbujas, Cromatóforo ampliado, Roca de arrecife. En primer término se aprecian detalles de superficie y partículas; en el plano medio ocurre la acción científica o histórica; al fondo se mantiene un entorno reconocible que aporta profundidad y contexto. La cámara vertical 9:16 realiza un movimiento suave, con un encuadre distinto en cada plano y un acercamiento cuando la narración explica un detalle. La iluminación es direccional y volumétrica, con contraste suficiente para separar todas las siluetas. Cada objeto conserva su posición física y su proporción respecto al protagonista. Reservar el tercio inferior para subtítulos blancos. No añadir texto, rótulos, logotipos ni marcas de agua.",
       "setting": "Arrecife submarino con roca erosionada, coral ramificado, algas, arena ondulada, partículas y burbujas; luz azul verdosa filtrada.",
-      "action": "Acción ilustrativa: Puede pasar de una superficie lisa a otra llena de bultos y picos. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
-      "camera": "travelling lateral de contexto",
+      "action": "La acción representa con claridad el fragmento narrado: Puede pasar de una superficie lisa a otra llena de bultos y picos. El sujeto principal ejecuta un movimiento reconocible con inicio, desarrollo y final; los elementos secundarios responden de forma limitada y coherente con su naturaleza. Las piezas rígidas permanecen apoyadas y las partículas o elementos ligeros se mueven suavemente.",
+      "camera": "travelling lateral de contexto. Desplazamiento controlado con paralaje entre primer plano, sujeto y fondo; mantener el horizonte estable, evitar giros bruscos y terminar en un encuadre que permita enlazar con el plano siguiente.",
       "camera_target": "El animal que convierte su piel en un disfraz",
-      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos. Conservar el mismo diseño de los modelos, paleta de materiales, escala relativa y dirección de iluminación entre planos; los objetos no deben cambiar de forma, desaparecer ni teletransportarse durante los cortes.",
       "characters": [],
       "props": [
-        "material principal",
-        "partículas ambientales",
-        "elemento de escala",
-        "detalle de superficie"
+        {
+          "name": "Algas ondulantes",
+          "description": "Algas ondulantes modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Columna de burbujas",
+          "description": "Columna de burbujas modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Cromatóforo ampliado",
+          "description": "Cromatóforo ampliado modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Roca de arrecife",
+          "description": "Roca de arrecife modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        }
       ],
       "objects": [
-        "sujeto principal",
-        "entorno reconocible",
-        "elemento secundario",
-        "detalle en profundidad"
+        {
+          "name": "Algas ondulantes",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Columna de burbujas",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Cromatóforo ampliado",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Roca de arrecife",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        }
       ],
-      "overlay": "Camuflaje total",
+      "overlay": "Engaño perfecto",
       "narration_excerpt": "Puede pasar de una superficie lisa a otra llena de bultos y picos.",
       "entities": [
         {
@@ -1678,26 +1930,54 @@
     },
     {
       "scene_type": "ocean",
-      "visual": "Plano 10. Así imita rocas, algas o corales mientras se esconde o acecha a una presa. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (columna de burbujas, lecho de arena, roca de arrecife, coral ramificado). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "visual": "Plano 10. Así imita rocas, algas o corales mientras se esconde o acecha a una presa. La composición muestra el sujeto principal con anatomía, escala y materiales consistentes, y cuatro elementos ambientales construidos como modelos 3D separados: Columna de burbujas, Lecho de arena, Roca de arrecife, Coral ramificado. En primer término se aprecian detalles de superficie y partículas; en el plano medio ocurre la acción científica o histórica; al fondo se mantiene un entorno reconocible que aporta profundidad y contexto. La cámara vertical 9:16 realiza un movimiento suave, con un encuadre distinto en cada plano y un acercamiento cuando la narración explica un detalle. La iluminación es direccional y volumétrica, con contraste suficiente para separar todas las siluetas. Cada objeto conserva su posición física y su proporción respecto al protagonista. Reservar el tercio inferior para subtítulos blancos. No añadir texto, rótulos, logotipos ni marcas de agua.",
       "setting": "Arrecife submarino con roca erosionada, coral ramificado, algas, arena ondulada, partículas y burbujas; luz azul verdosa filtrada.",
-      "action": "Acción ilustrativa: Así imita rocas, algas o corales mientras se esconde o acecha a una presa. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
-      "camera": "acercamiento macro al detalle",
+      "action": "La acción representa con claridad el fragmento narrado: Así imita rocas, algas o corales mientras se esconde o acecha a una presa. El sujeto principal ejecuta un movimiento reconocible con inicio, desarrollo y final; los elementos secundarios responden de forma limitada y coherente con su naturaleza. Las piezas rígidas permanecen apoyadas y las partículas o elementos ligeros se mueven suavemente.",
+      "camera": "acercamiento macro al detalle. Desplazamiento controlado con paralaje entre primer plano, sujeto y fondo; mantener el horizonte estable, evitar giros bruscos y terminar en un encuadre que permita enlazar con el plano siguiente.",
       "camera_target": "El animal que convierte su piel en un disfraz",
-      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos. Conservar el mismo diseño de los modelos, paleta de materiales, escala relativa y dirección de iluminación entre planos; los objetos no deben cambiar de forma, desaparecer ni teletransportarse durante los cortes.",
       "characters": [],
       "props": [
-        "material principal",
-        "partículas ambientales",
-        "elemento de escala",
-        "detalle de superficie"
+        {
+          "name": "Columna de burbujas",
+          "description": "Columna de burbujas modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Lecho de arena",
+          "description": "Lecho de arena modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Roca de arrecife",
+          "description": "Roca de arrecife modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Coral ramificado",
+          "description": "Coral ramificado modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        }
       ],
       "objects": [
-        "sujeto principal",
-        "entorno reconocible",
-        "elemento secundario",
-        "detalle en profundidad"
+        {
+          "name": "Columna de burbujas",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Lecho de arena",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Roca de arrecife",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Coral ramificado",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        }
       ],
-      "overlay": "Camuflaje total",
+      "overlay": "Ocho brazos",
       "narration_excerpt": "Así imita rocas, algas o corales mientras se esconde o acecha a una presa.",
       "entities": [
         {
@@ -1862,26 +2142,54 @@
     },
     {
       "scene_type": "ocean",
-      "visual": "Plano 11. Algunas especies incluso combinan el camuflaje con movimientos que recuerdan a otros animales. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (lecho de arena, cromatóforo ampliado, coral ramificado, algas ondulantes). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "visual": "Plano 11. Algunas especies incluso combinan el camuflaje con movimientos que recuerdan a otros animales. La composición muestra el sujeto principal con anatomía, escala y materiales consistentes, y cuatro elementos ambientales construidos como modelos 3D separados: Lecho de arena, Cromatóforo ampliado, Coral ramificado, Algas ondulantes. En primer término se aprecian detalles de superficie y partículas; en el plano medio ocurre la acción científica o histórica; al fondo se mantiene un entorno reconocible que aporta profundidad y contexto. La cámara vertical 9:16 realiza un movimiento suave, con un encuadre distinto en cada plano y un acercamiento cuando la narración explica un detalle. La iluminación es direccional y volumétrica, con contraste suficiente para separar todas las siluetas. Cada objeto conserva su posición física y su proporción respecto al protagonista. Reservar el tercio inferior para subtítulos blancos. No añadir texto, rótulos, logotipos ni marcas de agua.",
       "setting": "Arrecife submarino con roca erosionada, coral ramificado, algas, arena ondulada, partículas y burbujas; luz azul verdosa filtrada.",
-      "action": "Acción ilustrativa: Algunas especies incluso combinan el camuflaje con movimientos que recuerdan a otros animales. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
-      "camera": "órbita corta alrededor del sujeto",
+      "action": "La acción representa con claridad el fragmento narrado: Algunas especies incluso combinan el camuflaje con movimientos que recuerdan a otros animales. El sujeto principal ejecuta un movimiento reconocible con inicio, desarrollo y final; los elementos secundarios responden de forma limitada y coherente con su naturaleza. Las piezas rígidas permanecen apoyadas y las partículas o elementos ligeros se mueven suavemente.",
+      "camera": "órbita corta alrededor del sujeto. Desplazamiento controlado con paralaje entre primer plano, sujeto y fondo; mantener el horizonte estable, evitar giros bruscos y terminar en un encuadre que permita enlazar con el plano siguiente.",
       "camera_target": "El animal que convierte su piel en un disfraz",
-      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos. Conservar el mismo diseño de los modelos, paleta de materiales, escala relativa y dirección de iluminación entre planos; los objetos no deben cambiar de forma, desaparecer ni teletransportarse durante los cortes.",
       "characters": [],
       "props": [
-        "material principal",
-        "partículas ambientales",
-        "elemento de escala",
-        "detalle de superficie"
+        {
+          "name": "Lecho de arena",
+          "description": "Lecho de arena modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Cromatóforo ampliado",
+          "description": "Cromatóforo ampliado modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Coral ramificado",
+          "description": "Coral ramificado modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Algas ondulantes",
+          "description": "Algas ondulantes modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        }
       ],
       "objects": [
-        "sujeto principal",
-        "entorno reconocible",
-        "elemento secundario",
-        "detalle en profundidad"
+        {
+          "name": "Lecho de arena",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Cromatóforo ampliado",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Coral ramificado",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Algas ondulantes",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        }
       ],
-      "overlay": "Camuflaje total",
+      "overlay": "Imitación marina",
       "narration_excerpt": "Algunas especies incluso combinan el camuflaje con movimientos que recuerdan a otros animales.",
       "entities": [
         {
@@ -2046,26 +2354,54 @@
     },
     {
       "scene_type": "ocean",
-      "visual": "Plano 12. Lo sorprendente es que todo sucede sin cambiar de lugar ni abandonar el fondo. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (cromatóforo ampliado, roca de arrecife, algas ondulantes, columna de burbujas). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "visual": "Plano 12. Lo sorprendente es que todo sucede sin cambiar de lugar ni abandonar el fondo. La composición muestra el sujeto principal con anatomía, escala y materiales consistentes, y cuatro elementos ambientales construidos como modelos 3D separados: Cromatóforo ampliado, Roca de arrecife, Algas ondulantes, Columna de burbujas. En primer término se aprecian detalles de superficie y partículas; en el plano medio ocurre la acción científica o histórica; al fondo se mantiene un entorno reconocible que aporta profundidad y contexto. La cámara vertical 9:16 realiza un movimiento suave, con un encuadre distinto en cada plano y un acercamiento cuando la narración explica un detalle. La iluminación es direccional y volumétrica, con contraste suficiente para separar todas las siluetas. Cada objeto conserva su posición física y su proporción respecto al protagonista. Reservar el tercio inferior para subtítulos blancos. No añadir texto, rótulos, logotipos ni marcas de agua.",
       "setting": "Arrecife submarino con roca erosionada, coral ramificado, algas, arena ondulada, partículas y burbujas; luz azul verdosa filtrada.",
-      "action": "Acción ilustrativa: Lo sorprendente es que todo sucede sin cambiar de lugar ni abandonar el fondo. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
-      "camera": "retroceso para revelar el entorno",
+      "action": "La acción representa con claridad el fragmento narrado: Lo sorprendente es que todo sucede sin cambiar de lugar ni abandonar el fondo. El sujeto principal ejecuta un movimiento reconocible con inicio, desarrollo y final; los elementos secundarios responden de forma limitada y coherente con su naturaleza. Las piezas rígidas permanecen apoyadas y las partículas o elementos ligeros se mueven suavemente.",
+      "camera": "retroceso para revelar el entorno. Desplazamiento controlado con paralaje entre primer plano, sujeto y fondo; mantener el horizonte estable, evitar giros bruscos y terminar en un encuadre que permita enlazar con el plano siguiente.",
       "camera_target": "El animal que convierte su piel en un disfraz",
-      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos. Conservar el mismo diseño de los modelos, paleta de materiales, escala relativa y dirección de iluminación entre planos; los objetos no deben cambiar de forma, desaparecer ni teletransportarse durante los cortes.",
       "characters": [],
       "props": [
-        "material principal",
-        "partículas ambientales",
-        "elemento de escala",
-        "detalle de superficie"
+        {
+          "name": "Cromatóforo ampliado",
+          "description": "Cromatóforo ampliado modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Roca de arrecife",
+          "description": "Roca de arrecife modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Algas ondulantes",
+          "description": "Algas ondulantes modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Columna de burbujas",
+          "description": "Columna de burbujas modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        }
       ],
       "objects": [
-        "sujeto principal",
-        "entorno reconocible",
-        "elemento secundario",
-        "detalle en profundidad"
+        {
+          "name": "Cromatóforo ampliado",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Roca de arrecife",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Algas ondulantes",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Columna de burbujas",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        }
       ],
-      "overlay": "Camuflaje total",
+      "overlay": "Cambio de aspecto",
       "narration_excerpt": "Lo sorprendente es que todo sucede sin cambiar de lugar ni abandonar el fondo.",
       "entities": [
         {
@@ -2230,26 +2566,54 @@
     },
     {
       "scene_type": "ocean",
-      "visual": "Plano 13. No se vuelve invisible: engaña a los ojos mezclando color, forma y textura. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (roca de arrecife, coral ramificado, columna de burbujas, lecho de arena). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "visual": "Plano 13. No se vuelve invisible: engaña a los ojos mezclando color, forma y textura. La composición muestra el sujeto principal con anatomía, escala y materiales consistentes, y cuatro elementos ambientales construidos como modelos 3D separados: Roca de arrecife, Coral ramificado, Columna de burbujas, Lecho de arena. En primer término se aprecian detalles de superficie y partículas; en el plano medio ocurre la acción científica o histórica; al fondo se mantiene un entorno reconocible que aporta profundidad y contexto. La cámara vertical 9:16 realiza un movimiento suave, con un encuadre distinto en cada plano y un acercamiento cuando la narración explica un detalle. La iluminación es direccional y volumétrica, con contraste suficiente para separar todas las siluetas. Cada objeto conserva su posición física y su proporción respecto al protagonista. Reservar el tercio inferior para subtítulos blancos. No añadir texto, rótulos, logotipos ni marcas de agua.",
       "setting": "Arrecife submarino con roca erosionada, coral ramificado, algas, arena ondulada, partículas y burbujas; luz azul verdosa filtrada.",
-      "action": "Acción ilustrativa: No se vuelve invisible: engaña a los ojos mezclando color, forma y textura. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
-      "camera": "travelling lateral de contexto",
+      "action": "La acción representa con claridad el fragmento narrado: No se vuelve invisible: engaña a los ojos mezclando color, forma y textura. El sujeto principal ejecuta un movimiento reconocible con inicio, desarrollo y final; los elementos secundarios responden de forma limitada y coherente con su naturaleza. Las piezas rígidas permanecen apoyadas y las partículas o elementos ligeros se mueven suavemente.",
+      "camera": "travelling lateral de contexto. Desplazamiento controlado con paralaje entre primer plano, sujeto y fondo; mantener el horizonte estable, evitar giros bruscos y terminar en un encuadre que permita enlazar con el plano siguiente.",
       "camera_target": "El animal que convierte su piel en un disfraz",
-      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos. Conservar el mismo diseño de los modelos, paleta de materiales, escala relativa y dirección de iluminación entre planos; los objetos no deben cambiar de forma, desaparecer ni teletransportarse durante los cortes.",
       "characters": [],
       "props": [
-        "material principal",
-        "partículas ambientales",
-        "elemento de escala",
-        "detalle de superficie"
+        {
+          "name": "Roca de arrecife",
+          "description": "Roca de arrecife modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Coral ramificado",
+          "description": "Coral ramificado modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Columna de burbujas",
+          "description": "Columna de burbujas modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Lecho de arena",
+          "description": "Lecho de arena modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        }
       ],
       "objects": [
-        "sujeto principal",
-        "entorno reconocible",
-        "elemento secundario",
-        "detalle en profundidad"
+        {
+          "name": "Roca de arrecife",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Coral ramificado",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Columna de burbujas",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Lecho de arena",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        }
       ],
-      "overlay": "Camuflaje total",
+      "overlay": "Camuflaje extremo",
       "narration_excerpt": "No se vuelve invisible: engaña a los ojos mezclando color, forma y textura.",
       "entities": [
         {
@@ -2414,26 +2778,54 @@
     },
     {
       "scene_type": "ocean",
-      "visual": "Plano 14. Y cuando el disfraz no basta, todavía puede escapar por una abertura diminuta. Escena 3D vertical 9:16 con sujeto principal separado y elementos de apoyo modelados individualmente (coral ramificado, algas ondulantes, lecho de arena, cromatóforo ampliado). Primer plano con detalle físico, plano medio con la acción y fondo con profundidad atmosférica. Cámara con movimiento cinematográfico controlado, luz coherente y siluetas legibles. Reservar el tercio inferior para subtítulos. Sin texto incrustado ni marcas de agua.",
+      "visual": "Plano 14. Y cuando el disfraz no basta, todavía puede escapar por una abertura diminuta. La composición muestra el sujeto principal con anatomía, escala y materiales consistentes, y cuatro elementos ambientales construidos como modelos 3D separados: Coral ramificado, Algas ondulantes, Lecho de arena, Cromatóforo ampliado. En primer término se aprecian detalles de superficie y partículas; en el plano medio ocurre la acción científica o histórica; al fondo se mantiene un entorno reconocible que aporta profundidad y contexto. La cámara vertical 9:16 realiza un movimiento suave, con un encuadre distinto en cada plano y un acercamiento cuando la narración explica un detalle. La iluminación es direccional y volumétrica, con contraste suficiente para separar todas las siluetas. Cada objeto conserva su posición física y su proporción respecto al protagonista. Reservar el tercio inferior para subtítulos blancos. No añadir texto, rótulos, logotipos ni marcas de agua.",
       "setting": "Arrecife submarino con roca erosionada, coral ramificado, algas, arena ondulada, partículas y burbujas; luz azul verdosa filtrada.",
-      "action": "Acción ilustrativa: Y cuando el disfraz no basta, todavía puede escapar por una abertura diminuta. El protagonista realiza un movimiento legible; los elementos animados reaccionan de forma sutil y los objetos sólidos permanecen apoyados y estables.",
-      "camera": "acercamiento macro al detalle",
+      "action": "La acción representa con claridad el fragmento narrado: Y cuando el disfraz no basta, todavía puede escapar por una abertura diminuta. El sujeto principal ejecuta un movimiento reconocible con inicio, desarrollo y final; los elementos secundarios responden de forma limitada y coherente con su naturaleza. Las piezas rígidas permanecen apoyadas y las partículas o elementos ligeros se mueven suavemente.",
+      "camera": "acercamiento macro al detalle. Desplazamiento controlado con paralaje entre primer plano, sujeto y fondo; mantener el horizonte estable, evitar giros bruscos y terminar en un encuadre que permita enlazar con el plano siguiente.",
       "camera_target": "El animal que convierte su piel en un disfraz",
-      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos.",
+      "continuity": "Mantener identidad, escala, paleta, dirección de luz y posición relativa del entorno; variar encuadre sin teletransportar elementos. Conservar el mismo diseño de los modelos, paleta de materiales, escala relativa y dirección de iluminación entre planos; los objetos no deben cambiar de forma, desaparecer ni teletransportarse durante los cortes.",
       "characters": [],
       "props": [
-        "material principal",
-        "partículas ambientales",
-        "elemento de escala",
-        "detalle de superficie"
+        {
+          "name": "Coral ramificado",
+          "description": "Coral ramificado modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Algas ondulantes",
+          "description": "Algas ondulantes modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Lecho de arena",
+          "description": "Lecho de arena modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        },
+        {
+          "name": "Cromatóforo ampliado",
+          "description": "Cromatóforo ampliado modelado en 3D con geometría propia, material y posición definidos dentro de la composición."
+        }
       ],
       "objects": [
-        "sujeto principal",
-        "entorno reconocible",
-        "elemento secundario",
-        "detalle en profundidad"
+        {
+          "name": "Coral ramificado",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Algas ondulantes",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Lecho de arena",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        },
+        {
+          "name": "Cromatóforo ampliado",
+          "role": "elemento de atrezo visible",
+          "placement": "plano medio o fondo según la profundidad de la escena"
+        }
       ],
-      "overlay": "Camuflaje total",
+      "overlay": "Maestro del disfraz",
       "narration_excerpt": "Y cuando el disfraz no basta, todavía puede escapar por una abertura diminuta.",
       "entities": [
         {
